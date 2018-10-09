@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>用户注册</title>
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/rem.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<script src="js/url_all.js"></script>
+		<script src="js/register.js"></script>
+		
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/register.css"/>
+	</head>
+	<body>
+		<div class="register_box">
+			<img src="img/back.jpg" alt="" onclick="javascript:history.go(-1);" class="back"/>
+	
+		</header>
+			<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<span class="title">用户注册</span>-->
+			<div class="logo">
+				<img src="img/resgister.png"/ class="logoimg">
+			</div>
+			<div id="register_form">
+				<div class="mui-input-group">
+					 <div class="mui-input-row">
+    					<input type="text" placeholder="姓 名" id="username">
+   					</div>
+   					<img src="img/user.png" alt="" />
+				</div>
+				<div class="mui-input-group">
+					 <div class="mui-input-row">
+    					<input type="text" placeholder="手机号" id="tel">
+   					</div>
+   					<img src="img/phone1.png" alt="" />
+				</div>
+				<div class="mui-input-group">
+					 <div class="mui-input-row">
+    					<input type="text" class="mui-input-clear" placeholder="企业名" id="bussniceName">
+   					</div>
+   					<img src="img/adress.png" alt="" />
+				</div>
+				<div class="mui-input-group">
+					 <div class="mui-input-row codeBox">
+    					<input type="text" placeholder="验证码" id="code" class="mui-input-clear">
+   					</div>
+   					<span id="getCode">获取验证码</span>
+   					<img src="img/code.png" alt="" />
+				</div>
+				<div class="mui-input-group">
+					 <div class="mui-input-row">
+    					<input type="password" placeholder="密 码" id="pwd1">
+   					</div>
+   					<img src="img/pwd.png" alt="" />
+				</div>
+				<div class="mui-input-group">
+					 <div class="mui-input-row">
+    					<input type="password" placeholder="重复密码" id="pwd2">
+   					</div>
+   					<img src="img/lock1.png" alt="" />
+				</div>
+				<span id="register_btn">注册</span>
+				<div class="check_box">
+					<div class="left">
+						<p>
+							<input  id="agreement" type="checkbox" value="1" checked="checked">
+						</p>
+						<a id="toTiaokuan">我已阅读相关条款</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(".back").click(function(){
+			mui.back()
+		})
+	</script>
+</html>

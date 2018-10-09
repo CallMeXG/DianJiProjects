@@ -1,0 +1,22 @@
+#head {
+    height: auto;
+   .head-div{
+       margin-top: 44px;
+       p{
+           text-align: center;
+           color: white;
+           font-size: 16px;
+       }
+   }
+}
+
+
+#content {
+    padding-top: 35px;
+    #content-temperature,#content-shake,#rms2,#rms3{
+         width: 100%;
+        height: 40vh;
+        box-sizing: border-box;
+    }
+
+}

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>卡信息配置</title>
+
+		<script src="../js/url_all.js"></script>
+		<script src="../js/jquery-1.11.3.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/rem.js"></script>
+
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/carInfo_activate.css" rel="stylesheet" />
+		<script src="../js/activeCard.js"></script>
+		<link rel="stylesheet" href="../css/jedate.css" />
+		<script type="text/javascript" src="../js/jquery.jedate.js"></script>
+
+		<script src="../jquery.min.js"></script>
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<!--<script src="../js/mui.min.js"></script>-->
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<!--<link href="../css/updateDevice.css" rel="stylesheet" type="text/css" />-->
+
+	</head>
+
+	<body>
+
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">卡信息配置</h1>
+		</header>
+
+		<div class="mui-content">
+			<div class="content_box">
+
+				<div >
+					<div class="top">
+						<img src="../img/bg01.png" alt="" />
+						<span>卡信息</span>
+					</div>
+					<div class="center">
+
+						<div class="Ctop con">
+							<div>
+								<img src="../img/img1.png" alt="" />
+								<span class="name">通信控制器：</span>
+								<span class="val" id="ctrlName"></span>
+							</div>
+							<div>
+								<img src="../img/img1.png" alt="" />
+								<span class="name">名称：</span>
+								<span class="val" id="titleName"></span>
+							</div>
+
+							<div>
+								<img src="../img/img3.png" alt="" />
+								<span class="name">IMEI：</span>
+								<span class="val" id="imei"></span>
+							</div>
+							<div>
+								<img src="../img/img2.png" alt="" />
+								<span class="name">物联网号：</span>
+								<span class="val" id="wulianwangID"></span>
+							</div>
+							<div>
+								<img src="../img/img4.png" alt="" />
+								<span class="name">生产厂商：</span>
+								<span class="val" id="produce"></span>
+							</div>
+							<div>
+								<img src="../img/img5.png" alt="" />
+								<span class="name">生产批次：</span>
+								<span class="val" id="content"></span>
+							</div>
+							<div>
+								<img src="../img/img6.png" alt="" />
+								<span class="name">硬件版本：</span>
+								<span class="val" id="version"></span>
+							</div>
+							<div>
+								<img src="../img/img8.png" alt="" />
+								<span class="name ">本地时间：</span>
+								<span type="val" id="nowTime"></span>
+							</div>
+							<div>
+								<img src="../img/img8.png" alt="" />
+								<span class="name ">维护日志：</span>
+								<span type="val" id="rizhi"></span>
+							</div>
+							<div>
+								<img src="../img/img8.png" alt="" />
+								<span class="name ">小区信息：</span>
+								<span type="val" id="xiaoqu"></span>
+							</div>
+							<div>
+								<img src="../img/img8.png" alt="" />
+								<span class="name ">信号强度：</span>
+								<span type="val" id="xinhao"></span>
+							</div>
+							<div>
+								<img src="../img/img8.png" alt="" />
+								<span class="name ">电池电量：</span>
+								<span type="val" id="dianchi"></span>
+							</div>
+							<div>
+								<img src="../img/img7.png" alt="" />
+								<span class="name">工作状态：</span>
+								<span class="val" id="workStatus"></span>
+							</div>
+
+							<div>
+								<img src="../img/img9.png" alt="" />
+								<span class="name">卡固件版本：</span>
+								<span class="val" id="sim_verison_id"></span>
+							</div>
+							<div>
+								<img src="../img/img10.png" alt="" />
+								<span class="name modify">数据采集模式：</span>
+								<input style="border: thin solid #5798f9;height: 18px;" type="button" id="datacaimodel" />
+							</div>
+							<!--<div class="last">
+							<img src="../img/img11.png" alt="" />
+							<span class="name modify">数据采集时间：</span>
+							<input style="border: thin solid #5798f9;" type="button" id="datacaitime" />
+						</div>-->
+							<div>
+								<img src="../img/img10.png" alt="" />
+								<span class="name modify">数据采集周期：</span>
+								<input style="border: thin solid #5798f9;" type="button" id="datacaizhouqi" />
+							</div>
+							<!--<div class="last">
+							<img src="../img/img11.png" alt="" />
+							<span class="name modify">数据上传时间：</span>
+							<input style="border: thin solid #5798f9;" type="button" id="datacailoadtime" />
+						</div>-->
+							<div>
+								<img src="../img/img11.png" alt="" />
+								<span class="name modify">数据上传周期：</span>
+								<input style="border: thin solid #5798f9;" type="button" id="datacailoadzhouqi" />
+							</div>
+
+							<div style="height: 320px;">
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_0" type="checkbox">
+									<p style="padding-top: 5px;">00:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_1" type="checkbox">
+									<p style="padding-top: 5px;">01:00:00</p>
+								</div>
+
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_0" type="checkbox">
+									<p style="padding-top: 5px;">02:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_1" type="checkbox">
+									<p style="padding-top: 5px;">03:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_0" type="checkbox">
+									<p style="padding-top: 5px;">04:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_1" type="checkbox">
+									<p style="padding-top: 5px;">05:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_0" type="checkbox">
+									<p style="padding-top: 5px;">06:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_1" type="checkbox">
+									<p style="padding-top: 5px;">07:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_0" type="checkbox">
+									<p style="padding-top: 5px;">08:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_1" type="checkbox">
+									<p style="padding-top: 5px;">09:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_0" type="checkbox">
+									<p style="padding-top: 5px;">10:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_1" type="checkbox">
+									<p style="padding-top: 5px;">11:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_0" type="checkbox">
+									<p style="padding-top: 5px;">12:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_1" type="checkbox">
+									<p style="padding-top: 5px;">13:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_0" type="checkbox">
+									<p style="padding-top: 5px;">14:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_1" type="checkbox">
+									<p style="padding-top: 5px;">15:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_0" type="checkbox">
+									<p style="padding-top: 5px;">16:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_1" type="checkbox">
+									<p style="padding-top: 5px;">17:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_0" type="checkbox">
+									<p style="padding-top: 5px;">18:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_1" type="checkbox">
+									<p style="padding-top: 5px;">19:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_0" type="checkbox">
+									<p style="padding-top: 5px;">20:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_1" type="checkbox">
+									<p style="padding-top: 5px;">21:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_0" type="checkbox">
+									<p style="padding-top: 5px;">22:00:00</p>
+								</div>
+								<div style="width: 33%;float: left;margin-left: 1px;height: 30px;"><input name="itemCheck" style="height: 20px;width: 20px;margin-left: 10px;margin-top: 5px;float: left;" id="chebox_1" type="checkbox">
+									<p style="padding-top: 5px;">23:00:00</p>
+								</div>
+							</div>
+
+						</div>
+						
+					</div>
+					<!--<button id="nestStap" type="button" class="mui-btn mui-btn-royal mui-btn-block">下一步</button>-->
+				
+				</div>
+				
+			</div>
+			
+
+		</div>
+		<div class="mui-bar mui-bar-footer">
+			<button id="nestStap" type="button" class="mui-btn mui-btn-royal mui-btn-block">下一步</button>
+		</div>
+	</body>
+	<script>
+		var arrayDataModel = new Array();
+		getModelDatasource();
+
+		function getModelDatasource() {
+			$.ajax({
+				type: "get",
+				async: false,
+				url: commen_gain_model_list_Interface,
+				dataType: 'json',
+				success: function(msg) {
+					arrayDataModel = msg.data;
+				}
+			});
+		}
+
+		//		function CPXModelClicked() {
+		//			//普通示例
+		//			var userPicker = new mui.PopPicker();
+		//			var setdataArray = new Array();
+		//			for(var i = 0; i < arrayDataModel.length; i++) {
+		//				var setdataDic = {
+		//					text: arrayDataModel[i].mode_name
+		//				};
+		//				setdataArray.push(setdataDic);
+		//			}
+		//			userPicker.setData(setdataArray);
+		//			var userResult = document.getElementById('datacaimodel');
+		//			userPicker.show(function(items) {
+		//				userResult.value = items[0].text
+		//				//返回 false 可以阻止选择框的关闭
+		//				//return false;
+		//			});
+		//
+		//		}
+	</script>
+
+</html>

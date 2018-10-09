@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html class="feedback">
+
+	<head>
+		<meta charset="utf-8">
+		<title>设备点检</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/iconfont.css">
+		<link rel="stylesheet" href="css/newcheckdevice.css" />
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/pagination.css" />
+		<style>
+			input:disabled,
+			input[disabled] {
+				color: red;
+				-webkit-text-fill-color: gray;
+				-webkit-opacity: 1;
+				opacity: 1;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" id="checkPageHeader">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
+			<h1 class="mui-title ">设备点检</h1>
+			<button id="submit_btn" style="margin-top: 5px;font-size: 16px;" class="mui-pull-right mui-btn-warning mui-btn-outlined">我要点检</button>
+		</header>
+		<div class="mui-content" id="resultcontent">
+
+			<ul class="mui-table-view" id="checkHistoryID">
+				<li class="mui-table-view-cell" v-for="msgData in message">
+					<a class="mui-navigate-right" v-on:click="checkHistoryClicked(msgData.id)">
+						<p>
+							<span style="float: left;">点检结果：</span>
+							<div v-if="msgData.ck_result == 0" style="float: left;">
+								<p style="background-color: #00CD00;color: white;width: 50px;text-align: center;padding-top: 3px;"><span>正常</span></p>
+							</div>
+							<div v-if="msgData.ck_result == 1" style="float: left;">
+								<p style="background-color: red;color: white;width: 50px;text-align: center;padding-top: 3px;"><span>故障</span></p>
+							</div>
+						</p>
+						<div style="clear: both;"></div>
+						<p style="margin-top: 5px;">
+							<span>点检人员：</span>
+							<span>{{msgData.ck_user_phone}}</span>
+						</p>
+						<p>
+							<span>点检时间：</span>
+							<span>{{msgData.ck_time}}</span>
+						</p>
+
+					</a>
+					<div style="color: gray;font-size: 14px;">
+
+						<span style="float: left;">点检描述：</span>
+						<div v-if="typeof(msgData.ck_content) != 'undefined'">
+							<div v-if="msgData.ck_content.length > 0">
+								<span style="float: left;">{{msgData.ck_content}}</span>
+							</div>
+							<div v-if="msgData.ck_content.length == 0">
+								<span style="float: left;">无</span>
+							</div>
+						</div>
+						<div v-if="typeof(msgData.ck_content) == 'undefined'">
+							<span style="float: left;">无</span>
+						</div>
+
+					</div>
+				</li>
+			</ul>
+			<div style="height: 50px;margin-top: 10px;text-align: center;">
+				<div id="pagination_9" style="width: 100%;height: 30px;margin-top: 10px;"></div>
+			</div>
+
+		</div>
+
+		<script src="js/mui.min.js"></script>
+		<script src="js/url_all.js"></script>
+		<script src="js/vue.js"></script>
+		<script src="js/highlight.min.js"></script>
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="js/jquery.pagination.js"></script>
+		<script type="text/javascript" src="js/pagination.min.js"></script>
+		<script>
+			var checkHistoryVUE = new Vue({
+				el: '#checkHistoryID',
+				data: {
+					message: []
+				},
+				methods: {
+					checkHistoryClicked: function(strIDS) {
+						localStorage.strCheckID = strIDS;
+						mui.openWindow('checkdeviceResult.html');
+					}
+				}
+			})
+
+			gainDataFromSever(0, 1);
+
+			function gainDataFromSever(startIndex, thisIndex) {
+				$.ajax({
+					type: "get",
+					url: new_commen_gain_check_device_list_Interface,
+					async: true,
+					data: {
+						devices_no: localStorage.DeveciId,
+						startRecords: startIndex,
+						pageSize: 5
+					},
+					dataType: 'json',
+					success: function(respData) {
+						console.log("获取点检信息== " + JSON.stringify(respData));
+						if(respData.status == "SUCCESS") {
+							if(respData.data.totalCount == 0) {
+								mui.toast('暂无点检数据');
+							} else {
+								checkHistoryVUE.message = respData.data.devicesSpotCheckList;
+								var pagecount = respData.data.totalCount / 5;
+								setFenyefunction(Math.ceil(pagecount), thisIndex);
+							}
+
+						} else {
+							mui.toast('暂无点检数据');
+						}
+					},
+					error: function(error) {
+						mui.toast('数据请求异常，请重试...');
+					}
+
+				});
+
+			}
+
+			function setFenyefunction(totalCount, thisIndex) {
+
+				$('#pagination_9').whjPaging({
+					css: 'css-user',
+					totalPage: totalCount,
+					isShowTotalSize: false,
+					isShowTotalPage: true,
+					isShowRefresh: false,
+					isShowSkip: false,
+					isShowPageSizeOpt: false,
+					isShowFL: false,
+					callBack: function(currPage) {
+						console.log('currPage:' + currPage);
+						var indexPage = currPage;
+						if(indexPage == 1) {
+							gainDataFromSever(0, indexPage);
+						} else {
+							var startIndex = (indexPage - 1) * 5;
+							gainDataFromSever(startIndex, indexPage);
+						}
+
+					}
+				});
+
+				$("#pagination_9").whjPaging("setPage", {
+					currPage: thisIndex,
+					totalPage: totalCount,
+					totalSize: 90
+				});
+			}
+
+			$('#submit_btn').on('tap', function() {
+				mui.openWindow({
+					url: 'newcheckdevice.html',
+					id: 'newcheckdeviceID'
+				});
+			})
+		</script>
+
+	</body>
+
+</html>

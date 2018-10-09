@@ -1,0 +1,52 @@
+#header {
+	background: #674fbf;
+}
+
+#header .mui-title {
+	color: #fff;
+}
+
+#header a.mui-action-back {
+	color: #fff;
+}
+
+#submit_btn {
+	width: 80%;
+	height: 40px;
+	border-radius: 10px;
+	margin-left: 10%;
+	background-color: #674fbf;
+	color: white;
+	margin-top: 50px;
+}
+
+.mui-table-view-cell {
+	height: 45px;
+}
+
+.mui-table-view-cell span {
+	margin-left: 10px;
+	float: left;
+	height: 20px;
+	font-size: 16px;
+}
+.mui-badge{
+	background-color: white;
+	color: darkgray;
+}
+
+
+.test_box {
+    width: 90%; 
+    min-height: 120px; 
+    margin-left: 5%; 
+    margin-top: 20px;
+    padding: 3px; 
+    border: 1px solid #a0b3d6; 
+    font-size: 12px; 
+    word-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: auto;
+    _overflow-y: visible;
+    
+}

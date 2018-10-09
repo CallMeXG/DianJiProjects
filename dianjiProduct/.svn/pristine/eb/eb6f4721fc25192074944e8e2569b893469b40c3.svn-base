@@ -1,0 +1,26 @@
+#head {
+	position: initial;
+	height: auto;
+}
+
+#head .mui-btn {
+	color: white;
+}
+
+#head .mui-input-clear {
+	background: white;
+}
+
+#Recognize {
+	/*height: 80vh;*/
+	height: 80vh;
+	box-sizing: border-box;
+	/*position: absolute;*/
+	text-align: center;
+	margin-top: -40px;
+	width: 90%;
+	margin-left: 5%;
+}
+
+
+/*# sourceMappingURL=ScanCode.css.map */

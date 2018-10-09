@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>设备详情</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/swiper.css" />
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<link rel="stylesheet" type="text/css" href="css/modify.css" />
+
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/ace.min.css">
+		<link rel="stylesheet" type="text/css" href="css/DeviceDetail.css" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/url_all.js"></script>
+		<link href="css/iconfont.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="css/updateDevice.css" />
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+
+		<style>
+			.tabbarClass {
+				border-radius: 5px;
+			}
+			
+			.mui-table-view:after {
+				height: 0
+			}
+			
+			.mui-table-view-cell:after {
+				height: 0
+			}
+			
+			.mui-table-view-cell {
+				height: 30px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" id="head">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title ">设备详情</h1>
+
+		</header>
+
+		<!--<div class="mui-bar mui-bar-tab" id="footer">
+			<div id="resetMessage" class="mui-bar-tab-item tabbarClass" onclick="javascript:window.location.href='ModifyInformation.html'">
+				修改信息
+			</div>
+			<div class="mui-bar-tab-item tabbarClass" onclick="javascript:window.location.href='Data.html'">
+				历史数据
+			</div>
+			<div class="mui-bar-tab-item tabbarClass" onclick="javascript:window.location.href='view/check.html'">
+				点检设备
+			</div>
+			<div class="mui-bar-tab-item tabbarClass" onclick="javascript:window.location.href='Monitor.html'">
+				数据查询
+			</div>
+		</div>-->
+		<!--<div class="mui-bar-tab-item tabbarClass" onclick="javascript:window.location.href='newDataChart.html'">
+				数据查询
+			</div>-->
+
+		<!--<nav id="" class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="">
+				<span class="mui-icon iconfont icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a id="id_scanCode" class="mui-tab-item">
+				<span class="mui-icon iconfont icon-tubiaozhizuomoban"></span>
+				<span class="mui-tab-label">扫描</span>
+			</a>
+			<a id="id_SetMore" class="mui-tab-item">
+				<span class="mui-icon iconfont icon-icon08"></span>
+				<span class="mui-tab-label">设置</span>
+			</a>
+		</nav>-->
+
+		<!--<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active">
+				<span class="mui-icon mui-icon-bars"></span>
+				<span class="mui-tab-label">详情</span>
+			</a>
+			<a id="xiugai" onclick="TabbarBtnClick()" class="mui-tab-item ">
+				<span class="mui-icon iconfont icon-xiugai_l"></span>
+				<span class="mui-tab-label">修改信息</span>
+			</a>
+			<a id="dianjian" class="mui-tab-item">
+				<span class="mui-icon iconfont icon-jianchaxiang"></span>
+				<span class="mui-tab-label">点检设备</span>
+			</a>
+			<a id="shuju" class="mui-tab-item">
+				<span class="mui-icon iconfont icon-shuju"></span>
+				<span class="mui-tab-label">数据查询</span>
+			</a>
+		</nav>-->
+
+		<div id="preview">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+
+				</div>
+				<div class="swiper-pagination"></div>
+				<!-- Add Arrows -->
+				<!--<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>-->
+			</div>
+
+		</div>
+		<div class="mui-content " id="content">
+
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+
+				</div>
+			</div>
+			<div class="aa">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="widget-box">
+							<div class="widget-header header-color-purple">
+								<h4 class="lighter smaller" id="deviceId"></h4>
+							</div>
+							<div>
+								<span class="Contentspan">设备名称：</span>
+								<input id="idOFdeviceName" readonly="readonly" />
+							</div>
+							<div>
+								<span class="Contentspan">设备编号：</span>
+								<input id="idOFdeviceNUM" readonly="readonly" />
+							</div>
+							<div>
+								<span class="Contentspan">设备型号：</span>
+								<input id="idOFdeviceType" readonly="readonly" />
+							</div>
+							<div>
+								<span class="Contentspan">企业名称：</span>
+								<input id="idOFqiName" readonly="readonly" />
+							</div>
+							<div>
+								<span class="Contentspan">出厂时间：</span>
+								<input id="idOFdeviceTime" readonly="readonly" />
+							</div>
+							<div>
+								<span class="Contentspan">额定功率：</span>
+								<input id="idOFGonglv" readonly="readonly" />
+								<span>KW</span>
+							</div>
+							<div>
+								<span class="Contentspan">安装方式：</span>
+								<input id="idOFAnzhuang" readonly="readonly" />
+							</div>
+							<div>
+								<span class="Contentspan">工作电压：</span>
+								<input id="idOFdianya" readonly="readonly" />
+								<span>V</span>
+							</div>
+							<div>
+								<span class="Contentspan">生产厂商：</span>
+								<input id="idOFshengchanshang" readonly="readonly" />
+							</div>
+							<div>
+								<span class="Contentspan">工作状态：</span>
+								<input id="idOFWorkStatus" readonly="readonly" />
+							</div>
+							<div>
+								<span class="Contentspan">预期寿命：</span>
+								<!--<input id="idOFage" disabled="disabled"  />-->
+								<span style="margin-top: 20px;margin-left: 5px;" id='bar'><i></i></span>
+							</div>
+							<div>
+								<span class="Contentspan">故障类型：</span>
+								<input id="idOFguzhangtype" readonly="readonly" />
+							</div>
+							<div>
+								<span class="Contentspan">分厂：</span>
+								<input id="idOFchejian" readonly="readonly" />
+							</div>
+							<div>
+								<span class="Contentspan">生产产线：  </span>
+								<input id="idOFshengchanLine" readonly="readonly" />
+							</div>
+							<div>
+								<span class="Contentspan">应用场景：</span>
+								<input id="idOFchangjing" readonly="readonly" />
+							</div>
+							<div>
+								<span class="Contentspan">点检人员：</span>
+								<input id="idOFdianjianName" readonly="readonly" />
+							</div>
+							<div>
+								<span class="Contentspan">点检时间：</span>
+								<input id="idOFdianjiaTime" readonly="readonly" />
+							</div>
+
+							<div>
+								<span class="Contentspan">点检结果：</span>
+								<input id="idOFdianjieresult" readonly="readonly" />
+							</div>
+
+							<div class="widget-body">
+								<div class="widget-main padding-8" id="widget">
+									<div id="tree1" class="tree tree-selectable">
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</body>
+	<script src="js/swiper.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="js/bootstrap.min.js"></script>
+
+	<!-- page specific plugin scripts -->
+
+	<script src="js/fuelux.tree-sampledata.js"></script>
+
+	<!--<script src="js/fuelux.tree.min.js"></script>-->
+
+	<!-- ace scripts -->
+
+	<script src="js/ace-elements.min.js"></script>
+	<script src="js/ace.min.js"></script>
+
+	<!-- inline scripts related to this page -->
+
+	<script type="text/javascript">
+		jQuery(function($) {
+			//console.log("========="+JSON.stringify(treeDataSource))
+			//			$('#tree1').ace_tree({
+			//				dataSource: treeDataSource,
+			//				loadingHTML: '<div class="tree-loading"><i class="icon-refresh icon-spin blue"></i></div>',
+			//				'open-icon': 'icon-minus',
+			//				'close-icon': 'icon-plus',
+			//				'selectable': false,
+			//			});
+		})
+	</script>
+	<!--<script src="js/deviceDetail.js"></script>-->
+
+</html>

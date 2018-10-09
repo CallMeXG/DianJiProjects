@@ -1,0 +1,17 @@
+body {
+    #mui_content {
+        .mui-card {
+            margin: 0;
+            margin-top: 10px;
+            .mui-card-header {
+                justify-content: center;
+            }
+            .mui-card-content{
+                text-indent: 2em;
+            }
+            .mui-card-header:after {
+                height: 0;
+            }
+        }
+    }
+}

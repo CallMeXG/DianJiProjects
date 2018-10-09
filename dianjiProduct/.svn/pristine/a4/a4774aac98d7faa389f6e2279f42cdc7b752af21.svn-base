@@ -1,0 +1,219 @@
+.mui_header {
+	background-color: #524598;
+	color: white;
+}
+
+.mui_header_title {
+	color: white;
+}
+
+
+/*安装位置和轴向选择*/
+
+.div_anzhuang_zhouxiang {
+	margin-top: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+	height: 45px;
+}
+
+#div_anzhuang {
+	width: 45%;
+	height: 100%;
+}
+
+#id_qushi {
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+#segmentClass {
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+#id_tezhengzhi {
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+
+/*波形图-------------------------------*/
+#headerSelect_boxing {
+	width: 110%;
+	position: fixed;
+	/*top: 0;*/
+	color: #fff;
+	font-size: 12px;
+	box-sizing: border-box;
+	z-index: 9;
+	top: auto!important;
+	height: 130px;
+	background-color: #EBEBF1;
+	margin-top: -20px;
+	margin-left: -10px;
+}
+
+/*搜索参数*/
+
+.div_search {
+	height: 30px;
+}
+
+.div_search p {
+	margin-left: 20px;
+	height: 30px;
+	float: left;
+	padding-top: 10px;
+	font-size: 18px;
+}
+
+.div_search input {
+	height: 100%;
+	margin-left: 10px;
+	float: left;
+	width: 50%;
+}
+
+.div_boxDate {
+	margin-left: 5px;
+	margin-top: 10px;
+	margin-right: 5px;
+	height: 40px;
+}
+
+.titleText {
+	margin-left: 10px;
+	height: 40px;
+	width: 40%;
+	font-size: 18px;
+	text-align: center;
+	padding-top: 10px;
+	float: left;
+}
+
+.classInput {
+	float: left;
+	width: 50%;
+	height: 40px;
+}
+
+#box_post {
+	width: 50%;
+	height: 30px;
+	background-color: #9DBDD6;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+#startDraw {
+	margin-top: 10px;
+	margin-left: 15%;
+	width: 70%;
+	height: 45px;
+	background-color: mediumpurple;
+	color: white;
+	font-size: 18px;
+}
+
+#chart_shiyu,
+#chart_pinpu,
+#chart_sudu,
+#chart_baoluopu {
+	width: 350px;
+	height: 300px;
+	margin-top: 20px;
+	box-sizing: border-box;
+}
+
+
+/*特征值*****************************************8*/
+
+#headerSelect_tezhengzhi {
+	width: 110%;
+	position: fixed;
+	/*top: 0;*/
+	color: #fff;
+	font-size: 12px;
+	box-sizing: border-box;
+	z-index: 9;
+	top: auto!important;
+	height: 90px;
+	background-color: #EBEBF1;
+	margin-top: -35px;
+	margin-left: -10px;
+}
+
+.selCell {
+	height: 40px;
+	width: 90%;
+	margin-left: 10%;
+	margin-top: 15px;
+}
+
+.labelTitle {
+	font-size: 18px;
+}
+
+.ipnutSel {
+	height: 30px;
+	margin-top: -5px;
+	width: 60%;
+	margin-left: 10px;
+}
+
+.btnSubmit {
+	height: 35px;
+	margin-top: 5px;
+	width: 80%;
+	color: white;
+	font-size: 18px;
+	margin-left: 10%;
+	background-color: #524598;
+}
+
+.divTable {
+	margin-top: 10px;
+	margin-left: -30px;
+}
+
+.spanLeft {
+	color: black;
+	float: left;
+	width: 40%;
+}
+
+.spanCenter {
+	float: left;
+	margin-right: 20px;
+	color: black;
+}
+
+.spanRight {
+	float: right;
+	margin-right: 10px;
+	width: 50px;
+	color: green;
+}
+
+
+/*趋势图****************************************8*/
+
+#chart_qushi_fengfengzhi,
+#chart_qushi_wendu {
+	width: 99%;
+	height: 400px;
+	margin-top: 50px;
+	box-sizing: border-box;
+}
+
+.chart_qushiClass {
+	width: 99%;
+	height: 250px;
+	/*margin-top: 10px;*/
+	box-sizing: border-box;
+	background-color: yellow;
+}

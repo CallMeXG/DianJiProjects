@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<script>
+			mui.init();
+		</script>
+		<title>人工诊断</title>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<a style="color: white;" class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
+			<h1 class="mui-title" style="color: white;">人工诊断</h1>
+		</header>
+		<div class="mui-content">
+			<div style="color: gray;text-align: center;margin-top: 50px;">本平台为您诊断设备疑似故障</div>
+			<div style="text-align: center;">
+				<button id="applyArtificial" type="button" class="mui-btn mui-btn-warning" style="margin-top: 20px;font-size: 24px;">申请人工诊断</button>
+			</div>
+			<div style="text-align: center;margin-top: 40px;color: gray;font-size: 18px;">如需紧急申请诊断，请联系电话
+				<p style="margin-top: 20px;">
+					<a style="font-size: 18px;" href="tel:010-64722397">010-64722397</a>
+				</p>
+				<p style="margin-top: 20px;font-size: 18px;">邮箱</p>
+				<p style="margin-top: 20px;font-size: 18px;">support@prefoco.com</p>
+			</div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/url_all.js"></script>
+		<script>
+			$('#applyArtificial').on('tap', function() {
+				//				mui.alert(plus.runtime.version);
+				//				console.log("version == " + plus.runtime.version);
+
+				///*
+				var btnArray = ['取消', '申请'];
+				mui.confirm('您正在申请人工诊断，是否确认申请？', '申请人工诊断', btnArray, function(e) {
+					if(e.index == 1) {
+						applyCheck();
+					}
+				})
+
+				function applyCheck() {
+										
+					$.ajax({
+						type: "get",
+						url: new_commen_apply_check_device_Interface,
+						async: true,
+						data:{
+							apply_user_id:localStorage.strLoginId,
+							apply_user_phone:localStorage.userName,
+							apply_devices_no:localStorage.DeveciId
+						},
+						dataType: 'json',
+						success: function(respData) {
+							if(respData.status == "SUCCESS") {
+								mui.toast("您已经成功提交人工诊断申请!");
+								setTimeout(function() {
+									mui.back();
+								}, 1000);
+							} else {
+								mui.alert('申请失败，请重试！');
+							}
+						},
+						error: function() {
+							mui.alert('网络失败，请重试！');
+						}
+					});
+				}
+
+				//*/
+			})
+		</script>
+	</body>
+
+</html>

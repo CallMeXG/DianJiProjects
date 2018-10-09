@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!--<meta http-equiv="refresh" content="10">-->
+
+
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script src="js/url_all.js"></script>
+		<!--<script src="js/fuelux.tree.min.js"></script>-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/newActivation.js"></script>
+		<link href="css/newActivation.css" rel="stylesheet" />
+		
+	</head>
+
+	<body bgcolor="white">
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+
+
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a style="color: white;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title ">卡激活等待页</h1>
+		</header>
+		<div class="mui-bar mui-bar-footer" id="footer">
+			<button type="button" id="FinshBth" class="mui-btn mui-btn-royal mui-btn-block">开始配置</button>
+			<button type="button" id="CancelBtn" class="mui-btn mui-btn-royal mui-btn-block">中断激活</button>
+		</div>
+		
+		<div class="mui-content">
+			<div class="center">
+				<div class="Ccenter top">
+				<div>
+					<span>通信控制器:</span>
+					<input id="serialID" disabled="disabled" />
+				</div>
+				
+				<div>
+					<span>最后连接服务器时间:</span>
+					<input id="connect_severTime" disabled="disabled" />
+				</div>
+				<div>
+					<span>最后断开服务器时间:</span>
+					<input id="close_severTime" disabled="disabled" />
+				</div>
+				<div>
+					<span>当前连接服务器状态:</span>
+					<input id="severStatus" disabled="disabled" />
+				</div>
+				
+				<div>
+					<span>最后数据上传传感器编号:</span>
+					<input id="id_lastuploadTime" disabled="disabled"  />
+				</div>
+				<div>
+					<span>最后数据上传时间:</span>
+					<input id="lastuploadTime" disabled="disabled"  />
+				</div>
+				<div>
+					<span>上传状态:</span>
+					<input id="lastuploadStatus" disabled="disabled"  />
+				</div>
+				<hr />
+				</div>
+			</div>
+		<br />
+		<br />
+		<div class="bottomRefresh">
+			<div>
+			<button onclick="refreshButtonClick()" class="buttonButton">刷新</button>
+			</div>
+		</div>
+		</div>
+		
+		<script>
+			//取消激活
+			function cancelJihuo(e){
+				if (e.index == 1) {
+					$.ajax({
+					type:"get",
+					url:commen_confirm_unactive_Interface,
+					data:{
+						serial_no:localStorage.simID
+					},
+					async:true,
+					dataType: 'json',
+					success:function(resqMsg){
+						if (resqMsg.status == "SUCCESS") {
+							mui.toast(resqMsg.message);
+							history.back(-1);
+						} 
+						else{
+							mui.toast("中断激活失败，请重试");
+						}
+					},
+					error:function(){
+						mui.toast("中断激活失败，请重试");
+					}
+				});
+					
+				} 
+				
+			}
+			//取消激活按钮点击事件
+			$("#CancelBtn").click(function(){
+				mui.confirm("你确定要中断激活吗？", "系统提示", ["否", "是"], cancelJihuo);
+			});
+			//完成按钮点击事件
+			$("#FinshBth").click(function(){
+				window.location.href = "view/carInfo_activate.html";
+//				mui.openWindow({
+//					url:"view/carInfo_activate.html"
+//				})
+			});
+		</script>
+
+	</body>
+
+</html>

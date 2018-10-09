@@ -1,0 +1,905 @@
+{
+
+	"@platforms": [
+		"android",
+		"iPhone",
+		"iPad"
+	],
+	"id": "H59FD8A08",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"name": "机电卫士",/*应用名称，程序桌面图标名称*/
+	"version": {
+		"name": "1.3",/*应用版本名称*/
+		"code": "1393"
+	},
+	"description": "",/*应用描述信息*/
+	"icons": {
+		"72": "icon.png"
+	},
+	"launch_path": "DianJi/DianJi/newIndex.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+	"developer": {
+		"name": "",/*开发者名称*/
+		"email": "",/*开发者邮箱地址*/
+		"url": ""
+	},
+	"permissions": {
+		"Accelerometer": {
+			"description": "访问加速度感应器"
+		},
+		"Audio": {
+			"description": "访问麦克风"
+		},
+
+		"Cache": {
+			"description": "管理应用缓存"
+		},
+		"Camera": {
+			"description": "访问摄像头"
+		},
+		"Console": {
+			"description": "跟踪调试输出日志"
+		},
+
+		"Device": {
+			"description": "访问设备信息"
+		},
+		"Downloader": {
+			"description": "文件下载管理"
+		},
+		"Events": {
+			"description": "应用扩展事件"
+		},
+		"File": {
+			"description": "访问本地文件系统"
+		},
+		"Gallery": {
+			"description": "访问系统相册"
+		},
+		"Geolocation": {
+			"description": "访问位置信息"
+		},
+		"Invocation": {
+			"description": "使用Native.js能力"
+		},
+		"Orientation": {
+			"description": "访问方向感应器"
+		},
+		"Proximity": {
+			"description": "访问距离感应器"
+		},
+		"Storage": {
+			"description": "管理应用本地数据"
+		},
+
+		"Uploader": {
+			"description": "管理文件上传任务"
+		},
+		"Runtime": {
+			"description": "访问运行期环境"
+		},
+		"XMLHttpRequest": {
+			"description": "跨域网络访问"
+		},
+		"Zip": {
+			"description": "文件压缩与解压缩"
+		},
+		"Barcode": {
+			"description": "管理二维码扫描插件"
+		},
+
+
+		"Webview": {
+			"description": "窗口管理"
+		},
+		"NativeUI": {
+			"description": "原生UI控件"
+		},
+		"Navigator": {
+			"description": "浏览器信息"
+		},
+		"NativeObj": {
+			"description": "原生对象"
+		}
+	},
+	"plus": {
+		"splashscreen": {
+			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
+			"waiting": true,
+			"delay": "1000"
+		},
+		"popGesture": "close",/*设置应用默认侧滑返回关闭Webview窗口，"none"为无侧滑返回功能，"hide"为侧滑隐藏Webview窗口。参考http://ask.dcloud.net.cn/article/102*/
+		"runmode": "normal",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
+		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
+		"distribute": {
+			"apple": {
+				"appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
+				"mobileprovision": "",/*iOS应用打包配置文件*/
+				"password": "",/*iOS应用打包个人证书导入密码*/
+				"p12": "",/*iOS应用打包个人证书，打包配置文件关联的个人证书*/
+				"devices": "universal",/*iOS应用支持的设备类型，可取值iphone/ipad/universal*/
+				"plistcmds": [
+					"Set :NSPhotoLibraryUsageDescription 我们需要访问您的相册进行图片上传的功能",
+					"Set :NSCameraUsageDescription 我们需要访问您的相机进行二维码扫描功能"
+				],
+				"frameworks": []
+			},
+			"google": {
+				"packagename": "",/*Android应用包名，如io.dcloud.HelloH5*/
+				"keystore": "",/*Android应用打包使用的密钥库文件*/
+				"password": "",/*Android应用打包使用密钥库中证书的密码*/
+				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
+				"minSdkVersion": 21,
+				"permissions": [
+					"<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
+					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+					"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+					"<uses-permission android:name=\"android.permission.INTERNET\"/>",
+					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+					"<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+					"<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+					"<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+					"<uses-feature android:name=\"android.hardware.camera\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
+					"<uses-permission android:name=\"android.permission.CAMERA\"/>"
+				]
+			},
+			"orientation": [
+				"portrait-primary"
+			],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+			"icons": {
+				"ios": {
+					"prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
+					 /*应用图标，分辨率：512x512，用于自动生成各种尺寸程序图标*/
+					"iphone": {
+						"normal": "", /*iPhone3/3GS程序图标，分辨率：57x57*/
+						"retina": "", /*iPhone4程序图标，分辨率：114x114*/
+						 /*iPhone4S/5/6程序图标，分辨率：120x120*/
+						 /*iPhone6 Plus程序图标，分辨率：180x180*/
+						"spotlight-normal": "", /*iPhone3/3GS Spotlight搜索程序图标，分辨率：29x29*/
+						"spotlight-retina": "", /*iPhone4 Spotlight搜索程序图标，分辨率：58x58*/
+						 /*iPhone4S/5/6 Spotlight搜索程序图标，分辨率：80x80*/
+						"settings-normal": "", /*iPhone4设置页面程序图标，分辨率：29x29*/
+						 /*iPhone4S/5/6设置页面程序图标，分辨率：58x58*/
+						"app@3x":"unpackage/res/icons/180x180.png","app@2x":"unpackage/res/icons/120x120.png","settings@2x":"unpackage/res/icons/58x58.png","settings@3x":"unpackage/res/icons/87x87.png","spotlight@2x":"unpackage/res/icons/80x80.png","spotlight@3x":"unpackage/res/icons/120x120.png","notification@2x":"unpackage/res/icons/40x40.png","notification@3x":"unpackage/res/icons/60x60.png"
+					},
+					"ipad": {
+						"normal": "", /*iPad普通屏幕程序图标，分辨率：72x72*/
+						"retina": "", /*iPad高分屏程序图标，分辨率：144x144*/
+						 /*iPad iOS7程序图标，分辨率：76x76*/
+						 /*iPad iOS7高分屏程序图标，分辨率：152x152*/
+						"spotlight-normal": "", /*iPad Spotlight搜索程序图标，分辨率：50x50*/
+						"spotlight-retina": "", /*iPad高分屏Spotlight搜索程序图标，分辨率：100x100*/
+						/*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*/
+						/*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
+						/*iPad设置页面程序图标，分辨率：29x29*/
+						"app":"unpackage/res/icons/76x76.png","app@2x":"unpackage/res/icons/152x152.png","settings":"unpackage/res/icons/29x29.png","spotlight":"unpackage/res/icons/40x40.png","proapp@2x":"unpackage/res/icons/167x167.png","settings@2x":"unpackage/res/icons/58x58.png","spotlight@2x":"unpackage/res/icons/80x80.png","notification":"unpackage/res/icons/20x20.png","notification@2x":"unpackage/res/icons/40x40.png"
+					},"appstore":"unpackage/res/icons/1024x1024.png"
+				},
+				"android": {
+					"mdpi": "unpackage/res/icons/48x48.png", /*普通屏程序图标，分辨率：48x48*/
+					"ldpi": "unpackage/res/icons/48x48.png", /*大屏程序图标，分辨率：48x48*/
+					"hdpi": "unpackage/res/icons/72x72.png", /*高分屏程序图标，分辨率：72x72*/
+					"xhdpi": "unpackage/res/icons/96x96.png",/*720P高分屏程序图标，分辨率：96x96*/
+					"xxhdpi": "unpackage/res/icons/144x144.png",
+					"xxxhdpi": "unpackage/res/icons/192x192.png"
+				}
+			},
+			"splashscreen": {
+				"ios": {
+					"iphone": {
+						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
+						/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+						/*4.0 英寸设备(iPhone5/iPhone5s)启动图片，分辨率：640x1136*/
+						/*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
+						/*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
+						"retina55l": ""
+					},
+					"ipad": {
+						"portrait": "", /*iPad竖屏启动图片，分辨率：768x1004*/
+						"portrait-retina": "",/*iPad高分屏竖屏图片，分辨率：1536x2008*/
+						"landscape": "", /*iPad横屏启动图片，分辨率：1024x748*/
+						"landscape-retina": "", /*iPad高分屏横屏启动图片，分辨率：2048x1496*/
+						"portrait7": "", /*iPad iOS7竖屏启动图片，分辨率：768x1024*/
+						"portrait-retina7": "",/*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
+						"landscape7": "", /*iPad iOS7横屏启动图片，分辨率：1024x768*/
+						"landscape-retina7": ""
+					}
+				},
+				"android": {
+					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
+					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
+					"hdpi": "DianJi/DianJi/img/qidong1.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "DianJi/DianJi/img/qidong2.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "DianJi/DianJi/img/qidong3.png"
+				}
+			}
+		},
+		"ads": {
+			"rp": false,
+			"splash": false,
+			"push": false,
+			"spot": false
+		},
+		"adid": "124588210706"
+	},
+	"dependencies": {
+		"pages": {
+			"DianJi/DianJi/index.html": {
+				"resources": [
+					"DianJi/DianJi/login.html",
+					"DianJi/DianJi/img/sao.png",
+					"DianJi/DianJi/js/jquery.min.js",
+					"DianJi/DianJi/fonts/mui.ttf",
+					"DianJi/DianJi/css/mui.min.css",
+					"DianJi/DianJi/js/url_all.js",
+					"DianJi/DianJi/js/mui.min.js",
+					"DianJi/DianJi/css/common.css",
+					"DianJi/DianJi/img/home.png",
+					"DianJi/DianJi/css/Home.css",
+					"DianJi/DianJi/ScanCode.html",
+					"DianJi/DianJi/Config.html",
+					"DianJi/DianJi/AddDevice.html",
+					"DianJi/DianJi/img/default.png",
+					"DianJi/DianJi/DeviceDetail.html",
+					"DianJi/DianJi/MyDevice.html",
+					"DianJi/DianJi/img/扫描.png"
+				],
+				"refer": [
+					"DianJi/DianJi/aboutUs.html",
+					"DianJi/DianJi/view/more_cheack.html",
+					"DianJi/DianJi/MyReport.html",
+					"DianJi/DianJi/demo.html",
+					"DianJi/DianJi/newDataChart.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/login.html": {
+				"resources": [
+					"DianJi/DianJi/index.html",
+					"DianJi/DianJi/js/rem.js",
+					"DianJi/DianJi/img/phone1.png",
+					"DianJi/DianJi/js/jquery.cookie.js",
+					"DianJi/DianJi/js/login.js",
+					"DianJi/DianJi/img/lock1.png",
+					"DianJi/DianJi/css/login.css",
+					"DianJi/DianJi/js/jquery-1.11.3.js",
+					"DianJi/DianJi/img/bj.png",
+					"DianJi/DianJi/css/mui.min.css",
+					"DianJi/DianJi/js/url_all.js",
+					"DianJi/DianJi/js/mui.min.js",
+					"DianJi/DianJi/img/home.png",
+					"DianJi/DianJi/newIndex.html"
+				],
+				"refer": [
+					"DianJi/DianJi/register.html",
+					"DianJi/DianJi/view/resetPwd.html",
+					"DianJi/DianJi/newIndexPage.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/ScanCode.html": {
+				"resources": [
+					"DianJi/DianJi/index.html",
+					"DianJi/DianJi/css/ScanCode.css",
+					"DianJi/DianJi/js/jquery.min.js",
+					"DianJi/DianJi/css/mui.min.css",
+					"DianJi/DianJi/js/url_all.js",
+					"DianJi/DianJi/js/mui.min.js",
+					"DianJi/DianJi/css/common.css",
+					"DianJi/DianJi/newDataChart.html",
+					"DianJi/DianJi/newActivation.html",
+					"DianJi/DianJi/fonts/mui.ttf"
+				],
+				"refer": [
+					"DianJi/DianJi/aboutUs.html",
+					"DianJi/DianJi/view/carInfo_activate.html",
+					"DianJi/DianJi/DeviceDetail.html",
+					"DianJi/DianJi/ModifyInformation.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/Config.html": {
+				"resources": [
+					"DianJi/DianJi/img/account.png",
+					"DianJi/DianJi/index.html",
+					"DianJi/DianJi/img/password.png",
+					"DianJi/DianJi/css/mui.min.css",
+					"DianJi/DianJi/js/Config.js",
+					"DianJi/DianJi/img/feedback.png",
+					"DianJi/DianJi/css/Config.css",
+					"DianJi/DianJi/img/notice.png",
+					"DianJi/DianJi/img/aboutUs.png",
+					"DianJi/DianJi/img/version.png",
+					"DianJi/DianJi/login.html",
+					"DianJi/DianJi/js/mui.min.js",
+					"DianJi/DianJi/js/jquery.min.js",
+					"DianJi/DianJi/css/common.css"
+				],
+				"refer": [
+					"DianJi/DianJi/demo.html",
+					"DianJi/DianJi/aboutUs.html",
+					"DianJi/DianJi/NoticeConfig.html",
+					"DianJi/DianJi/view/resetPwd.html",
+					"DianJi/DianJi/FeedBack.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/view/carInfo_activate.html": {
+				"resources": [
+					"DianJi/DianJi/img/img19.png",
+					"DianJi/DianJi/img/img17.png",
+					"DianJi/DianJi/img/img15.png",
+					"DianJi/DianJi/img/img16.png",
+					"DianJi/DianJi/img/img14.png",
+					"DianJi/DianJi/fonts/mui.ttf",
+					"DianJi/DianJi/img/img18.png",
+					"DianJi/DianJi/css/carInfo_activate.css",
+					"DianJi/DianJi/img/img8.png",
+					"DianJi/DianJi/js/rem.js",
+					"DianJi/DianJi/js/mui.min.js",
+					"DianJi/DianJi/img/img1.png",
+					"DianJi/DianJi/img/img10.png",
+					"DianJi/DianJi/img/img6.png",
+					"DianJi/DianJi/img/img11.png",
+					"DianJi/DianJi/js/activeCard.js",
+					"DianJi/DianJi/img/bg01.png",
+					"DianJi/DianJi/css/jedate.css",
+					"DianJi/DianJi/css/mui.min.css",
+					"DianJi/DianJi/css/mui.poppicker.css",
+					"DianJi/DianJi/js/jquery.jedate.js",
+					"DianJi/DianJi/js/jquery-1.11.3.js",
+					"DianJi/DianJi/img/img9.png",
+					"DianJi/DianJi/img/img3.png",
+					"DianJi/DianJi/css/mui.picker.css",
+					"DianJi/DianJi/img/img2.png",
+					"DianJi/DianJi/img/img7.png",
+					"DianJi/DianJi/js/mui.picker.js",
+					"DianJi/DianJi/js/url_all.js",
+					"DianJi/DianJi/js/mui.poppicker.js",
+					"DianJi/DianJi/img/img4.png",
+					"DianJi/DianJi/img/img5.png",
+					"DianJi/DianJi/view/carInfo_activate2.html",
+					"DianJi/DianJi/newActivation.html"
+				],
+				"refer": [
+					"DianJi/DianJi/ScanCode.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/view/carInfo_activate2.html": {
+				"resources": [
+					"DianJi/DianJi/fonts/mui.ttf",
+					"DianJi/DianJi/css/carInfo_activate.css",
+					"DianJi/DianJi/img/equipment9.png",
+					"DianJi/DianJi/js/rem.js",
+					"DianJi/DianJi/js/mui.min.js",
+					"DianJi/DianJi/img/equipment2.png",
+					"DianJi/DianJi/img/equipment14.png",
+					"DianJi/DianJi/img/equipment1.png",
+					"DianJi/DianJi/img/equipment7.png",
+					"DianJi/DianJi/js/jquery.min.js",
+					"DianJi/DianJi/img/equipment8.png",
+					"DianJi/DianJi/img/equipment6.png",
+					"DianJi/DianJi/img/equipment13.png",
+					"DianJi/DianJi/img/equipment12.png",
+					"DianJi/DianJi/img/equipment16.png",
+					"DianJi/DianJi/img/equipment5.png",
+					"DianJi/DianJi/css/mui.min.css",
+					"DianJi/DianJi/css/jedate.css",
+					"DianJi/DianJi/css/mui.poppicker.css",
+					"DianJi/DianJi/js/activeDevice.js",
+					"DianJi/DianJi/js/jquery.jedate.js",
+					"DianJi/DianJi/js/jquery-1.11.3.js",
+					"DianJi/DianJi/img/equipment4.png",
+					"DianJi/DianJi/img/equipment15.png",
+					"DianJi/DianJi/css/mui.picker.css",
+					"DianJi/DianJi/img/equipment17.png",
+					"DianJi/DianJi/js/mui.picker.js",
+					"DianJi/DianJi/img/equipment11.png",
+					"DianJi/DianJi/js/url_all.js",
+					"DianJi/DianJi/img/equipment3.png",
+					"DianJi/DianJi/js/mui.poppicker.js",
+					"DianJi/DianJi/img/equipment10.png",
+					"DianJi/DianJi/DeviceDetail.html",
+					"DianJi/DianJi/view/carInfo_activate.html"
+				],
+				"refer": [
+					"DianJi/DianJi/ScanCode.html",
+					"DianJi/DianJi/UploadImage.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/DeviceDetail.html": {
+				"resources": [
+					"DianJi/DianJi/js/fuelux.tree-sampledata.js",
+					"DianJi/DianJi/js/jquery.min.js",
+					"DianJi/DianJi/js/bootstrap.min.js",
+					"DianJi/DianJi/js/swiper.js",
+					"DianJi/DianJi/css/mui.min.css",
+					"DianJi/DianJi/js/url_all.js",
+					"DianJi/DianJi/js/mui.min.js",
+					"DianJi/DianJi/css/common.css",
+					"DianJi/DianJi/css/swiper.css",
+					"DianJi/DianJi/css/DeviceDetail.css",
+					"DianJi/DianJi/css/font-awesome.min.css",
+					"DianJi/DianJi/js/ace.min.js",
+					"DianJi/DianJi/js/ace-elements.min.js",
+					"DianJi/DianJi/js/fuelux.tree.min.js",
+					"DianJi/DianJi/css/ace.min.css",
+					"DianJi/DianJi/index.html",
+					"DianJi/DianJi/ModifyInformation.html",
+					"DianJi/DianJi/css/iconfont.css",
+					"DianJi/DianJi/fonts/mui.ttf",
+					"DianJi/DianJi/view/carInfo_activate.html"
+				],
+				"refer": [
+					"DianJi/DianJi/ScanCode.html",
+					"DianJi/DianJi/Data.html",
+					"DianJi/DianJi/Monitor.html",
+					"DianJi/DianJi/view/check.html",
+					"DianJi/DianJi/MyDevice.html",
+					"DianJi/DianJi/newDataChart.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/ModifyInformation.html": {
+				"resources": [
+					"DianJi/DianJi/css/MyReport.css",
+					"DianJi/DianJi/js/jquery_shijian.js",
+					"DianJi/DianJi/css/mui.min.css",
+					"DianJi/DianJi/css/jedate.css",
+					"DianJi/DianJi/css/mui.poppicker.css",
+					"DianJi/DianJi/js/mui.min.js",
+					"DianJi/DianJi/js/jquery.jedate.js",
+					"DianJi/DianJi/js/modify.tree-sampledata.js",
+					"DianJi/DianJi/css/ace.min.css",
+					"DianJi/DianJi/css/mui.picker.css",
+					"DianJi/DianJi/css/modify.css",
+					"DianJi/DianJi/css/shijian.css",
+					"DianJi/DianJi/js/jquery.min.js",
+					"DianJi/DianJi/js/mui.picker.js",
+					"DianJi/DianJi/js/bootstrap.min.js",
+					"DianJi/DianJi/js/mui.picker.min.js",
+					"DianJi/DianJi/css/common.css",
+					"DianJi/DianJi/js/url_all.js",
+					"DianJi/DianJi/css/font-awesome.min.css",
+					"DianJi/DianJi/js/mui.poppicker.js",
+					"DianJi/DianJi/fonts/mui.ttf",
+					"DianJi/DianJi/DeviceDetail.html"
+				],
+				"refer": [
+					"DianJi/DianJi/ScanCode.html",
+					"DianJi/DianJi/UploadImage.html",
+					"DianJi/DianJi/demo_2.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/UploadImage.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/view/carInfo_activate2.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/register.html": {
+				"resources": [
+					"DianJi/DianJi/img/back.jpg",
+					"DianJi/DianJi/img/pwd.png",
+					"DianJi/DianJi/js/register.js",
+					"DianJi/DianJi/css/mui.min.css",
+					"DianJi/DianJi/img/adress.png",
+					"DianJi/DianJi/css/register.css",
+					"DianJi/DianJi/img/code.png",
+					"DianJi/DianJi/img/user.png",
+					"DianJi/DianJi/img/resgister.png",
+					"DianJi/DianJi/login.html",
+					"DianJi/DianJi/js/rem.js",
+					"DianJi/DianJi/js/url_all.js",
+					"DianJi/DianJi/js/mui.min.js",
+					"DianJi/DianJi/js/jquery-1.11.3.js",
+					"DianJi/DianJi/img/bj.png",
+					"DianJi/DianJi/img/phone1.png",
+					"DianJi/DianJi/img/lock1.png"
+				],
+				"refer": [
+					"DianJi/DianJi/view/tiaokuan.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/AddDevice.html": {
+				"resources": [
+					"DianJi/DianJi/css/MyReport.css",
+					"DianJi/DianJi/index.html",
+					"DianJi/DianJi/css/modify.css",
+					"DianJi/DianJi/js/bootstrap.min.js",
+					"DianJi/DianJi/css/font-awesome.min.css",
+					"DianJi/DianJi/js/addDevice.js",
+					"DianJi/DianJi/css/ace.min.css",
+					"DianJi/DianJi/js/jquery.min.js",
+					"DianJi/DianJi/css/mui.min.css",
+					"DianJi/DianJi/js/url_all.js",
+					"DianJi/DianJi/js/mui.min.js",
+					"DianJi/DianJi/css/common.css",
+					"DianJi/DianJi/css/jedate.css",
+					"DianJi/DianJi/js/jquery.jedate.js",
+					"DianJi/DianJi/css/mui.poppicker.css",
+					"DianJi/DianJi/css/mui.picker.css",
+					"DianJi/DianJi/js/mui.picker.js",
+					"DianJi/DianJi/js/mui.poppicker.js",
+					"DianJi/DianJi/newIndex.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"DianJi/DianJi/view/resetPwd.html": {
+				"resources": [
+					"DianJi/DianJi/img/pwd.png",
+					"DianJi/DianJi/js/rem.js",
+					"DianJi/DianJi/css/mui.min.css",
+					"DianJi/DianJi/js/url_all.js",
+					"DianJi/DianJi/js/mui.min.js",
+					"DianJi/DianJi/js/jquery-1.11.3.js",
+					"DianJi/DianJi/css/resetPwd.css",
+					"DianJi/DianJi/js/resetPwd.js",
+					"DianJi/DianJi/img/code.png",
+					"DianJi/DianJi/login.html"
+				],
+				"refer": [
+					"DianJi/DianJi/Config.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/MyDevice.html": {
+				"resources": [
+					"DianJi/DianJi/js/pagination.js",
+					"DianJi/DianJi/js/jquery.min.js",
+					"DianJi/DianJi/css/MyDevice.css",
+					"DianJi/DianJi/css/mui.min.css",
+					"DianJi/DianJi/js/url_all.js",
+					"DianJi/DianJi/js/mui.min.js",
+					"DianJi/DianJi/css/common.css",
+					"DianJi/DianJi/css/pagination.css",
+					"DianJi/DianJi/index.html"
+				],
+				"refer": [
+					"DianJi/DianJi/DeviceDetail.html",
+					"DianJi/DianJi/MyReport.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/Data.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/DeviceDetail.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/Monitor.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/DeviceDetail.html",
+					"DianJi/DianJi/view/check.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/view/more_cheack.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/index.html",
+					"DianJi/DianJi/DeviceDetail.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/MyReport.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/index.html",
+					"DianJi/DianJi/MyDevice.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/view/check.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/DeviceDetail.html",
+					"DianJi/DianJi/view/check_done.html",
+					"DianJi/DianJi/Monitor.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/newActivation.html": {
+				"resources": [
+					"DianJi/DianJi/css/mui.min.css",
+					"DianJi/DianJi/css/newActivation.css",
+					"DianJi/DianJi/js/jquery.min.js",
+					"DianJi/DianJi/js/mui.min.js",
+					"DianJi/DianJi/js/url_all.js",
+					"DianJi/DianJi/js/newActivation.js",
+					"DianJi/DianJi/view/carInfo_activate.html",
+					"DianJi/DianJi/ScanCode.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"DianJi/DianJi/demo.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/DeviceDetail.html",
+					"DianJi/DianJi/Config.html",
+					"DianJi/DianJi/index.html",
+					"DianJi/DianJi/demonew.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/demonew.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/demo.html",
+					"DianJi/DianJi/aboutUs.html",
+					"DianJi/DianJi/login.html",
+					"DianJi/DianJi/DeviceDetail.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/demo_1.html": {
+				"resources": [
+					"DianJi/DianJi/css/mui.min.css",
+					"DianJi/DianJi/fonts/mui.ttf",
+					"DianJi/DianJi/js/mui.min.js"
+				],
+				"refer": [
+					"DianJi/DianJi/DeviceDetail.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/aboutUs.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/index.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/newDataChart.html": {
+				"resources": [
+					"DianJi/DianJi/js/chartTeZheng.js",
+					"DianJi/DianJi/js/chartBoXing.js",
+					"DianJi/DianJi/css/mui.min.css",
+					"DianJi/DianJi/css/jedate.css",
+					"DianJi/DianJi/css/swiper.css",
+					"DianJi/DianJi/js/mui.min.js",
+					"DianJi/DianJi/js/jquery.jedate.js",
+					"DianJi/DianJi/css/mui.poppicker.css",
+					"DianJi/DianJi/css/ace.min.css",
+					"DianJi/DianJi/css/newDataChart.css",
+					"DianJi/DianJi/js/echarts.common.min.js",
+					"DianJi/DianJi/js/chartQuShi.js",
+					"DianJi/DianJi/css/mui.picker.css",
+					"DianJi/DianJi/js/jquery.min.js",
+					"DianJi/DianJi/js/mui.picker.js",
+					"DianJi/DianJi/js/newDataChart.js",
+					"DianJi/DianJi/js/url_all.js",
+					"DianJi/DianJi/css/DeviceDetail.css",
+					"DianJi/DianJi/css/font-awesome.min.css",
+					"DianJi/DianJi/js/mui.poppicker.js",
+					"DianJi/DianJi/css/iconfont.css",
+					"DianJi/DianJi/css/common.css",
+					"DianJi/DianJi/fonts/mui.ttf",
+					"DianJi/DianJi/fonts/iconfont.ttf",
+					"DianJi/DianJi/ScanCode.html"
+				],
+				"refer": [
+					"DianJi/DianJi/DeviceDetail.html",
+					"DianJi/DianJi/ModifyInformation.html",
+					"DianJi/DianJi/view/check.html",
+					"DianJi/DianJi/newCheck.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/view/check_done.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/index.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/newIndex.html": {
+				"resources": [
+					"DianJi/DianJi/Config.html",
+					"DianJi/DianJi/newDeviceList.html",
+					"DianJi/DianJi/js/jquery.pagination.js",
+					"DianJi/DianJi/js/newIndexLogin.js",
+					"DianJi/DianJi/js/newIndex.js",
+					"DianJi/DianJi/js/newIndexGetCode.js",
+					"DianJi/DianJi/css/MyReport.css",
+					"DianJi/DianJi/img/account.png",
+					"DianJi/DianJi/img/password.png",
+					"DianJi/DianJi/css/mui.min.css",
+					"DianJi/DianJi/js/mui.min.js",
+					"DianJi/DianJi/img/feedback.png",
+					"DianJi/DianJi/css/Config.css",
+					"DianJi/DianJi/img/home.png",
+					"DianJi/DianJi/css/pagination.css",
+					"DianJi/DianJi/img/aboutUs.png",
+					"DianJi/DianJi/css/iconfont.css",
+					"DianJi/DianJi/img/version.png",
+					"DianJi/DianJi/js/highlight.min.js",
+					"DianJi/DianJi/js/jquery.min.js",
+					"DianJi/DianJi/fonts/mui.ttf",
+					"DianJi/DianJi/js/url_all.js",
+					"DianJi/DianJi/css/common.css",
+					"DianJi/DianJi/fonts/iconfont.ttf",
+					"DianJi/DianJi/css/Home.css",
+					"DianJi/DianJi/img/default.png",
+					"DianJi/DianJi/login.html"
+				],
+				"refer": [
+					"DianJi/DianJi/ScanCode.html",
+					"DianJi/DianJi/view/resetPwd.html",
+					"DianJi/DianJi/FeedBack.html",
+					"DianJi/DianJi/aboutUs.html",
+					"DianJi/DianJi/AddDevice.html",
+					"DianJi/DianJi/newDataChart.html",
+					"DianJi/DianJi/updateList.html",
+					"DianJi/DianJi/checkHistory.html",
+					"DianJi/DianJi/DeviceDetail.html",
+					"DianJi/DianJi/artificialcheckList.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/newDeviceList.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/offcanvas-drag-right-plus-menu.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/newIndexPage.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/login.html",
+					"DianJi/DianJi/AddDevice.html",
+					"DianJi/DianJi/newDataChart.html",
+					"DianJi/DianJi/ScanCode.html",
+					"DianJi/DianJi/aboutUs.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/updateList.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/updatedetail.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/checkHistory.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/checkdeviceResult.html",
+					"DianJi/DianJi/newcheckdevice.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/artificialcheckList.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/artificialcheckhistory.html"
+				],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"DianJi/DianJi/css/Monitor.css",
+				"DianJi/DianJi/js/indexDealData.js",
+				"DianJi/DianJi/js/monitor.js",
+				"DianJi/DianJi/css/mui.minImg.css",
+				"DianJi/DianJi/unpackage/res/icons/80x80.png",
+				"DianJi/DianJi/css/aboutUs.css.map",
+				"DianJi/DianJi/css/more_cheack.scss",
+				"DianJi/DianJi/js/mui.zoom.js",
+				"DianJi/DianJi/css/MyReport.css.map",
+				"DianJi/DianJi/carInfo_activate.html",
+				"DianJi/DianJi/img/an.png",
+				"DianJi/DianJi/img/yuantiao.jpg",
+				"DianJi/DianJi/css/common.scss",
+				"DianJi/DianJi/css/common.css.map",
+				"DianJi/DianJi/Practice.html",
+				"DianJi/DianJi/js/check.js",
+				"DianJi/DianJi/js/prefixfree.min.js",
+				"DianJi/DianJi/css/Config.scss",
+				"DianJi/DianJi/css/mui.css",
+				"DianJi/DianJi/Monitor1.html",
+				"DianJi/DianJi/js/modify.tree-sampledata1.js",
+				"DianJi/DianJi/new_file.css",
+				"DianJi/DianJi/unpackage/res/icons/72x72.png",
+				"DianJi/DianJi/unpackage/res/icons/76x76.png",
+				"DianJi/DianJi/css/aboutUs.scss",
+				"DianJi/DianJi/unpackage/res/icons/192x192.png",
+				"DianJi/DianJi/img/logo.png",
+				"DianJi/DianJi/js/idangerous.swiper.min.js",
+				"DianJi/DianJi/unpackage/res/icons/256x256.png",
+				"DianJi/DianJi/Monitor2.html",
+				"DianJi/DianJi/unpackage/res/icons/48x48.png",
+				"DianJi/DianJi/css/FeedBack.css.map",
+				"DianJi/DianJi/css/MyReport.scss",
+				"DianJi/DianJi/img/address.png",
+				"DianJi/DianJi/css/feedback-page.css",
+				"DianJi/DianJi/img/muwu.jpg",
+				"DianJi/DianJi/css/Home.css.map",
+				"DianJi/DianJi/unpackage/res/icons/58x58.png",
+				"DianJi/DianJi/img/netpage.png",
+				"DianJi/DianJi/css/MyDevice.scss",
+				"DianJi/DianJi/js/DateFormat.js",
+				"DianJi/DianJi/css/normalize.css",
+				"DianJi/DianJi/unpackage/res/icons/50x50.png",
+				"DianJi/DianJi/css/Monitor.scss",
+				"DianJi/DianJi/img/img21.png",
+				"DianJi/DianJi/fonts/fontawesome-webfont.ttf",
+				"DianJi/DianJi/unpackage/res/icons/40x40.png",
+				"DianJi/DianJi/css/aboutUs.css",
+				"DianJi/DianJi/css/tiaokuan.css",
+				"DianJi/DianJi/js/mui.js",
+				"DianJi/DianJi/unpackage/res/icons/57x57.png",
+				"DianJi/DianJi/css/DeviceDetail.scss",
+				"DianJi/DianJi/js/tiaokuan.js",
+				"DianJi/DianJi/css/more_cheack.css",
+				"DianJi/DianJi/css/check.css",
+				"DianJi/DianJi/img/shuijiao.jpg",
+				"DianJi/DianJi/css/DeviceDetail.css.map",
+				"DianJi/DianJi/js/jquery.jedate.min.js",
+				"DianJi/DianJi/unpackage/res/icons/96x96.png",
+				"DianJi/DianJi/unpackage/res/icons/29x29.png",
+				"DianJi/DianJi/css/Config.css.map",
+				"DianJi/DianJi/unpackage/res/icons/100x100.png",
+				"DianJi/DianJi/img/img23.png",
+				"DianJi/DianJi/js/jquery-1.7.2.js",
+				"DianJi/DianJi/js/mui.previewimage.js",
+				"DianJi/DianJi/css/Monitor.css.map",
+				"DianJi/DianJi/unpackage/res/icons/120x120.png",
+				"DianJi/DianJi/css/ScanCode.css.map",
+				"DianJi/DianJi/img/img20.png",
+				"DianJi/DianJi/js/monitorData.js",
+				"DianJi/DianJi/unpackage/res/icons/152x152.png",
+				"DianJi/DianJi/css/Home.scss",
+				"DianJi/DianJi/unpackage/res/icons/114x114.png",
+				"DianJi/DianJi/css/FeedBack.css",
+				"DianJi/DianJi/css/Data.scss",
+				"DianJi/DianJi/img/haha.png",
+				"DianJi/DianJi/img/img22.png",
+				"DianJi/DianJi/css/more_cheack.css.map",
+				"DianJi/DianJi/manifest.json",
+				"DianJi/DianJi/css/ScanCode.scss",
+				"DianJi/DianJi/unpackage/res/icons/87x87.png",
+				"DianJi/DianJi/css/Data.css",
+				"DianJi/DianJi/img/saomiao.png.png",
+				"DianJi/DianJi/img/cbd.jpg",
+				"DianJi/DianJi/css/Data.css.map",
+				"DianJi/DianJi/css/MyDevice.css.map",
+				"DianJi/DianJi/img/iconfont-tianjia.png",
+				"DianJi/DianJi/css/FeedBack.scss",
+				"DianJi/DianJi/js/echarts.js",
+				"DianJi/DianJi/css/tab.css",
+				"DianJi/DianJi/img/tel.png",
+				"DianJi/DianJi/unpackage/res/icons/144x144.png",
+				"DianJi/DianJi/img/equipment18.png",
+				"DianJi/DianJi/img/img13.png",
+				"DianJi/DianJi/css/app.css",
+				"DianJi/DianJi/unpackage/res/icons/180x180.png"
+			]
+		}
+	},
+	"unpackage": [
+		"DianJi/DianJi/unpackage/release/20170927.apk",
+		"DianJi/DianJi/unpackage/release/H5FEB043B_0711153533.apk",
+		"DianJi/DianJi/unpackage/release/H5FEB043B_0816170427.apk",
+		"DianJi/DianJi/unpackage/release/H5FEB043B_0818174114.apk"
+	]
+}

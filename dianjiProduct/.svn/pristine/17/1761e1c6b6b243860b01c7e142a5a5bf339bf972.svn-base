@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html class="feedback">
+
+	<head>
+		<meta charset="utf-8">
+		<title>设备点检</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/iconfont.css">
+		<link rel="stylesheet" href="css/newcheckdevice.css" />
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			input:disabled,
+			input[disabled] {
+				color: red;
+				-webkit-text-fill-color: gray;
+				-webkit-opacity: 1;
+				opacity: 1;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" id="checkPageHeader">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
+			<h1 class="mui-title ">设备点检</h1>
+		</header>
+		<div class="mui-content" id="resultcontent">
+			<div class="mui-card" id="historyClick">
+				<div class="mui-card-header" style="color: #CDAD00;">上次点检结果
+					<span style="float: right;">点击查看详情>></span>
+				</div>
+				<div class="mui-card-content">
+					<form class="mui-input-group" style="color: gray;">
+						<div class="mui-input-row">
+							<label>点检时间：</label>
+							<input style="color: black;" id="checkTime" type="text" class="mui-input-clear" disabled="disabled" value="无">
+						</div>
+						<div class="mui-input-row">
+							<label>点检结果:</label>
+							<label id="checkDeviceRestult" style="color: white;font-size: 18px;text-align: center;">无</label>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div style="text-align: center;margin-top: 50px;">
+				<button id="submit_btn" type="button" class="mui-btn mui-btn-green" style="width: 50%;font-size: 24px;">我要点检</button>
+			</div>
+		</div>
+
+		<script src="js/mui.min.js"></script>
+		<script src="js/url_all.js"></script>
+		<script src="js/mui.zoom.js"></script>
+		<script src="js/mui.previewimage.js"></script>
+		<script src="js/vue.js"></script>
+		<script>
+			$.ajax({
+				type: "get",
+				url: new_commen_gain_check_device_Interface,
+				async: true,
+				data: {
+					devices_no: localStorage.DeveciId
+				},
+				dataType: 'json',
+				success: function(respData) {
+					console.log("获取点检信息== " + JSON.stringify(respData));
+					if(respData.status == "SUCCESS") {
+						var respObj = respData.data;
+						$('#checkTime').val(respObj.ck_time);
+
+						if(respObj.ck_result == 0) {
+							$('#checkDeviceRestult').html("正常");
+							$('#checkDeviceRestult').css('color', '#00CD00');
+						}
+						if(respObj.ck_result == 1) {
+							$('#checkDeviceRestult').html("故障");
+							$('#checkDeviceRestult').css('color', 'red');
+						}
+					} else {
+						mui.toast('暂无点检数据');
+					}
+				},
+				error: function(error) {
+					mui.toast('数据请求异常，请重试...');
+				}
+
+			});
+
+			$('#historyClick').on('tap', function() {
+				mui.openWindow('checkdeviceResult.html');
+			})
+			$('#submit_btn').on('tap', function() {
+				mui.openWindow('newcheckdevice.html');
+			})
+		</script>
+
+	</body>
+
+</html>

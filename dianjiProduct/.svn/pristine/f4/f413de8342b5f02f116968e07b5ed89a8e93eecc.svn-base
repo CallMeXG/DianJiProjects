@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>设备点检</title>
+		<script src="../js/jquery-1.11.3.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/rem.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/check.css" />
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<!-- ace styles -->
+		<link rel="stylesheet" href="../css/ace.min.css">
+	</head>
+
+	<body>
+		<div class="main_box">
+			<header id="header" class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">设备点检</h1>
+			</header>
+			<div class="mui-content">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="widget-box">
+							<div class="widget-header header-color-purple">
+								<h4 class="lighter smaller" id="deviceId"></h4>
+							</div>
+
+							<div class="widget-body">
+								<div class="widget-main padding-8" id="widget">
+									<div id="tree1" class="tree tree-selectable">
+										<div class="tree-folder" style="display:none;">
+											<div class="tree-folder-header">
+												<i class="icon-plus"></i>
+												<div class="tree-folder-name"></div>
+											</div>
+											<div class="tree-folder-content"></div>
+											<div class="tree-loader" style="display: none;"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="mui-bar mui-bar-tab">
+				<button id="check_done" style="background-color:#8968CD;color: white;width: 30%;margin-left: 10px;margin-top: 5px;">完成</button>
+				<button id="check_next" style="float: right;background-color:#8968CD;color: white;width: 30%;margin-right: 10px;margin-top: 5px;">继续点检</button>
+			</div>
+		</div>
+		<!--[if !IE]> -->
+
+		<script src="../js/jquery-1.11.3.js"></script>
+
+		<!-- <![endif]-->
+
+		<script src="../js/bootstrap.min.js"></script>
+
+		<!-- page specific plugin scripts -->
+
+        <script src="../js/url_all.js"></script>
+		<script src="../js/fuelux.tree-sampledata.js"></script>
+
+		<script src="../js/fuelux.tree.min.js"></script>
+
+		<!-- ace scripts -->
+
+		<script src="../js/ace-elements.min.js"></script>
+		<script src="../js/ace.min.js"></script>
+
+		<!-- inline scripts related to this page -->
+
+		<script type="text/javascript">
+			jQuery(function($) {
+
+				$('#tree1').ace_tree({
+					dataSource: treeDataSource,
+					loadingHTML: '<div class="tree-loading"><i class="icon-refresh icon-spin blue"></i></div>',
+					'open-icon': 'icon-minus',
+					'close-icon': 'icon-plus',
+					'selectable': false,
+				});
+			})
+		</script>
+		
+	</body>
+
+</html>
+<script src="../js/url_all.js"></script>
+<script type="text/javascript" src="../js/DateFormat.js"></script>
+<script type="text/javascript" src="../js/check.js"></script>

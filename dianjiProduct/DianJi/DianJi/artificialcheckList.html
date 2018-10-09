@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>人工诊断列表</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<script src="js/vue.js"></script>
+		<script src="js/JQAutoTextarea.js"></script>
+		<style type="text/css">
+			.test_box {
+				/*width: 400px;*/
+				min-height: 20px;
+				max-height: 300px;
+				_height: 120px;
+				margin-left: auto;
+				margin-right: auto;
+				padding: 3px;
+				outline: 0;
+				border: 1px solid #a0b3d6;
+				font-size: 12px;
+				word-wrap: break-word;
+				overflow-x: hidden;
+				overflow-y: auto;
+				_overflow-y: visible;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="popover" class="mui-popover" style="min-height: 200px;">
+			<div style="margin-left: 10px;margin-right: 10px;">
+				<p style="text-align: center;margin-top: 15px;">诊断申请</p>
+				<p style="text-align: center;">您正在申请远程诊断，是否确认申请？</p>
+				<p style="margin-top: -5px;font-size: 11px;color: orange;">注：请在下面输入框中输入问题描述（选填）</p>
+				<textarea id="textarea" style="font-size: 12px;min-height: 50px;" maxlength="144"></textarea>
+				<!--<div class="test_box" contenteditable="true"></div>-->
+				<span id="textCount" style="float: right;color: gray;font-size: 11px;margin-top: -20px;">144/144</span>
+				<br />
+				<br />
+				<button class="mui-btn mui-btn-danger" style="">取消</button>
+				<button class="mui-btn mui-btn-success" style="float: right;">申请</button>
+				<p style="height: 20px;width: 100%;"></p>
+			</div>
+		</div>
+		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<a style="color: white;" class="mui-icon mui-icon-left-nav mui-action-back mui-pull-left"></a>
+			<h1 class="mui-title" style="color: white;">诊断历史</h1>
+			<!--<a href="#popover" id="openPopover" class="mui-btn mui-btn-primary mui-btn-block">打开弹出菜单</a>-->
+			<a id="header_applyArt" href="#popover" style="margin-top: -3px;font-size: 16px;" class="mui-pull-right mui-btn mui-btn-outlined mui-btn-warning">申请诊断</a>
+		</header>
+		<div class="mui-content">
+
+			<div class="mui-card" id="cardContentID">
+				<div class="mui-card-header">
+					<span id="artDeviceMes"></span>
+					<button class="mui-btn mui-btn-royal" v-on:click="openCheckAtrList()">诊断报告</button>
+				</div>
+				<div class="mui-card-content">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell" v-for="mesItem in message">
+							<div v-on:click="openArtifiDetail(mesItem)">
+
+								<div v-if="mesItem.apply_status == '0'">
+									<p>
+										<span style="float: right;text-align: center;padding-top: 3px;color: #9ACD32;">正在诊断...</span>
+									</p>
+								</div>
+								<div v-if="mesItem.apply_status == '1'">
+									<p>
+										<div v-if="mesItem.ck_result == '1'">
+											<span style="float: right;background-color: #00CD00;width: 40px;color: white;text-align: center;padding-top: 3px;">正常</span>
+										</div>
+										<div v-if="mesItem.ck_result == '2'">
+											<span style="float: right;background-color: #EEEE00;width: 40px;color: gray;text-align: center;padding-top: 3px;">预警</span>
+										</div>
+										<div v-if="mesItem.ck_result == '3'">
+											<span style="float: right;background-color: orange;width: 40px;color: white;text-align: center;padding-top: 3px;">报警</span>
+										</div>
+										<div v-if="mesItem.ck_result == '4'">
+											<span style="float: right;background-color: red;width: 40px;color: white;text-align: center;padding-top: 3px;">严重</span>
+										</div>
+									</p>
+								</div>
+
+								<p>申请人员：{{mesItem.apply_user_phone}}</p>
+
+								<p style="margin-top: 10px;">申请时间：{{mesItem.apply_time.substring(0,19)}}
+									<div v-if="typeof(mesItem.file_path) != 'undefined'">
+										<a class="iconfont icon-baogao" style="float: right;color: gray;font-size: 24px;margin-right: 10px;margin-top: -20px;" ></a>
+									</div>
+								</p>
+								<a class="mui-navigate-right" style="float: right;margin-top: 15px;">
+								</a>
+							</div>
+						</li>
+
+					</ul>
+
+				</div>
+			</div>
+			<div class="mui-card">
+				<div class="mui-card-content">
+					<div style="color: gray;text-align: center;margin-top: 50px;">本平台为您提供远程诊断服务</div>
+					<div style="text-align: center;margin-top: 20px;color: gray;font-size: 18px;">如需紧急申请诊断，请联系电话
+						<p style="margin-top:10px;">
+							<a style="font-size: 18px;" href="tel:010-64722397">010-64722397</a>
+						</p>
+						<p style="margin-top: 10px;font-size: 18px;">邮箱</p>
+						<p style="margin-top: 10px;font-size: 18px;">support@prefoco.com</p>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<script src="js/url_all.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script>
+			mui.plusReady(function() {
+
+				var dataList = [];
+
+				$('textarea').on('input propertychange', function() {
+					var textAreaCount = $('textarea').val().length;
+					$('#textCount').html(textAreaCount + '/144');
+				})
+
+				$('.mui-btn-success').on('tap', function() {
+					console.log("===");
+					if(dataList.length > 0) {
+						if(dataList[0].apply_status == 0) {
+							mui.alert('您已有正在处理的诊断申请，请在诊断结束后再申请诊断！')
+						} else {
+							applyCheck();
+						}
+					}
+					if(dataList.length == 0) {
+						applyCheck();
+					}
+
+				});
+				$('.mui-btn-danger').on('tap', function() {
+					mui('#popover').popover('toggle');
+				});
+
+				// textarea 自适应高度
+				function makeExpandingArea(el) {
+					var setStyle = function(el) {
+						el.style.height = 'auto';
+						el.style.height = el.scrollHeight + 'px';
+					}
+					var delayedResize = function(el) {
+						window.setTimeout(function() {
+								setStyle(el)
+							},
+							0);
+					}
+					if(el.addEventListener) {
+						el.addEventListener('input', function() {
+							setStyle(el)
+						}, false);
+						setStyle(el)
+					} else if(el.attachEvent) {
+						el.attachEvent('onpropertychange', function() {
+							setStyle(el)
+						});
+						setStyle(el)
+					}
+					if(window.VBArray && window.addEventListener) { //IE9  
+						el.attachEvent("onkeydown", function() {
+							var key = window.event.keyCode;
+							if(key == 8 || key == 46) delayedResize(el);
+
+						});
+						el.attachEvent("oncut", function() {
+							delayedResize(el);
+						}); //处理粘贴  
+					}
+				}
+				makeExpandingArea(textarea);
+
+				getDataList();
+				//获取数据列表
+				function getDataList() {
+					var waitings = plus.nativeUI.showWaiting();
+					$.ajax({
+						type: "get",
+						url: new_commen_gain_manual_list_Interface,
+						async: true,
+						data: {
+							apply_devices_no: localStorage.DeveciId
+						},
+						dataType: 'json',
+						success: function(respData) {
+							waitings.close();
+							if(respData.status == "SUCCESS") {
+								cardContent.message = respData.data;
+								dataList = respData.data;
+							}
+						},
+						error: function(error) {
+							waitings.close();
+							console.log(error)
+						}
+					});
+				}
+
+				//插入设备名称和设备编号
+				$('#artDeviceMes').html(localStorage.DeveciName + '：' + localStorage.DeveciId);
+
+				//申请人工诊断
+				function applyCheck() {
+					var waitings = plus.nativeUI.showWaiting();
+					$.ajax({
+						type: "get",
+						url: new_commen_apply_check_device_Interface,
+						async: true,
+						data: {
+							apply_user_id: localStorage.strLoginId,
+							apply_user_phone: localStorage.userName,
+							apply_devices_no: localStorage.DeveciId,
+							apply_info: $('textarea').val()
+						},
+						dataType: 'json',
+						success: function(respData) {
+							waitings.close();
+							if(respData.status == "SUCCESS") {
+								mui('#popover').popover('toggle');
+
+								mui.toast("您已经成功提交远程诊断申请!");
+								setTimeout(function() {
+									getDataList();
+								}, 1000);
+							} else {
+								mui.alert('申请失败，请重试！');
+							}
+						},
+						error: function() {
+							waitings.close();
+							mui.alert('网络失败，请重试！');
+						}
+					});
+				}
+
+				var cardContent = new Vue({
+					el: '#cardContentID',
+					data: {
+						message: []
+					},
+					methods: {
+
+						//进入报告详情
+						openArtifiDetail(mesItem) {
+							mui.openWindow({
+								url: 'artificialcheck.html',
+								extras: {
+									message: mesItem
+								}
+							})
+						},
+
+						//查看报告
+						openCheckAtrList() {
+							mui.openWindow('artificialcheckhistory.html')
+						},
+
+					}
+				})
+			})
+		</script>
+	</body>
+
+</html>

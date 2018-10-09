@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>数据图表</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" type="text/css" />
+		<link href="css/iconfont.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="css/swiper.css" />
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/url_all.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.jedate.js"></script>
+		<link href="css/jedate.css" rel="stylesheet" />
+
+		<link href="css/mui.picker.css" rel="stylesheet" />
+		<link href="css/mui.poppicker.css" rel="stylesheet" />
+		<script src="js/mui.picker.js"></script>
+		<script src="js/mui.poppicker.js"></script>
+		<script src="js/echarts.common.min.js"></script>
+		<link href="css/newDataChart.css" rel="stylesheet" type="text/css" />
+
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/ace.min.css">
+
+		<link rel="stylesheet" type="text/css" href="css/DeviceDetail.css" /><br />
+
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<style>
+			#popover {
+				width: 150px;
+			}
+			
+			#popover a {
+				text-align: center;
+				font-size: 16px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div id="popover" class="mui-popover">
+			<ul style="margin-left: 0px;" class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a id="idForDeviceDetail">设备详情</a>
+				</li>
+				<li id="DisplayChangeDevice" class="mui-table-view-cell">
+					<a id="idForChangeDevice">修改信息</a>
+				</li>
+				<!--<li class="mui-table-view-cell">
+					<a id="idForDianjian">我要点检</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="idFordianjiaBaoGao">点检报告</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="idHistoryBaogao">历史报告</a>
+				</li>-->
+
+			</ul>
+		</div>
+		<header class="mui-bar mui-bar-nav mui_header">
+			<a style="color: white;" id="backIDs" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="titleText" class="mui-title mui_header_title"></h1>
+			<a href="#popover" style="color: white;font-size: 16px;margin-top: 10px;" class="mui-pull-right">更多</a>
+		</header>
+
+		<nav class="mui-bar mui-bar-tab">
+			
+			<a id="qushiChart" class="mui-tab-item mui-active" href="#id_qushi">
+				<span class="mui-icon iconfont icon-qushi"></span>
+				<span class="mui-tab-label">趋势图</span>
+			</a>
+
+			<a id="boxingChart" class="mui-tab-item" href="#id_boxing">
+				<span class="mui-icon iconfont icon-shishiboxingjiankongtu"></span>
+				<span class="mui-tab-label">波形图</span>
+			</a>
+			<a id="tezhengChart" class="mui-tab-item " href="#id_tezhengzhi">
+				<span class="mui-icon iconfont icon-shuzhi"></span>
+				<span class="mui-tab-label">特征值</span>
+			</a>
+
+			<!--<a id="boxingChart" class="mui-tab-item" href="#id_Dianjian">
+				<span class="mui-icon iconfont icon-jianchaxiang"></span>
+				<span class="mui-tab-label">点检</span>
+			</a>-->
+
+			<!--<a id="boxingChart" class="mui-tab-item" href="#id_checkInter">
+				<span class="mui-icon iconfont icon-stethoscope"></span>
+				<span class="mui-tab-label">远程诊断</span>
+			</a>-->
+
+		</nav>
+		<div id="preview">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+				</div>
+				<div class="swiper-pagination"></div>
+
+			</div>
+
+		</div>
+
+		<div class="mui-content" style="width: 100%;">
+			<!--趋势图-->
+			<div id="id_qushi" class="mui-control-content mui-active">
+
+				<div id="qiushitu" style="width: 100%;min-height: 600px;text-align: center;color: darkgray;margin-top: -20px;">
+
+				</div>
+
+			</div>
+			<!--特征值-->
+			<div id="id_tezhengzhi" style="width: 100%;min-height: 500px;" class="mui-control-content ">
+				<div id="headerSelect_tezhengzhi">
+					<div class="div_search">
+						<p>测点位置：</p>
+						<input id="tezheng_place" type="button" />
+					</div>
+					<div style="clear: both;"></div>
+					<div class="div_search">
+						<p>采集时间：</p>
+						<input id="tezheng_timeCount" type="button" style="font-size: 10px;" />
+					</div>
+					<br />
+				</div>
+
+				<p style="padding-top: 60px;">
+					<p style="background-color: white;height: 40px;padding-top: 10px;font-size: 16px;width: 100%;">
+						<span class="spanLeft" style="padding-left: 10px;">温度：</span>
+						<span id="tezhengzhi_temperNum" class="spanCenter"></span>
+						<span id="tezhengzhi_tem_result" class="spanRight" style="margin-right: 10px;"></span>
+					</p>
+					<p style="margin-left: 10px;">X轴特征值</p>
+				</p>
+				<div class="divTable" id="X_TeZhengZhi">
+					<ul class="mui-table-view">
+						<li id="X_zhi2" class="mui-table-view-cell">
+							<span class="spanLeft">峰峰值</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="X_zhi3" class="mui-table-view-cell">
+							<span class="spanLeft">峰值</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="X_zhi1" class="mui-table-view-cell">
+							<span class="spanLeft">峭度</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="X_zhi4" class="mui-table-view-cell">
+							<span class="spanLeft">波性指标</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="X_zhi5" class="mui-table-view-cell">
+							<span class="spanLeft">绝对均值</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="X_zhi6" class="mui-table-view-cell">
+							<span class="spanLeft">峰值指标</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="X_zhi7" class="mui-table-view-cell">
+							<span class="spanLeft">脉冲指标</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="X_zhi8" class="mui-table-view-cell">
+							<span class="spanLeft">裕度指标</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+
+					</ul>
+				</div>
+
+				<p style="margin-left: 10px;margin-top: 10px;">Y轴特征值</p>
+				<div class="divTable" id="Y_TeZhengZhi">
+					<ul class="mui-table-view">
+
+						<li id="Y_zhi2" class="mui-table-view-cell">
+							<span class="spanLeft">峰峰值</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="Y_zhi3" class="mui-table-view-cell">
+							<span class="spanLeft">峰值</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="Y_zhi1" class="mui-table-view-cell">
+							<span class="spanLeft">峭度</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="Y_zhi4" class="mui-table-view-cell">
+							<span class="spanLeft">波性指标</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="Y_zhi5" class="mui-table-view-cell">
+							<span class="spanLeft">绝对均值</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="Y_zhi6" class="mui-table-view-cell">
+							<span class="spanLeft">峰值指标</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="Y_zhi7" class="mui-table-view-cell">
+							<span class="spanLeft">脉冲指标</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="Y_zhi8" class="mui-table-view-cell">
+							<span class="spanLeft">裕度指标</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+
+					</ul>
+				</div>
+
+				<p style="margin-left: 10px;margin-top: 10px;">Z轴特征值</p>
+				<div class="divTable" id="Z_TeZhengZhi">
+					<ul class="mui-table-view">
+
+						<li id="Z_zhi2" class="mui-table-view-cell">
+							<span class="spanLeft">峰峰值</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="Z_zhi3" class="mui-table-view-cell">
+							<span class="spanLeft">峰值</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="Z_zhi1" class="mui-table-view-cell">
+							<span class="spanLeft">峭度</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="Z_zhi4" class="mui-table-view-cell">
+							<span class="spanLeft">波性指标</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="Z_zhi5" class="mui-table-view-cell">
+							<span class="spanLeft">绝对均值</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="Z_zhi6" class="mui-table-view-cell">
+							<span class="spanLeft">峰值指标</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="Z_zhi7" class="mui-table-view-cell">
+							<span class="spanLeft">脉冲指标</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="Z_zhi8" class="mui-table-view-cell">
+							<span class="spanLeft">裕度指标</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+
+					</ul>
+				</div>
+
+			</div>
+			<!--波形图-->
+			<div id="id_boxing" style="width: 100%;min-height: 500px;" class="mui-control-content">
+				<div id="headerSelect_boxing">
+					<div class="div_search">
+						<p>测点位置：</p>
+						<input id="boxing_weizhiText" type="button" />
+
+					</div>
+					<div style="clear: both;"></div>
+					<div class="div_search">
+						<p>采集时间：</p>
+						<input id="boxing_weizhi" type="button" style="font-size: 10px;" />
+
+					</div>
+					<div style="clear: both;"></div>
+					<div class="div_search">
+						<p>振动方向：</p>
+						<input id="boxing_zhouxiang" type="button" value="x" />
+					</div>
+
+				</div>
+
+				<div style="width: 100%;height: 100%;padding-top: 120px;">
+					<!--<input id="id_setDate" type="date" />-->
+					<div id="chart_shiyu"></div>
+					<div id="chart_pinpu"></div>
+					<div id="chart_baoluopu"></div>
+					<div id="chart_sudu"></div>
+				</div>
+			</div>
+			<div id="id_checkInter" class="mui-control-content">
+				<div style="width: 100%;min-height: 500px;text-align: center;">
+					<p style="margin-top: 50px;font-size: 18px;">本平台为您诊断设备疑似故障</p>
+					<p style="margin-top: 50px;font-size: 18px;">如有需求，请联系
+						<a href="tel:010-64722397">010-64722397</a>
+					</p>
+					<p style="margin-top: 50px;font-size: 18px;">诊断邮箱：support@prefoco.com</p>
+				</div>
+
+			</div>
+			<div id="id_Dianjian" class="mui-control-content">
+				<div style="width: 100%;min-height: 500px;">啊啊啊啊啊啊啊啊</div>
+
+			</div>
+		</div>
+
+		</div>
+	</body>
+
+	<script src="js/chartQuShi.js"></script>
+	<script src="js/chartBoXing.js"></script>
+	<script src="js/chartTeZheng.js"></script>
+	<script src="js/newDataChart.js"></script>
+	<script src="js/common.js"></script>
+	
+</html>

@@ -1,0 +1,154 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+#header {
+  background: #674fbf;
+}
+#header .top {
+  margin-left: -10px;
+  margin-right: -10px;
+  clear: both;
+  height: 53px;
+  background: #674fbf;
+  overflow: hidden;
+}
+#header .top .left {
+  margin-top: 20px;
+}
+#header .top .left label {
+  width: auto;
+  color: white;
+}
+#header .top .left input {
+  top: -2px;
+}
+#header .top span {
+  display: inline-block;
+  height: 14px;
+  font-size: 14px;
+  color: #fff;
+  line-height: 14px;
+}
+#header .top span.equipmentBianhao {
+  width: 1.5rem;
+  text-align: center;
+  border-left: 1px solid #fff;
+}
+#header .top #select {
+  width: 2.2rem;
+  height: 30px;
+  font-size: 14px;
+  -webkit-appearance: menulist !important;
+  padding: 0;
+  margin-top: -10px;
+  float: right;
+  margin-right: 0.3rem;
+}
+
+#header .mui-title,
+#header .mui-pull-right {
+  color: #fff;
+}
+
+#header .mui-pull-right {
+  height: 100%;
+  font-weight: 100;
+  line-height: 44px;
+  font-size: 16px;
+  padding: 0;
+  margin: 0;
+}
+
+#header a.mui-action-back {
+  color: #fff;
+}
+
+.main .mui-content {
+  padding-bottom: 56px;
+}
+
+.main .mui-content .center {
+  padding-top: 56px;
+}
+.main .mui-content .center label {
+  width: auto;
+  color: white;
+}
+.main .mui-content .center .mui-table-view .mui-media-object.mui-pull-left {
+  margin-left: 40px;
+}
+.main .mui-content .center .mui-checkbox.mui-left input[type=checkbox],
+.main .mui-content .center .mui-radio.mui-left input[type=radio] {
+  margin-left: -14px;
+}
+.main .mui-content .center .mui-media-body {
+  white-space: normal;
+}
+.main .mui-content .center .mui-media-body .mui-ellipsis {
+  white-space: normal;
+  overflow: visible;
+}
+.main .mui-content .center .mui-media-body .mui-ellipsis .items {
+  margin-right: 10px;
+  float: left;
+  width: 70%;
+}
+.main .mui-content .center .mui-media-body .tag {
+  float: right;
+  height: 20px;
+  background: red;
+  padding: 0 10px;
+  color: white;
+}
+.main .mui-content .center .mui-media-body .mui-progressbar {
+  width: 20%;
+  float: right;
+  right: 18px;
+  top: 5px;
+}
+
+#pagination-demo1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#moreCheack_btn {
+  width:100%;
+  height:90%;
+  color: white;
+  font-size: 17px;
+  background-color: mediumpurple;
+  
+}
+
+#demo1 {
+  width: 1.02rem;
+  height: 3px;
+  display: inline-block;
+  margin-left: 0.3rem;
+  background: #cdcdcd;
+  margin-top: 20px;
+}
+
+/*# sourceMappingURL=more_cheack.css.map */

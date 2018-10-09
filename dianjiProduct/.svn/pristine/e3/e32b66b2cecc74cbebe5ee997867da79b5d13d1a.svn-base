@@ -1,0 +1,156 @@
+*{margin: 0;padding: 0;}
+body,html{width: 100%;height: 100%;overflow: hidden;}
+
+.register_box{
+	width: 100%;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+	background: url(../img/bj.png);
+	background-size:100% ;
+}
+.register_box .back{
+	position: absolute;
+	left: 0.3rem;
+	top: 0.3rem;
+	width: 0.32rem;
+	height: 0.32rem;
+}
+.register_box .title{
+	position: absolute;
+	font-size: 18px;
+	width: 72px;
+	color: #fff;
+	left: 50%;
+	margin-left: -36px;
+	top: 0.32rem;
+}
+.register_box .logo{
+	width: 185px;
+	/*height: 85px;*/
+	/*border-radius: 50%;*/
+	/*background: #7d47ee;*/
+	position: absolute;
+	left: 50%;
+	margin-left: -92.5px;
+	top:1.19rem;
+	color: #fff;
+	/*text-align: center;*/
+	/*line-height: 85px;*/
+	z-index: 100;
+}
+.register_box .logo img{
+	width: 100%;
+}
+
+#register_form{
+	width: 6.6rem;
+	height: 340px;
+	background: #fff;
+	border-radius:5px ;
+	margin: 2.45rem 0 0 0.3rem;
+	padding-top: 10px;
+}
+#register_form .mui-input-group:before{
+	height: 0;
+}
+#register_form .mui-input-group{
+	width: 5.6rem;
+	margin-left: 0.64rem;
+	font-size: 14px;
+	color: #808080;
+	position: relative;
+}
+#register_form .mui-input-group div.mui-input-row{
+	height: 35px;
+}
+#register_form .mui-input-group input{
+	font-size: 14px;
+	padding-left: 5px;
+	padding-top: 12px;
+	color: #333;
+}
+#register_form .mui-input-group .mui-input-row span{
+	font-size: 15px;
+	top: 15px;
+}
+#register_form .mui-input-group div.codeBox span{
+	right: 70px;
+}
+#register_form div img{
+	width: 18px;
+	height: 19px;
+	position: absolute;
+	left: -18px;
+	top: 12px;
+}
+#register_btn{
+	display: block;
+	width: 6.05rem;
+	height: 40px;
+	background: #524598;
+	color: #fff;
+	outline: none;
+	margin-top: 26px;
+	margin-left: 0.3rem;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 20px;
+	font-size: 14px;
+}
+#register_form .check_box{
+	width: 6.05rem;
+	margin-left: 0.3rem;
+	margin-top: 15px;
+}
+#register_form .check_box .left{
+	float: left;
+}
+#register_form .check_box div a{
+	display: inline-block;
+	font-size:12px ;
+	line-height: 12px;
+	float: left;
+	color: #666;
+	text-decoration: underline;
+}
+#register_form .check_box div p{
+	width: 15px;
+	height: 15px;
+	/*border: 1px solid #ccc;*/
+	display: inline-block;
+	float: left;
+	margin-right: 5px;
+	margin-top: -2px;
+	overflow: hidden;
+}
+#register_form .check_box div p span.mui-icon-checkmarkempty{
+	display: inline-block;
+	font-size: 24px;
+	margin-left: -5px;
+	margin-top: -8px;
+}
+#getCode{
+	position: absolute;
+	top:5px;
+	right: 0;
+	height: 30px;
+	border: 0;
+	font-size: 12px;
+	color: #524598;
+	display: block;
+	line-height: 30px;
+	text-align: center;
+}
+
+div.mui-toast-container{
+	top: 4.3rem;
+	width: 70%;
+}
+div.mui-toast-container .mui-toast-message{
+	background: #000;
+	height: 45px;
+	opacity: 0.9;
+	line-height: 25px;
+	filter:alpha(opacity=90);
+}

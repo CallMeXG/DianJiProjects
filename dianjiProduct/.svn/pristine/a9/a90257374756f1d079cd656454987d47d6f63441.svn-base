@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="feedback">
+
+	<head>
+		<meta charset="utf-8">
+		<title>设备点检</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/iconfont.css">
+		<link rel="stylesheet" href="css/newcheckdevice.css" />
+
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<meta name="misapplication-tap-highlight" content="no" />
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="MobileOptimized" content="320" />
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<link rel="stylesheet" href="css/mui.minImg.css">
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<link rel="stylesheet" type="text/css" href="css/feedback-page.css" />
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			.mui-switch:before {
+				font-size: 13px;
+				position: absolute;
+				top: 3px;
+				right: 11px;
+				content: '故障';
+				text-transform: uppercase;
+				color: #999
+			}
+			
+			.mui-switch.mui-active:before {
+				right: auto;
+				left: 15px;
+				content: '正常';
+				color: #fff
+			}
+			
+			.del {
+				position: absolute;
+				top: 1px;
+				right: 1px;
+				display: block;
+				line-height: 1;
+				cursor: pointer;
+				color: #fff;
+			}
+			
+			.del:hover {
+				color: #ff3333;
+			}
+			
+			.table-view {
+				position: relative;
+				margin-top: 0;
+				margin-bottom: 0;
+				padding-left: 0;
+				list-style: none;
+				background-color: #f5f5f5;
+			}
+			
+			.table-view-cell {
+				position: relative;
+				overflow: hidden;
+				padding: 0px 15px;
+				-webkit-touch-callout: none;
+				margin-bottom: 1px;
+			}
+			
+			.table-view-cell:after {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				left: 0px;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #c8c7cc;
+			}
+			
+			.table-view-cell>a:not(.btn) {
+				position: relative;
+				display: block;
+				overflow: hidden;
+				margin: -0px -15px;
+				padding: inherit;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: inherit;
+				background-color: #75b9f4;
+				height: 40px;
+				line-height: 40px;
+			}
+			
+			.navigate-right:after {
+				font-family: Muiicons;
+				font-size: inherit;
+				line-height: 1;
+				position: absolute;
+				top: 50%;
+				display: inline-block;
+				-webkit-transform: translateY(-50%);
+				transform: translateY(-50%);
+				text-decoration: none;
+				color: #666;
+				-webkit-font-smoothing: antialiased;
+			}
+			
+			.table-view-cell.collapse .collapse-content {
+				position: relative;
+				display: none;
+				overflow: hidden;
+				margin: 0px -15px 0px;
+				padding: 0px 0px !important;
+				-webkit-transition: height .35s ease;
+				-o-transition: height .35s ease;
+				transition: height .35s ease;
+				background-color: transparent;
+			}
+			
+			.image-item {
+				position: relative;
+			}
+			
+			.image-item .info {
+				position: absolute;
+				top: 0px;
+				left: 4px;
+				color: #ff9900;
+				font-size: 12px;
+			}
+			
+			#ti {
+				background: #0084cf;
+				color: white;
+				width: 40%;
+				display: block;
+				margin: 40px auto;
+				border-radius: 6px;
+				border: 0;
+			}
+			
+			input:disabled,
+			input[disabled] {
+				color: gray;
+				-webkit-text-fill-color: gray;
+				-webkit-opacity: 1;
+				opacity: 1;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" id="checkPageHeader">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
+			<h1 class="mui-title ">设备点检</h1>
+			<a id="submit_btn" class="mui-pull-right" style="margin-top: 10px;">提交</a>
+		</header>
+		<div class="mui-content">
+			<div class="mui-card">
+				<div class="mui-card-header" style="color: green;">设备信息</div>
+				<div class="mui-card-content">
+					<form class="mui-input-group" style="color: gray;">
+						<div class="mui-input-row">
+							<label >设备名称:</label>
+							<input id="checkDeviceName" type="text" class="mui-input-clear" disabled="disabled">
+						</div>
+						<div class="mui-input-row">
+							<label>设备编号:</label>
+							<input id="checkDeviceNum" type="text" class="mui-input-clear" disabled="disabled">
+						</div>
+						<!--<div class="mui-input-row">
+							<label >设备型号:</label>
+							<input id="checkDeviceModel" type="text" class="mui-input-clear" value="Model" disabled="disabled">
+						</div>-->
+						<!--<div class="mui-input-row">
+							<label >设备类型:</label>
+							<input id="checkDeviceType" type="text" class="mui-input-clear" value="Model" disabled="disabled">
+						</div>-->
+					</form>
+				</div>
+			</div>
+			<div class="mui-card">
+				<div class="mui-card-header" style="color: green;">点检标准</div>
+				<div class="mui-card-content">
+					<form class="mui-input-group" style="color: gray;">
+						<div class="mui-input-row">
+							<label >检查项目:</label>
+							<input  id="checkName" type="text" class="mui-input-clear" value="电机外观">
+						</div>
+						<div class="mui-input-row">
+							<label>检查部位:</label>
+							<input id="checkBuWei" type="text" class="mui-input-clear" value="电机外部">
+						</div>
+						<div class="mui-input-row">
+							<label>检查方法:</label>
+							<input id="checkFangFa" type="text" class="mui-input-clear" value="目测">
+						</div>
+						<div class="mui-input-row">
+							<label>检查标准:</label>
+							<input id="checkBiaoZhun" type="text" class="mui-input-clear" value="无裂缝、无油污">
+						</div>
+						<div class="mui-input-row">
+							<label>检查工具:</label>
+							<input id="checkGongJu" type="text" class="mui-input-clear" value="无">
+						</div>
+						<div class="mui-input-row">
+							<label>检查周期:</label>
+							<input id="checkZhouQi" type="text" class="mui-input-clear" value="每天">
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="mui-card">
+				<div class="mui-card-header" style="color: green;">点检结果</div>
+				<div class="mui-card-content">
+					<div class="mui-card-content">
+						<form class="mui-input-group" style="color: gray;">
+							<div class="mui-input-row">
+								<label>是否正常:</label>
+								<div id="checkSwitch" class="mui-switch mui-active" style="float: left;">
+									<div class="mui-switch-handle"></div>
+								</div>
+							</div>
+							<!--<div class="mui-input-row">
+									<label>点检时间:</label>
+									<input type="text" class="mui-input-clear" value="Model">
+								</div>-->
+							<div class="mui-input-row">
+								<label>点检人员:</label>
+								<input id="checkPeople" type="text" class="mui-input-clear" >
+							</div>
+
+						</form>
+					</div>
+					<div class="mui-card-header" style="color: green;">上传照片</div>
+					<div class="mui-card-content">
+						<div style="margin-top: 10px;"></div>
+						<input type="hidden" id="ckjl.id" name="ckjl.id" value="429">
+						<div class="collapse-content">
+							<form>
+								<label class="row-label"></label>
+								<div id='F_CKJLBS' class="row image-list">
+									<div class="image-item " id="F_CKJLB" onclick="showActionSheet(this);"></div>
+								</div>
+							</form>
+						</div>
+						<!--<button id="ti">上传</button>-->
+					</div>
+					<div class="mui-card-header" style="color: green;">异常描述</div>
+					<div class="mui-card-content">
+						<textarea id="checkTextValue" placeholder="请在此输入异常描述" style="height: 100px;"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/mui.min.js"></script>
+		<script src="js/url_all.js"></script>
+		<script src="js/newcheckdevice.js"></script>
+		
+	</body>
+
+</html>

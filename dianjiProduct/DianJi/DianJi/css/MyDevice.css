@@ -1,0 +1,54 @@
+#head {
+  height: auto;
+}
+#head .mui-btn {
+  color: white;
+}
+#head .mui-input-clear {
+  background: white;
+}
+#head .mui-input-row {
+  width: 68%;
+  float: left;
+}
+#head .se {
+  float: right;
+  width: 30%;
+  margin-top: 6px;
+  padding: 0px 5px;
+  height: 30px;
+  -webkit-appearance: menulist;
+}
+
+#content {
+  padding-top: 85px;
+}
+#content .mui-media-body {
+  white-space: normal;
+}
+#content .mui-media-body .mui-ellipsis {
+  white-space: normal;
+  overflow: visible;
+}
+#content .mui-media-body .mui-ellipsis .items {
+  margin-right: 10px;
+}
+#content .mui-media-body .mui-progressbar {
+  width: 40%;
+  float: right;
+  right: 18px;
+  top: 5px;
+}
+
+#pagination-demo1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+/*# sourceMappingURL=MyDevice.css.map */

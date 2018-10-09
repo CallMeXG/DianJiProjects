@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>卡信息激活</title>
+		<script src="../js/jquery-1.11.3.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/rem.js"></script>
+		
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/carInfo_activate.css" rel="stylesheet" />
+		<script src="../js/activeCard.js"></script>
+	</head>
+	<body>
+		<div class="content_box">
+			<header id="header" class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">卡信息激活</h1>
+			</header>
+			<div class="mui-content">
+				<div class="top">
+					<img src="../img/bg01.png" alt="" />
+					<span>卡信息</span>
+				</div>
+				<div class="center">
+					<div class="Ctop con">
+						<div>
+							<img src="../img/img1.png" alt="" />
+							<span class="name">传感卡序列号：</span>
+							<span class="val" id="serial_no"></span>
+						</div>
+						<div>
+							<img src="../img/img2.png" alt="" />
+							<span class="name">传感卡序名称：</span>
+							<span class="val" id="sim_name"></span>
+						</div>
+						<div>
+							<img src="../img/img3.png" alt="" />
+							<span class="name">IMEI：</span>
+							<span class="val" id="imei"></span>
+						</div>
+						<div>
+							<img src="../img/img4.png" alt="" />
+							<span class="name">生产厂商：</span>
+							<span class="val" id="produce"></span>
+						</div>
+						<div>
+							<img src="../img/img5.png" alt="" />
+							<span class="name">生产批次：</span>
+							<span class="val" id="content"></span>
+						</div>
+						<div>
+							<img src="../img/img6.png" alt="" />
+							<span class="name">硬件版本：</span>
+							<span class="val" id="version"></span>
+						</div>
+						<div>
+							<img src="../img/img7.png" alt="" />
+							<span class="name" >当前状态：</span>
+							<span class="val" id="sim_name"></span>
+						</div>
+						<div>
+							<img src="../img/img8.png" alt="" />
+							<span class="name modify">上传时间：</span>
+							<input type="text" id="uploadTime"/>
+						</div>
+						<div>
+							<img src="../img/img9.png" alt="" />
+							<span class="name">卡固件版本：</span>
+							<span class="val" id="sim_verison_id"></span>
+						</div>
+						<div>
+							<img src="../img/img10.png" alt="" />
+							<span class="name modify">卡工作模式：</span>
+							<input type="text" id="sim_model"/>
+						</div>
+						<div class="last">
+							<img src="../img/img11.png" alt="" />
+							<span class="name modify">卡LED灯模式：</span>
+							<input type="text" id="led_model"/>
+						</div>
+					</div>
+					<div class="Ccenter con">
+						<div>
+							<img src="../img/img1.png" alt="" />
+							<span class="name">传感器卡序列号：</span>
+							<span class="val"></span>
+						</div>
+						<div>
+							<img src="../img/img13.png" alt="" />
+							<span class="name">传感器名称：</span>
+							<span class="val"></span>
+						</div>
+						<div>
+							<img src="../img/img14.png" alt="" />
+							<span class="name">硬件版本：</span>
+							<span class="val"></span>
+						</div>
+						<div>
+							<img src="../img/img15.png" alt="" />
+							<span class="name">固件版本：</span>
+							<span class="val"></span>
+						</div>
+						<div>
+							<img src="../img/img16.png" alt="" />
+							<span class="name">校准日期：</span>
+							<span class="val"></span>
+						</div>
+						<div>
+							<img src="../img/img17.png" alt="" />
+							<span class="name">传感器灵敏度：</span>
+							<span class="val"></span>
+						</div>
+						<div  class="installLocation"> 
+							<img src="../img/img18.png" alt="" />
+							<span class="name modify">安装位置：</span>
+							<input type="text"/>
+						</div>
+						<div class="topologyLocation">
+							<img src="../img/img19.png" alt="" />
+							<span class="name modify">拓扑位置：</span>
+							<input type="text" />
+						</div>
+						<div>
+							<img src="../img/img20.png" alt="" />
+							<span class="name">传感器状态：</span>
+							<span class="val"></span>
+						</div>
+					</div>
+					<div class="Cbottom con">
+						<div>
+							<img src="../img/img21.png" alt="" />
+							<span class="name">探头名称：</span>
+							<span class="val"></span>
+						</div>
+						<div>
+							<img src="../img/img22.png" alt="" />
+							<span class="name">灵敏度：</span>
+							<span class="val"></span>
+						</div>
+						<div>
+							<img src="../img/img23.png" alt="" />
+							<span class="name">量程：</span>
+							<span class="val"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="nest">
+				下一步
+			</div>
+		</div>
+	</body>
+</html>

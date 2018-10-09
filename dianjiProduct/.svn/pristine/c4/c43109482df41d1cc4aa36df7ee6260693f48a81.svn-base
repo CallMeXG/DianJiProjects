@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>人工诊断列表</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<script src="js/vue.js"></script>
+		<style>
+
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<a style="color: white;" class="mui-icon mui-icon-left-nav mui-action-back mui-pull-left"></a>
+			<h1 class="mui-title" style="color: white;">诊断历史</h1>
+			<button id="header_applyArt" style="margin-top: 5px;font-size: 16px;" class="mui-pull-right mui-btn-warning mui-btn-outlined">申请诊断</button>
+		</header>
+		<div class="mui-content">
+
+			<div class="mui-card" id="cardContentID">
+				<div class="mui-card-header">
+					<span id="artDeviceMes"></span>
+					<button class="mui-btn mui-btn-royal" v-on:click="openCheckAtrList()">查看报告</button>
+				</div>
+				<div class="mui-card-content">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell" v-for="mesItem in message">
+							<div v-if="mesItem.apply_status == '0'">
+								<p>
+									<span style="float: right;text-align: center;padding-top: 3px;color: #9ACD32;">正在诊断...</span>
+								</p>
+							</div>
+							<div v-if="mesItem.apply_status == '1'">
+								<p>
+									<div v-if="mesItem.ck_result == '1'">
+										<span style="float: right;background-color: #00CD00;width: 40px;color: white;text-align: center;padding-top: 3px;">正常</span>
+									</div>
+									<div v-if="mesItem.ck_result == '2'">
+										<span style="float: right;background-color: #EEEE00;width: 40px;color: gray;text-align: center;padding-top: 3px;">预警</span>
+									</div>
+									<div v-if="mesItem.ck_result == '3'">
+										<span style="float: right;background-color: orange;width: 40px;color: white;text-align: center;padding-top: 3px;">报警</span>
+									</div>
+									<div v-if="mesItem.ck_result == '4'">
+										<span style="float: right;background-color: red;width: 40px;color: white;text-align: center;padding-top: 3px;">严重</span>
+									</div>
+								</p>
+							</div>
+
+							<p>申请人员：{{mesItem.apply_user_phone}}</p>
+							<p style="margin-top: 10px;">申请时间：{{mesItem.apply_time.substring(0,19)}} 
+								<div v-if="typeof(mesItem.file_path) != 'undefined'">
+									<a class="iconfont icon-down" style="float: right;color: gray;font-size: 24px;margin-right: 10px;margin-top: -20px;" v-on:click="downArtificalFile(mesItem.file_path,mesItem.file_name)"></a>
+								</div>
+							</p>
+						</li>
+
+					</ul>
+
+				</div>
+			</div>
+			<div class="mui-card">
+				<div class="mui-card-content">
+					<div style="color: gray;text-align: center;margin-top: 50px;">本平台为您提供远程诊断服务</div>
+					<div style="text-align: center;margin-top: 20px;color: gray;font-size: 18px;">如需紧急申请诊断，请联系电话
+						<p style="margin-top:10px;">
+							<a style="font-size: 18px;" href="tel:010-64722397">010-64722397</a>
+						</p>
+						<p style="margin-top: 10px;font-size: 18px;">邮箱</p>
+						<p style="margin-top: 10px;font-size: 18px;">support@prefoco.com</p>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<script src="js/url_all.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script>
+			getDataList();
+			//获取数据列表
+			function getDataList() {
+				$.ajax({
+					type: "get",
+					url: new_commen_gain_manual_list_Interface,
+					async: true,
+					data: {
+						apply_devices_no: localStorage.DeveciId
+					},
+					dataType: 'json',
+					success: function(respData) {
+						if(respData.status == "SUCCESS") {
+							cardContent.message = respData.data;
+						}
+					},
+					error: function(error) {
+						console.log(error)
+					}
+				});
+			}
+
+			//插入设备名称和设备编号
+			$('#artDeviceMes').html(localStorage.DeveciName + '：' + localStorage.DeveciId);
+			//申请人工诊断
+			$('#header_applyArt').on('tap', function() {
+				var btnArray = ['取消', '申请'];
+				mui.confirm('您正在申请远程诊断，是否确认申请？', '申请远程诊断', btnArray, function(e) {
+					if(e.index == 1) {
+						applyCheck();
+					}
+				})
+
+				function applyCheck() {
+
+					$.ajax({
+						type: "get",
+						url: new_commen_apply_check_device_Interface,
+						async: true,
+						data: {
+							apply_user_id: localStorage.strLoginId,
+							apply_user_phone: localStorage.userName,
+							apply_devices_no: localStorage.DeveciId
+						},
+						dataType: 'json',
+						success: function(respData) {
+							if(respData.status == "SUCCESS") {
+								mui.toast("您已经成功提交远程诊断申请!");
+								setTimeout(function() {
+									getDataList();
+								}, 1000);
+							} else {
+								mui.alert('申请失败，请重试！');
+							}
+						},
+						error: function() {
+							mui.alert('网络失败，请重试！');
+						}
+					});
+				}
+
+			});
+
+			var cardContent = new Vue({
+				el: '#cardContentID',
+				data: {
+					message: []
+				},
+				methods: {
+
+					//查看报告
+					openCheckAtrList() {
+						mui.openWindow('artificialcheckhistory.html')
+					},
+					//下载报告
+					downArtificalFile(strFileUrl, strFileName) {
+						var strLoadURL = strFileUrl;
+						var encodeUrl = encodeURI(strLoadURL); //文件的具体地址，具体到文件名称
+						var strLocalDownUrl = '_downloads/' + localStorage.DeveciId + '/' + strFileName;
+						var dtask = plus.downloader.createDownload(encodeUrl, {
+							filename: strLocalDownUrl
+						}); //新建下载任务
+						var w = plus.nativeUI.showWaiting("开始下载...");
+						dtask.addEventListener("statechanged", function(task, status) {
+							switch(task.state) {
+								case 3: // 已接收到数据
+									if(w) {
+										w.setTitle("数据下载中,请稍后...");
+									}
+									break;
+								case 4: // 下载完成
+									if(status == 200) {
+										if(w) {
+											console.log("文件路径 ==== " + task.filename)
+											w.close();
+										}
+										plus.runtime.openFile(task.filename, {}, function(e) {
+											alert("无法打开此文件：" + e.emssage);
+										});
+									} else {
+										alert("下载失败：" + status);
+										plus.nativeUI.closeWaiting();
+									}
+									break;
+							}
+						});
+						dtask.start();
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

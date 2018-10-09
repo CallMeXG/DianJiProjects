@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>用户登录</title>
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/rem.js"></script>
+		<script src="js/jquery.cookie.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/login.css"/>
+		<script type="text/javascript">
+			history.go(1)
+		</script>
+	</head>
+	<body>
+		<div class="login_box mui-content">
+			<!--<img src="img/back.jpg" alt="" class="back"/>-->
+			<div class="logo">
+				<img src="img/home.png" id="logo"/>
+			</div>
+			<div id="login_form">
+				<ul class="mui-input-group">
+				    <li class="mui-input-row">
+				        <input type="text" class="mui-input-clear" placeholder="手机号" id="login_phone">
+				    </li>
+				    <img src="img/phone1.png" alt="" />
+				</ul>
+				<ul class="mui-input-group">
+				    <li class="mui-input-row">
+				        <input type="password" class="mui-input-clear" placeholder="密码" id="login_pwd">
+				    </li>
+				    <img src="img/lock1.png" alt="" />
+				</ul>
+				<span id="login_btn">登录</span>
+			</div>
+			
+			<span class="word forgetPwd" id="forgetPwd">忘记密码</span>
+			<span class="word newRegister" id="newUser">新用户注册</span>
+		</div>
+	</body>
+</html>
+<script src="js/url_all.js"></script>
+		<script src="js/login.js"></script>

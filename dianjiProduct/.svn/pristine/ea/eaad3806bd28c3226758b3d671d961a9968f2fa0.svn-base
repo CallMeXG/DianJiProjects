@@ -1,0 +1,48 @@
+#head {
+    height: auto;
+    .mui-btn {
+        color: white;
+    }
+    .mui-input-clear {
+        background: white;
+    }
+    .mui-input-row {
+        width: 68%;
+        float: left;
+    }
+    .se {
+        float: right;
+        width: 30%;
+        margin-top: 6px;
+        padding: 0px 5px;
+        height: 30px;
+        -webkit-appearance: menulist;
+    }
+}
+
+#content {
+    padding-top: 85px;
+    .mui-media-body {
+        white-space: normal;
+        .mui-ellipsis {
+            white-space: normal;
+            overflow: visible;
+            .items {
+                margin-right: 10px;
+            }
+        }
+        .mui-progressbar {
+            width: 40%;
+            float: right;
+            right: 18px;
+            top: 5px;
+            span {
+//              background: #6db83a;
+            }
+        }
+    }
+}
+#pagination-demo1{
+    display: flex;
+    justify-content: center;
+}
