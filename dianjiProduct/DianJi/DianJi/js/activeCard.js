@@ -422,7 +422,9 @@ $(function() {
 			sensorStr += '<div><img src="../img/img14.png" alt="" /><span class="name">硬件版本：</span><span class="val">' + subSensor.fw_version + '</span></div>';
 
 			sensorStr += '<div><img src="../img/img15.png" alt="" /><span class="name">固件版本：</span><span class="val">' + subSensor.version + '</span></div>';
-			sensorStr += '<div><img src="../img/img16.png" alt="" /><span class="name">校准日期：</span><span class="val">' + subSensor.calibration_time + '</span></div>';
+//			sensorStr += '<div><img src="../img/img16.png" alt="" /><span class="name">校准日期：</span><span class="val">' + subSensor.calibration_time + '</span></div>';
+			sensorStr += '<div><img src="../img/img16.png" alt="" /><span class="name">校准日期：</span><span class="val">' + '----' + '</span></div>';
+
 			if(subSensor.sensitives != undefined) {
 				sensorStr += '<div><img src="../img/img17.png" alt="" /><span class="name">温度传感器灵敏度：</span><span class="val">' + subSensor.sensitives + '</span></div>';
 			} else {

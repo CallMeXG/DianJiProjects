@@ -92,7 +92,6 @@ function loadDataWithDate(respData) {
 		if(respData.data["installList"] != undefined) {
 			//安装位置筛选
 			anzhuangArray = respData.data["installList"];
-			boxing_cedian = respData.data["installList"];
 		}
 
 		var proData = respData.data["probeDrawVO"];
@@ -134,57 +133,38 @@ function dealWithData_boxing(dealData) {
 	strZhou = $("#boxing_zhouxiang").val();
 	if(strZhou == "x") {
 		//时域图X
-		if(typeof(dealData.data_store_x)!="undefined" && typeof(dealData.data_store_x.list_x)!="undefined") {
+		if(dealData.data_store_x != undefined) {
 			var xData = dealData.data_store_x.list_x;
 			var yData = dealData.data_store_x.list_y;
-			
-			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
-				seriesData.push([xData[i], yData[i]]);
-			}
-			chartshiyu(seriesData);
+			chartshiyu(xData, yData);
 			$("#chart_shiyu").show();
 		} else {
 			$("#chart_shiyu").hide();
 		}
 		//频谱图X
-		if(dealData.fft_store_x != undefined && typeof(dealData.fft_store_x.list_x)!="undefined") {
+		if(dealData.fft_store_x != undefined) {
 			var xData = dealData.fft_store_x.list_x;
 			var yData = dealData.fft_store_x.list_y;
-			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
-				seriesData.push([xData[i], yData[i]]);
-			}
-			chartpinpu(seriesData);
+			chartpinpu(xData, yData);
 			$("#chart_pinpu").show();
 		} else {
 			$("#chart_pinpu").hide();
 		}
 
 		//		速度谱X
-		if(dealData.speed_store_x != undefined && typeof(dealData.speed_store_x.list_x)!="undefined") {
+		if(dealData.speed_store_x != undefined) {
 			var xData = dealData.speed_store_x.list_x;
 			var yData = dealData.speed_store_x.list_y;
-			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
-				seriesData.push([xData[i], yData[i]]);
-			}
-			chartSuduNew(seriesData);
-			
+			chartSudu(xData, yData);
 			$("#chart_sudu").show();
 		} else {
 			$("#chart_sudu").hide();
 		}
 		//包络谱X
-		if(dealData.envelope_store_x != undefined && typeof(dealData.envelope_store_x.list_x)!="undefined") {
+		if(dealData.envelope_store_x != undefined) {
 			var xData = dealData.envelope_store_x.list_x;
 			var yData = dealData.envelope_store_x.list_y;
-			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
-				seriesData.push([xData[i], yData[i]]);
-			}
-			console.log("===="+seriesData)
-			chartBaoluo(seriesData);
+			chartBaoluo(xData, yData);
 			$("#chart_baoluopu").show();
 		} else {
 			$("#chart_baoluopu").hide();
@@ -194,53 +174,37 @@ function dealWithData_boxing(dealData) {
 
 	if(strZhou == "y") {
 		//时域图Y
-		if(dealData.data_store_y != undefined && typeof(dealData.data_store_y.list_x)!="undefined") {
+		if(dealData.data_store_y != undefined) {
 			var xData = dealData.data_store_y.list_x;
 			var yData = dealData.data_store_y.list_y;
-			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
-				seriesData.push([xData[i], yData[i]]);
-			}
-			chartshiyu(seriesData);
+			chartshiyu(xData, yData);
 			$("#chart_shiyu").show();
 		} else {
 			$("#chart_shiyu").hide();
 		}
 		//频谱图Y
-		if(dealData.fft_store_y != undefined && typeof(dealData.fft_store_y.list_x)!="undefined") {
+		if(dealData.fft_store_y != undefined) {
 			var xData = dealData.fft_store_y.list_x;
 			var yData = dealData.fft_store_y.list_y;
-			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
-				seriesData.push([xData[i], yData[i]]);
-			}
-			chartpinpu(seriesData);
+			chartpinpu(xData, yData);
 			$("#chart_pinpu").show();
 		} else {
 			$("#chart_pinpu").hide();
 		}
 		//速度谱Y
-		if(dealData.speed_store_y != undefined && typeof(dealData.speed_store_y.list_x)!="undefined") {
+		if(dealData.speed_store_y != undefined) {
 			var xData = dealData.speed_store_y.list_x;
 			var yData = dealData.speed_store_y.list_y;
-			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
-				seriesData.push([xData[i], yData[i]]);
-			}
-			chartSuduNew(seriesData);
+			chartSudu(xData, yData);
 			$("#chart_sudu").show();
 		} else {
 			$("#chart_sudu").hide();
 		}
 		//包络谱Y
-		if(dealData.envelope_store_y != undefined && typeof(dealData.envelope_store_y.list_x)!="undefined") {
+		if(dealData.envelope_store_y != undefined) {
 			var xData = dealData.envelope_store_y.list_x;
 			var yData = dealData.envelope_store_y.list_y;
-			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
-				seriesData.push([xData[i], yData[i]]);
-			}
-			chartBaoluo(seriesData);
+			chartBaoluo(xData, yData);
 			$("#chart_baoluopu").show();
 		} else {
 			$("#chart_baoluopu").hide();
@@ -249,53 +213,37 @@ function dealWithData_boxing(dealData) {
 	}
 	if(strZhou == "z") {
 		//时域图Z
-		if(dealData.data_store_z != undefined && typeof(dealData.data_store_z.list_x)!="undefined") {
+		if(dealData.data_store_z != undefined) {
 			var xData = dealData.data_store_z.list_x;
 			var yData = dealData.data_store_z.list_y;
-			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
-				seriesData.push([xData[i], yData[i]]);
-			}
-			chartshiyu(seriesData);
+			chartshiyu(xData, yData);
 			$("#chart_shiyu").show();
 		} else {
 			$("#chart_shiyu").hide();
 		}
 		//频谱图Z
-		if(dealData.fft_store_z != undefined && typeof(dealData.fft_store_z.list_x)!="undefined") {
+		if(dealData.fft_store_z != undefined) {
 			var xData = dealData.fft_store_z.list_x;
 			var yData = dealData.fft_store_z.list_y;
-			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
-				seriesData.push([xData[i], yData[i]]);
-			}
-			chartpinpu(seriesData);
+			chartpinpu(xData, yData);
 			$("#chart_pinpu").show();
 		} else {
 			$("#chart_pinpu").hide();
 		}
 		//速度谱Z
-		if(dealData.speed_store_z != undefined && typeof(dealData.speed_store_z.list_x)!="undefined") {
+		if(dealData.speed_store_z != undefined) {
 			var xData = dealData.speed_store_z.list_x;
 			var yData = dealData.speed_store_z.list_y;
-			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
-				seriesData.push([xData[i], yData[i]]);
-			}
-			chartSuduNew(seriesData);
+			chartSudu(xData, yData);
 			$("#chart_sudu").show();
 		} else {
 			$("#chart_sudu").hide();
 		}
 		//包络谱Z
-		if(dealData.envelope_store_z != undefined && typeof(dealData.envelope_store_z.list_x)!="undefined") {
+		if(dealData.envelope_store_z != undefined) {
 			var xData = dealData.envelope_store_z.list_x;
 			var yData = dealData.envelope_store_z.list_y;
-			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
-				seriesData.push([xData[i], yData[i]]);
-			}
-			chartBaoluo(seriesData);
+			chartBaoluo(xData, yData);
 			$("#chart_baoluopu").show();
 		} else {
 			$("#chart_baoluopu").hide();
@@ -305,7 +253,7 @@ function dealWithData_boxing(dealData) {
 }
 
 //时域图
-function chartshiyu(seriseData) {
+function chartshiyu(xData, yData) {
 	var option_shiyutu = {
 		title: {
 			text: '振动波形',
@@ -327,13 +275,11 @@ function chartshiyu(seriseData) {
 				onZero: false
 			},
 			name: 'mm/s',
-			type: 'value',
+			type: 'category',
+			data: xData,
 			name: 'T(s)'
 		},
 		yAxis: {
-			axisLine: {
-				onZero: false
-			},
 			type: 'value',
 			name: 'm/s²'
 		},
@@ -348,7 +294,7 @@ function chartshiyu(seriseData) {
 			end: 100
 		},
 		series: [{
-			data: seriseData,
+			data: yData,
 			type: 'line',
 			symbolSize: 6,
 			symbol: 'circle',
@@ -364,7 +310,7 @@ function chartshiyu(seriseData) {
 
 }
 //频谱图
-function chartpinpu(seriseData) {
+function chartpinpu(xData, yData) {
 
 	var option_pinputu = {
 		title: {
@@ -386,7 +332,8 @@ function chartpinpu(seriseData) {
 			axisLine: {
 				onZero: false
 			},
-			type: 'value',
+			type: 'category',
+			data: xData,
 			name: 'Hz'
 		},
 		yAxis: {
@@ -404,7 +351,7 @@ function chartpinpu(seriseData) {
 			end: 100
 		},
 		series: [{
-			data: seriseData,
+			data: yData,
 			type: 'line',
 			symbolSize: 6,
 			symbol: 'circle',
@@ -418,8 +365,64 @@ function chartpinpu(seriseData) {
 	var pinpuEchart = echarts.init(document.getElementById("chart_pinpu"))
 	pinpuEchart.setOption(option_pinputu);
 }
+//速度
+function chartSudu(xData, yData) {
+	var option_sudu = {
+		title: {
+			text: '速度谱',
+			left: 'center'
+		},
+		tooltip: {
+			trigger: 'axis',
+			axisPointer: {
+				type: 'cross',
+				label: {
+					backgroundColor: '#6a7985'
+				}
+			},
+			triggerOn: 'click',
+			formatter: '幅度:{c0} mm/s'
+		},
+		xAxis: {
+			axisLine: {
+				onZero: false
+			},
+			type: 'category',
+			data: xData,
+			name: 'Hz'
+		},
+		yAxis: {
+			type: 'value',
+			name: 'mm/s'
+		},
+
+		grid: {
+			left: '18%',
+			right: '15%'
+		},
+		dataZoom: {
+			type: 'inside',
+			show: true,
+			start: 0,
+			end: 100
+		},
+		series: [{
+			data: yData,
+			type: 'line',
+			symbolSize: 6,
+			symbol: 'circle',
+			showSymbol: false,
+			lineStyle: {
+				width: 0.5,
+				color: "blue"
+			}
+		}]
+	};
+	var suduEcharts = echarts.init(document.getElementById("chart_sudu"))
+	suduEcharts.setOption(option_sudu);
+}
 //包络谱
-function chartBaoluo(seriseData) {
+function chartBaoluo(xData, yData) {
 	var option_baoluo = {
 		title: {
 			text: '包络谱',
@@ -441,7 +444,8 @@ function chartBaoluo(seriseData) {
 				onZero: false
 			},
 			name: 'Hz',
-			type: 'value'
+			type: 'category',
+			data: xData,
 		},
 		yAxis: {
 			type: 'value',
@@ -459,7 +463,7 @@ function chartBaoluo(seriseData) {
 			end: 100
 		},
 		series: [{
-			data: seriseData,
+			data: yData,
 			type: 'line',
 			symbolSize: 6,
 			symbol: 'circle',
@@ -472,69 +476,6 @@ function chartBaoluo(seriseData) {
 	};
 	var baoluoEchart = echarts.init(document.getElementById("chart_baoluopu"))
 	baoluoEchart.setOption(option_baoluo);
-}
-
-//速度
-function chartSuduNew(seriseData) {
-
-	var option_sudu = {
-		title: {
-			text: '速度谱',
-			left: 'center'
-		},
-		tooltip: {
-			trigger: 'axis',
-			axisPointer: {
-				type: 'cross',
-				label: {
-					backgroundColor: '#6a7985'
-				}
-			},
-			triggerOn: 'click',
-			formatter: '幅度:{c0} mm/s'
-		},
-		xAxis: {
-			type: 'value',
-			axisLine: {
-				onZero: false
-			},
-			//			type: 'category',
-			//			data: xData,
-			name: 'Hz',
-			series: [{
-				//折线图
-				type: 'line'
-			}]
-		},
-		yAxis: {
-			type: 'value',
-			name: 'mm/s'
-		},
-
-		grid: {
-			left: '18%',
-			right: '15%'
-		},
-		dataZoom: {
-			type: 'inside',
-			show: true,
-			start: 0,
-			end: 100
-		},
-		series: [{
-			data: seriseData,
-			type: 'line',
-			symbolSize: 6,
-			symbol: 'circle',
-			showSymbol: false,
-			lineStyle: {
-				width: 0.5,
-				color: "blue"
-			}
-		}]
-	};
-	var suduEcharts = echarts.init(document.getElementById("chart_sudu"))
-	suduEcharts.setOption(option_sudu);
 }
 
 //}

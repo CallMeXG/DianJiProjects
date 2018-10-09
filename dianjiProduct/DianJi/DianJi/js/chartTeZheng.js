@@ -3,38 +3,30 @@ var tezheng_caijiTime = new Array();
 //获取测点位置和采集时间
 function getDataFromInitWithCaiyang(cedianArray, caijiTimeArray, strCedain, strTime) {
 	Tezheng_cedian = cedianArray;
-	console.log("cedan=="+Tezheng_cedian)
 	tezheng_caijiTime = caijiTimeArray;
 	$('#tezheng_place').val(strCedain);
 	$('#tezheng_timeCount').val(strTime.text);
 }
 //下面表中数据，根据newDataChart.js获取
 function getDataFromInit(respData) {
-	dealWithData_tezheng(respData.probeDrawVO,respData.installList);
+	dealWithData_tezheng(respData.probeDrawVO);
 }
 
-function dealWithData_tezheng(respData,installList) {
+function dealWithData_tezheng(respData) {
 	//X------------------------------------------------------------------
 	//x -1
-	//	console.log("teapmerature ==== "+respData.temperature);
-
-	if(typeof(respData.install_xy) != "undefined") {
-		$('#tezheng_place').val(respData.install_xy);
-
-	}
-	if(typeof(installList) != "undefined") {
-		Tezheng_cedian = installList;
-	}
-	
-
+	console.log("teapmerature ==== "+respData.temperature);
 	if(typeof(respData.temperature) != "undefined") {
 		$('#tezhengzhi_temperNum').html(respData.temperature + ' ℃');
 		$('#tezhengzhi_tem_result').html("正常");
-	} else {
+	}
+	else
+	{
 		$('#tezhengzhi_temperNum').html("--");
 		$('#tezhengzhi_tem_result').html("--");
-
+		
 	}
+	console.log("---" + respData.result_kurt_x_warn)
 	if(respData.result_kurt_x != undefined) {
 		$("#X_zhi1").show();
 		$("#X_zhi1 .spanCenter").html(respData.result_kurt_x);

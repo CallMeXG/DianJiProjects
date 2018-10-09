@@ -1,14 +1,15 @@
 //立鹏服务器地址
 //var url = 'http://192.168.1.126:1111/';
-//本地测试服务器地址
-var url = 'http://192.168.3.228:8080/server_appapi/';
+//路通服务器地址
+//var url = 'http://192.168.0.239:8080/server_appapi/';
+//var url = 'http://192.168.2.207:1111/server_appapi/';
+//var url = 'http://127.0.0.1:1111/server_appapi/';
 //测试服务器地址
 // var url = 'http://39.106.180.14:1111/';
 //生产服务器地址
-//var url = 'http://47.94.166.103:1111/';
+var url = 'http://47.94.166.103:1111/';
 
 
-//var fileUrlHeader = "http://47.94.166.103:3000/group1/";
              
 //登录接口
 var login_Interface= url + 'user/commen_login';
@@ -22,13 +23,13 @@ var register_Interface= url + 'APP/commen_register';//过期
 var resetpwd_Interface= url + 'APP/appForget';//过期
 
 //搜索接口
-var commen_search_device_Interface= url + 'device/commen_search_device_new';
+var commen_search_device_Interface= url + 'device/commen_search_device';
 
 
 //设备详情
 var commen_gain_device_detail_Interface= url + 'device/special_gain_device_detail';
 //appAdvise接口
-var appAdvise_Interface= url + 'app/commen_user_Advise';
+var appAdvise_Interface= url + 'app/commen_user_Advise';//未使用
 
 //图片上传
 var appPhotoUpload_Interface= url + 'Photo/Commen_uploadPhotos';
@@ -102,17 +103,3 @@ var new_commen_gain_verification_code_Interface = url + 'user/commen_gain_verifi
 //修改密码new
 var new_commen_modify_password_Interface = url + 'legal_user/commen_modify_password';
 
-//点检 2018-8-27
-var new_commen_spot_check_device_Interface = url + 'check/commen_spot_check_device';
-//最新一条点检信息
-var new_commen_gain_check_device_Interface = url + 'check/commen_gain_check_device';
-//申请人工诊断
-var new_commen_apply_check_device_Interface = url + 'check/commen_apply_check_device';
-//手机用户手机信息
-var new_commen_user_collect_Interface = url + 'user/commen_user_collect';
-//远程诊断历史列表
-var new_commen_gain_manual_list_Interface = url + 'check/commen_gain_manual_list';
-//点检历史列表
-var new_commen_gain_check_device_list_Interface = url + 'check/commen_gain_check_device_list';
-//点检详情
-var new_commen_gain_check_device_detail_Interface = url + 'check/commen_gain_check_device_detail';

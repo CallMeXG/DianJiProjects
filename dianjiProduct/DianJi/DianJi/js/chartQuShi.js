@@ -1,7 +1,6 @@
 var placeArray = new Array();
 //初始化设置选项数据
 function getInitData(respData) {
-
 	if(typeof(respData.timeIntervalVO) != "undefined") {
 		//起始时间
 		var startTime = respData.timeIntervalVO.min_time;
@@ -104,18 +103,10 @@ function setDataToEchart(DataResp) {
 		var yDataz = eachData.store_rms_z.list_y;
 		var yDataTeamer = eachData.store_rms_t.list_y;
 
-		var float_Yellow; //预警线
-		var float_Orange; //报警线
-		if(typeof(eachData.threshold_No) != "undefined") {
-			float_Yellow = JSON.parse(eachData.threshold_No).B;
-			float_Orange = JSON.parse(eachData.threshold_No).C;
-		}
-
-		chart_qushifengfengzhi(strInstally, strPostID, legendData, eachData.store_rms_z.list_x, yDatax, yDatay, yDataz, yDataTeamer);
+		chart_qushifengfengzhi(strInstally, strPostID, legendData, xDataArr, yDatax, yDatay, yDataz, yDataTeamer);
 	}
 
 }
-
 function sort(elements) {
 	for(var i = 0; i < elements.length - 1; i++) {
 		for(var j = 0; j < elements.length - i - 1; j++) {
@@ -127,7 +118,6 @@ function sort(elements) {
 		}
 	}
 }
-
 function chart_qushifengfengzhi(strTile, strPostID, legendData, xData, yDatax, yDatay, yDataz, yDataTeamer) {
 
 	///*
@@ -136,7 +126,6 @@ function chart_qushifengfengzhi(strTile, strPostID, legendData, xData, yDatax, y
 			text: strTile + '总振值,温度趋势图',
 			left: 'center'
 		},
-
 		legend: {
 			data: legendData,
 			left: 'center',
@@ -147,12 +136,8 @@ function chart_qushifengfengzhi(strTile, strPostID, legendData, xData, yDatax, y
 			axisPointer: {
 				type: 'cross',
 				label: {
-					backgroundColor: '#6a7985',
+					backgroundColor: '#6a7985'
 				}
-			},
-			position: function(point, params, dom, rect, size) {
-				// 固定在顶部
-				return [point[0], 180];
 			},
 			triggerOn: 'click',
 			formatter: '{a0}:{c0} m/s²<br />{a1}: {c1} m/s²<br />{a2}: {c2} m/s²<br />{a3}: {c3} ℃'
@@ -171,16 +156,10 @@ function chart_qushifengfengzhi(strTile, strPostID, legendData, xData, yDatax, y
 		},
 		yAxis: [{
 			type: 'value',
-			name: 'RMS:m/s²',
-			splitLine: {
-				show: false
-			}
+			name: 'RMS:m/s²'
 		}, {
 			type: 'value',
-			name: '温度:℃',
-			splitLine: {
-				show: false
-			}
+			name: '温度:℃'
 		}],
 
 		grid: {
@@ -278,195 +257,6 @@ function chart_qushifengfengzhi(strTile, strPostID, legendData, xData, yDatax, y
 	//*/
 }
 
-/*
-function chart_qushifengfengzhi(yellow_line, orange_line, strTile, strPostID, legendData, xData, yDatax, yDatay, yDataz, yDataTeamer) {
-
-	
-	var option_fengfengzhi = {
-		title: {
-			text: strTile + '总振值,温度趋势图',
-			left: 'center'
-		},
-
-		legend: {
-			data: legendData,
-			left: 'center',
-			top: 30
-		},
-		tooltip: {
-			//			show:false,
-			trigger: 'axis',
-			axisPointer: {
-				type: 'cross',
-				label: {
-					backgroundColor: '#6a7985'
-				}
-			},
-			triggerOn: 'click',
-			formatter: '{a0}:{c0} m/s²<br />{a1}: {c1} m/s²<br />{a2}: {c2} m/s²<br />{a3}: {c3} ℃'
-		},
-		xAxis: {
-			axisLine: {
-				onZero: false
-			},
-			type: 'category',
-			data: xData,
-			axisLabel: {
-				rotate: 45
-			},
-			inverse: false,
-			//			axisPointer: {
-			//				label: {
-			//					formatter: function(params) {
-			//						console.log("index--------==" + JSON.stringify(params))
-			//						return '降水量  ' + aaaaaaaaaaaa(arrLongDate);
-			//					}
-			//				}
-			//			},
-		},
-		yAxis: [{
-			type: 'value',
-			name: 'RMS:m/s²',
-			splitLine: {
-				show: false
-			}
-		}, {
-			type: 'value',
-			name: '温度:℃',
-			splitLine: {
-				show: false
-			}
-		}],
-
-		grid: {
-			left: '17%',
-			right: '15%',
-			bottom: '37%'
-		},
-		dataZoom: {
-			type: 'inside',
-			show: true,
-			start: 0,
-			end: 100
-		},
-		series: [
-
-			{
-				name: "X",
-				data: yDatax,
-				type: 'line',
-				symbolSize: 4,
-				symbol: 'circle',
-				lineStyle: {
-					width: 0.5,
-					color: 'green'
-				},
-				itemStyle: {
-					normal: {
-						borderWidth: 0.5,
-						borderColor: 'green',
-						color: 'green'
-					}
-				}
-//				,
-//				markLine: {
-//					silent: true,
-//					symbol: 'none',
-//					label: {
-//						position: 'start'
-//					},
-//					data: [{
-//							lineStyle: {
-//								color: '#FFC125',
-//								type: 'solid'
-//							},
-//							label: {
-//								formatter: '预警线:' + '{c}',
-//								position: 'start'
-//							},
-//							x:55,
-//							yAxis: yellow_line,
-//						},
-//						{
-//							lineStyle: {
-//								color: 'red',
-//								type: 'solid',
-//								
-//							},
-//							label: {
-//								formatter: '报警线:' + '{c}',
-//								position: 'start',
-//								fontSize:12,
-//							},
-//							x:55,
-//							yAxis: orange_line
-//						}
-//					]
-//				}
-			},
-			{
-				name: "Y",
-				data: yDatay,
-				type: 'line',
-				symbolSize: 4,
-				symbol: 'roundRect',
-				lineStyle: {
-					width: 0.5,
-					color: '#5cc0d6'
-				},
-				itemStyle: {
-					normal: {
-						borderWidth: 0.5,
-						borderColor: '#5cc0d6',
-						color: '#5cc0d6'
-					}
-				}
-			},
-			{
-				name: "Z",
-				data: yDataz,
-				type: 'line',
-				symbolSize: 4,
-				symbol: 'triangle',
-				lineStyle: {
-					width: 0.5,
-					color: '#0000FF'
-				},
-				itemStyle: {
-					normal: {
-						borderWidth: 0.5,
-						borderColor: 'blue',
-						color: 'blue'
-					}
-				}
-			},
-			{
-				name: "温度",
-				data: yDataTeamer,
-				type: 'line',
-				symbolSize: 4,
-				symbol: 'diamond',
-				yAxisIndex: 1,
-				lineStyle: {
-					width: 0.5,
-					color: '#eb1958'
-				},
-				itemStyle: {
-					normal: {
-						borderWidth: 0.5,
-						borderColor: '#eb1958',
-						color: '#eb1958'
-					}
-				}
-			}
-		]
-	};
-	var fengfengzhiChart = echarts.init(document.getElementById(strPostID))
-	fengfengzhiChart.setOption(option_fengfengzhi);
-	
-}
-//*/
-
 function chart_qushiwendu(xData, yData) {
 
 	var option_wendu = {
@@ -506,26 +296,7 @@ function chart_qushiwendu(xData, yData) {
 		}],
 		series: [{
 			data: yData,
-			type: 'line',
-			markLine: {
-				data: [{
-						type: 'vaerage',
-						name: '平均值'
-					},
-					{
-						type: 'vaerage',
-						name: '平均值'
-					},
-					{
-						type: 'vaerage',
-						name: '平均值'
-					},
-					{
-						type: 'vaerage',
-						name: '平均值'
-					}
-				]
-			}
+			type: 'line'
 		}]
 	};
 	var wenduChart = echarts.init(document.getElementById("chart_qushi_wendu"))

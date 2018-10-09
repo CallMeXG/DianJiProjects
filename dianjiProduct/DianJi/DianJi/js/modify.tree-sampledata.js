@@ -56,17 +56,17 @@ $("#devices_company").click(function() {
 //选择所属厂区
 $("#devices_region").click(function() {
 	var userPicker = new mui.PopPicker();
-
-	if(reginArray.length == 0) {
+	
+	if (reginArray.length == 0) {
 		var strCompay = $("#devices_company").val();
-		for(var i = 0; i < companyArray.length; i++) {
+		for (var i=0;i<companyArray.length;i++) {
 			var companyText = companyArray[i].text;
-			if(strCompay == companyText) {
+			if (strCompay == companyText) {
 				reginArray = companyArray[i].children;
 			}
 		}
 	}
-
+	
 	userPicker.setData(reginArray);
 	var strid = "devices_region";
 	var userResult = document.getElementById(strid);
@@ -196,38 +196,9 @@ function sensorData(emeId, i) {
 					sensorStr += '<div class="divForMoreLine"><span class="name">维修日志：</span><span class="moreLine">' + "" + '</span></div>';
 
 				}
-				if(typeof(data.mcc) != "undefined") {
-					sensorStr += '<div class="modifyCom"><span class="name">小区信息：</span><span class="val"> ' + data.mcc + data.mnc + '-' + data.lac + '-' + data.cell_no + '-' + data.bsic + '</span></div>';
-				} else {
-					sensorStr += '<div class="modifyCom"><span class="name">小区信息：</span><span class="val"> ' + "----" + '</span></div>';
-				}
-				if(typeof(data.signal_intensity) == "undefined") {
-					sensorStr += '<div class="modifyCom" style="height:40px;"><span class="name" style="margin-top:13px;">信号强度：&nbsp &nbsp</span><img src="img/xinhaoNO.png" height="35px" style="margin-top:1px;" /></div>';
-				} else {
-					if(data.signal_intensity == 0) {
-						sensorStr += '<div class="modifyCom" style="height:40px;"><span class="name" style="margin-top:13px;">信号强度：&nbsp &nbsp</span><img src="img/xinhaonull.png" height="35px" style="margin-top:1px;" /></div>';
-					}
-					if((data.signal_intensity > 1 || data.signal_intensity == 1) && (data.signal_intensity < 8 || data.signal_intensity == 8)) {
-						sensorStr += '<div class="modifyCom" style="height:40px;"><span class="name" style="margin-top:13px;">信号强度：&nbsp &nbsp</span><img src="img/xinhao1.png" height="35px" style="margin-top:1px;" /></div>';
-					}
-					if((data.signal_intensity > 9 || data.signal_intensity == 9) && (data.signal_intensity < 12 || data.signal_intensity == 12)) {
-						sensorStr += '<div class="modifyCom" style="height:40px;"><span class="name" style="margin-top:13px;">信号强度：&nbsp &nbsp</span><img src="img/xinhao2.png" height="35px" style="margin-top:1px;" /></div>';
-					}
-					if((data.signal_intensity > 13 || data.signal_intensity == 13) && (data.signal_intensity < 17 || data.signal_intensity == 17)) {
-						sensorStr += '<div class="modifyCom" style="height:40px;"><span class="name" style="margin-top:13px;">信号强度：&nbsp &nbsp</span><img src="img/xinhao3.png" height="35px" style="margin-top:1px;" /></div>';
-					}
-					if((data.signal_intensity > 18 || data.signal_intensity == 18) && (data.signal_intensity < 20 || data.signal_intensity == 20)) {
-						sensorStr += '<div class="modifyCom" style="height:40px;"><span class="name" style="margin-top:13px;">信号强度：&nbsp &nbsp</span><img src="img/xinhao4.png" height="35px" style="margin-top:1px;" /></div>';
-					}
-					if((data.signal_intensity > 21 || data.signal_intensity == 21) && (data.signal_intensity < 25 || data.signal_intensity == 25)) {
-						sensorStr += '<div class="modifyCom" style="height:40px;"><span class="name" style="margin-top:13px;">信号强度：&nbsp &nbsp</span><img src="img/xinhao5png" height="35px" style="margin-top:1px;" /></div>';
-					}
-					if((data.signal_intensity > 26 || data.signal_intensity == 26) && (data.signal_intensity < 31 || data.signal_intensity == 31)) {
-						sensorStr += '<div class="modifyCom" style="height:40px;"><span class="name" style="margin-top:13px;">信号强度：&nbsp &nbsp</span><img src="img/xinhao6.png" height="35px" style="margin-top:1px;" /></div>';
-					}
 
-				}
-
+				sensorStr += '<div class="modifyCom"><span class="name">小区信息：</span><span class="val"> ' + "----" + '</span></div>';
+				sensorStr += '<div class="modifyCom"><span class="name">信号强度：</span><span class="val"> ' + "----" + '</span></div>';
 				sensorStr += '<div class="modifyCom"><span class="name">电池电量：</span><span class="val"> ' + "----" + '</span></div>';
 				sensorStr += '<div class="modifyCom"><span class="name">数据流量：</span><span class="val"> ' + "----" + '</span></div>';
 				sensorStr += '<div class="modifyCom"><span class="name">工作状态：</span><span class="val"> ' + simState(data.state, data.work_status) + '</span></div>';
@@ -1017,7 +988,7 @@ function getDefData() {
 			//		var sim_list = data.sim_list;
 			var list = msg.data.list;
 
-			//			$('#company_name').val(isUndefined(data, 'company'));
+//			$('#company_name').val(isUndefined(data, 'company'));
 			$('#devices_name').val(isUndefined(data, 'devices_name'));
 			$('#devices_no').html(isUndefined(data, 'devices_no'));
 			//企业名称
@@ -1047,7 +1018,7 @@ function getDefData() {
 			$('#clxcls').val(isUndefined(data, 'gearbox_gear_pair'));
 			$('#clxcdb').val(isUndefined(data, 'gearbox_transmission_ratio'));
 			//-------
-			//			$('#work_shop').val(isUndefined(data, 'work_shop'));
+//			$('#work_shop').val(isUndefined(data, 'work_shop'));
 			$('#pro_line').val(isUndefined(data, 'pro_line'));
 			$('#use_scenes').val(isUndefined(data, 'use_scenes'));
 			$('#create_time').val(isUndefined(data, 'update_time'));
@@ -1169,7 +1140,7 @@ function getCaijishijian(caijiTimeIndex) {
 $('#FinshBth').click(function() {
 
 	var postParam = finshBtnClickReturnData();
-	if(postParam != false) {
+	if(postParam != false) {		
 		postData(postParam);
 	}
 
@@ -1200,11 +1171,11 @@ function finshBtnClickReturnData() {
 		///*
 		var deviceId = $('#devices_no').html();
 		//企业名称
-		//		var company_name = $('#company_name').val();
-		//		if(company_name == '' || company_name == undefined) {
-		//			mui.toast('企业名称不能为空');
-		//			return false;
-		//		}
+//		var company_name = $('#company_name').val();
+//		if(company_name == '' || company_name == undefined) {
+//			mui.toast('企业名称不能为空');
+//			return false;
+//		}
 		//设备名称
 		var devices_name = $('#devices_name').val();
 		if(devices_name == '' || devices_name == undefined) {
@@ -1254,11 +1225,11 @@ function finshBtnClickReturnData() {
 		var bearing_model = $('#bearing_model').val();
 
 		//分厂
-		//		var work_shop = $('#work_shop').val();
-		//		if(work_shop == '' || work_shop == undefined) {
-		//			mui.toast('分厂不能为空');
-		//			return false;
-		//		}
+//		var work_shop = $('#work_shop').val();
+//		if(work_shop == '' || work_shop == undefined) {
+//			mui.toast('分厂不能为空');
+//			return false;
+//		}
 		//生产线
 		var pro_line = $('#pro_line').val();
 		if(pro_line == '' || pro_line == undefined) {
@@ -1283,12 +1254,12 @@ function finshBtnClickReturnData() {
 		var paramData = new Object();
 		paramData.strLoginId = localStorage.getItem("strLoginId");
 		paramData.strLoginToken = localStorage.getItem("strLoginToken");
-		//		paramData.company = company_name;
+//		paramData.company = company_name;
 		paramData.devices_no = deviceId;
-		if(companyID != undefined) {
+		if (companyID != undefined) {
 			paramData.company_id = companyID;
 		}
-		if(regionID != undefined) {
+		if (regionID != undefined) {
 			paramData.region_id = regionID;
 		}
 		paramData.devices_model = devices_model;
@@ -1310,7 +1281,7 @@ function finshBtnClickReturnData() {
 		paramData.gearbox_transmission_ratio = bolclxcdb;
 
 		//------
-		//		paramData.work_shop = work_shop;
+//		paramData.work_shop = work_shop;
 		paramData.pro_line = pro_line;
 		paramData.content = content;
 		paramData.maintenance_time = cardUpdateTime;
@@ -1374,12 +1345,12 @@ function finshBtnClickReturnData() {
 						var mins = arrZQ[1] * 60;
 						var hours = arrZQ[0] * 3600;
 						var toCount = parseInt(hours) + parseInt(mins) + parseInt(seconds);
-//						if(toCount < 3600) {
-//							mui.toast("数据采集周期不得小于1小时");
-//							return false;
-//						} else {
+						if(toCount < 3600) {
+							mui.toast("数据采集周期不得小于1小时");
+							return false;
+						} else {
 							sim_dic.sampling_duration = obj_caiji_zhouqi;
-//						}
+						}
 					} else {
 						sim_dic.sampling_duration = obj_caiji_zhouqi;
 					}
@@ -1390,12 +1361,12 @@ function finshBtnClickReturnData() {
 						var mins = arrZQ[1] * 60;
 						var hours = arrZQ[0] * 3600;
 						var toCount = parseInt(hours) + parseInt(mins) + parseInt(seconds);
-//						if(toCount < 3600) {
-//							mui.toast("数据上传周期不得小于1小时");
-//							return false;
-//						} else {
+						if(toCount < 3600) {
+							mui.toast("数据上传周期不得小于1小时");
+							return false;
+						} else {
 							sim_dic.update_duration = obj_caiji_uploadzhouqi;
-//						}
+						}
 					} else {
 						sim_dic.update_duration = obj_caiji_uploadzhouqi;
 					}

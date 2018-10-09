@@ -33,7 +33,7 @@
 		//B页面onload从服务器获取列表数据；
 		window.onload = function() {
 			mui.plusReady(function() {
-
+				
 				mui.init({
 					beforeback: function() {
 						//获得列表界面的webview
@@ -45,7 +45,7 @@
 				var simID;
 				var scan = null;
 				startRecognize()
-
+				
 				$('#search').on('search', function() {
 
 					$.ajax({
@@ -100,6 +100,8 @@
 					}
 				}
 
+				
+
 				//条码识别成功事件
 				function onmarked(type, result) {
 
@@ -142,7 +144,7 @@
 						}
 					}
 
-					if(result[0].search('www.aiimoto.com') != -1) {
+					if(result[0] == "http://www.aiimoto.com/") {
 						//alert("本地校验通过，去进行扫码")
 						$.ajax({
 							type: "get",
@@ -180,7 +182,8 @@
 							}
 						}); //ajax结束
 					} else {
-						alert("不符合本地校验规则，请扫描正确的二维码");
+						alert("不符合本地校验规则");
+						mui.toast("请扫描正确的二维码")
 						scan.start();
 
 					}
@@ -214,12 +217,12 @@
 					});
 				}
 
-				//				$("#search").focus(function() {
-				//					scan.close();
-				//				})
-				//				$("#search").blur(function() {
-				//					history.go(0);
-				//				})
+//				$("#search").focus(function() {
+//					scan.close();
+//				})
+//				$("#search").blur(function() {
+//					history.go(0);
+//				})
 
 			}); //plusready结束
 

@@ -46,7 +46,7 @@ $.ajax({
 						ceDianArray.push(objs);
 					}
 				}
-				
+
 				if(respData.data.probeDrawVO != 'undefined') {
 					if(respData.data.timeIntervalVO != 'undefined') {
 						localStorage.setItem("StartTime", respData.data.timeIntervalVO.min_time);
