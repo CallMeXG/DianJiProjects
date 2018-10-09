@@ -121,6 +121,7 @@
 			</matcher>
 		</filter>
 		<filter>
+<<<<<<< HEAD
 			<id>1539070744689</id>
 			<name></name>
 			<type>26</type>
@@ -131,6 +132,9 @@
 		</filter>
 		<filter>
 			<id>1539070808355</id>
+=======
+			<id>1539070634258</id>
+>>>>>>> master
 			<name></name>
 			<type>26</type>
 			<matcher>
