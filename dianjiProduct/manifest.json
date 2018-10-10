@@ -235,7 +235,8 @@
 			"DianJi/DianJi/login.html": {
 				"resources": [],
 				"refer": [
-					"DianJi/DianJi/newIndexPage.html"
+					"DianJi/DianJi/newIndexPage.html",
+					"DianJi/DianJi/newIndex.html"
 				],
 				"priority": 0
 			}
