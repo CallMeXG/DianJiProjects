@@ -131,7 +131,20 @@
 
 
 /*特征值*****************************************8*/
-
+#temperature_tzz
+{
+	width: 100%;
+	background-color: gray;
+	/*background-color: white;*/
+	height: 40px;
+	padding-top: 10px;
+	font-size: 16px;
+	width: 100%;
+}
+#temperature_tzz span {
+	width: 30%;
+	background-color: #007AFF;
+}
 #headerSelect_tezhengzhi {
 	width: 110%;
 	position: fixed;
@@ -184,11 +197,12 @@
 	color: black;
 	float: left;
 	width: 40%;
+	margin-left: 20px;
 }
 
 .spanCenter {
 	float: left;
-	margin-right: 20px;
+	margin-right: 50px;
 	color: black;
 }
 
@@ -197,6 +211,7 @@
 	margin-right: 10px;
 	width: 50px;
 	color: green;
+	display: none;
 }
 
 

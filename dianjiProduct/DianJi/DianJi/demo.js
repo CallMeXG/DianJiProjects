@@ -5,64 +5,15 @@ $(function() {
 
 	var subCardid;
 	var strSerialNO;
-	
-	var arrayDataModel = new Array();
-	//初始化数据采集模式和信号采样模式
-	function initShuJuCaiYangModel(strTypeName) {
-		$("#datacaimodel").val(strTypeName);
-		updateThreeTime(strTypeName);
-	}
-
-	function initXinHaoCaiYangModel(index) {
-
-		//采样模式
-		var caiModels = "#selcaiyangmodel" + index;
-		$(caiModels).val(caiyangModelArray[0].mode_name);
-		//采样点数
-		var caiCountStr = "#selcaiyangcount" + index;
-		$(caiCountStr).val(caiyangModelArray[0].sampling_number);
-		//采样频率
-		var strCaiyangpinlv = "#selcaiyangpinlv" + index;
-		$(strCaiyangpinlv).val(caiyangModelArray[0].sampling_frequency);
-		//采样量程
-		var strCaiyangliangcheng = "#selcaiyangliangcheng" + index;
-		$(strCaiyangliangcheng).val(caiyangModelArray[0].range_data + "g");
-		//采样精度
-		var strCaiyangjingdu = "#selcaiyangjingdu" + index;
-		$(strCaiyangjingdu).val(caiyangModelArray[0].sampling_accuracy);
-		//工作轴数
-		var xyzzhou = caiyangModelArray[0].working_axis;
-		var xaxis = xyzzhou.substring(0, 1);
-		var yaxis = xyzzhou.substring(1, 2);
-		var zaxis = xyzzhou.substring(2, 3);
-
-		if(xaxis == "1") {
-			var strXinputid = "xzhou" + index;
-			var obj_xinput = document.getElementById(strXinputid);
-			obj_xinput.checked = true;
-		}
-		if(yaxis == "1") {
-			var strYinputid = "yzhou" + index;
-			var obj_Yinput = document.getElementById(strYinputid);
-			obj_Yinput.checked = true;
-		}
-		if(zaxis == "1") {
-			var strZinputid = "zzhou" + index;
-			var obj_Zinput = document.getElementById(strZinputid);
-			obj_Zinput.checked = true;
-		}
-		//校准系数
-		var strCaiyangxishu = "#selxishu" + index;
-		$(strCaiyangxishu).val(caiyangModelArray[0].calibration_coefficient);
-	}
 
 	var sensorListArray = new Array();
 
 	mui.plusReady(function() {
 		$('#nestStap').click(function() {
+			console.log("-=-=")
 			//		var subcad = $("#subcarids").val();
 
-//			console.log(sensorListArray.length);
+			//			console.log(sensorListArray.length);
 			//		window.location.href = "carInfo_activate2.html";
 
 			//		if(subcad == "undefined" || subcad == undefined) {
@@ -73,6 +24,8 @@ $(function() {
 			} else {
 				var bolNextPage = getChangeData();
 				if(bolNextPage != false) {
+					//					localStorage.setItem("detailBack", "back");
+					//					mui.openWindow('DeviceDetail.html')
 					window.location.href = "carInfo_activate2.html";
 					localStorage.setItem("postParam", JSON.stringify(bolNextPage));
 				}
@@ -184,56 +137,47 @@ $(function() {
 
 				sensorDic.sensor_no = objsensorid;
 				sensorDic.serial_no = strSerialNO;
-				
-				
 
 				if(objanzhuang.length > 0) {
 					sensorDic.install_xy = objanzhuang;
-				}
-				else{
+				} else {
 					mui.toast("安装位置必填");
 					return false;
 				}
 
 				if(objmodel.length > 0) {
 					sensorDic.sampling_model = objmodel;
-				}
-				else{
+				} else {
 					mui.toast("信号采样模式必填");
 					return false;
 				}
 				if(objcount.length > 0) {
 					sensorDic.sampling_number = objcount;
-				}
-				else{
+				} else {
 					mui.toast("信号采样点数必填");
 					return false;
 				}
 				if(objpinlv.length > 0) {
 					sensorDic.sampling_frequency = objpinlv;
-				}
-				else{
+				} else {
 					mui.toast("信号采样频率必填");
 					return false;
 				}
 				if(objliangcheng.length > 0) {
 					sensorDic.range_data = objliangcheng;
-				}
-				else{
+				} else {
 					mui.toast("信号采样量程必填");
 					return false;
 				}
 				if(objjingdu.length > 0) {
 					sensorDic.sampling_accuracy = objjingdu;
-				}
-				else{
+				} else {
 					mui.toast("信号采样精度必填");
 					return false;
 				}
 				if(objxishu.length > 0) {
 					sensorDic.calibration_coefficient = objxishu;
-				}
-				else{
+				} else {
 					mui.toast("传感器频率校准系数必填");
 					return false;
 				}
@@ -250,14 +194,14 @@ $(function() {
 					simWorkModelPO: paramDic,
 					sensorMsgPO: sensorDic
 				});
-//				paramArray.push({
-//					
-//				});
+				//				paramArray.push({
+				//					
+				//				});
 
 			}
 
 		}
-		console.log("==========="+JSON.stringify(paramArray))
+		console.log("===========" + JSON.stringify(paramArray))
 		return paramArray;
 	}
 
@@ -303,8 +247,6 @@ $(function() {
 	//dom插入标签
 	function buildSim(sim, sensor, probe) {
 
-		//				console.log(JSON.stringify(sim) + sensor)
-
 		if(sim == null || sim == undefined) {
 			sim = {}
 		}
@@ -314,7 +256,6 @@ $(function() {
 		if(probe == null || probe == undefined) {
 			probe = {}
 		}
-		//		console.log(JSON.stringify(sim))
 		//卡信息
 		$('#ctrlName').html(sim.sim_name + " " + sim.serial_no);
 		$('#titleName').html(sim.sim_name); //no
@@ -405,8 +346,8 @@ $(function() {
 			$('#datacailoadzhouqi').html(sim.update_duration); //no
 		}
 
-		
 		for(var i = 0; i < sensor.length; i++) {
+			//			console.log(sensor[i].sensor_no);
 			subCardid = sensor[i].sensor_no;
 			var subSensor = sensor[i];
 
@@ -422,7 +363,9 @@ $(function() {
 			sensorStr += '<div><img src="../img/img14.png" alt="" /><span class="name">硬件版本：</span><span class="val">' + subSensor.fw_version + '</span></div>';
 
 			sensorStr += '<div><img src="../img/img15.png" alt="" /><span class="name">固件版本：</span><span class="val">' + subSensor.version + '</span></div>';
-			sensorStr += '<div><img src="../img/img16.png" alt="" /><span class="name">校准日期：</span><span class="val">' + subSensor.calibration_time + '</span></div>';
+			//			sensorStr += '<div><img src="../img/img16.png" alt="" /><span class="name">校准日期：</span><span class="val">' + subSensor.calibration_time + '</span></div>';
+			sensorStr += '<div><img src="../img/img16.png" alt="" /><span class="name">校准日期：</span><span class="val">' + "----" + '</span></div>';
+
 			if(subSensor.sensitives != undefined) {
 				sensorStr += '<div><img src="../img/img17.png" alt="" /><span class="name">温度传感器灵敏度：</span><span class="val">' + subSensor.sensitives + '</span></div>';
 			} else {
@@ -468,38 +411,33 @@ $(function() {
 			} else {
 				sensorStr += '<div class="installLocation"><img src="../img/img18.png" alt="" />\<span class="name modify">信号采样精度：</span><input id="selcaiyangjingdu' + i + '" onclick="caiyangjingduClick(' + i + ')" style="border: thin solid #5798f9;" type="button" /></div>';
 			}
-			//			if(subSensor.sampling_model) {
-			//				sensorStr += '<div class="installLocation"><img src="../img/img18.png" alt="" />\<span class="name modify">传感器工作轴数：</span><input id="selcaiyangzhou' + i + '" style="border: thin solid #5798f9;" type="button" /></div>';
-			//			} else {
-			//				sensorStr += '<div class="installLocation"><img src="../img/img18.png" alt="" />\<span class="name modify">传感器工作轴数：</span><input id="selcaiyangzhou' + i + '" style="border: thin solid #5798f9;" type="button" /></div>';
-			//			}
+
 			sensorStr += '<div class="installLocation"><img src="../img/img18.png" alt="" />\<span class="name modify">传感器工作轴数（至少选择一个轴工作）：</span></div>';
 			sensorStr += "<br/>";
 			sensorStr += setCheckButton(i, subSensor.working_axis);
 			if(subSensor.calibration_coefficient) {
-				sensorStr += '<div class="installLocation"><img src="../img/img18.png" alt="" />\<span class="name modify">传感器频率校准系数：</span><input id="selxishu' + i + '" style="border: thin solid #5798f9;" type="text" value="' + subSensor.calibration_coefficient + ' /></div>';
+				sensorStr += '<div class="installLocation"><img src="../img/img18.png" alt="" />\<span class="name modify">传感器频率校准系数：</span><input id="selxishu' + i + '" style="border: thin solid #5798f9;height:20px;" type="text" value="' + subSensor.calibration_coefficient + ' /></div>';
 			} else {
-				sensorStr += '<div class="installLocation"><img src="../img/img18.png" alt="" />\<span class="name modify">传感器频率校准系数：</span><input id="selxishu' + i + '" style="border: thin solid #5798f9;height:16px" type="text" /></div>';
+				sensorStr += '<div class="installLocation"><img src="../img/img18.png" alt="" />\<span class="name modify">传感器频率校准系数：</span><input id="selxishu' + i + '" style="border: thin solid #5798f9;height:20px;" type="text" /></div>';
 			}
-			sensorStr += '<br/>';
+			sensorStr += '<br/><br/><br/><br/>';
 			sensorStr += '<div class="Cbottom con">';
 			sensorStr += '</div>';
 
 			$('.center').append(sensorStr);
 
 		}
-		
-		
-
+		getModelDatasource();
+		//从服务器获取采样模式等信息,总体的
+		getCaiModelData();
 		for(var i = 0; i < sensor.length; i++) {
 			var strWorking = sensor[i].working_axis;
 
 			checkwork_axis(i, strWorking);
+
 			initXinHaoCaiYangModel(i);
 		}
-		
-		initShuJuCaiYangModel(arrayDataModel[0].mode_name);
-		
+
 	}
 
 	//卡工作状态
@@ -537,9 +475,7 @@ $(function() {
 	}
 
 	//修改数据采集模式，并根据模式自动刷新下面三个时间
-	
-	var dataModelType = "";
-	getModelDatasource();
+	var arrayDataModel = new Array();
 	//先获取总的模式，
 	function getModelDatasource() {
 		$.ajax({
@@ -549,6 +485,7 @@ $(function() {
 			dataType: 'json',
 			success: function(msg) {
 				arrayDataModel = msg.data;
+				initShuJuCaiYangModel(arrayDataModel[0].mode_name);
 			}
 		});
 	}
@@ -668,44 +605,276 @@ $(function() {
 
 	evalAss();
 
-})
+	//信号采样模式
+	function caiyangmodelClick(index) {
 
-//信号采样模式
-function caiyangmodelClick(index) {
+		var userPicker = new mui.PopPicker();
+		var setdataArray = new Array();
+		for(var i = 0; i < caiyangModelArray.length; i++) {
+			setdataArray.push({
+				text: caiyangModelArray[i].mode_name,
+				sampling_number: caiyangModelArray[i].sampling_number,
+				sampling_frequency: caiyangModelArray[i].sampling_frequency,
+				range_data: caiyangModelArray[i].range_data,
+				sampling_accuracy: caiyangModelArray[i].sampling_accuracy,
+				calibration_coefficient: caiyangModelArray[i].calibration_coefficient,
+				working_axis: caiyangModelArray[i].working_axis
+			});
+		}
+		userPicker.setData(setdataArray);
+		var strid = "selcaiyangmodel" + index;
+		var userResult = document.getElementById(strid);
+		userPicker.show(function(items) {
+			//采样模式
+			userResult.value = items[0].text;
+			//采样点数
+			var caiCountStr = "#selcaiyangcount" + index;
+			$(caiCountStr).val(items[0].sampling_number);
+			//采样频率
+			var strCaiyangpinlv = "#selcaiyangpinlv" + index;
+			$(strCaiyangpinlv).val(items[0].sampling_frequency);
+			//采样量程
+			var strCaiyangliangcheng = "#selcaiyangliangcheng" + index;
+			$(strCaiyangliangcheng).val(items[0].range_data + "g");
+			//采样精度
+			var strCaiyangjingdu = "#selcaiyangjingdu" + index;
+			$(strCaiyangjingdu).val(items[0].sampling_accuracy);
+			//工作轴数
+			var xyzzhou = items[0].working_axis;
+			var xaxis = xyzzhou.substring(0, 1);
+			var yaxis = xyzzhou.substring(1, 2);
+			var zaxis = xyzzhou.substring(2, 3);
 
-	var userPicker = new mui.PopPicker();
-	var setdataArray = new Array();
-	for(var i = 0; i < caiyangModelArray.length; i++) {
-		setdataArray.push({
-			text: caiyangModelArray[i].mode_name,
-			sampling_number: caiyangModelArray[i].sampling_number,
-			sampling_frequency: caiyangModelArray[i].sampling_frequency,
-			range_data: caiyangModelArray[i].range_data,
-			sampling_accuracy: caiyangModelArray[i].sampling_accuracy,
-			calibration_coefficient: caiyangModelArray[i].calibration_coefficient,
-			working_axis: caiyangModelArray[i].working_axis
+			if(xaxis == "1") {
+				var strXinputid = "xzhou" + index;
+				var obj_xinput = document.getElementById(strXinputid);
+				obj_xinput.checked = true;
+			}
+			if(yaxis == "1") {
+				var strYinputid = "yzhou" + index;
+				var obj_Yinput = document.getElementById(strYinputid);
+				obj_Yinput.checked = true;
+			}
+			if(zaxis == "1") {
+				var strZinputid = "zzhou" + index;
+				var obj_Zinput = document.getElementById(strZinputid);
+				obj_Zinput.checked = true;
+			}
+			//校准系数
+			var strCaiyangxishu = "#selxishu" + index;
+			$(strCaiyangxishu).val(items[0].calibration_coefficient);
+			//console.log(items[0].sampling_number +"==" + items[0].sampling_frequency+"==" + items[0].range_data +"==" + items[0].sampling_accuracy)
 		});
 	}
-	userPicker.setData(setdataArray);
-	var strid = "selcaiyangmodel" + index;
-	var userResult = document.getElementById(strid);
-	userPicker.show(function(items) {
+
+	//采样点数
+	function caiyangcountClick(index) {
+		var userPicker = new mui.PopPicker();
+		var setdataArray = new Array();
+		var sum = 256;
+		setdataArray.push({
+			text: sum
+		});
+		for(var i = 0; i < 7; i++) {
+			sum = sum * 2;
+			var textDic = {
+				text: sum
+			};
+			setdataArray.push(textDic);
+		}
+		userPicker.setData(setdataArray);
+		var strid = "selcaiyangcount" + index;
+		var userResult = document.getElementById(strid);
+		userPicker.show(function(items) {
+			userResult.value = items[0].text;
+		});
+	}
+
+	//采样频率
+	function caiyangpinlvClick(index) {
+		var userPicker = new mui.PopPicker();
+		var setdataArray = new Array();
+		userPicker.setData([{
+			text: "200"
+		}, {
+			text: "400"
+		}, {
+			text: "800"
+		}, {
+			text: "1600"
+		}, {
+			text: "3200"
+		}]);
+		var strid = "selcaiyangpinlv" + index;
+		var userResult = document.getElementById(strid);
+		userPicker.show(function(items) {
+			userResult.value = items[0].text;
+		});
+	}
+
+	//采样量程
+	function caiyangliangchengClick(index) {
+		var userPicker = new mui.PopPicker();
+		userPicker.setData([{
+			text: "±2g"
+		}, {
+			text: "±4g"
+		}, {
+			text: "±8g"
+		}, {
+			text: "±16g"
+		}]);
+		var strid = "selcaiyangliangcheng" + index;
+		var userResult = document.getElementById(strid);
+		userPicker.show(function(items) {
+			userResult.value = items[0].text;
+		});
+	}
+
+	//采样精度
+	function caiyangjingduClick(index) {
+		var userPicker = new mui.PopPicker();
+		var setdataArray = new Array();
+		for(var i = 10; i < 49; i++) {
+			var setdataDic = {
+				text: i
+			};
+			setdataArray.push(setdataDic);
+		}
+		userPicker.setData(setdataArray);
+		var strid = "selcaiyangjingdu" + index;
+		var userResult = document.getElementById(strid);
+		userPicker.show(function(items) {
+			userResult.value = items[0].text;
+		});
+	}
+
+	//传感器工作轴数
+	function setCheckButton(i, str_working) {
+
+		return '<label class="checkLabel"><input id="xzhou' + i + '" class="checkXYZBox" type="checkbox" value="" />X轴 </label><label class="checkLabel"><input id="yzhou' + i + '" class="checkXYZBox" type="checkbox" value="" />Y轴 </label><label class="checkLabel"><input id="zzhou' + i + '" class="checkXYZBox" type="checkbox" value="" />Z轴 </label>';
+
+	}
+	//传感器工作轴数
+	function checkwork_axis(i, str_working) {
+
+		if(str_working != undefined) {
+			var xaxis = str_working.substring(0, 1);
+			var yaxis = str_working.substring(1, 2);
+			var zaxis = str_working.substring(2, 3);
+
+			if(xaxis == "1") {
+				var strXinputid = "xzhou" + i;
+				var obj_xinput = document.getElementById(strXinputid);
+				obj_xinput.checked = true;
+			}
+			if(yaxis == "1") {
+				var strYinputid = "yzhou" + i;
+				var obj_Yinput = document.getElementById(strYinputid);
+				obj_Yinput.checked = true;
+			}
+			if(zaxis == "1") {
+				var strZinputid = "zzhou" + i;
+				var obj_Zinput = document.getElementById(strZinputid);
+				obj_Zinput.checked = true;
+			}
+		}
+
+	}
+
+	function checkCheckBox(i) {
+
+		var strXinputid = "xzhou" + i;
+		var obj_xinput = document.getElementById(strXinputid);
+		var strYinputid = "yzhou" + i;
+		var obj_Yinput = document.getElementById(strYinputid);
+		var strZinputid = "zzhou" + i;
+		var obj_Zinput = document.getElementById(strZinputid);
+
+		if(obj_xinput.checked == false && obj_Yinput.checked == false && obj_Zinput.checked == false) {
+			return false;
+		} else {
+			var xcheck = "0";
+			var ycheck = "0";
+			var zcheck = "0";
+			if(obj_xinput.checked == true) {
+				xcheck = "1";
+			}
+			if(obj_Yinput.checked == true) {
+				ycheck = "1";
+			}
+			if(obj_Zinput.checked == true) {
+				zcheck = "1";
+			}
+			var totalCheck = xcheck + ycheck + zcheck;
+			return totalCheck;
+		}
+
+	}
+	//信号采样模式。sensor，传感器
+	function getCaiModelData() {
+		$.ajax({
+			type: "get",
+			url: commen_gain_sampling_model_list_Interface,
+			data: "",
+			async: false,
+			dataType: "json",
+			success: function(respMsg) {
+				if(respMsg.status == "SUCCESS") {
+
+					caiyangModelArray = respMsg.data;
+
+				} else {
+					mui.toast(respMsg.message);
+				}
+			}
+		})
+	}
+
+	function getCaijishijian() {
+		var checkedArray = new Array(); //放已经选择的checkbox的value
+		checkedArray.length = 0;
+		var indexPathTitle = '[name=itemCheck]:checkbox';
+		$(indexPathTitle).each(function() {
+			var checkBol = $(this).is(':checked');
+			var cheNum = 0;
+			if(checkBol == true) {
+				cheNum = 1;
+			}
+			checkedArray.push(cheNum);
+		});
+		if(checkedArray.length == 0) {
+			alert("采集时间至少选择一个");
+			return;
+		}
+		return checkedArray.toString();
+	}
+
+	//初始化数据采集模式和信号采样模式
+	function initShuJuCaiYangModel(strTypeName) {
+		$("#datacaimodel").val(strTypeName);
+		updateThreeTime(strTypeName);
+	}
+
+	function initXinHaoCaiYangModel(index) {
+
 		//采样模式
-		userResult.value = items[0].text;
+		var caiModels = "#selcaiyangmodel" + index;
+		$(caiModels).val(caiyangModelArray[0].mode_name);
 		//采样点数
 		var caiCountStr = "#selcaiyangcount" + index;
-		$(caiCountStr).val(items[0].sampling_number);
+		$(caiCountStr).val(caiyangModelArray[0].sampling_number);
 		//采样频率
 		var strCaiyangpinlv = "#selcaiyangpinlv" + index;
-		$(strCaiyangpinlv).val(items[0].sampling_frequency);
+		$(strCaiyangpinlv).val(caiyangModelArray[0].sampling_frequency);
 		//采样量程
 		var strCaiyangliangcheng = "#selcaiyangliangcheng" + index;
-		$(strCaiyangliangcheng).val(items[0].range_data + "g");
+		$(strCaiyangliangcheng).val(caiyangModelArray[0].range_data + "g");
 		//采样精度
 		var strCaiyangjingdu = "#selcaiyangjingdu" + index;
-		$(strCaiyangjingdu).val(items[0].sampling_accuracy);
+		$(strCaiyangjingdu).val(caiyangModelArray[0].sampling_accuracy);
 		//工作轴数
-		var xyzzhou = items[0].working_axis;
+		var xyzzhou = caiyangModelArray[0].working_axis;
 		var xaxis = xyzzhou.substring(0, 1);
 		var yaxis = xyzzhou.substring(1, 2);
 		var zaxis = xyzzhou.substring(2, 3);
@@ -727,198 +896,7 @@ function caiyangmodelClick(index) {
 		}
 		//校准系数
 		var strCaiyangxishu = "#selxishu" + index;
-		$(strCaiyangxishu).val(items[0].calibration_coefficient);
-		//console.log(items[0].sampling_number +"==" + items[0].sampling_frequency+"==" + items[0].range_data +"==" + items[0].sampling_accuracy)
-	});
-}
-
-//采样点数
-function caiyangcountClick(index) {
-	var userPicker = new mui.PopPicker();
-	var setdataArray = new Array();
-	var sum = 256;
-	setdataArray.push({
-		text: sum
-	});
-	for(var i = 0; i < 7; i++) {
-		sum = sum * 2;
-		var textDic = {
-			text: sum
-		};
-		setdataArray.push(textDic);
-	}
-	userPicker.setData(setdataArray);
-	var strid = "selcaiyangcount" + index;
-	var userResult = document.getElementById(strid);
-	userPicker.show(function(items) {
-		userResult.value = items[0].text;
-	});
-}
-
-//采样频率
-function caiyangpinlvClick(index) {
-	var userPicker = new mui.PopPicker();
-	var setdataArray = new Array();
-	userPicker.setData([{
-		text: "200"
-	}, {
-		text: "400"
-	}, {
-		text: "800"
-	}, {
-		text: "1600"
-	}, {
-		text: "3200"
-	}]);
-	var strid = "selcaiyangpinlv" + index;
-	var userResult = document.getElementById(strid);
-	userPicker.show(function(items) {
-		userResult.value = items[0].text;
-	});
-}
-
-//采样量程
-function caiyangliangchengClick(index) {
-	var userPicker = new mui.PopPicker();
-	userPicker.setData([{
-		text: "±2g"
-	}, {
-		text: "±4g"
-	}, {
-		text: "±8g"
-	}, {
-		text: "±16g"
-	}]);
-	var strid = "selcaiyangliangcheng" + index;
-	var userResult = document.getElementById(strid);
-	userPicker.show(function(items) {
-		userResult.value = items[0].text;
-	});
-}
-
-//采样精度
-function caiyangjingduClick(index) {
-	var userPicker = new mui.PopPicker();
-	var setdataArray = new Array();
-	for(var i = 10; i < 49; i++) {
-		var setdataDic = {
-			text: i
-		};
-		setdataArray.push(setdataDic);
-	}
-	userPicker.setData(setdataArray);
-	var strid = "selcaiyangjingdu" + index;
-	var userResult = document.getElementById(strid);
-	userPicker.show(function(items) {
-		userResult.value = items[0].text;
-	});
-}
-
-//传感器工作轴数
-function setCheckButton(i, str_working) {
-
-	return '<label class="checkLabel"><input id="xzhou' + i + '" class="checkXYZBox" type="checkbox" value="" />X轴 </label><label class="checkLabel"><input id="yzhou' + i + '" class="checkXYZBox" type="checkbox" value="" />Y轴 </label><label class="checkLabel"><input id="zzhou' + i + '" class="checkXYZBox" type="checkbox" value="" />Z轴 </label>';
-
-}
-//传感器工作轴数
-function checkwork_axis(i, str_working) {
-
-	if(str_working != undefined) {
-		var xaxis = str_working.substring(0, 1);
-		var yaxis = str_working.substring(1, 2);
-		var zaxis = str_working.substring(2, 3);
-
-		if(xaxis == "1") {
-			var strXinputid = "xzhou" + i;
-			var obj_xinput = document.getElementById(strXinputid);
-			obj_xinput.checked = true;
-		}
-		if(yaxis == "1") {
-			var strYinputid = "yzhou" + i;
-			var obj_Yinput = document.getElementById(strYinputid);
-			obj_Yinput.checked = true;
-		}
-		if(zaxis == "1") {
-			var strZinputid = "zzhou" + i;
-			var obj_Zinput = document.getElementById(strZinputid);
-			obj_Zinput.checked = true;
-		}
+		$(strCaiyangxishu).val(caiyangModelArray[0].calibration_coefficient);
 	}
 
-}
-
-function checkCheckBox(i) {
-
-	var strXinputid = "xzhou" + i;
-	var obj_xinput = document.getElementById(strXinputid);
-	var strYinputid = "yzhou" + i;
-	var obj_Yinput = document.getElementById(strYinputid);
-	var strZinputid = "zzhou" + i;
-	var obj_Zinput = document.getElementById(strZinputid);
-
-	if(obj_xinput.checked == false && obj_Yinput.checked == false && obj_Zinput.checked == false) {
-		return false;
-	} else {
-		var xcheck = "0";
-		var ycheck = "0";
-		var zcheck = "0";
-		if(obj_xinput.checked == true) {
-			xcheck = "1";
-		}
-		if(obj_Yinput.checked == true) {
-			ycheck = "1";
-		}
-		if(obj_Zinput.checked == true) {
-			zcheck = "1";
-		}
-		var totalCheck = xcheck + ycheck + zcheck;
-		return totalCheck;
-	}
-
-}
-
-//从服务器获取采样模式等信息,总体的
-getCaiModelData();
-
-function getCaiModelData() {
-	$.ajax({
-		type: "get",
-		url: commen_gain_sampling_model_list_Interface,
-		data: "",
-		async: false,
-		dataType: "json",
-		success: function(respMsg) {
-			if(respMsg.status == "SUCCESS") {
-
-				caiyangModelArray = respMsg.data;
-
-			} else {
-				mui.toast(respMsg.message);
-			}
-		}
-	})
-}
-
-function getCaijishijian() {
-	var checkedArray = new Array(); //放已经选择的checkbox的value
-	checkedArray.length = 0;
-	var indexPathTitle = '[name=itemCheck]:checkbox';
-	$(indexPathTitle).each(function() {
-		var checkBol = $(this).is(':checked');
-		var cheNum = 0;
-		if(checkBol == true) {
-			cheNum = 1;
-		}
-		checkedArray.push(cheNum);
-	});
-	if(checkedArray.length == 0) {
-		alert("采集时间至少选择一个");
-		return;
-	}
-	return checkedArray.toString();
-	
-	
-	
-	
-	
-}
+})

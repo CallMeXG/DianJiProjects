@@ -1,5 +1,3 @@
-
-
 var companyArray = new Array();
 var reginArray = new Array();
 var companyID = null;
@@ -69,10 +67,27 @@ $("#id_changName").click(function() {
 		regionID = items[0].value;
 	});
 })
+//电机基座刚度
+$("#add_gangdu").click(function() {
+	var userPicker = new mui.PopPicker();
+	userPicker.setData([{
+		text: "刚性"
+	}, {
+		text: "弹性"
+	}]);
+	var strid = "add_gangdu";
+	var userResult = document.getElementById(strid);
+	userPicker.show(function(items) {
+		userResult.value = items[0].text;
+	});
+})
 
-//$("#addDevice").on('tap',function(){
-//	window.location.replace('newIndexPage.html');
+//$("#addDevice").on('tap', function() {
+//	var wobj = plus.webview.getWebviewById("newIndexID");
+//	wobj.reload(true);
+//	mui.back();
 //})
+
 ///*
 $('#addDevice').click(function() {
 
@@ -82,7 +97,7 @@ $('#addDevice').click(function() {
 	var devices_name = $('#devices_name').val();
 	var devices_no = $('#devices_no').val();
 	var devices_model = $('#devices_model').val();
-//	var company = $('#company').val();
+	//	var company = $('#company').val();
 	var devices_out_time = $('#devices_out_time').val();
 	var devices_power = $('#devices_power').val();
 	var install_way = $('#install_way').val();
@@ -96,7 +111,7 @@ $('#addDevice').click(function() {
 	var pro_line = $('#pro_line').val();
 	var use_scenes = $('#use_scenes').val();
 	var create_time = $('#create_time').val();
-	
+
 	//新增
 	var zhuansu = $('#add_zhuansu').val();
 	var duishu = $('#add_duishu').val();
@@ -128,7 +143,7 @@ $('#addDevice').click(function() {
 		mui.toast('设备型号不能为空');
 		return false;
 	}
-	
+
 	if(pro_line == '' || pro_line == undefined) {
 		mui.toast('生产产线不能为空');
 		return false;
@@ -137,7 +152,6 @@ $('#addDevice').click(function() {
 		mui.toast('应用场景不能为空');
 		return false;
 	}
-	
 
 	var data = {
 		strLoginId: localStorage.getItem("strLoginId"),
@@ -147,7 +161,7 @@ $('#addDevice').click(function() {
 		devices_name: devices_name,
 		devices_no: devices_no,
 		devices_model: devices_model,
-//		company: company,
+		//		company: company,
 		devices_out_time: devices_out_time,
 		devices_power: devices_power,
 		install_way: install_way,
@@ -157,16 +171,16 @@ $('#addDevice').click(function() {
 		protection: protection,
 		insulation: insulation,
 		bearing_model: bearing_model,
-//		work_shop: work_shop,
+		//		work_shop: work_shop,
 		pro_line: pro_line,
 		use_scenes: use_scenes,
 		create_time: create_time,
-		rated_speed:zhuansu,
-		magnetism_pair:duishu,
-		base_rigidity:gangdu,
-		gearbox_transmission_ratio:chuandongbi,
-		gearbox_gear_pair:chilunshu,
-		coupling_type:lianzhouType
+		rated_speed: zhuansu,
+		magnetism_pair: duishu,
+		base_rigidity: gangdu,
+		gearbox_transmission_ratio: chuandongbi,
+		gearbox_gear_pair: chilunshu,
+		coupling_type: lianzhouType
 	};
 
 	console.log(JSON.stringify(data));
@@ -178,11 +192,16 @@ $('#addDevice').click(function() {
 		dataType: 'json',
 		data: data,
 		success: function(msg) {
-							console.log(msg);
+			console.log(msg);
 			if(msg.status == "SUCCESS") {
 				mui.toast(msg.message);
-				window.location.replace('newIndexPage.html');
-
+				//				window.location.replace('newIndexPage.html');
+				//				window.location.replace('newIndex.html');
+				//				window.location.replace('newIndexPage.html');
+				var wobj = plus.webview.getWebviewById("newIndexID");
+				wobj.reload(true);
+				mui.back();
+//				mui.back();
 			} else if(msg.status = "FAILED") {
 				mui.toast(msg.message);
 			}

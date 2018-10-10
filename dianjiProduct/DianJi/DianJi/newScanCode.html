@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="MobileOptimized" content="320" />
+		<title>扫码</title>
+		<script type="text/javascript" src="js/common.js"></script>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<link rel="stylesheet" type="text/css" href="css/ScanCode.css" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/url_all.js"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+		<style type="text/css">
+			#bcid {
+				width: 100%;
+				position: absolute;
+				top: 80px;
+				bottom: 44px;
+				text-align: center;
+			}
+			
+			.tip {
+				color: #FFFFFF;
+				font-weight: bold;
+				text-shadow: 0px -1px #103E5C;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #000000;">
+		<header class="mui-bar mui-bar-nav" id="head">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title ">扫码</h1>
+			<div class="mui-input-row mui-search">
+				<input type="search" id="search" class="mui-input-clear" placeholder="请输入传感器卡号">
+			</div>
+		</header>
+		<!--<div class="mui-content">-->
+		<div id="bcid">
+			<div style="height:40%"></div>
+			<p class="tip">...载入中...</p>
+		</div>
+		<!--</div>-->
+		<script type="text/javascript">
+			var ws = null,
+				wo = null;
+			var scan = null,
+				domready = false;
+			// H5 plus事件处理
+			function plusReady() {
+				if(ws || !window.plus || !domready) {
+					return;
+				}
+				// 获取窗口对象
+				ws = plus.webview.currentWebview();
+				wo = ws.opener();
+				// 开始扫描
+				ws.addEventListener('show', function() {
+					scan = new plus.barcode.Barcode('bcid');
+					scan.onmarked = onmarked;
+					scan.start({
+						conserve: true,
+						filename: '_doc/barcode/'
+					});
+				}, false);
+				// 显示页面并关闭等待框
+				ws.show('pop-in');
+				wo.evalJS('closeWaiting()');
+			}
+			if(window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener('plusready', plusReady, false);
+			}
+			// 监听DOMContentLoaded事件
+			document.addEventListener('DOMContentLoaded', function() {
+				domready = true;
+				plusReady();
+			}, false);
+			// 二维码扫描成功
+			function onmarked(type, result, file) {
+				switch(type) {
+					case plus.barcode.QR:
+						type = 'QR';
+						break;
+					case plus.barcode.EAN13:
+						type = 'EAN13';
+						break;
+					case plus.barcode.EAN8:
+						type = 'EAN8';
+						break;
+					default:
+						type = '其它' + type;
+						break;
+				}
+				result = result.replace(/\n/g, '');
+				wo.evalJS("scaned('" + type + "','" + result + "','" + file + "');");
+
+			}
+
+			$('#search').on('search', function() {
+
+				$.ajax({
+					type: "get",
+					url: appGetSim_Interface,
+					async: true,
+					data: {
+						serial_no: $('#search').val()
+						//							emeId:$('#search').val()
+					},
+					dataType: "json",
+					success: function(res) {
+
+						if(res.data.sim.length == 1) {
+							//当前状态；0：工作，1：失联，2：关机，3：休眠，4：故障 5：已激活 6：未激活 7:待激活
+							if(res.data.sim[0].state == 6) { //未激活
+								var strSimId = $('#search').val();
+								//大写
+								simID = strSimId.toUpperCase();
+								mui.confirm("此卡未激活，是否激活？", "", ["否", "是"], writeConfirmeBack)
+							} else { //已经激活
+								if(res.data.sim[0].devices_no != undefined) {
+									localStorage.DeveciId = res.data.sim[0].devices_no;
+//									scan.close();
+									window.location.href = "newDataChart.html";
+								} else {
+									mui.toast("搜索失败...")
+								}
+
+							} //已经激活条件结束
+						} else {
+							mui.toast("请输入正确的传感器卡号")
+						}
+
+					},
+					error: function() {
+
+					}
+				}); //ajax结束
+
+			}); //点击搜索框结束
+
+			function writeConfirmeBack(e) {
+				//alert(e.index) //根据e.index  来判断是点击了是还是否
+				if(e.index == 1) {
+					//调转到激活页，并把卡的编号传递过去simID
+					localStorage.simID = simID;
+					enterJihuo();
+				} else {}
+
+			}
+			//进入激活页面
+			function enterJihuo() {
+				$.ajax({
+					type: "get",
+					url: commen_confirm_active_Interface,
+					async: true,
+					data: {
+						serial_no: localStorage.simID
+					},
+					dataType: 'json',
+					success: function(resqMsg) {
+						if(resqMsg.status == "SUCCESS") {
+//							scan.close();
+							window.location.href = 'newActivation.html';
+						} else {}
+					},
+					error: function() {
+
+					}
+				});
+			}
+		</script>
+
+	</body>
+
+</html>

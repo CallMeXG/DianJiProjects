@@ -67,11 +67,23 @@ $("#login_btn").click(function() {
 					localStorage.setItem("reginArray", JSON.stringify(regionArray));
 
 					mui.toast(respData.message);
-					
-					window.location.replace('newIndexPage.html');
+					//					mui.openWindow('mainIndex.html')
+
+					//					mui.preload({
+					//						url:'mainIndex.html'});
+					//					window.location.replace('firstIndex.html');
+					//					window.location.replace('newIndex.html');
+					//					showHome(0, 1);
+//					window.location.replace('newIndexPage.html');
+					window.location.replace('newIndex.html');
 					//保存用户类型
 					localStorage.setItem("userType", respData.data.types);
-					
+					//					mui.preload({url:'newMainMy.html'});
+					//					window.parent.frames[1].location.reload();
+					//					console.log("refucesfdsafs ==== "+ window.parent.frames[1])
+
+					//					mui.back();
+					//mui.back()
 
 				} else {
 					mui.toast("账号或密码有误，请重新输入");

@@ -23,13 +23,19 @@
 		</header>
 		<div class="mui-content">
 			<div class="mui-input-row" style="margin: 10px 5px;">
-				<textarea id="textarea" rows="10" placeholder="请输入文本"></textarea>
+				<textarea id="textarea" rows="10" placeholder="请输入反馈内容"></textarea>
 			</div>
 			<button type="button" id="tijiao" class="mui-btn mui-btn-royal mui-btn-block bottomButton">提交</button>
 
 		</div>
 	</body>
 	<script type="text/javascript">
+		
+		$("#tijiao").on('tap',function(){
+			window.location.replace('newIndexPage.html');
+		})
+		
+		/*
 		//B页面onload从服务器获取列表数据；
 		window.onload = function() {
 			//从服务器获取数据
@@ -40,13 +46,10 @@
 					content: $("#textarea").val()
 				}, function(res) {
 					console.log(res)
-					if(res.code == true) {
-
-						
-						mui.back()
-
+					if(res.status == "SUCCESS") {
+						mui.toast("反馈成功！")
+						mui.back();
 					}
-
 				}, 'json');
 			})
 
@@ -57,6 +60,7 @@
 				mui.currentWebview.show();
 			});
 		}
+		//*/
 	</script>
 
 </html>

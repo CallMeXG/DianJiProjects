@@ -45,7 +45,7 @@ function resetPwd() {
 				},
 				dataType: 'json',
 				success: function(postNewPwdResp) {
-					console.log("-=-=-"+JSON.stringify(postNewPwdResp))
+					console.log("=--=-=-=-=-=-"+JSON.stringify(postNewPwdResp))
 					if(postNewPwdResp.status == "SUCCESS") {
 						mui.toast("密码修改成功，请重新登录")
 						window.location.replace("../login.html");

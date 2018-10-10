@@ -44,9 +44,11 @@ span{
 input{
 	height: 20px;
 	/*float: left;*/
-	margin-left: 10px;
+	margin-left: 0px;
 	margin-top: 5px;
 	border: 0;
 	font-size: 14px;
-	max-width: 50%;
+	/*background-color: yellow;*/
+	width: 50%;
+	/*max-width: 58%;*/
 }

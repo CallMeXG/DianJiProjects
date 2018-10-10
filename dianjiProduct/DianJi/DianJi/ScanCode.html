@@ -122,9 +122,9 @@
 
 					//alert(result) //扫码扫出来的结果
 					var scanResult = result;
-					if(scanResult.search("p/") != -1) {
-						result = result.split("p/");
-					}
+//					if(scanResult.search("p/") != -1) {
+//						result = result.split("p/");
+//					}
 					if(scanResult.search("j/") != -1) {
 						result = result.split("j/");
 					}
@@ -143,8 +143,10 @@
 							history.go(0)
 						}
 					}
+					
+					
 
-					if(result[0] == "http://www.aiimoto.com/") {
+					if(result[0].search('www.aiimoto.com') != -1) {
 						//alert("本地校验通过，去进行扫码")
 						$.ajax({
 							type: "get",
@@ -182,8 +184,7 @@
 							}
 						}); //ajax结束
 					} else {
-						alert("不符合本地校验规则");
-						mui.toast("请扫描正确的二维码")
+						alert("不符合本地校验规则，请扫描正确的二维码");
 						scan.start();
 
 					}

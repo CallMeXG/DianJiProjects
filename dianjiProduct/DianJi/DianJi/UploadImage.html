@@ -19,7 +19,7 @@
 		<link rel="stylesheet" type="text/css" href="css/feedback-page.css" />
 		<link rel="stylesheet" href="css/font-awesome.min.css">
 		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-		
+
 		<style type="text/css">
 			.del {
 				position: absolute;
@@ -153,7 +153,7 @@
 			var procinstid = 0;
 			//初始化页面执行操作  
 			$("#ti").click(function() {
-				uploadimge()
+				uploadimge();
 			})
 
 			function myAlert(tip) {
@@ -320,25 +320,33 @@
 			}
 			//上传图片，实例中没有添加上传按钮  
 			function uploadimge(agree, back) {
-				//        plus.storage.clear();  
+				//				        plus.storage.clear(); 
+
 				var wa = plus.nativeUI.showWaiting();
 				var DkeyNames = [];
 				var id = document.getElementById("ckjl.id").value;
 				var length = id.toString().length;
 				var idnmae = id.toString();
 				var numKeys = plus.storage.getLength();
+
 				//				var task = plus.uploader.createUpload('http://47.94.166.103:1111/APP/appPhotoUpload', {
 				var task = plus.uploader.createUpload(appPhotoUpload_Interface, {
 						method: "POST"
 					},
 					function(t, status) {
 						if(status == 200) {
-							//                              	plus.storage.clear(); 
-							plus.storage.removeItem(itemkey)
 							wa.close();
+							//                              	plus.storage.clear(); 
+							if(JSON.parse(t["responseText"]).status == "SUCCESS") {
+								plus.storage.removeItem(itemkey)
+								
+								mui.toast("上传成功");
+								mui.back();
+							}
+							else{
+								alert("上传失败,请重新上传");
+							}
 
-							mui.toast("上传成功");
-							mui.back();
 						} else {
 							wa.close();
 							plus.storage.removeItem(itemkey)
@@ -348,18 +356,22 @@
 						}
 					}
 				);
+
 				var ss = task.addData("devices_no", plus.storage.getItem("imgDeviceID"));
 
 				// for(var i=0; i<imgArray.length;i++){    
 				//var itemkey=id+"img-"+imgArray[i];  
+
 				var itemkey = id + "img-" + "F_CKJLB";
+				console.log("111111"+itemkey)
 				if(plus.storage.getItem(itemkey) != null) {
 					var itemvalue = plus.storage.getItem(itemkey).split("{");
 					for(var img = 1; img < itemvalue.length; img++) {
 						var imgname = itemvalue[img].substr(0, itemvalue[img].indexOf(","));
 						var imgurl = itemvalue[img].substring(itemvalue[img].indexOf(",") + 1, itemvalue[img].lastIndexOf(","));
+						console.log("[][][==="+imgurl)
 						task.addFile(imgurl, {
-							key: img
+							key: imgurl
 						});
 
 					}
@@ -367,11 +379,10 @@
 				// }  
 				if(plus.storage.getItem(itemkey) != null) {
 					if(plus.storage.getItem(itemkey).length > 0) {
-						//						console.log(plus.storage.getItem(itemkey))
+						//												console.log(plus.storage.getItem(itemkey))
 
-						//						alert(itemvalue.length)
 						if(itemvalue.length < 11) { //最多九张照片，但数组长度为10 ，故小于11
-							task.start();
+//							task.start();
 
 						} else {
 							alert("照片最多为9张")
@@ -386,6 +397,7 @@
 					alert("请选择图片")
 					wa.close();
 				}
+				//*/
 
 			} //  uploadimge 函数结束
 		</script>

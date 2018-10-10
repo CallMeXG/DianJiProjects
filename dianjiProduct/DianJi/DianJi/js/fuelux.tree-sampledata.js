@@ -92,7 +92,7 @@ function sensorData_whx(emeId, index) {
 				if(typeof(msg.data) != "undefined") {
 					setUIForCPX(msg.data, index);
 				}
-				
+
 			} else {
 				mui.toast(msg.message);
 			}
@@ -101,8 +101,6 @@ function sensorData_whx(emeId, index) {
 	})
 
 	return children;
-
-	
 
 }
 
@@ -144,10 +142,7 @@ function setUIForCPX(simData, i) {
 	if(workStute == 4) {
 		strWorkStuts = "故障";
 	}
-	
-	
-	
-	
+
 	var sensorStr = '<div class="tree-folder">';
 	sensorStr += '<div class="tree-folder-header">';
 	sensorStr += '<i style="hidden:display" onclick="hiddenOrDisplay(this)" class="icon-minus"></i>';
@@ -161,9 +156,61 @@ function setUIForCPX(simData, i) {
 	sensorStr += '<li class="mui-table-view-cell">硬件版本：' + isUndefined(simData, 'version') + '</li>';
 	sensorStr += '<li class="mui-table-view-cell">本地时间：' + isUndefined(simData, 'local_time') + '</li>';
 	sensorStr += '<li class="mui-table-view-cell">日志：----</li>';
-	sensorStr += '<li class="mui-table-view-cell">小区信息：----</li>';
-	sensorStr += '<li class="mui-table-view-cell">信号强度：----</li>';
-	sensorStr += '<li class="mui-table-view-cell">电池电量：----</li>';
+	if(typeof(simData.mcc) == "undefined") {
+		sensorStr += '<li class="mui-table-view-cell">小区信息：---- </li>';
+	} else {
+		sensorStr += '<li class="mui-table-view-cell">小区信息：' + simData.mcc + simData.mnc + '-' + simData.lac + '-' + simData.cell_no + '-' + simData.bsic + '</li>';
+	}
+	//	sensorStr += '<li class="mui-table-view-cell">小区信息：' + isUndefined(simData, 'cell_no') + '</li>';
+	if(typeof(simData.signal_intensity) != 'undefined') {
+		if(simData.signal_intensity == 0) {
+			sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhaonull.png" width="30px" height="30px" style="margin-top:-10px;" /></li>';
+		}
+		if((simData.signal_intensity > 1 || simData.signal_intensity == 1) && (simData.signal_intensity < 8 || simData.signal_intensity == 8)) {
+			sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao1.png" width="30px" height="30px" style="margin-top:-10px;" /></li>';
+		}
+		if((simData.signal_intensity > 9 || simData.signal_intensity == 9) && (simData.signal_intensity < 12 || simData.signal_intensity == 12)) {
+			sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao2.png" width="30px" height="30px" style="margin-top:-10px;" /></li>';
+		}
+		if((simData.signal_intensity > 13 || simData.signal_intensity == 13) && (simData.signal_intensity < 17 || simData.signal_intensity == 17)) {
+			sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao3.png" width="30px" height="30px" style="margin-top:-10px;" /></li>';
+		}
+		if((simData.signal_intensity > 18 || simData.signal_intensity == 18) && (simData.signal_intensity < 20 || simData.signal_intensity == 20)) {
+			sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao4.png" width="30px" height="30px" style="margin-top:-10px;" /></li>';
+		}
+		if((simData.signal_intensity > 21 || simData.signal_intensity == 21) && (simData.signal_intensity < 25 || simData.signal_intensity == 25)) {
+			sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao5.png" width="30px" height="30px" style="margin-top:-10px;" /></li>';
+		}
+		if((simData.signal_intensity > 26 || simData.signal_intensity == 26) && (simData.signal_intensity < 31 || simData.signal_intensity == 31)) {
+			sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao6.png" width="30px" height="30px" style="margin-top:-10px;" /></li>';
+		}
+	} else {
+		sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span><img src="img/xinhaoNO.png" width="30px" height="30px" style="margin-top:-10px;" /></li>';
+	}
+	if(typeof(simData.dump_percentage) != "undefined") {
+		if (simData.dump_percentage > 84 || simData.dump_percentage == 84) {
+			sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;" src="img/dianchi84.jpg" height="20px"/></li>';
+		}
+		if ((simData.dump_percentage > 67 || simData.dump_percentage == 67) && simData.dump_percentage < 84) {
+			sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;" src="img/dianchi80.jpg" height="20px"/></li>';
+		}
+		if ((simData.dump_percentage > 50 || simData.dump_percentage == 50) && simData.dump_percentage < 67) {
+			sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;" src="img/dianchi50.jpg" height="20px"/></li>';
+		}
+		if ((simData.dump_percentage > 34 || simData.dump_percentage == 34) && simData.dump_percentage < 50) {
+			sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;" src="img/dianchi34.jpg" height="20px"/></li>';
+		}
+		if ((simData.dump_percentage > 16 || simData.dump_percentage == 16) && simData.dump_percentage < 34) {
+			sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;" src="img/dianchi16.jpg" height="20px"/></li>';
+		}
+		if ((simData.dump_percentage > 0 || simData.dump_percentage == 0) && simData.dump_percentage < 16) {
+			sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;" src="img/dianchi00.jpg" height="20px"/></li>';
+		}
+		
+	} else {
+
+	}
+
 	sensorStr += '<li class="mui-table-view-cell">数据流量：----</li>';
 	sensorStr += '<li class="mui-table-view-cell">卡固件版本：' + isUndefined(simData, 'sim_verison_id') + '</li>';
 	sensorStr += '<li class="mui-table-view-cell">卡激活状态：' + strJiHuoStatus + '</li>';
@@ -205,7 +252,7 @@ function setUIForCPX(simData, i) {
 	sensorStr += '<li class="mui-table-view-cell">唤醒时间：' + isUndefined(simData, 'notify_time') + '</li>';
 
 	sensorStr += '</ul></div>';
-///*
+	///*
 	if(typeof(simData.sensorList) != "undefined") {
 		for(var j = 0; j < simData.sensorList.length; j++) {
 			var sensorData = simData.sensorList[j];
@@ -231,15 +278,14 @@ function setUIForCPX(simData, i) {
 			sensorStr += '<li class="mui-table-view-cell">传感器校准系数：' + isUndefined(sensorData, 'calibration_coefficient') + '</li>';
 
 			sensorStr += '</ul></div></div>';
-			
+
 		}
 	}
-//*/
+	//*/
 	sensorStr += '</div></div>';
-	
 
 	$('#tree1').append(sensorStr);
-	
+
 	var itemKey = '[name=item_' + i + ']:checkbox';
 	$(itemKey).each(function(index) {
 		var arrTimeCount = JSON.parse(simData.work_point_json).sample_time_point;
@@ -474,7 +520,7 @@ $.ajax({
 	type: "GET",
 	async: false,
 	data: {
-//		str_devices_no: "MZ101510"
+		//		str_devices_no: "MZ101510"
 		str_devices_no: localStorage.DeveciId
 	},
 	url: commen_gain_device_detail_Interface,
@@ -527,7 +573,7 @@ $.ajax({
 			//设备型号
 			$("#idOFdeviceType").val(isUndefined(info, 'devices_model'));
 			//企业名称
-//			$("#idOFqiName").val(isUndefined(info, 'company'));
+			//			$("#idOFqiName").val(isUndefined(info, 'company'));
 			//设备出厂时间
 			$("#idOFdeviceTime").val(isUndefined(info, 'devices_out_time'));
 			//额定功率

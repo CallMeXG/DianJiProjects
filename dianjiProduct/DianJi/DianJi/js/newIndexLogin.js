@@ -1,30 +1,9 @@
 //自动登录
-mui.plusReady(function() {
+//mui.plusReady(function() {
 
-	function ConfirmCallBack(e) {
-		if(e.index == 1) {
-			console.log("====== logout")
-			plus.storage.removeItem("isLogin");
-			plus.storage.removeItem("userName");
-			plus.storage.removeItem("userPwd");
-			window.location.replace('login.html');
-		}
-	}
-
-	$("#logoutButton").on('tap', function() {
-		mui.confirm("退出登录？", "", ["否", "是"], ConfirmCallBack)
-	})
-
-	$("#username").html(plus.storage.getItem("userName"))
-	$("#version").html(plus.runtime.version);
-
-	//		console.log(plus.storage.getItem("userName"))
-	if(plus.storage.getItem("userName") != undefined) {
+	if(localStorage.getItem("userName") != undefined) {
 		autoLogin();
 	} else {
-//		mui.openWindow({
-//			url: 'login.html'
-//		})
 		window.location.replace("login.html");
 	}
 
@@ -33,8 +12,8 @@ mui.plusReady(function() {
 			url: login_Interface,
 			async: true,
 			data: {
-				phone: plus.storage.getItem("userName"),
-				password: plus.storage.getItem("userPwd")
+				phone: localStorage.getItem("userName"),
+				password: localStorage.getItem("userPwd")
 			},
 			dataType: 'json',
 			success: function(respData) {
@@ -52,7 +31,8 @@ mui.plusReady(function() {
 					} else {
 						localStorage.setItem("company_id", dataTemp.c_id);
 					}
-
+					
+					
 					var regionidArray = new Array();
 					var regionArray = new Array();
 					for(var i = 0; i < dataTemp.company_list.length; i++) {
@@ -66,9 +46,11 @@ mui.plusReady(function() {
 								reginName: strName
 							};
 							regionArray.push(obj_region);
+							
+							
 						}
 					}
-					console.log("----------------------" + JSON.stringify(regionArray));
+					console.log("----------------------" + JSON.stringify(companyArray_id));
 					var strRegionId = regionidArray.toString();
 					localStorage.setItem("region_id_list", strRegionId);
 					localStorage.setItem("reginArray", JSON.stringify(regionArray));
@@ -80,11 +62,12 @@ mui.plusReady(function() {
 					hiddenUIWithUserType();
 				} else {
 					window.location.replace("login.html");
-//					mui.openWindow('login.html')
+					//					mui.openWindow('login.html')
 				}
 			}
 		});
 
 	} //自动登录结束
 
-})
+//})
+

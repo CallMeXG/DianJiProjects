@@ -7,9 +7,10 @@ $('#defaultTab').on('tap', function() {
 	$('#head').css('display', 'block');
 })
 $("#addDeviceNew").on("tap", function() {
-	mui.openWindow({
-		url: "AddDevice.html"
-	})
+//	mui.openWindow({
+//		url: "AddDevice.html"
+//	})
+	window.location.replace('AddDevice.html');
 })
 $("#feedback").on("tap", function() {
 	mui.openWindow({
@@ -83,12 +84,13 @@ function autoLogin() {
 				localStorage.setItem("strUserName", dataTemp.username);
 				localStorage.setItem("strUserPhone", dataTemp.phone);
 
-				if(dataTemp.c_id == undefined) {
-					localStorage.setItem("company_id", "");
-				} else {
-					localStorage.setItem("company_id", dataTemp.c_id);
-				}
-
+				//				if(dataTemp.c_id == undefined) {
+				//					localStorage.setItem("company_id", "");
+				//				} else {
+				//					localStorage.setItem("company_id", dataTemp.c_id);
+				//				}
+				//2018-8-15
+				var companyArray_id = new Array();
 				var regionidArray = new Array();
 				var regionArray = new Array();
 				for(var i = 0; i < dataTemp.company_list.length; i++) {
@@ -102,9 +104,13 @@ function autoLogin() {
 							reginName: strName
 						};
 						regionArray.push(obj_region);
+						//2018-8-15
+						companyArray_id.push(temparray.region_list[j].company_id);
 					}
 				}
-				console.log("----------------------" + JSON.stringify(regionArray));
+				//2018-8-15
+				localStorage.setItem("company_id", companyArray_id.toString());
+				console.log("----------------------" + JSON.stringify(companyArray_id.toString()));
 				var strRegionId = regionidArray.toString();
 				localStorage.setItem("region_id_list", strRegionId);
 				localStorage.setItem("reginArray", JSON.stringify(regionArray));
@@ -190,16 +196,16 @@ document.getElementById('headerSelected').addEventListener('tap', function() {
 })
 
 //首页列表点击事件
-$("#content").on("tap", "ul li", function(e) {
-	localStorage.DeveciId = e.currentTarget.id;
-	var indexRow = $(this).index();
-	console.log("===============" + indexRow)
-	var strname = searchList[indexRow].devices_name;
-	localStorage.setItem("deviceName", strname);
-	mui.openWindow({
-		url: 'newDataChart.html'
-	})
-})
+//$("#content").on("tap", "ul li", function(e) {
+//	localStorage.DeveciId = e.currentTarget.id;
+//	var indexRow = $(this).index();
+//	console.log("===============" + indexRow)
+//	var strname = searchList[indexRow].devices_name;
+//	localStorage.setItem("deviceName", strname);
+////	mui.openWindow({
+////		url: 'newDataChart.html'
+////	})
+//})
 
 //左上角扫描点击事件
 $("#scanCodeClicked").on('tap', function() {
@@ -218,7 +224,7 @@ function createPopverList() {
 	$('#tanchuForm li').remove();
 	for(var i = 0; i < regionList.length; i++) {
 		var reingObj = regionList[i];
-		strInsert += '<li class="mui-table-view-cell mui-checkbox mui-left"><input id="selectid_' + i + '" name="checkbox" type="checkbox" checked="true" value="' + reingObj.reginID + '">' + reingObj.reginName + '</li>';
+		strInsert += '<li class="mui-table-view-cell mui-checkbox mui-left"><input id="selectid_' + i + '" name="checkbox" type="checkbox"  value="' + reingObj.reginID + '">' + reingObj.reginName + '</li>';
 	}
 	$("#tanchuForm").append(strInsert);
 }
@@ -241,7 +247,6 @@ function showHome(startnum, thisIndex) {
 	//			icon: "../img/waiting.png"
 	//		}
 	//	});
-	//	console.log("-=-=-=-=-=-=-=")
 	searchList.splice(0, searchList.length);
 	createPopverList();
 	$.ajax({
@@ -260,7 +265,6 @@ function showHome(startnum, thisIndex) {
 		dataType: 'json',
 		success: function(res) {
 			//			w.close();
-//			console.log("[][][][][][][]====="+res.message)
 			if(res.status == "SUCCESS") {
 
 				appendLi(res.data);
@@ -336,18 +340,26 @@ function appendLi(res) {
 	length = res.search_list.length;
 	for(var i = 0; i < length; i++) {
 		var tempList = res.search_list[i];
-		var str = '<li class="mui-table-view-cell mui-media"';
-		if(tempList.min_photo_url == undefined) {
-			str += '<a><img class="mui-media-object mui-pull-left" src="img/default.png"></a>';
-		} else {
-			str += '<a><img class="mui-media-object mui-pull-left" src=' + tempList.min_photo_url + '></a>';
-		}
-		//		str += '<div class="mui-media-body"><span id="deviceNAme">' + tempList.devices_name + '</span>';
 
+		var str = '<li class="mui-table-view-cell mui-media"><div class="mui-slider-right mui-disabled"><a id="personID" class="mui-btn mui-btn-grey mui-icon mui-icon-person"></a><a id="phoneID" class="mui-btn mui-btn-yellow mui-icon mui-icon-phone"></a><a id="deleteID" class="mui-btn mui-btn-red mui-icon mui-icon-email"></a></div><div class="mui-slider-handle"><div class="mui-table-cell">';
+
+		///*
+		//var str = '<li class="mui-table-view-cell mui-media"';
+
+		if(typeof(tempList.min_photo_url) == "undefined" || tempList.min_photo_url.length == 0) {
+			str += '<a ><img class="mui-media-object mui-pull-left" src="img/default.png"></a>';
+		} else {
+			str += '<a ><img class="mui-media-object mui-pull-left" src=' + tempList.min_photo_url + '></a>';
+		}
 		str += '<div class="mui-media-body">';
 		str += "<p class='mui-ellipsis'>";
 		if(tempList.devices_no != undefined) {
-			str += '<span class="items" >' + tempList.devices_name + " : " + tempList.devices_no + '</span>';
+			if(typeof(tempList.serial_no) != "undefined") {
+				str += '<span class="items">' + tempList.devices_name + ' : ' + tempList.devices_no + '</span>' + '<a class="mui-icon iconfont icon-dunpai-s" style="color:green;"></a>';
+			} else {
+				str += '<span class="items" >' + tempList.devices_name + " : " + tempList.devices_no + '</span>';
+			}
+
 		}
 		//		if(tempList.devices_no == undefined) {
 		//			str += '<span class="items">' + '设备编号：' + '----' + '</span>';
@@ -375,30 +387,49 @@ function appendLi(res) {
 			str += '<span class="items">' + '点检结果：' + '<span style="font-weight:bold;color:red">' + "故障" + '</span></span>';
 		}
 
-//		if(tempList.devices_age != undefined) {
-//			str += '<span style="width:60%;float:left" >' + '预期寿命：' + '<span style="height:5px;background-color:red" id="demo' + i + '"' + 'class="mui-progressbar pro"  ><span></span></span>' + '</span>';
-//		}
-//		if(tempList.devices_age == undefined) {
-//			str += '<span class="items">' + '预期寿命：' + '----' + '</span>';
-//		}
-		str += '</li>';
-
+		//		if(tempList.devices_age != undefined) {
+		//			str += '<span style="width:60%;float:left" >' + '预期寿命：' + '<span style="height:5px;background-color:red" id="demo' + i + '"' + 'class="mui-progressbar pro"  ><span></span></span>' + '</span>';
+		//		}
+		//		if(tempList.devices_age == undefined) {
+		//			str += '<span class="items">' + '预期寿命：' + '----' + '</span>';
+		//		}
+		str += '</div></div></li>';
+		//*/
 		var oli = $(str);
-//		if(tempList.devices_age != undefined) { //有设备年龄那个字段
-//			var num = tempList.devices_age;
-//			num = num - 100;
-//			oli.find("#demo" + i).find("span").css("transform", "translate(" + num + "%)")
-//		} else { //没有设备年龄字段，直接按默认100 全满显示
-//			oli.find("#demo" + i).find("span").css("transform", "translate(0)")
-//		}
+		//		if(tempList.devices_age != undefined) { //有设备年龄那个字段
+		//			var num = tempList.devices_age;
+		//			num = num - 100;
+		//			oli.find("#demo" + i).find("span").css("transform", "translate(" + num + "%)")
+		//		} else { //没有设备年龄字段，直接按默认100 全满显示
+		//			oli.find("#demo" + i).find("span").css("transform", "translate(0)")
+		//		}
 
 		oli.attr("id", tempList.devices_no)
 
 		$("#content ul").append(oli);
 
+//		var ids = document.getElementById('content');
+//		var liList = ids.getElementsByTagName('li');
+//
+//		for(var j = 0; j < liList.length; j++) {
+//			liList[j].index = j;
+//
+//			liList[j].onclick = function() {
+//				console.log("[][][][][]===" + this.index);
+//			}
+//		}
+
 	}
 
 }
+
+$("#personID").on('tap', function() {
+	console.log("222")
+	var elem = this;
+	var li = elem.parentNode.parentNode;
+	mui.swipeoutClose(li);
+	
+})
 
 function setFenyefunction(totalCount, type, thisIndex) {
 

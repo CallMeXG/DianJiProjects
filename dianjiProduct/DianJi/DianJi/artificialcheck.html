@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -62,9 +61,7 @@
 						<div v-if="message.apply_status == 0">
 							<div style="margin-left: 10px;margin-right: 5px;color: gray;">正在进行远程诊断，请稍后...</div>
 						</div>
-						<!--<div v-if="message.apply_status == 1">
-							<div style="margin-left: 10px;margin-right: 5px;color: gray;"></div>
-						</div>-->
+						<!--<div style="margin-left: 10px;margin-right: 5px;color: gray;">正在进行远程诊断，请稍后...</div>-->
 					</div>
 					<br />
 				</div>
@@ -111,15 +108,15 @@
 
 				$('#downLoadID').on('tap', function() {
 
-					downArtificalFile(self.message.file_path, self.message.apply_devices_no, self.message.file_name);
+					downArtificalFile(self.message.file_path, self.message.apply_devices_no ,self.message.file_name);
 				})
 
 				//下载报告
-				function downArtificalFile(strFileUrl, strFilePath, strFileName) {
+				function downArtificalFile(strFileUrl,strFilePath, strFileName) {
 					var strLoadURL = strFileUrl;
 					var encodeUrl = encodeURI(strLoadURL); //文件的具体地址，具体到文件名称
 					var strLocalDownUrl = '_downloads/' + strFilePath + '/' + strFileName;
-					console.log("========" + strLocalDownUrl)
+					console.log("========"+strLocalDownUrl)
 					var dtask = plus.downloader.createDownload(encodeUrl, {
 						filename: strLocalDownUrl
 					}); //新建下载任务
