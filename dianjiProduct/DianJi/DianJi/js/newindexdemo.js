@@ -246,7 +246,11 @@ $(function() {
 					} else {
 						window.location.replace("login.html");
 					}
+				},
+				error:function(error){
+					mui.toast("登录失败，请检查网络连接");
 				}
+				
 			});
 
 		} //自动登录结束
@@ -328,6 +332,7 @@ $(function() {
 		//搜索设备接口
 		function searchDevice(keyWord, pageNum, keyType, strPostRegion, thisIndex) {
 			var wa = plus.nativeUI.showWaiting();
+			
 			$.ajax({
 				type: "get",
 				url: commen_search_device_Interface,
@@ -348,6 +353,7 @@ $(function() {
 					if(res.status == "SUCCESS") {
 						if(res.data.search_list.length > 0) {
 							content.message = res.data.search_list;
+							$('#content').css('display','block');
 							$("#nullDataPage").hide();
 							$("#content").show();
 							var pagecount = res.data.total_records / 10;
@@ -364,6 +370,7 @@ $(function() {
 					}
 				},
 				error: function(error) {
+					console.log("===1111")
 					wa.close();
 					UIForNullData("net");
 					$("#content").hide();
