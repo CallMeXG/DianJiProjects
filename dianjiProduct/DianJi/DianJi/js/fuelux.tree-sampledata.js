@@ -23,7 +23,11 @@ $("#shuju").on("tap", function() {
 	window.location.href = "newDataChart.html";
 	//	window.location.href = "Monitor.html";
 })
-
+$("#changeDeviceID").on('tap', function() {
+	mui.openWindow({
+		url: 'ModifyInformation.html'
+	})
+})
 //DataSourceTree.prototype.data = function(options, callback) {
 //	var self = this;
 //	var $data = null;
@@ -534,7 +538,7 @@ $.ajax({
 			if(msg.data.photo_list != null) {
 				length = msg.data.photo_list.length;
 				for(var i = 0; i < length; i++) {
-					str = '<div class="swiper-slide"><img src=' + msg.data.photo_list[i].min_photo_url + '></div>';
+					str = '<div class="swiper-slide"><img src=' + msg.data.photo_list[i].photo_url + '></div>';
 					var oli = $(str);
 					$("#content .swiper-wrapper").append(oli)
 				}

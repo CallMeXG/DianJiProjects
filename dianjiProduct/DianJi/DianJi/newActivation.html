@@ -92,7 +92,7 @@
 					success:function(resqMsg){
 						if (resqMsg.status == "SUCCESS") {
 							mui.toast(resqMsg.message);
-							history.back(-1);
+							mui.back();
 						} 
 						else{
 							mui.toast("中断激活失败，请重试");

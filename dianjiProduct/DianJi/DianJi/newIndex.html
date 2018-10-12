@@ -134,21 +134,25 @@
 		<div class="mui-content">
 			<div style="margin-top: -45px;" id="deviceList" class="mui-control-content mui-active">
 
-				<div id="content">
+				<div id="content" style="display: none;">
 					<ul class="mui-table-view" style="background-color: white;">
 						<li class="mui-table-view-cell mui-media" v-for="mesItem in message">
+							<!--左滑-->
 							<div class="mui-slider-right mui-disabled">
 								<a v-on:click="sliderBtnClicked($event,'CK',mesItem)" class="mui-btn mui-btn-grey">点检</a>
 								<a v-on:click="sliderBtnClicked($event,'ZD',mesItem)" class="mui-btn mui-btn-yellow ">远程诊断</a>
-								<!--<a v-on:click="bbbbbbbbb($event)" class="mui-btn mui-btn-red mui-icon mui-icon-email"></a>-->
+							</div>
+							<!--右滑-->
+							<div class="mui-slider-left mui-disabled">
+								<a v-on:click="open_detail(mesItem)" class="mui-btn mui-btn-royal">详情</a>
 							</div>
 							<div class="mui-slider-handle" v-on:click="openDeviceCharts(mesItem)">
 								<a>
-									<div v-on:click="open_detail(mesItem)" v-if="typeof(mesItem.min_photo_url) == 'undefined'">
+									<div v-on:click="open_detail(mesItem)" v-if="typeof(mesItem.photo_url) == 'undefined'">
 										<img class="mui-media-object mui-pull-left" src="img/default.png">
 									</div>
-									<div v-on:click="open_detail(mesItem)" v-if="typeof(mesItem.min_photo_url) != 'undefined'">
-										<img class="mui-media-object mui-pull-left" :src="mesItem.min_photo_url">
+									<div v-on:click="open_detail(mesItem)" v-if="typeof(mesItem.photo_url) != 'undefined'">
+										<img class="mui-media-object mui-pull-left" :src="mesItem.photo_url">
 									</div>
 									<div class="mui-media-body">
 										<div class="mui-ellipsis-2">
@@ -219,7 +223,7 @@
 						<div id="pagination_9" style="width: 100%;height: 30px;margin-top: 10px;"></div>
 					</div>
 				</div>
-				<div id="nullDataPage" style="width:100%;height:600px;text-align:center;padding-top:200px;color:darkgray;background-color:white;">## 没有符合搜索条件的数据... ##</div>
+				<div id="nullDataPage" style="width:100%;height:600px;text-align:center;padding-top:200px;color:darkgray;background-color:white;display: none;">## 没有符合搜索条件的数据... ##</div>
 
 			</div>
 			<div id="minePage" class="mui-control-content">
@@ -230,7 +234,7 @@
 					</li>
 					<li class="mui-table-view-cell ">
 						<!--<a class=" "><img src="img/version.png">版本信息<span id="version">33.344.332</span></a>-->
-						<a id="codeUpdate"><img src="img/version.png">版本信息<span>1.4</span></a>
+						<a id="codeUpdate"><img src="img/version.png">版本信息<span>1.5</span></a>
 					</li>
 				</ul>
 				<br />

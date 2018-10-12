@@ -110,6 +110,7 @@ $(function() {
 						e.cancelBubble = true; //ie兼容
 					}
 					localStorage.setItem('DeveciId', items.devices_no);
+					localStorage.enterPage = "Enter";
 					mui.openWindow('DeviceDetail.html')
 				},
 				sliderBtnClicked: function(event, selType, CellItems) {
@@ -246,7 +247,11 @@ $(function() {
 					} else {
 						window.location.replace("login.html");
 					}
+				},
+				error:function(error){
+					mui.toast("登录失败，请检查网络连接");
 				}
+				
 			});
 
 		} //自动登录结束
@@ -301,7 +306,9 @@ $(function() {
 		//左上角扫描点击事件
 		$("#scanCodeClicked").on('tap', function() {
 			mui.openWindow({
-				url: 'ScanCode.html'
+				url: 'devicelisttoscancode.html',
+				id:'devicelistscanID'
+//				url: 'ScanCode.html'
 			})
 		})
 
@@ -328,6 +335,7 @@ $(function() {
 		//搜索设备接口
 		function searchDevice(keyWord, pageNum, keyType, strPostRegion, thisIndex) {
 			var wa = plus.nativeUI.showWaiting();
+			
 			$.ajax({
 				type: "get",
 				url: commen_search_device_Interface,
@@ -348,6 +356,7 @@ $(function() {
 					if(res.status == "SUCCESS") {
 						if(res.data.search_list.length > 0) {
 							content.message = res.data.search_list;
+							$('#content').css('display','block');
 							$("#nullDataPage").hide();
 							$("#content").show();
 							var pagecount = res.data.total_records / 10;
@@ -364,6 +373,7 @@ $(function() {
 					}
 				},
 				error: function(error) {
+					console.log("===1111")
 					wa.close();
 					UIForNullData("net");
 					$("#content").hide();
