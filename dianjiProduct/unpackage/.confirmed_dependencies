@@ -525,7 +525,8 @@
       "DianJi/DianJi/updateList.html",
       "DianJi/DianJi/checkHistory.html",
       "DianJi/DianJi/DeviceDetail.html",
-      "DianJi/DianJi/artificialcheckList.html"
+      "DianJi/DianJi/artificialcheckList.html",
+      "DianJi/DianJi/devicelisttoscancode.html"
     ]
   },
   "DianJi/DianJi/newDeviceList.html": {
@@ -561,6 +562,20 @@
     "refer": [
       "DianJi/DianJi/artificialcheckhistory.html",
       "DianJi/DianJi/artificialcheck.html"
+    ],
+    "resources": []
+  },
+  "DianJi/DianJi/devicelisttoscancode.html": {
+    "refer": [
+      "DianJi/DianJi/scancodetodetail.html",
+      "DianJi/DianJi/DeviceDetail.html"
+    ],
+    "resources": []
+  },
+  "DianJi/DianJi/scancodetodetail.html": {
+    "refer": [
+      "DianJi/DianJi/carInfo_activate.html",
+      "DianJi/DianJi/newActivation.html"
     ],
     "resources": []
   }

@@ -228,14 +228,78 @@
 			"DianJi/DianJi/newIndex.html": {
 				"resources": [],
 				"refer": [
-					"DianJi/DianJi/login.html"
+					"DianJi/DianJi/login.html",
+					"DianJi/DianJi/ScanCode.html",
+					"DianJi/DianJi/newDataChart.html",
+					"DianJi/DianJi/DeviceDetail.html",
+					"DianJi/DianJi/devicelisttoscancode.html",
+					"DianJi/DianJi/artificialcheckList.html"
 				],
 				"priority": 0
 			},
 			"DianJi/DianJi/login.html": {
 				"resources": [],
 				"refer": [
-					"DianJi/DianJi/newIndexPage.html"
+					"DianJi/DianJi/newIndexPage.html",
+					"DianJi/DianJi/newIndex.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/ScanCode.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/newDataChart.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/newDataChart.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/ScanCode.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/DeviceDetail.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/ModifyInformation.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/devicelisttoscancode.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/scancodetodetail.html",
+					"DianJi/DianJi/DeviceDetail.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/artificialcheckList.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/artificialcheckhistory.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/scancodetodetail.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/carInfo_activate.html",
+					"DianJi/DianJi/newActivation.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/newActivation.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/view/carInfo_activate.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/view/carInfo_activate.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/newActivation.html"
 				],
 				"priority": 0
 			}

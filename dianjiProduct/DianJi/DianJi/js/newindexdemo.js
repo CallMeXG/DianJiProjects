@@ -110,6 +110,7 @@ $(function() {
 						e.cancelBubble = true; //ie兼容
 					}
 					localStorage.setItem('DeveciId', items.devices_no);
+					localStorage.enterPage = "Enter";
 					mui.openWindow('DeviceDetail.html')
 				},
 				sliderBtnClicked: function(event, selType, CellItems) {
@@ -305,7 +306,9 @@ $(function() {
 		//左上角扫描点击事件
 		$("#scanCodeClicked").on('tap', function() {
 			mui.openWindow({
-				url: 'ScanCode.html'
+				url: 'devicelisttoscancode.html',
+				id:'devicelistscanID'
+//				url: 'ScanCode.html'
 			})
 		})
 
