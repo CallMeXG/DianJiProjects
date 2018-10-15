@@ -18,10 +18,18 @@ $(function() {
 		$('#minePageClicked').on('tap', function() {
 			$('#mineHeader').css('display', 'block');
 			$('#head').css('display', 'none');
+			$('#baobiaoHeader').css('display', 'none');
+			
 		})
 		$('#defaultTab').on('tap', function() {
 			$('#mineHeader').css('display', 'none');
 			$('#head').css('display', 'block');
+			$('#baobiaoHeader').css('display', 'none');
+		})
+		$('#baobiaoTab').on('tap', function() {
+			$('#mineHeader').css('display', 'none');
+			$('#head').css('display', 'none');
+			$('#baobiaoHeader').css('display', 'block');
 		})
 		$("#addDeviceNew").on("tap", function() {
 			mui.openWindow({

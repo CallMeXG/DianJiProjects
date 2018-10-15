@@ -87,14 +87,14 @@
 				var cardHeaderID = new Vue({
 					el: '#cardHeaderID',
 					data: {
-						simMessage: simDatas
+						simMessage: simDatas.sim[0]
 					}
 				})
 
 				var cardContentID = new Vue({
 					el: '#cardContentID',
 					data: {
-						sensorMes: simDatas.sensorList
+						sensorMes: simDatas.sensor
 					}
 				})
 
@@ -110,12 +110,12 @@
 						url: commen_confirm_active_Interface,
 						async: true,
 						data: {
-							serial_no: simDatas.serial_no
+							serial_no: simDatas.sim[0].serial_no
 						},
 						dataType: 'json',
 						success: function(resqMsg) {
 							if(resqMsg.status == "SUCCESS") {
-								localStorage.simID = simDatas.serial_no;
+								localStorage.simID = simDatas.sim[0].serial_no;
 								mui.openWindow("newActivation.html")
 //								window.location.href = 'newActivation.html';
 							} else {}
