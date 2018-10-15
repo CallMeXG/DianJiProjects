@@ -306,9 +306,9 @@ $(function() {
 		//左上角扫描点击事件
 		$("#scanCodeClicked").on('tap', function() {
 			mui.openWindow({
-				url: 'devicelisttoscancode.html',
-				id:'devicelistscanID'
-//				url: 'ScanCode.html'
+//				url: 'devicelisttoscancode.html',
+//				id:'devicelistscanID'
+				url: 'ScanCode.html'
 			})
 		})
 

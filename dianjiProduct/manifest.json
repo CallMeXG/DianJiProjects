@@ -7,8 +7,8 @@
 	"id": "H573E8CEF",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "嘉轩卫士",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.2.13.2",/*应用版本名称*/
-		"code": "12132"
+		"name": "1.4.1",/*应用版本名称*/
+		"code": "1496"
 	},
 	"description": "",/*应用描述信息*/
 	"icons": {
@@ -231,7 +231,10 @@
 					"DianJi/DianJi/login.html",
 					"DianJi/DianJi/checkHistory.html",
 					"DianJi/DianJi/ScanCode.html",
-					"DianJi/DianJi/artificialcheckList.html"
+					"DianJi/DianJi/artificialcheckList.html",
+					"DianJi/DianJi/devicelisttoscancode.html",
+					"DianJi/DianJi/aboutUs.html",
+					"DianJi/DianJi/DeviceDetail.html"
 				],
 				"priority": 0
 			},
@@ -239,7 +242,9 @@
 				"resources": [],
 				"refer": [
 					"DianJi/DianJi/newIndexPage.html",
-					"DianJi/DianJi/newIndex.html"
+					"DianJi/DianJi/newIndex.html",
+					"DianJi/DianJi/view/resetPwd.html",
+					"DianJi/DianJi/register.html"
 				],
 				"priority": 0
 			},
@@ -255,6 +260,43 @@
 				"refer": [
 					"DianJi/DianJi/artificialcheck.html",
 					"DianJi/DianJi/artificialcheckhistory.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/devicelisttoscancode.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/DeviceDetail.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/ScanCode.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/newDataChart.html",
+					"DianJi/DianJi/newActivation.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/newDataChart.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/ScanCode.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/newActivation.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/view/carInfo_activate.html",
+					"DianJi/DianJi/ScanCode.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/view/carInfo_activate.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/newActivation.html"
 				],
 				"priority": 0
 			}
