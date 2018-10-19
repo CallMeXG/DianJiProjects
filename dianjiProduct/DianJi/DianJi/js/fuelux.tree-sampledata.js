@@ -24,8 +24,10 @@ $("#shuju").on("tap", function() {
 	//	window.location.href = "Monitor.html";
 })
 $("#changeDeviceID").on('tap', function() {
+//	window.location.replace('ModifyInformation.html');
 	mui.openWindow({
-		url: 'ModifyInformation.html'
+		url: 'ModifyInformation.html',
+		id:'ModifyInformation.html'
 	})
 })
 //DataSourceTree.prototype.data = function(options, callback) {

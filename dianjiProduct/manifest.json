@@ -14,7 +14,7 @@
 	"icons": {
 		"72": "icon.png"
 	},
-	"launch_path": "DianJi/DianJi/newIndex.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+	"launch_path": "DianJi/DianJi/projectindex.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
 	"developer": {
 		"name": "",/*开发者名称*/
 		"email": "",/*开发者邮箱地址*/
@@ -226,14 +226,17 @@
 				"priority": 0
 			},
 			"DianJi/DianJi/newIndex.html": {
-				"resources": [],
+				"resources": [
+					"DianJi/DianJi/newIndexPage.html"
+				],
 				"refer": [
 					"DianJi/DianJi/login.html",
 					"DianJi/DianJi/ScanCode.html",
 					"DianJi/DianJi/newDataChart.html",
 					"DianJi/DianJi/DeviceDetail.html",
 					"DianJi/DianJi/devicelisttoscancode.html",
-					"DianJi/DianJi/artificialcheckList.html"
+					"DianJi/DianJi/artificialcheckList.html",
+					"DianJi/DianJi/AddDevice.html"
 				],
 				"priority": 0
 			},
@@ -241,7 +244,8 @@
 				"resources": [],
 				"refer": [
 					"DianJi/DianJi/newIndexPage.html",
-					"DianJi/DianJi/newIndex.html"
+					"DianJi/DianJi/newIndex.html",
+					"DianJi/DianJi/headerindex.html"
 				],
 				"priority": 0
 			},
@@ -292,7 +296,10 @@
 			"DianJi/DianJi/newActivation.html": {
 				"resources": [],
 				"refer": [
-					"DianJi/DianJi/view/carInfo_activate.html"
+					"DianJi/DianJi/view/carInfo_activate.html",
+					"DianJi/DianJi/headerindex.html",
+					"DianJi/DianJi/devicelist.html",
+					"DianJi/DianJi/projectindex.html"
 				],
 				"priority": 0
 			},
@@ -300,6 +307,95 @@
 				"resources": [],
 				"refer": [
 					"DianJi/DianJi/newActivation.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/newIndexPage.html": {
+				"resources": [
+					"DianJi/DianJi/newIndex.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"DianJi/DianJi/headerindex.html": {
+				"resources": [
+					"DianJi/DianJi/AddDevice.html",
+					"DianJi/DianJi/newIndex.html",
+					"DianJi/DianJi/aboutUs.html",
+					"DianJi/DianJi/demo1.html",
+					"DianJi/DianJi/baobiaoPage.html"
+				],
+				"refer": [
+					"DianJi/DianJi/login.html",
+					"DianJi/DianJi/FeedBack.html",
+					"DianJi/DianJi/demo2.html",
+					"DianJi/DianJi/demo3.html",
+					"DianJi/DianJi/minepage.html",
+					"DianJi/DianJi/devicelist.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/demo.html": {
+				"resources": [
+					"DianJi/DianJi/headerindex.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"DianJi/DianJi/demo3.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/demo.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/minepage.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/view/resetPwd.html",
+					"DianJi/DianJi/updateList.html",
+					"DianJi/DianJi/FeedBack.html",
+					"DianJi/DianJi/AddDevice.html",
+					"DianJi/DianJi/aboutUs.html",
+					"DianJi/DianJi/login.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/devicelist.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/login.html",
+					"DianJi/DianJi/devicelisttoscancode.html",
+					"DianJi/DianJi/DeviceDetail.html",
+					"DianJi/DianJi/newDataChart.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/projectindex.html": {
+				"resources": [
+					"DianJi/DianJi/login.html",
+					"DianJi/DianJi/headerindex.html"
+				],
+				"refer": [
+					"DianJi/DianJi/newActivation.html",
+					"DianJi/DianJi/scancodetodetail.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/baobiaoPage.html": {
+				"resources": [
+					"DianJi/DianJi/baobiaochart.html"
+				],
+				"refer": [
+					"DianJi/DianJi/message.html",
+					"DianJi/DianJi/baogao.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/ModifyInformation.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/devicelisttoscancode.html"
 				],
 				"priority": 0
 			}

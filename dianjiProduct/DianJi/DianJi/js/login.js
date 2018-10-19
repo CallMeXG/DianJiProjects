@@ -1,6 +1,8 @@
 //function tip() {
 //点击登录事件
 
+
+
 $("#login_btn").click(function() {
 	var phone = $("#login_phone").val();
 	var pwd = $("#login_pwd").val();
@@ -67,6 +69,10 @@ $("#login_btn").click(function() {
 					localStorage.setItem("reginArray", JSON.stringify(regionArray));
 
 					mui.toast(respData.message);
+					mui.openWindow({
+						url: 'headerindex.html',
+						id: 'headerindex.html'
+					})
 					//					mui.openWindow('mainIndex.html')
 
 					//					mui.preload({
@@ -74,8 +80,8 @@ $("#login_btn").click(function() {
 					//					window.location.replace('firstIndex.html');
 					//					window.location.replace('newIndex.html');
 					//					showHome(0, 1);
-//					window.location.replace('newIndexPage.html');
-					window.location.replace('newIndex.html');
+					//					window.location.replace('headerindex.html');
+					//					window.location.replace('newIndex.html');
 					//保存用户类型
 					localStorage.setItem("userType", respData.data.types);
 					//					mui.preload({url:'newMainMy.html'});
@@ -94,7 +100,6 @@ $("#login_btn").click(function() {
 })
 //新用户注册点击事件
 $("#newUser").on("tap", function() {
-
 	mui.openWindow("register.html");
 })
 //忘记密码

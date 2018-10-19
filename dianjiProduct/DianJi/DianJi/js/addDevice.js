@@ -82,13 +82,15 @@ $("#add_gangdu").click(function() {
 	});
 })
 
-//$("#addDevice").on('tap', function() {
-//	var wobj = plus.webview.getWebviewById("newIndexID");
-//	wobj.reload(true);
-//	mui.back();
-//})
+$("#addDevice").on('tap', function() {
+	//获得主页面的webview
+	var main = plus.webview.getWebviewById('headerindex.html');
+	//触发主页面的gohome事件
+	mui.fire(main, 'backhome');
+	mui.back();
+})
 
-///*
+/*
 $('#addDevice').click(function() {
 
 	var company_id = companyID;
@@ -195,13 +197,11 @@ $('#addDevice').click(function() {
 			console.log(msg);
 			if(msg.status == "SUCCESS") {
 				mui.toast(msg.message);
-				//				window.location.replace('newIndexPage.html');
-				//				window.location.replace('newIndex.html');
-				//				window.location.replace('newIndexPage.html');
-				var wobj = plus.webview.getWebviewById("newIndexID");
-				wobj.reload(true);
-				mui.back();
-//				mui.back();
+				//获得主页面的webview
+	var main = plus.webview.getWebviewById('headerindex.html');
+	//触发主页面的gohome事件
+	mui.fire(main, 'backhome');
+	mui.back();
 			} else if(msg.status = "FAILED") {
 				mui.toast(msg.message);
 			}

@@ -37,6 +37,15 @@
 				});
 				// 显示页面并关闭等待框
 				ws.show('pop-in');
+
+				document.addEventListener('activeBack', function() {
+					var fatherWeb = plus.webview.currentWebview().opener();
+					mui.fire(fatherWeb, 'activeBack');
+					var objWeb = plus.webview.currentWebview();
+					plus.webview.close(objWeb.id, 'none', 0.01);
+				});
+				
+
 				//  wo.evalJS('closeWaiting()');
 			}
 			if(window.plus) {
@@ -136,6 +145,7 @@
 						if(dicSim.sim[0].state == 6) {
 							mui.openWindow({
 								url: "scancodetodetail.html",
+								id: 'scancodetodetail.html',
 								extras: {
 									simData: respData.data
 								}
@@ -225,14 +235,6 @@
 		<script src="js/url_all.js"></script>
 		<script src="js/mui.min.js"></script>
 		<script>
-			//			mui.init({
-			//				subpages:[{
-			//					url:'devicelisttoscancode.html',
-			//					id:'devicelistscanID'
-			//				}]
-			//			});
-		</script>
-		<script>
 			$('#scanSearch').on('tap', function() {
 
 				scanSwitch();
@@ -266,10 +268,6 @@
 			})
 		</script>
 
-		<!--<footer>
-			<div class="fbt" onclick="back()">取　消</div>
-			<div id="btCancel" class="fbt" onclick="scanSwitch()">暂　停</div>
-		</footer>-->
 	</body>
 
 </html>

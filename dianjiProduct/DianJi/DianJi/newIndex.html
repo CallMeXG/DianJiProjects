@@ -14,12 +14,10 @@
 		<link rel="stylesheet" type="text/css" href="css/MyReport.css" />
 		<link rel="stylesheet" type="text/css" href="css/pagination.css" media="screen">
 		<link rel="stylesheet" type="text/css" href="css/Config.css" />
-		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
 		<link rel="stylesheet" href="css/simplePaging.css">
 		<link rel="stylesheet" type="text/css" href="css/pagination.css" />
-		<script src="js/vue.min.js" type="text/javascript"></script>
-		<script src="js/echarts.common.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="demo.css" />
+
 		<style>
 			html,
 			body {
@@ -64,6 +62,7 @@
 				font-size: 14px;
 			}
 		</style>
+
 	</head>
 
 	<body>
@@ -97,12 +96,12 @@
 			<br />
 		</div>
 		<header id="baobiaoHeader" class="mui-bar mui-bar-nav" style="background-color: #524598;">
-			<h1 class="mui-title" style="color: white;">报表</h1>
+			<h1 class="mui-title"><img height="15px" src="img/home.png" id="logo"/></h1>
 		</header>
 
 		<header class="mui-bar mui-bar-nav" id="head" style="background-color: #524598;position: absolute; display: none;">
 			<a id="headerRight" style="margin-top: -5px;" href="#tanchucaidan" class="mui-icon iconfont icon-shaixuan2 mui-pull-right"></a>
-			<h1 class="mui-title "><img height="15px" src="img/home.png" id="logo"/></h1>
+			<h1 class="mui-title ">设备列表</h1>
 
 			<div id="headerSearch" class="mui-indexed-list-search mui-input-row mui-search" style="width: 65%;float: left;">
 				<i id="scanCodeClicked" style="position: absolute;z-index: 5;right: 0;margin-top: -2px;" class="mui-icon iconfont icon-tubiaozhizuomoban "></i>
@@ -127,12 +126,12 @@
 
 		<nav class="mui-bar mui-bar-tab" style="position: absolute;">
 			<a id="baobiaoTab" class="mui-tab-item mui-active" href="#baobiao">
-				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-icon iconfont icon-baogao"></span>
 				<span class="mui-tab-label">报表</span>
 			</a>
 			<a id="defaultTab" class="mui-tab-item" href="#deviceList">
-				<span class="mui-icon mui-icon-home"></span>
-				<span class="mui-tab-label">首页</span>
+				<span class="mui-icon iconfont icon-shaixuan"></span>
+				<span class="mui-tab-label">设备</span>
 			</a>
 			<a id="minePageClicked" class="mui-tab-item" href="#minePage">
 				<span class="mui-icon mui-icon-person"></span>
@@ -141,7 +140,7 @@
 		</nav>
 
 		<div class="mui-content">
-			<div  id="baobiao" class="mui-control-content mui-active">
+			<div id="baobiao" class="mui-control-content mui-active">
 				<div id="slider" class="mui-slider">
 					<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 						<a class="mui-control-item mui-active" href="#baobiaoSilder">报表</a>
@@ -316,7 +315,9 @@
 
 		<script src="js/mui.min.js"></script>
 		<script src="js/url_all.js"></script>
-
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue.min.js" type="text/javascript"></script>
+		<script src="js/echarts.common.min.js"></script>
 		<script src="js/highlight.min.js"></script>
 		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 		<script src="js/jquery.pagination.js"></script>
@@ -325,18 +326,26 @@
 		<script src="js/newindexdemo.js"></script>
 		<!--<script src="js/newIndexLogin.js"></script>-->
 		<script type="text/javascript" src="js/pagination.min.js"></script>
-
+		<script>
+			
+			mui.init({
+//				subpages: [{
+					url: 'newIndex.html',
+					id: 'newIndexID'
+//				}]
+			})
+		</script>
 		<script type="text/javascript">
 			mui('.mui-scroll-wrapper').scroll();
 
 			var baobiaoChartPage = echarts.init(document.getElementById('baobiaoCharts'));
 			var optionCharts = {
-				
+
 				tooltip: {
 					trigger: 'item',
 					formatter: "{a} <br/>{b} : {c} ({d}%)"
 				},
-				
+
 				series: [{
 					name: '',
 					type: 'pie',

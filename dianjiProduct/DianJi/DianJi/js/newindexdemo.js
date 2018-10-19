@@ -1,83 +1,16 @@
 $(function() {
-
+	///*
 	mui.plusReady(function() {
 
-		mui.init({
-			subpages: [{
-				url: 'newIndex.html',
-				id: 'newIndexID'
-			}]
-		})
-		//		console.log("登录登录登录登录登录登录登录登录登录登录登录")
+		document.addEventListener('activeBack', function() {
+			console.log('8888888888888888888888888888')
+		});
 
 		///*
 		plus.webview.currentWebview().setStyle({
 			softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
 		});
 
-		$('#minePageClicked').on('tap', function() {
-			$('#mineHeader').css('display', 'block');
-			$('#head').css('display', 'none');
-			$('#baobiaoHeader').css('display', 'none');
-			
-		})
-		$('#defaultTab').on('tap', function() {
-			$('#mineHeader').css('display', 'none');
-			$('#head').css('display', 'block');
-			$('#baobiaoHeader').css('display', 'none');
-		})
-		$('#baobiaoTab').on('tap', function() {
-			$('#mineHeader').css('display', 'none');
-			$('#head').css('display', 'none');
-			$('#baobiaoHeader').css('display', 'block');
-		})
-		$("#addDeviceNew").on("tap", function() {
-			mui.openWindow({
-				url: "AddDevice.html"
-			})
-
-			//	window.location.replace('AddDevice.html');
-
-		})
-		$("#feedback").on("tap", function() {
-			mui.openWindow({
-				url: "FeedBack.html"
-			})
-		})
-		$("#aboutUs").on("tap", function() {
-			mui.openWindow({
-				url: "aboutUs.html"
-			})
-		})
-
-		$("#reset_pwd").on("tap", function() {
-			localStorage.setItem("resetType", "restpwd");
-			mui.openWindow({
-				url: "view/resetPwd.html"
-			})
-		})
-		//功能介绍
-		$("#codeUpdate").on("tap", function() {
-			mui.openWindow({
-				url: "updateList.html"
-			})
-		})
-
-		function ConfirmCallBack(e) {
-			if(e.index == 1) {
-				localStorage.removeItem("isLogin");
-				localStorage.removeItem("userName");
-				localStorage.removeItem("userPwd");
-				localStorage.clear();
-				window.location.replace('login.html');
-			}
-		}
-
-		$("#logoutButton").on('tap', function() {
-			mui.confirm("退出登录？", "", ["否", "是"], ConfirmCallBack)
-		})
-
-		$("#username").html(localStorage.getItem("userName"))
 		$("#nullDataPage").hide();
 
 		var strKeyWord = "";
@@ -108,7 +41,10 @@ $(function() {
 						e.cancelBubble = true; //ie兼容
 					}
 					localStorage.setItem('DeveciId', items.devices_no);
-					mui.openWindow('newDataChart.html')
+					mui.openWindow({
+						url: 'newDataChart.html',
+						id: 'newDataChart.html'
+					});
 				},
 				open_detail(items) {
 					e = window.event || e;
@@ -119,7 +55,10 @@ $(function() {
 					}
 					localStorage.setItem('DeveciId', items.devices_no);
 					localStorage.enterPage = "Enter";
-					mui.openWindow('DeviceDetail.html')
+					mui.openWindow({
+						url: 'DeviceDetail.html',
+						id: 'DeviceDetail.html'
+					})
 				},
 				sliderBtnClicked: function(event, selType, CellItems) {
 
@@ -191,7 +130,6 @@ $(function() {
 										var indexPa = newReginListID.indexOf(mseItem.id);
 										newReginListID.splice(indexPa, 1);
 									}
-									
 
 								}
 							}
@@ -256,10 +194,10 @@ $(function() {
 						window.location.replace("login.html");
 					}
 				},
-				error:function(error){
+				error: function(error) {
 					mui.toast("登录失败，请检查网络连接");
 				}
-				
+
 			});
 
 		} //自动登录结束
@@ -313,10 +251,11 @@ $(function() {
 
 		//左上角扫描点击事件
 		$("#scanCodeClicked").on('tap', function() {
+			localStorage.removeItem('DeveciId');
 			mui.openWindow({
 				url: 'devicelisttoscancode.html',
-				id:'devicelistscanID'
-//				url: 'ScanCode.html'
+				id: 'devicelisttoscancode.html'
+				//				url: 'ScanCode.html'
 			})
 		})
 
@@ -343,7 +282,7 @@ $(function() {
 		//搜索设备接口
 		function searchDevice(keyWord, pageNum, keyType, strPostRegion, thisIndex) {
 			var wa = plus.nativeUI.showWaiting();
-			
+
 			$.ajax({
 				type: "get",
 				url: commen_search_device_Interface,
@@ -364,7 +303,7 @@ $(function() {
 					if(res.status == "SUCCESS") {
 						if(res.data.search_list.length > 0) {
 							content.message = res.data.search_list;
-							$('#content').css('display','block');
+							$('#content').css('display', 'block');
 							$("#nullDataPage").hide();
 							$("#content").show();
 							var pagecount = res.data.total_records / 10;
@@ -466,4 +405,5 @@ $(function() {
 		}
 		//*/
 	})
+
 });

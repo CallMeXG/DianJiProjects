@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>APP入口页</title>
+		<script src="js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<script>
+			
+			if(localStorage.getItem("userName") != undefined) {
+				mui.init({
+					subpages: [{
+						url: 'headerindex.html',
+						id: 'headerindex.html'
+					}]
+				})
+			} else {
+				mui.init({
+					subpages: [{
+						url: 'login.html',
+						id: 'login.html'
+					}]
+				})
+
+			}
+		</script>
+	</body>
+
+</html>

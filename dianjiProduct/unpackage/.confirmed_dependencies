@@ -40,7 +40,8 @@
       "DianJi/DianJi/register.html",
       "DianJi/DianJi/view/resetPwd.html",
       "DianJi/DianJi/newIndex.html",
-      "DianJi/DianJi/newIndexPage.html"
+      "DianJi/DianJi/newIndexPage.html",
+      "DianJi/DianJi/headerindex.html"
     ],
     "resources": [
       "DianJi/DianJi/index.html",
@@ -236,7 +237,8 @@
       "DianJi/DianJi/DeviceDetail.html",
       "DianJi/DianJi/ScanCode.html",
       "DianJi/DianJi/UploadImage.html",
-      "DianJi/DianJi/demo_2.html"
+      "DianJi/DianJi/demo_2.html",
+      "DianJi/DianJi/devicelisttoscancode.html"
     ],
     "resources": [
       "DianJi/DianJi/css/MyReport.css",
@@ -395,7 +397,10 @@
   "DianJi/DianJi/newActivation.html": {
     "refer": [
       "DianJi/DianJi/ScanCode.html",
-      "DianJi/DianJi/view/carInfo_activate.html"
+      "DianJi/DianJi/view/carInfo_activate.html",
+      "DianJi/DianJi/headerindex.html",
+      "DianJi/DianJi/devicelist.html",
+      "DianJi/DianJi/projectindex.html"
     ],
     "resources": [
       "DianJi/DianJi/css/mui.min.css",
@@ -415,7 +420,9 @@
       "DianJi/DianJi/index.html",
       "DianJi/DianJi/demonew.html"
     ],
-    "resources": []
+    "resources": [
+      "DianJi/DianJi/headerindex.html"
+    ]
   },
   "DianJi/DianJi/demonew.html": {
     "refer": [
@@ -510,7 +517,8 @@
       "DianJi/DianJi/fonts/iconfont.ttf",
       "DianJi/DianJi/css/Home.css",
       "DianJi/DianJi/img/default.png",
-      "DianJi/DianJi/login.html"
+      "DianJi/DianJi/login.html",
+      "DianJi/DianJi/newIndexPage.html"
     ],
     "refer": [
       "DianJi/DianJi/Config.html",
@@ -543,7 +551,9 @@
       "DianJi/DianJi/ScanCode.html",
       "DianJi/DianJi/aboutUs.html"
     ],
-    "resources": []
+    "resources": [
+      "DianJi/DianJi/newIndex.html"
+    ]
   },
   "DianJi/DianJi/updateList.html": {
     "refer": [
@@ -578,5 +588,72 @@
       "DianJi/DianJi/newActivation.html"
     ],
     "resources": []
+  },
+  "DianJi/DianJi/headerindex.html": {
+    "resources": [
+      "DianJi/DianJi/AddDevice.html",
+      "DianJi/DianJi/newIndex.html",
+      "DianJi/DianJi/baobiaoPage.html"
+    ],
+    "refer": [
+      "DianJi/DianJi/login.html",
+      "DianJi/DianJi/aboutUs.html",
+      "DianJi/DianJi/AddDevice.html",
+      "DianJi/DianJi/FeedBack.html",
+      "DianJi/DianJi/newIndex.html",
+      "DianJi/DianJi/demo2.html",
+      "DianJi/DianJi/demo3.html",
+      "DianJi/DianJi/demo1.html",
+      "DianJi/DianJi/baobiaoPage.html",
+      "DianJi/DianJi/minepage.html",
+      "DianJi/DianJi/devicelist.html"
+    ]
+  },
+  "DianJi/DianJi/demo3.html": {
+    "refer": [
+      "DianJi/DianJi/demo.html"
+    ],
+    "resources": []
+  },
+  "DianJi/DianJi/minepage.html": {
+    "refer": [
+      "DianJi/DianJi/view/resetPwd.html",
+      "DianJi/DianJi/updateList.html",
+      "DianJi/DianJi/FeedBack.html",
+      "DianJi/DianJi/AddDevice.html",
+      "DianJi/DianJi/aboutUs.html",
+      "DianJi/DianJi/login.html"
+    ],
+    "resources": []
+  },
+  "DianJi/DianJi/devicelist.html": {
+    "refer": [
+      "DianJi/DianJi/login.html",
+      "DianJi/DianJi/devicelisttoscancode.html",
+      "DianJi/DianJi/DeviceDetail.html",
+      "DianJi/DianJi/newDataChart.html"
+    ],
+    "resources": []
+  },
+  "DianJi/DianJi/projectindex.html": {
+    "resources": [
+      "DianJi/DianJi/login.html",
+      "DianJi/DianJi/headerindex.html"
+    ],
+    "refer": [
+      "DianJi/DianJi/login.html",
+      "DianJi/DianJi/headerindex.html",
+      "DianJi/DianJi/newActivation.html",
+      "DianJi/DianJi/scancodetodetail.html"
+    ]
+  },
+  "DianJi/DianJi/baobiaoPage.html": {
+    "refer": [
+      "DianJi/DianJi/message.html",
+      "DianJi/DianJi/baogao.html"
+    ],
+    "resources": [
+      "DianJi/DianJi/baobiaochart.html"
+    ]
   }
 }

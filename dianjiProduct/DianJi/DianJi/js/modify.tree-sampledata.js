@@ -7,6 +7,15 @@ var regionID = null;
 
 getInitCompany();
 
+
+$('#addNewCPX').on('tap',function(){
+//	window.location.replace('devicelisttoscancode.html');
+	mui.openWindow({
+		url:'devicelisttoscancode.html',
+		id:'devicelisttoscancode.html'
+	})
+})
+
 function getInitCompany() {
 	$.ajax({
 		type: "get",
@@ -1005,6 +1014,7 @@ function getDefData() {
 		url: commen_gain_device_detail_Interface,
 		dataType: 'json',
 		success: function(msg) {
+			localStorage.setItem('ActiveMZDevice',JSON.stringify(msg.data));
 			var data = msg.data;
 			var sim_list = null;
 			if(data.hasOwnProperty("sim_list") == true) {

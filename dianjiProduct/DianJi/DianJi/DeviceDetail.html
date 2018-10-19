@@ -201,16 +201,28 @@
 
 	<script type="text/javascript">
 		mui.plusReady(function() {
+			document.addEventListener('activeBack', function() {
+				var fatherWeb = plus.webview.currentWebview().opener();
+				console.log("9999999999===" + JSON.stringify(fatherWeb))
+				mui.fire(fatherWeb, 'activeBack');
+				var objWeb = plus.webview.currentWebview();
+				plus.webview.close(objWeb.id, 'none', 0.01);
+			});
+			//点击左上角返回按钮，如果是通过扫描页进来，则返回到扫码页面，并让扫描功能重新开启
 			$("#DeviceDetailBack").on('tap', function() {
 				if(localStorage.enterPage == "SCAN") {
 					var objBack = plus.webview.currentWebview().opener();
-					mui.fire(objBack,'reTest');
+					mui.fire(objBack, 'reTest');
 					mui.back();
-				}
-				else{
+				} else {
 					mui.back();
 				}
 			})
+			//监听Android手机物理返回按键，返回到扫码页面时，重新进行扫描
+			plus.key.addEventListener('backbutton', function() {
+				var wobj = plus.webview.currentWebview().opener();
+				mui.fire(wobj, 'reTest');
+			}, false);
 		})
 	</script>
 

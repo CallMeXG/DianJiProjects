@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link href="css/common.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header id="baobiaoHeader" class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<h1 class="mui-title" style="color: white;">我的</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell mui-media">
+					<a class="mui-navigate-right">
+						<img class="mui-media-object mui-pull-left head-img" src="img/hbuilderlogo.png">
+						<div class="mui-media-body">
+							管理员
+							<p class='mui-ellipsis'>账号:<span id="username">138****8888</span></p>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<br />
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<a id="codeUpdate" class="mui-navigate-right"><span>版本信息</span><span style="float: right;">1.5</span></a>
+				</li>
+				<li class="mui-table-view-cell ">
+					<a class="mui-navigate-right " id="aboutUs">关于我们</a>
+				</li>
+			</ul>
+
+			<br />
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell ">
+					<a class="mui-navigate-right" id="reset_pwd">密码修改</a>
+				</li>
+				<li class="mui-table-view-cell ">
+					<a class="mui-navigate-right " id="feedback">问题反馈</a>
+				</li>
+				
+			</ul>
+			<br />
+			<ul id="newAddDevice" class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<a id="addDeviceNew" class="mui-navigate-right">新增设备</a>
+				</li>
+			</ul>
+			<br />
+			<ul class="mui-table-view ">
+				<li class="mui-table-view-cell" style="text-align: center;">
+					<a id="logoutButton" style="text-align: center;">退出登录</a>
+				</li>
+			</ul>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script>
+			//判断权限，是否显示新增设备项
+			var strUserType = localStorage.getItem("userType");
+			if(strUserType < 10) {
+				$("#newAddDevice").hide();
+
+			}
+			if(strUserType > 10) {
+				$("#newAddDevice").show();
+			}
+
+			$("#addDeviceNew").on("tap", function() {
+				mui.openWindow({
+					url: "AddDevice.html"
+				})
+			})
+			$("#feedback").on("tap", function() {
+				mui.openWindow({
+					url: "FeedBack.html"
+				})
+			})
+			$("#aboutUs").on("tap", function() {
+				mui.openWindow({
+					url: "aboutUs.html"
+				})
+			})
+
+			$("#reset_pwd").on("tap", function() {
+				localStorage.setItem("resetType", "restpwd");
+				mui.openWindow({
+					url: "view/resetPwd.html"
+				})
+			})
+			//功能介绍
+			$("#codeUpdate").on("tap", function() {
+				mui.openWindow({
+					url: "updateList.html"
+				})
+			})
+
+			mui.plusReady(function() {
+				function ConfirmCallBack(e) {
+					if(e.index == 1) {
+						localStorage.removeItem("isLogin");
+						localStorage.removeItem("userName");
+						localStorage.removeItem("userPwd");
+						localStorage.clear();
+						//						mui.openWindow('login.html');
+
+						//						mui.back();
+						plus.webview.close('headerindex.html');
+						//						window.location.replace('login.html');
+					}
+				}
+
+				$("#logoutButton").on('tap', function() {
+					mui.confirm("退出登录？", "", ["否", "是"], ConfirmCallBack)
+				})
+			})
+
+			$("#username").html(localStorage.getItem("userName"));
+		</script>
+	</body>
+
+</html>

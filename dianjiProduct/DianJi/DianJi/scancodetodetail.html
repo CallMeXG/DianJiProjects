@@ -73,7 +73,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="mui-bar mui-bar-footer" style="text-align: center;">
+			<div id="footerActiveID" class="mui-bar mui-bar-footer" style="text-align: center;display: none;">
 				<button id="gotoActive" class="mui-btn mui-btn-royal" style="width: 100%;">去激活</button>
 			</div>
 
@@ -81,8 +81,28 @@
 		<script>
 			mui.plusReady(function() {
 
+				//判断权限，是否显示激活按钮
+				var strUserType = localStorage.getItem("userType");
+				if(strUserType < 10) {
+
+					$("#footerActiveID").hide();
+
+				}
+				if(strUserType > 10) {
+					//获取上 上一页的ID，判断是从设备列表页过来的，还是从设备信息修改页过来的
+					//如果是从设备列表页过来，则不能激活
+					//如果是从设备修改页过来，则在有权限的情况下，可以进行激活
+					var strGranFather = plus.webview.currentWebview().opener().opener().id;
+					if(strGranFather == 'ModifyInformation.html') {
+						$("#footerActiveID").show();
+					} else {
+						$("#footerActiveID").hide();
+					}
+
+				}
+
+				//获取从上页，扫描页传来的数据
 				var simDatas = plus.webview.currentWebview().simData;
-				console.log("====" + JSON.stringify(simDatas));
 
 				var cardHeaderID = new Vue({
 					el: '#cardHeaderID',
@@ -99,10 +119,22 @@
 				})
 
 				$("#backIDs").on('tap', function() {
-					var wobj = plus.webview.getWebviewById("devicelistscanID");
+					var wobj = plus.webview.getWebviewById("devicelisttoscancode.html");
 					mui.fire(wobj, 'reTest');
 					mui.back();
-				})
+				});
+				//激活后的返回
+				document.addEventListener('activeBack', function() {
+					var fatherWeb = plus.webview.currentWebview().opener();
+					mui.fire(fatherWeb, 'activeBack');
+					var objWeb = plus.webview.currentWebview();
+					plus.webview.close(objWeb.id, 'none', 0.01);
+				});
+				//监听Android手机物理返回按键，返回到扫码页面时，重新进行扫描
+				plus.key.addEventListener('backbutton', function() {
+					var wobj = plus.webview.getWebviewById("devicelisttoscancode.html");
+					mui.fire(wobj, 'reTest');
+				}, false);
 
 				$("#gotoActive").on('tap', function() {
 					$.ajax({
@@ -117,14 +149,15 @@
 							if(resqMsg.status == "SUCCESS") {
 								localStorage.simID = simDatas.sim[0].serial_no;
 								mui.openWindow("newActivation.html")
-//								window.location.href = 'newActivation.html';
+								//window.location.href = 'newActivation.html';
 							} else {}
 						},
 						error: function() {
 
 						}
 					});
-//					mui.openWindow("carInfo_activate.html")
+
+					//					mui.openWindow("carInfo_activate.html")
 				})
 
 			})
