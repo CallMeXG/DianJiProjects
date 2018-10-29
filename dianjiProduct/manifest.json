@@ -5,10 +5,10 @@
 		"iPad"
 	],
 	"id": "H573E8CEF",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "嘉轩卫士",/*应用名称，程序桌面图标名称*/
+	"name": "机电测试",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.5.1.0",/*应用版本名称*/
-		"code": "1500"
+		"code": "1501"
 	},
 	"description": "",/*应用描述信息*/
 	"icons": {
@@ -101,12 +101,12 @@
 					}
 				},
 				"android": {
-					"mdpi": "DianJi/DianJi/img/48x48.png", /*普通屏程序图标，分辨率：48x48*/
-					"ldpi": "DianJi/DianJi/img/48x48.png", /*大屏程序图标，分辨率：48x48*/
-					"hdpi": "DianJi/DianJi/img/72x72.png", /*高分屏程序图标，分辨率：72x72*/
-					"xhdpi": "DianJi/DianJi/img/96x96.png",/*720P高分屏程序图标，分辨率：96x96*/
-					"xxhdpi": "DianJi/DianJi/img/144x144.png",
-					"xxxhdpi": "DianJi/DianJi/img/192x192.png"
+					"mdpi": "C:/Users/Administrator/Desktop/电机项目/dianjiDaima/dianjiProduct/DianJi/DianJi/img/logo1.png", /*普通屏程序图标，分辨率：48x48*/
+					"ldpi": "C:/Users/Administrator/Desktop/电机项目/dianjiDaima/dianjiProduct/DianJi/DianJi/img/logo1.png", /*大屏程序图标，分辨率：48x48*/
+					"hdpi": "C:/Users/Administrator/Desktop/电机项目/dianjiDaima/dianjiProduct/DianJi/DianJi/img/logo2.png", /*高分屏程序图标，分辨率：72x72*/
+					"xhdpi": "C:/Users/Administrator/Desktop/电机项目/dianjiDaima/dianjiProduct/DianJi/DianJi/img/logo3.png",/*720P高分屏程序图标，分辨率：96x96*/
+					"xxhdpi": "C:/Users/Administrator/Desktop/电机项目/dianjiDaima/dianjiProduct/DianJi/DianJi/img/logo4.png",
+					"xxxhdpi": "C:/Users/Administrator/Desktop/电机项目/dianjiDaima/dianjiProduct/DianJi/DianJi/img/logo5.png"
 				}
 			},
 			"splashscreen": {

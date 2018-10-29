@@ -80,20 +80,18 @@
 		</div>
 		<script>
 			mui.plusReady(function() {
-
+				
 				//判断权限，是否显示激活按钮
 				var strUserType = localStorage.getItem("userType");
 				if(strUserType < 10) {
-
 					$("#footerActiveID").hide();
-
 				}
 				if(strUserType > 10) {
 					//获取上 上一页的ID，判断是从设备列表页过来的，还是从设备信息修改页过来的
 					//如果是从设备列表页过来，则不能激活
 					//如果是从设备修改页过来，则在有权限的情况下，可以进行激活
-					var strGranFather = plus.webview.currentWebview().opener().opener().id;
-					if(strGranFather == 'ModifyInformation.html') {
+					var strGranFather = localStorage.getItem('fatherID');
+					if(strGranFather == 'updateDevice') {
 						$("#footerActiveID").show();
 					} else {
 						$("#footerActiveID").hide();

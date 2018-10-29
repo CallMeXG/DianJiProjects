@@ -3,7 +3,7 @@ $(function() {
 	mui.plusReady(function() {
 
 		document.addEventListener('activeBack', function() {
-			console.log('8888888888888888888888888888')
+			console.log('8888888888888888888888888888=== ')
 		});
 
 		///*
@@ -252,6 +252,7 @@ $(function() {
 		//左上角扫描点击事件
 		$("#scanCodeClicked").on('tap', function() {
 			localStorage.removeItem('DeveciId');
+			localStorage.setItem('fatherID', 'deviceList');
 			mui.openWindow({
 				url: 'devicelisttoscancode.html',
 				id: 'devicelisttoscancode.html'

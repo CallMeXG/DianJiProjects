@@ -47,6 +47,9 @@
 			///*
 			//创建子页面，首个选项卡页面显示，其它均隐藏；
 			mui.plusReady(function() {
+				
+				console.log('[[[]]]==='+JSON.stringify(plus.webview.currentWebview().opener()))
+				
 				////监听Android 物理返回按键；双击退出程序
 				var backButtonPress = 0;
 				mui.back = function(event) {

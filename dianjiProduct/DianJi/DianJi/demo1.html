@@ -6,20 +6,39 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<link rel="stylesheet" href="css/mui.min.css" />
+		<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 	</head>
 
 	<body>
 		<button class="mui-btn mui-btn-blue">111111</button>
 	</body>
-	<script src="js/mui.min.js"></script>
 	<script>
-		mui.init({
-			swipeBack:true //启用右滑关闭功能
+		console.log('=======');
+
+		var json = {
+			"devices_no": 'MZ101100',
+			"devices_name": '1502 电机'
+		};
+		$.ajax({
+			type: 'get',
+			url: 'https://aiimoto.com/server_webapi/p/commen_gain_cpx',
+			async: true,
+			contentType: 'application/json',
+			data: {
+
+			},
+			error: function(){
+				
+			},
+//			beforeSend: loadRegister,
+			success: (function(result) {
+				var json = JSON.parse(result);
+				console.log("ajax回调函数");
+				console.log(json);
+
+			})
+
 		});
-		mui.plusReady(function(){
-			console.log("8888=="+plus.webview.currentWebview().id)
-		})
 	</script>
 
 </html>

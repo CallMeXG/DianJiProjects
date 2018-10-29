@@ -9,7 +9,29 @@
 
 	<body>
 		<script>
-			
+			mui.plusReady(function() {
+				console.log('shoye  === ' + plus.webview.currentWebview().id)
+			});
+			document.addEventListener('logoutEvent', function() {
+				console.log("0000000000000000======000000000000000==="+localStorage.getItem("userName"));
+				if(localStorage.getItem("userName") != undefined) {
+					mui.init({
+						subpages: [{
+							url: 'headerindex.html',
+							id: 'headerindex.html'
+						}]
+					})
+				} else {
+					mui.init({
+						subpages: [{
+							url: 'login.html',
+							id: 'login.html'
+						}]
+					})
+
+				}
+			});
+
 			if(localStorage.getItem("userName") != undefined) {
 				mui.init({
 					subpages: [{

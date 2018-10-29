@@ -7,12 +7,12 @@ var regionID = null;
 
 getInitCompany();
 
-
-$('#addNewCPX').on('tap',function(){
-//	window.location.replace('devicelisttoscancode.html');
+$('#addNewCPX').on('tap', function() {
+	//	window.location.replace('devicelisttoscancode.html');
+	localStorage.setItem('fatherID','updateDevice');
 	mui.openWindow({
-		url:'devicelisttoscancode.html',
-		id:'devicelisttoscancode.html'
+		url: 'devicelisttoscancode.html',
+		id: 'devicelisttoscancode.html'
 	})
 })
 
@@ -1014,7 +1014,7 @@ function getDefData() {
 		url: commen_gain_device_detail_Interface,
 		dataType: 'json',
 		success: function(msg) {
-			localStorage.setItem('ActiveMZDevice',JSON.stringify(msg.data));
+			localStorage.setItem('ActiveMZDevice', JSON.stringify(msg.data));
 			var data = msg.data;
 			var sim_list = null;
 			if(data.hasOwnProperty("sim_list") == true) {
@@ -1384,12 +1384,12 @@ function finshBtnClickReturnData() {
 						var mins = arrZQ[1] * 60;
 						var hours = arrZQ[0] * 3600;
 						var toCount = parseInt(hours) + parseInt(mins) + parseInt(seconds);
-//						if(toCount < 3600) {
-//							mui.toast("数据采集周期不得小于1小时");
-//							return false;
-//						} else {
-							sim_dic.sampling_duration = obj_caiji_zhouqi;
-//						}
+						//						if(toCount < 3600) {
+						//							mui.toast("数据采集周期不得小于1小时");
+						//							return false;
+						//						} else {
+						sim_dic.sampling_duration = obj_caiji_zhouqi;
+						//						}
 					} else {
 						sim_dic.sampling_duration = obj_caiji_zhouqi;
 					}
@@ -1400,12 +1400,12 @@ function finshBtnClickReturnData() {
 						var mins = arrZQ[1] * 60;
 						var hours = arrZQ[0] * 3600;
 						var toCount = parseInt(hours) + parseInt(mins) + parseInt(seconds);
-//						if(toCount < 3600) {
-//							mui.toast("数据上传周期不得小于1小时");
-//							return false;
-//						} else {
-							sim_dic.update_duration = obj_caiji_uploadzhouqi;
-//						}
+						//						if(toCount < 3600) {
+						//							mui.toast("数据上传周期不得小于1小时");
+						//							return false;
+						//						} else {
+						sim_dic.update_duration = obj_caiji_uploadzhouqi;
+						//						}
 					} else {
 						sim_dic.update_duration = obj_caiji_uploadzhouqi;
 					}

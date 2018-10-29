@@ -45,7 +45,7 @@
 				<li class="mui-table-view-cell ">
 					<a class="mui-navigate-right " id="feedback">问题反馈</a>
 				</li>
-				
+
 			</ul>
 			<br />
 			<ul id="newAddDevice" class="mui-table-view mui-table-view-chevron">
@@ -109,11 +109,11 @@
 						localStorage.removeItem("userName");
 						localStorage.removeItem("userPwd");
 						localStorage.clear();
-						//						mui.openWindow('login.html');
-
-						//						mui.back();
+						//退出登录时，先获取进入APP页面ID，然后根据ID，调用判断是否登录的方法，最后关闭该页面
+						var objLogin = plus.webview.getWebviewById('HBuilder');
+						mui.fire(objLogin, 'logoutEvent');
 						plus.webview.close('headerindex.html');
-						//						window.location.replace('login.html');
+						
 					}
 				}
 

@@ -118,3 +118,10 @@ var new_commen_gain_manual_list_Interface = url + 'check/commen_gain_manual_list
 var new_commen_gain_check_device_list_Interface = url + 'check/commen_gain_check_device_list';
 //点检详情
 var new_commen_gain_check_device_detail_Interface = url + 'check/commen_gain_check_device_detail';
+//设备运行状态统计
+var new_commen_statis_device_Interface = url +'device/commen_statis_device';
+
+
+
+
+
