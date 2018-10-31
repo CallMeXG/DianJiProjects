@@ -631,7 +631,8 @@
       "DianJi/DianJi/login.html",
       "DianJi/DianJi/devicelisttoscancode.html",
       "DianJi/DianJi/DeviceDetail.html",
-      "DianJi/DianJi/newDataChart.html"
+      "DianJi/DianJi/newDataChart.html",
+      "DianJi/DianJi/artificialcheckList.html"
     ],
     "resources": []
   },

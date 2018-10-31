@@ -31,7 +31,7 @@
 
 			<div id="slider" class="mui-slider">
 				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-					<a class="mui-control-item" href="#item1mobile">
+					<a id="baobiaoDoubleOnclick" class="mui-control-item" href="#item1mobile">
 						报表
 					</a>
 					<a class="mui-control-item" href="#item2mobile">
@@ -88,118 +88,139 @@
 		<script src="js/jquery.min.js"></script>
 		<script src="js/url_all.js"></script>
 
-		<script src="js/webviewGroup.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="js/webviewGroup.js" type="text/javascript" charset="utf-8"></script>-->
 		<script>
 			mui('.mui-scroll-wrapper').scroll();
 
-			getdevicechartdataFormSever();
+			mui.plusReady(function() {
+				
+				plus.nativeUI.showWaiting('正在加载数据...');
 
-			function getdevicechartdataFormSever() {
-				$.ajax({
-					type: "get",
-					url: new_commen_statis_device_Interface,
-					async: true,
-					dataType: 'json',
-					data: {
-						id: localStorage.getItem('strLoginId'),
-						strLoginId: localStorage.getItem('strLoginId'),
-						strLoginToken: localStorage.getItem('strLoginToken')
-					},
-					success: function(respData) {
-						if(respData.status == "SUCCESS") {
-							$('#baobiaoIDs').show();
+				getdevicechartdataFormSever();
 
-							for(var i = 0; i < respData.data.company_list.length; i++) {
-								var strList = respData.data.company_list[i];
-								var strs = '<li class="mui-table-view-cell">';
-								strs += '<p style="font-weight: 600;">' + strList.company_name + '</p>';
+				function getdevicechartdataFormSever() {
+					$.ajax({
+						type: "get",
+						url: new_commen_statis_device_Interface,
+						async: true,
+						dataType: 'json',
+						data: {
+							id: localStorage.getItem('strLoginId'),
+							strLoginId: localStorage.getItem('strLoginId'),
+							strLoginToken: localStorage.getItem('strLoginToken')
+						},
+						success: function(respData) {
+							if(respData.status == "SUCCESS") {
+								$('#baobiaoIDs').show();
+								for(var i = 0; i < respData.data.company_list.length; i++) {
+									var strList = respData.data.company_list[i];
+									var strs = '<li class="mui-table-view-cell">';
+									strs += '<p style="font-weight: 600;">' + strList.company_name + '</p>';
 
-								strs += '	<div style="width: 40%;float: left;">';
-								strs += '	<p style="margin-top: 10px;">设备总数：' + strList.total_num + '</p>';
-								strs += '	<p style="margin-top: 10px;">已监测设备：' + strList.checkDevice + '</p>';
-								strs += '	<p style="margin-top: 10px;">未监测设备：' + strList.undetected + '</p>';
-								strs += '	<p style="margin-top: 10px;">';
-								strs += '	<span>正常：' + strList.normal_num + '</span>';
-								strs += '	<span style="margin-left: 20px;">故障：' + strList.fault_num + '</span>';
-								strs += '</p>';
+									strs += '	<div style="width: 40%;float: left;">';
+									strs += '	<p style="margin-top: 10px;">设备总数：' + strList.total_num + '</p>';
+									strs += '	<p style="margin-top: 10px;">已监测设备：' + strList.checkDevice + '</p>';
+									strs += '	<p style="margin-top: 10px;">未监测设备：' + strList.undetected + '</p>';
+									strs += '	<p style="margin-top: 10px;">';
+									strs += '	<span>正常：' + strList.normal_num + '</span>';
+									strs += '	<span style="margin-left: 20px;">故障：' + strList.fault_num + '</span>';
+									strs += '</p>';
 
-								strs += '<p style="margin-top: 10px;">故障率：' + strList.failure_rate + '%</p>';
+									strs += '<p style="margin-top: 10px;">故障率：' + strList.failure_rate + '%</p>';
 
-								strs += '</div>';
-								strs += '<div id="charts_' + i + '" style="float: right;height: 150px;width: 60%;background-color: red;">' + i + '</div>';
+									strs += '</div>';
+									strs += '<div id="charts_' + i + '" style="float: right;height: 150px;width: 60%;background-color: red;">' + i + '</div>';
 
-								strs += '</li>';
-								$('#baobiaoIDs').append(strs);
-								echartsSetting(strList, 'charts_' + i);
+									strs += '</li>';
+									$('#baobiaoIDs').append(strs);
+									echartsSetting(strList, 'charts_' + i);
+									plus.nativeUI.closeWaiting();
+								}
+
+								//							baobiaoIDs.dataMsg = respData.data.company_list;
+							} else {
+								$('#baobiaoIDs').hide();
+								plus.nativeUI.closeWaiting();
 							}
-
-							//							baobiaoIDs.dataMsg = respData.data.company_list;
-						} else {
+						},
+						error: function(error) {
 							$('#baobiaoIDs').hide();
+							plus.nativeUI.closeWaiting();
 						}
-					},
-					error: function(error) {
-						$('#baobiaoIDs').hide();
+					});
+				}
+
+				function echartsSetting(dataMessage, strIDs) {
+					///*
+					var chartCelljiaxuan = echarts.init(document.getElementById(strIDs));
+					var optionChartsCelljiaxuan = {
+
+						tooltip: {
+							trigger: 'item',
+							formatter: "{a} <br/>{b} : {c} ({d}%)"
+						},
+						//					legend: {
+						//						orient: 'horizontal',
+						//						
+						//						data: ['正常', '故障', '未监测', '未知']
+						//					},
+						series: [{
+							name: '',
+							type: 'pie',
+							animation: true,
+							label: {
+								position: 'inside'
+							},
+							data: [{
+									value: dataMessage.normal_num,
+									name: '正常',
+									itemStyle: {
+										color: '#00CD00'
+									}
+								},
+								{
+									value: dataMessage.fault_num,
+									name: '故障',
+									itemStyle: {
+										color: '#EE3B3B'
+									}
+								},
+								{
+									value: dataMessage.undetected,
+									name: '未监测',
+									itemStyle: {
+										color: '#9AC0CD'
+									}
+								},
+								{
+									value: dataMessage.unknown_num,
+									name: '未知',
+									itemStyle: {
+										color: '#C2C2C2'
+									}
+								}
+							]
+						}]
+					};
+					chartCelljiaxuan.setOption(optionChartsCelljiaxuan);
+					//*/
+				}
+
+				var touchtime = new Date().getTime();
+
+				$("#baobiaoDoubleOnclick").on("tap", function() {
+					console.log('[[[[[')
+					if(new Date().getTime() - touchtime < 500) {
+						console.log("dblclick");
+						plus.nativeUI.showWaiting('正在加载数据...');
+						$('#baobiaoIDs li').remove();
+						getdevicechartdataFormSever();
+					} else {
+						touchtime = new Date().getTime();
+						console.log("click")
 					}
 				});
-			}
-
-			function echartsSetting(dataMessage, strIDs) {
-				///*
-				var chartCelljiaxuan = echarts.init(document.getElementById(strIDs));
-				var optionChartsCelljiaxuan = {
-
-					tooltip: {
-						trigger: 'item',
-						formatter: "{a} <br/>{b} : {c} ({d}%)"
-					},
-					//					legend: {
-					//						orient: 'horizontal',
-					//						
-					//						data: ['正常', '故障', '未监测', '未知']
-					//					},
-					series: [{
-						name: '',
-						type: 'pie',
-						animation: true,
-						label: {
-							position: 'inside'
-						},
-						data: [{
-								value: dataMessage.normal_num,
-								name: '正常',
-								itemStyle: {
-									color: '#00CD00'
-								}
-							},
-							{
-								value: dataMessage.fault_num,
-								name: '故障',
-								itemStyle: {
-									color: '#EE3B3B'
-								}
-							},
-							{
-								value: dataMessage.undetected,
-								name: '未监测',
-								itemStyle: {
-									color: '#9AC0CD'
-								}
-							},
-							{
-								value: dataMessage.unknown_num,
-								name: '未知',
-								itemStyle: {
-									color: '#C2C2C2'
-								}
-							}
-						]
-					}]
-				};
-				chartCelljiaxuan.setOption(optionChartsCelljiaxuan);
-				//*/
-			}
-
+			})
 			//点击进入消息列表页面
 			$('#messageID').on('tap', function() {
 				mui.openWindow({
@@ -207,15 +228,17 @@
 					id: 'message.html'
 				})
 			});
-
 			(function($) {
+
 				$('.mui-scroll-wrapper').scroll({
 					indicators: true //是否显示滚动条
 				});
 
 				var sliderSegmentedControl = document.getElementById('sliderSegmentedControl');
 				$('.mui-input-group').on('change', 'input', function() {
+					console.log('======')
 					if(this.checked) {
+
 						sliderSegmentedControl.className = 'mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-' + this.value;
 						//force repaint
 						sliderProgressBar.setAttribute('style', sliderProgressBar.getAttribute('style'));

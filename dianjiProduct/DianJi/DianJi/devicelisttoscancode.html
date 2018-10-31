@@ -44,7 +44,6 @@
 					var objWeb = plus.webview.currentWebview();
 					plus.webview.close(objWeb.id, 'none', 0.01);
 				});
-				
 
 				//  wo.evalJS('closeWaiting()');
 			}
@@ -141,22 +140,26 @@
 				if(respData.status == "SUCCESS") {
 					if(typeof(respData.data) != "undefined" && respData.data.length != 0) {
 						var dicSim = respData.data;
-						//state 6 未激活 ，
-						if(dicSim.sim[0].state == 6) {
-							mui.openWindow({
-								url: "scancodetodetail.html",
-								id: 'scancodetodetail.html',
-								extras: {
-									simData: respData.data
-								}
+						if(dicSim.sim.length > 0) {
+							//state 6 未激活 ，
+							if(dicSim.sim[0].state == 6) {
+								mui.openWindow({
+									url: "scancodetodetail.html",
+									id: 'scancodetodetail.html',
+									extras: {
+										simData: respData.data
+									}
 
-							});
-						} else {
-							localStorage.DeveciId = dicSim.sim[0].devices_no;
-							localStorage.enterPage = "SCAN";
-							mui.openWindow({
-								url: "DeviceDetail.html",
-							});
+								});
+							} else {
+								localStorage.DeveciId = dicSim.sim[0].devices_no;
+								localStorage.enterPage = "SCAN";
+								mui.openWindow({
+									url: "DeviceDetail.html",
+								});
+							}
+						}else{
+							findErrorWithMessage('未能查询到该卡，请重试！');
 						}
 
 					} else {

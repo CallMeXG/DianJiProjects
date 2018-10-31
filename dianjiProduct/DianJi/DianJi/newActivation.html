@@ -149,6 +149,12 @@
 			mui.plusReady(function() {
 				$("#FinshBth").click(function() {
 
+					//					var fatherWeb = plus.webview.currentWebview().opener();
+					//					mui.fire(fatherWeb, 'activeBack');
+					//					var objWeb = plus.webview.currentWebview();
+					//					plus.webview.close(objWeb.id, 'none', 0.01);
+
+					///*
 					var postParam = {
 						devices_no: localStorage.DeveciId,
 						serial_no: localStorage.simID
@@ -161,11 +167,14 @@
 						dataType: 'json',
 						success: function(postMsg) {
 							if(postMsg.status == 'SUCCESS') {
-								mui.toast('激活成功！')
-								var fatherWeb = plus.webview.currentWebview().opener();
-								mui.fire(fatherWeb, 'activeBack');
-								var objWeb = plus.webview.currentWebview();
-								plus.webview.close(objWeb.id, 'none', 0.01);
+								mui.toast('激活成功！');
+								setTimeout(function(){
+									var fatherWeb = plus.webview.currentWebview().opener();
+									mui.fire(fatherWeb, 'activeBack');
+									var objWeb = plus.webview.currentWebview();
+									plus.webview.close(objWeb.id, 'none', 0.01);
+								},1000);
+
 							} else {
 								mui.toast('激活失败，请重试！');
 							}
@@ -174,6 +183,7 @@
 							mui.toast('激活失败，请重试！');
 						}
 					});
+					//*/
 
 					//无法跳转
 					//					mui.init({

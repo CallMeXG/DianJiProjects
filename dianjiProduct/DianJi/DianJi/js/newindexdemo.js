@@ -282,7 +282,7 @@ $(function() {
 
 		//搜索设备接口
 		function searchDevice(keyWord, pageNum, keyType, strPostRegion, thisIndex) {
-			var wa = plus.nativeUI.showWaiting();
+			var wa = plus.nativeUI.showWaiting('数据加载中...');
 
 			$.ajax({
 				type: "get",

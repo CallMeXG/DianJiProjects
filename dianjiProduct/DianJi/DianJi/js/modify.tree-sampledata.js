@@ -9,7 +9,7 @@ getInitCompany();
 
 $('#addNewCPX').on('tap', function() {
 	//	window.location.replace('devicelisttoscancode.html');
-	localStorage.setItem('fatherID','updateDevice');
+	localStorage.setItem('fatherID', 'updateDevice');
 	mui.openWindow({
 		url: 'devicelisttoscancode.html',
 		id: 'devicelisttoscancode.html'
@@ -145,7 +145,7 @@ function sensorData(emeId, i) {
 			if(typeof(data) != "undefined") {
 
 				var sensorStr = '<div class="tree-folder" >';
-				sensorStr += '<div class="tree-folder-header"> <i style="hidden:display" onclick="hiddenOrDisplay(this)" class="icon-minus"></i><div class="tree-folder-name">' + isUndefined(data, 'sim_name') + ' ' + data.serial_no + '</div><div  onclick="cancleCard(this)" class="cancle">取消关联</div></div>'
+				sensorStr += '<div class="tree-folder-header"> <i style="hidden:display" onclick="hiddenOrDisplay(this)" class="icon-minus"></i><div class="tree-folder-name">' + isUndefined(data, 'sim_name') + ' ' + data.serial_no + '</div><div onclick="cancleCard(this)" class="cancle">取消关联</div></div>'
 				sensorStr += '<div class="tree-folder-content" style="display: block;">';
 				sensorStr += '<div hidden="hidden" class="modifyCom"><span class="name">传感器卡编号：</span><input type="button" class="sensor_num" id="CPXID' + i + '" value=' + data.serial_no + ' /></div>';
 
@@ -1124,7 +1124,8 @@ function cancleCard(obj) {
 						$(treeFolder).remove();
 						//				getDefData();
 						window.location.reload();
-
+						var fatherWeb = plus.webview.currentWebview().opener();
+						mui.fire(fatherWeb, 'activeBack');
 					}
 				}
 			})
