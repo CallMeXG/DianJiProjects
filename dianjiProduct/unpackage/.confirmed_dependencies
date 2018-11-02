@@ -238,7 +238,8 @@
       "DianJi/DianJi/ScanCode.html",
       "DianJi/DianJi/UploadImage.html",
       "DianJi/DianJi/demo_2.html",
-      "DianJi/DianJi/devicelisttoscancode.html"
+      "DianJi/DianJi/devicelisttoscancode.html",
+      "DianJi/DianJi/activescan.html"
     ],
     "resources": [
       "DianJi/DianJi/css/MyReport.css",
@@ -655,6 +656,11 @@
     ],
     "resources": [
       "DianJi/DianJi/baobiaochart.html"
+    ]
+  },
+  "DianJi/DianJi/activescan.html": {
+    "refer": [
+      "DianJi/DianJi/DeviceDetail.html"
     ]
   }
 }

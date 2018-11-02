@@ -46,6 +46,21 @@
 							<div class="mui-scroll">
 
 								<div class="mui-card">
+
+									<div class="mui-card-header">
+										<span>图例：</span>
+										<p style="float: right;margin-top: 10px;">
+											<span style="background-color: #00CD00;width: 20px;height: 10px;float: left;border-radius: 3px;margin-top: 3px;"></span>
+											<span style="float: left;margin-left: 2px;">正常</span>
+											<span style="background-color: #EE3B3B;width: 20px;height: 10px;float: left;border-radius: 3px;margin-left: 10px;margin-top: 3px;"></span>
+											<span style="float: left;margin-left: 2px;">故障</span>
+											<span style="background-color: #9AC0CD;width: 20px;height: 10px;float: left;border-radius: 3px;margin-left: 10px;margin-top: 3px;"></span>
+											<span style="float: left;margin-left: 2px;">未监测</span>
+											<span style="background-color: #C2C2C2;width: 20px;height: 10px;float: left;border-radius: 3px;margin-left: 10px;margin-top: 3px;"></span>
+											<span style="float: left;margin-left: 2px;">未知</span>
+										</p>
+
+									</div>
 									<div class="mui-card-content">
 										<ul class="mui-table-view" id="baobiaoIDs" style="display: none;">
 										</ul>
@@ -93,7 +108,7 @@
 			mui('.mui-scroll-wrapper').scroll();
 
 			mui.plusReady(function() {
-				
+
 				plus.nativeUI.showWaiting('正在加载数据...');
 
 				getdevicechartdataFormSever();
@@ -107,7 +122,8 @@
 						data: {
 							id: localStorage.getItem('strLoginId'),
 							strLoginId: localStorage.getItem('strLoginId'),
-							strLoginToken: localStorage.getItem('strLoginToken')
+							strLoginToken: localStorage.getItem('strLoginToken'),
+							company_id: localStorage.getItem("company_id")
 						},
 						success: function(respData) {
 							if(respData.status == "SUCCESS") {
@@ -129,7 +145,7 @@
 									strs += '<p style="margin-top: 10px;">故障率：' + strList.failure_rate + '%</p>';
 
 									strs += '</div>';
-									strs += '<div id="charts_' + i + '" style="float: right;height: 150px;width: 60%;background-color: red;">' + i + '</div>';
+									strs += '<div id="charts_' + i + '" style="float: right;height: 190px;width: 60%;background-color: red;margin-top:-30px;">' + i + '</div>';
 
 									strs += '</li>';
 									$('#baobiaoIDs').append(strs);
@@ -159,17 +175,20 @@
 							trigger: 'item',
 							formatter: "{a} <br/>{b} : {c} ({d}%)"
 						},
-						//					legend: {
-						//						orient: 'horizontal',
-						//						
-						//						data: ['正常', '故障', '未监测', '未知']
-						//					},
+//						legend: {
+//							orient: 'horizontal',
+//
+//							data: ['正常', '故障', '未监测', '未知']
+//						},
 						series: [{
-							name: '',
+							name: '设备状态',
 							type: 'pie',
 							animation: true,
 							label: {
-								position: 'inside'
+								normal:{
+									show:false
+								}
+//								position: 'inside'
 							},
 							data: [{
 									value: dataMessage.normal_num,

@@ -9,22 +9,22 @@
 		<title>Hello H5+</title>
 		<script type="text/javascript" src="js/common.js"></script>
 		<script type="text/javascript">
-			var ws = null,
+			var ws_active = null,
 				wo = null;
 			var scan = null,
 				domready = false,
 				bCancel = false;
 			// H5 plus事件处理
 			function plusReady() {
-				if(ws || !window.plus || !domready) {
+				if(ws_active || !window.plus || !domready) {
 					return;
 				}
 				// 获取窗口对象
-				ws = plus.webview.currentWebview();
-				wo = ws.opener();
+				ws_active = plus.webview.currentWebview();
+				wo = ws_active.opener();
 				// 开始扫描
-				ws.addEventListener('show', function() {
-					scan = new plus.barcode.Barcode('bcid', [plus.barcode.QR, plus.barcode.EAN8, plus.barcode.EAN13], {
+				ws_active.addEventListener('show', function() {
+					scan = new plus.barcode.Barcode('bcids', [plus.barcode.QR, plus.barcode.EAN8, plus.barcode.EAN13], {
 						frameColor: '#00FF00',
 						scanbarColor: '#00FF00'
 					});
@@ -36,7 +36,7 @@
 					});
 				});
 				// 显示页面并关闭等待框
-				ws.show('pop-in');
+				ws_active.show('pop-in');
 
 				document.addEventListener('activeBack', function() {
 					var fatherWeb = plus.webview.currentWebview().opener();
@@ -121,10 +121,8 @@
 						conserve: true,
 						filename: '_doc/barcode/'
 					});
-					//					btCancel && (btCancel.innerText = '暂　停');
 				} else {
 					scan.cancel();
-					//					btCancel && (btCancel.innerText = '开　始');
 				}
 				bCancel = !bCancel;
 			}
@@ -160,6 +158,7 @@
 								webDetail.show();
 //								mui.openWindow({
 //									url: "DeviceDetail.html",
+//									id:'DeviceDetail.html'
 //								});
 							}
 						}else{
@@ -186,7 +185,7 @@
 		</script>
 		<link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
 		<style type="text/css">
-			#bcid {
+			#bcids {
 				width: 100%;
 				position: absolute;
 				top: 20px;
@@ -195,33 +194,12 @@
 				/*margin-top: 30px;*/
 			}
 			
-			.tip {
+			.tips {
 				color: #FFFFFF;
 				font-weight: bold;
 				text-shadow: 0px -1px #103E5C;
 			}
 			
-			footer {
-				width: 100%;
-				height: 44px;
-				position: absolute;
-				bottom: 0px;
-				line-height: 44px;
-				text-align: center;
-				color: #FFF;
-			}
-			
-			.fbt {
-				width: 50%;
-				height: 100%;
-				background-color: #FFCC33;
-				float: left;
-			}
-			
-			.fbt:active {
-				-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
-				box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
-			}
 		</style>
 		<link rel="stylesheet" href="css/mui.min.css" />
 	</head>
@@ -233,9 +211,9 @@
 			<a class="mui-pull-right mui-icon mui-icon-search" style="color: white;" id="scanSearch"></a>
 		</header>
 		<div class="mui-content">
-			<div id="bcid">
+			<div id="bcids">
 				<div style="height:40%"></div>
-				<p class="tip">...载入中...</p>
+				<p class="tips">...载入中...</p>
 			</div>
 		</div>
 		<script src="js/jquery.min.js"></script>

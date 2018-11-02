@@ -75,9 +75,7 @@ $(function() {
 					if(selType == "ZD") {
 						localStorage.DeveciId = CellItems.devices_no;
 						localStorage.DeveciName = CellItems.devices_name;
-						mui.openWindow('artificialcheckList.html')
-						//				mui.openWindow('artificialcheck.html')
-						//				mui.alert('您的人工诊断申请已发送，机电卫士专家会及时对您的设备进行诊断！','人工诊断');
+						mui.openWindow('artificialcheckList.html');
 					}
 					//获取父节点的父节点 li
 					var elem = event.target.parentNode.parentNode;
@@ -253,11 +251,13 @@ $(function() {
 		$("#scanCodeClicked").on('tap', function() {
 			localStorage.removeItem('DeveciId');
 			localStorage.setItem('fatherID', 'deviceList');
-			mui.openWindow({
-				url: 'devicelisttoscancode.html',
-				id: 'devicelisttoscancode.html'
-				//				url: 'ScanCode.html'
-			})
+//			var webViewScan = plus.webview.create('devicelisttoscancode.html', 'devicelisttoscancode.html');
+//			webViewScan.show();
+						mui.openWindow({
+							url: 'devicelisttoscancode.html',
+							id: 'devicelisttoscancode.html'
+							//				url: 'ScanCode.html'
+						})
 		})
 
 		//当没有搜索到数据时的页面显示内容

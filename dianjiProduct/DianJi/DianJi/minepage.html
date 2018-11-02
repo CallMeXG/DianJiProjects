@@ -21,7 +21,7 @@
 					<a class="mui-navigate-right">
 						<img class="mui-media-object mui-pull-left head-img" src="img/hbuilderlogo.png">
 						<div class="mui-media-body">
-							管理员
+							机电卫士
 							<p class='mui-ellipsis'>账号:<span id="username">138****8888</span></p>
 						</div>
 					</a>
@@ -30,7 +30,7 @@
 			<br />
 			<ul class="mui-table-view mui-table-view-chevron">
 				<li class="mui-table-view-cell">
-					<a id="codeUpdate" class="mui-navigate-right"><span>版本信息</span><span style="float: right;">1.5</span></a>
+					<a id="codeUpdate" class="mui-navigate-right"><span>版本信息</span><span style="float: right;">1.5.3.0</span></a>
 				</li>
 				<li class="mui-table-view-cell ">
 					<a class="mui-navigate-right " id="aboutUs">关于我们</a>
@@ -109,9 +109,11 @@
 						localStorage.removeItem("userName");
 						localStorage.removeItem("userPwd");
 						localStorage.clear();
+						
+						console.log('333333333'+JSON.stringify(plus.webview.currentWebview().opener()));
 						//退出登录时，先获取进入APP页面ID，然后根据ID，调用判断是否登录的方法，最后关闭该页面
-						var objLogin = plus.webview.getWebviewById('HBuilder');
-						mui.fire(objLogin, 'logoutEvent');
+//						var objLogin = plus.webview.getWebviewById('HBuilder');
+//						mui.fire(objLogin, 'logoutEvent');
 						plus.webview.close('headerindex.html');
 						
 					}

@@ -14,22 +14,8 @@
 			});
 			document.addEventListener('logoutEvent', function() {
 				console.log("0000000000000000======000000000000000==="+localStorage.getItem("userName"));
-				if(localStorage.getItem("userName") != undefined) {
-					mui.init({
-						subpages: [{
-							url: 'headerindex.html',
-							id: 'headerindex.html'
-						}]
-					})
-				} else {
-					mui.init({
-						subpages: [{
-							url: 'login.html',
-							id: 'login.html'
-						}]
-					})
-
-				}
+				alert('----------')
+				location.reload();
 			});
 
 			if(localStorage.getItem("userName") != undefined) {
@@ -40,13 +26,13 @@
 					}]
 				})
 			} else {
+				alert('===')
 				mui.init({
 					subpages: [{
 						url: 'login.html',
 						id: 'login.html'
 					}]
 				})
-
 			}
 		</script>
 	</body>

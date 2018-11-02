@@ -73,11 +73,18 @@ mui.plusReady(function() {
 		//	window.location.href = "Monitor.html";
 	})
 	$("#changeDeviceID").on('tap', function() {
-		//	window.location.replace('ModifyInformation.html');
-		mui.openWindow({
-			url: 'ModifyInformation.html',
-			id: 'ModifyInformation.html'
-		})
+		//判断权限，是否显示修改信息
+		var strUserType = localStorage.getItem("userType");
+		if(strUserType < 10) {
+			mui.alert('您没有权限进行设备信息修改，请先去申请相关权限！','无访问权限','我知道了');
+		}
+		if(strUserType > 10) {
+			mui.openWindow({
+				url: 'ModifyInformation.html',
+				id: 'ModifyInformation.html'
+			})
+		}
+
 	})
 
 	function ckResult(val) {
@@ -467,6 +474,7 @@ mui.plusReady(function() {
 	getDataFromSever();
 
 	function getDataFromSever() {
+		console.log("000000000==="+localStorage.DeveciId)
 		plus.nativeUI.showWaiting('正在加载数据...');
 		$.ajax({
 

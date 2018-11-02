@@ -10,10 +10,21 @@ getInitCompany();
 $('#addNewCPX').on('tap', function() {
 	//	window.location.replace('devicelisttoscancode.html');
 	localStorage.setItem('fatherID', 'updateDevice');
-	mui.openWindow({
-		url: 'devicelisttoscancode.html',
-		id: 'devicelisttoscancode.html'
-	})
+	
+	var webViewScan = plus.webview.create('activescan.html','activescan.html');
+	webViewScan.show();
+	
+//	mui.init({
+//		subpages:[{
+//			url:"devicelisttoscancode.html",
+//			id:'devicelisttoscancode.html'
+//		}]
+//	})
+	
+//	mui.openWindow({
+//		url: 'devicelisttoscancode.html',
+//		id: 'devicelisttoscancode.html'
+//	})
 })
 
 function getInitCompany() {
