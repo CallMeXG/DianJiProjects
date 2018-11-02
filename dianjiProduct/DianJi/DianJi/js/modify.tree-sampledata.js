@@ -11,8 +11,8 @@ $('#addNewCPX').on('tap', function() {
 	//	window.location.replace('devicelisttoscancode.html');
 	localStorage.setItem('fatherID', 'updateDevice');
 	
-	var webViewScan = plus.webview.create('activescan.html','activescan.html');
-	webViewScan.show();
+//	var webViewScan = plus.webview.create('devicelisttoscancode.html','devicelisttoscancode.html');
+//	webViewScan.show();
 	
 //	mui.init({
 //		subpages:[{
@@ -21,10 +21,10 @@ $('#addNewCPX').on('tap', function() {
 //		}]
 //	})
 	
-//	mui.openWindow({
-//		url: 'devicelisttoscancode.html',
-//		id: 'devicelisttoscancode.html'
-//	})
+	mui.openWindow({
+		url: 'devicelisttoscancode.html',
+		id: 'devicelisttoscancode.html'
+	})
 })
 
 function getInitCompany() {

@@ -76,13 +76,16 @@ mui.plusReady(function() {
 		//判断权限，是否显示修改信息
 		var strUserType = localStorage.getItem("userType");
 		if(strUserType < 10) {
-			mui.alert('您没有权限进行设备信息修改，请先去申请相关权限！','无访问权限','我知道了');
+			mui.alert('您没有权限进行设备信息修改，请先去申请相关权限！', '无访问权限', '我知道了');
 		}
 		if(strUserType > 10) {
-			mui.openWindow({
-				url: 'ModifyInformation.html',
-				id: 'ModifyInformation.html'
-			})
+			var webDetail = plus.webview.create('ModifyInformation.html', 'ModifyInformation.html');
+			webDetail.show();
+
+//			mui.openWindow({
+//				url: 'ModifyInformation.html',
+//				id: 'ModifyInformation.html'
+//			})
 		}
 
 	})
@@ -474,7 +477,7 @@ mui.plusReady(function() {
 	getDataFromSever();
 
 	function getDataFromSever() {
-		console.log("000000000==="+localStorage.DeveciId)
+		console.log("000000000===" + localStorage.DeveciId)
 		plus.nativeUI.showWaiting('正在加载数据...');
 		$.ajax({
 

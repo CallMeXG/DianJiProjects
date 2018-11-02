@@ -59,6 +59,10 @@ $(function() {
 						url: 'DeviceDetail.html',
 						id: 'DeviceDetail.html'
 					})
+					//获取父节点的父节点 li
+					var elem = event.target.parentNode.parentNode;
+					//隐藏右滑显示
+					mui.swipeoutClose(elem);
 				},
 				sliderBtnClicked: function(event, selType, CellItems) {
 
