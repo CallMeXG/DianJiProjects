@@ -102,9 +102,11 @@
 		<header class="mui-bar mui-bar-nav" id="head" style="background-color: #524598;position: absolute; display: none;">
 			<a id="headerRight" style="margin-top: -5px;" href="#tanchucaidan" class="mui-icon iconfont icon-shaixuan2 mui-pull-right"></a>
 			<h1 class="mui-title ">设备列表</h1>
+			<i id="scanCodeClicked" style="position: absolute;z-index: 5;right: 0;margin-top: -2px;" class="mui-icon iconfont icon-tubiaozhizuomoban "></i>
 
 			<div id="headerSearch" class="mui-indexed-list-search mui-input-row mui-search" style="width: 65%;float: left;">
-				<i id="scanCodeClicked" style="position: absolute;z-index: 5;right: 0;margin-top: -2px;" class="mui-icon iconfont icon-tubiaozhizuomoban "></i>
+				<!--<i id="scanCodeClicked" style="position: absolute;z-index: 5;right: 0;margin-top: -2px;" class="mui-icon iconfont icon-tubiaozhizuomoban "></i>-->
+
 				<input type="search" style="font-size: 12px;" id="search" placeholder="设备编号/设备名称">
 			</div>
 
@@ -327,12 +329,11 @@
 		<!--<script src="js/newIndexLogin.js"></script>-->
 		<script type="text/javascript" src="js/pagination.min.js"></script>
 		<script>
-			
 			mui.init({
-//				subpages: [{
-					url: 'newIndex.html',
-					id: 'newIndexID'
-//				}]
+				//				subpages: [{
+				url: 'newIndex.html',
+				id: 'newIndexID'
+				//				}]
 			})
 		</script>
 		<script type="text/javascript">

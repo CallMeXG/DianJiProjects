@@ -19,7 +19,7 @@
 			<ul class="mui-table-view mui-table-view-chevron">
 				<li class="mui-table-view-cell mui-media">
 					<a class="mui-navigate-right">
-						<img class="mui-media-object mui-pull-left head-img" src="img/hbuilderlogo.png">
+						<img class="mui-media-object mui-pull-left head-img" src="img/logo5.png">
 						<div class="mui-media-body">
 							机电卫士
 							<p class='mui-ellipsis'>账号:<span id="username">138****8888</span></p>
@@ -30,7 +30,7 @@
 			<br />
 			<ul class="mui-table-view mui-table-view-chevron">
 				<li class="mui-table-view-cell">
-					<a id="codeUpdate" class="mui-navigate-right"><span>版本信息</span><span style="float: right;">1.5.4.0</span></a>
+					<a id="codeUpdate" class="mui-navigate-right"><span>版本信息</span><span style="float: right;">1.5.5.0</span></a>
 				</li>
 				<li class="mui-table-view-cell ">
 					<a class="mui-navigate-right " id="aboutUs">关于我们</a>
@@ -67,13 +67,18 @@
 			var strUserType = localStorage.getItem("userType");
 			if(strUserType < 10) {
 				$("#newAddDevice").hide();
-
 			}
 			if(strUserType > 10) {
 				$("#newAddDevice").show();
 			}
 
 			$("#addDeviceNew").on("tap", function() {
+//				mui.openWindow({
+//					url: "uploadpicture.html"
+//				})
+//				mui.openWindow({
+//					url: "insertdevice.html"
+//				})
 				mui.openWindow({
 					url: "AddDevice.html"
 				})

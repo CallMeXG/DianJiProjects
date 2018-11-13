@@ -121,7 +121,8 @@ var new_commen_gain_check_device_detail_Interface = url + 'check/commen_gain_che
 //设备运行状态统计
 var new_commen_statis_device_Interface = url +'device/commen_statis_device';
 
-
+//诊断报告列表
+var new_commen_gain_user_check_Interface = url + 'check/commen_gain_user_check';
 
 
 

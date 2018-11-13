@@ -2,43 +2,148 @@
 <html>
 
 	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+		<meta charset="utf-8">
+		<title>ECharts</title>
+		<!-- 引入 echarts.js -->
+		<script src="js/echarts.common.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
 	</head>
 
 	<body>
-		<button class="mui-btn mui-btn-blue">111111</button>
-	</body>
-	<script>
-		console.log('=======');
+		<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+		<div id="main" style="width: 600px;height:400px;"></div>
 
-		var json = {
-			"devices_no": 'MZ101100',
-			"devices_name": '1502 电机'
-		};
-		$.ajax({
-			type: 'get',
-			url: 'https://aiimoto.com/server_webapi/p/commen_gain_cpx',
-			async: true,
-			contentType: 'application/json',
-			data: {
+		<div id="second" style="width: 600px;height:400px;"></div>
+		<script type="text/javascript">
+			var chartCelljiaxuan = echarts.init(document.getElementById('main'));
+			var optionChartsCelljiaxuan = {
+				legend: {
+					orient: 'horizontal',
 
-			},
-			error: function(){
-				
-			},
-//			beforeSend: loadRegister,
-			success: (function(result) {
-				var json = JSON.parse(result);
-				console.log("ajax回调函数");
-				console.log(json);
+					data: ['正常', '预警', '报警', '严重', '未知']
+				},
+				series: [{
+					name: '设备状态',
+					type: 'pie',
+					animation: true,
+					data: [{
+							value: 5,
+							name: '正常' + '(5)',
+							label: {
+								show: 'true',
+								position: 'inner'
+							},
+							itemStyle: {
+								color: '#00CD00'
+							}
+						},
+						{
+							value: 4,
+							name: '预警' + '(4)',
+							label: {
+								show: 'true',
+								position: 'inner'
+							},
+							itemStyle: {
+								color: '#EEEE00'
+							}
+						},
+						{
+							value: 3,
+							name: '报警' + '(3)',
+							label: {
+								show: 'true',
+								position: 'inner'
+							},
+							itemStyle: {
+								color: 'orange'
+							}
+						},
+						{
+							value: 2,
+							name: '严重' + '(2)',
+							label: {
+								show: 'true',
+								position: 'inner'
+							},
+							itemStyle: {
+								color: 'red'
+							}
+						},
+						{
+							value: 1,
+							name: '未知' + '(1)',
+							label: {
+								show: 'true',
+								position: 'inner'
+							},
+							itemStyle: {
+								color: '#C2C2C2'
+							}
+						}
+					]
+				}]
+			};
+			var opt = optionChartsCelljiaxuan.series[0];
+			lineHide(opt);
+			//数据为零时隐藏线段
+			function lineHide(opt) {
+				jQuery.each(opt.data, function(i, item) {
+					if(item.value == 0) {
+						//								item.itemStyle.normal.labelLine.show = false;
+						item.label.show = false;
+					}
+				});
+			}
 
+			chartCelljiaxuan.setOption(optionChartsCelljiaxuan);
+
+			chartCelljiaxuan.on('click', function(params) {
+				console.log("=========" + JSON.stringify(params.data))
 			})
 
-		});
-	</script>
+			///*
+			// 基于准备好的dom，初始化echarts实例
+			var myChart = echarts.init(document.getElementById('second'));
+
+			// 指定图表的配置项和数据
+			var option = {
+				title: {
+					text: 'ECharts 入门示例'
+				},
+				tooltip: {
+					trigger: 'axis',
+					triggerOn: 'mousemove|click',
+					formatter: function(params) {
+						console.log(params);
+						return 'loading';
+					}
+				},
+				legend: {
+					data: ['销量']
+				},
+				xAxis: {
+					data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+				},
+				yAxis: {},
+				series: [{
+					name: '销量',
+					type: 'line',
+					data: [5, 20, 36, 10, 10, 20]
+				}]
+			};
+
+			// 使用刚指定的配置项和数据显示图表。
+			myChart.setOption(option, true);
+			//			myChart.click(function(param){
+			//				console.log(param); //重要的参数都在这里！
+			//			})
+			//					myChart.on('click', function(param) {
+			//						console.log(param); //重要的参数都在这里！
+			//					});
+			//*/
+		</script>
+	</body>
 
 </html>

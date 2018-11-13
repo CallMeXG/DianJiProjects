@@ -42,9 +42,12 @@ $("#login_btn").click(function() {
 					localStorage.setItem("strUserPhone", dataTemp.phone);
 					if(dataTemp.c_id == undefined) {
 						localStorage.setItem("company_id", "");
+						localStorage.setItem('c_id',"");
 					} else {
 						localStorage.setItem("company_id", dataTemp.c_id);
+						localStorage.setItem('c_id',dataTemp.c_id);
 					}
+					
 					var regionidArray = new Array();
 					var regionArray = new Array();
 					for(var i = 0; i < dataTemp.company_list.length; i++) {
@@ -146,8 +149,10 @@ mui.plusReady(function() {
 					localStorage.setItem("strUserPhone", dataTemp.phone);
 					if(dataTemp.c_id == undefined) {
 						localStorage.setItem("company_id", "");
+						localStorage.setItem('c_id',"");
 					} else {
 						localStorage.setItem("company_id", dataTemp.c_id);
+						localStorage.setItem('c_id',dataTemp.c_id);
 					}
 					var regionidArray = new Array();
 					var regionArray = new Array();
@@ -170,7 +175,7 @@ mui.plusReady(function() {
 					localStorage.setItem("region_id_list", strRegionId);
 					localStorage.setItem("reginArray", JSON.stringify(regionArray));
 
-					mui.toast(respData.message);
+					mui.toast('登录成功');
 					mui.openWindow({
 						url: 'headerindex.html',
 						id: 'headerindex.html'

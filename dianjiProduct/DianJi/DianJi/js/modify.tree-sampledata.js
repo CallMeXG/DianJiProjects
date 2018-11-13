@@ -131,10 +131,14 @@ function isUndefined(list, key) {
 
 $("#addphoto").click(function() {
 	var deviceId = $('#devices_no').html();
-	plus.storage.setItem('imgDeviceID', deviceId);
+//	plus.storage.setItem('imgDeviceID', deviceId);
+	localStorage.setItem('imgDeviceID', deviceId);
 	mui.openWindow({
-		url: 'UploadImage.html'
+		url:'uploadpicture.html'
 	})
+//	mui.openWindow({
+//		url: 'UploadImage.html'
+//	})
 })
 
 /**

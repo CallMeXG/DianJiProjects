@@ -7,8 +7,8 @@
 	"id": "H573E8CEF",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "机电测试",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.5.4.0",/*应用版本名称*/
-		"code": "1504"
+		"name": "1.5.5.0",/*应用版本名称*/
+		"code": "1505"
 	},
 	"description": "",/*应用描述信息*/
 	"icons": {
@@ -358,7 +358,10 @@
 					"DianJi/DianJi/FeedBack.html",
 					"DianJi/DianJi/AddDevice.html",
 					"DianJi/DianJi/aboutUs.html",
-					"DianJi/DianJi/login.html"
+					"DianJi/DianJi/login.html",
+					"DianJi/DianJi/insertdevice.html",
+					"DianJi/DianJi/uploadpicture.html",
+					"DianJi/DianJi/newuploaderpicture.html"
 				],
 				"priority": 0
 			},
@@ -390,7 +393,9 @@
 				],
 				"refer": [
 					"DianJi/DianJi/message.html",
-					"DianJi/DianJi/baogao.html"
+					"DianJi/DianJi/baogao.html",
+					"DianJi/DianJi/artificialcheck.html",
+					"DianJi/DianJi/baogaolistlocal.html"
 				],
 				"priority": 0
 			},
@@ -398,7 +403,9 @@
 				"resources": [],
 				"refer": [
 					"DianJi/DianJi/devicelisttoscancode.html",
-					"DianJi/DianJi/activescan.html"
+					"DianJi/DianJi/activescan.html",
+					"DianJi/DianJi/UploadImage.html",
+					"DianJi/DianJi/uploadpicture.html"
 				],
 				"priority": 0
 			},

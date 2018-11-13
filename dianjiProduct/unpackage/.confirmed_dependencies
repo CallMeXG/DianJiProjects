@@ -239,7 +239,8 @@
       "DianJi/DianJi/UploadImage.html",
       "DianJi/DianJi/demo_2.html",
       "DianJi/DianJi/devicelisttoscancode.html",
-      "DianJi/DianJi/activescan.html"
+      "DianJi/DianJi/activescan.html",
+      "DianJi/DianJi/uploadpicture.html"
     ],
     "resources": [
       "DianJi/DianJi/css/MyReport.css",
@@ -623,7 +624,10 @@
       "DianJi/DianJi/FeedBack.html",
       "DianJi/DianJi/AddDevice.html",
       "DianJi/DianJi/aboutUs.html",
-      "DianJi/DianJi/login.html"
+      "DianJi/DianJi/login.html",
+      "DianJi/DianJi/insertdevice.html",
+      "DianJi/DianJi/uploadpicture.html",
+      "DianJi/DianJi/newuploaderpicture.html"
     ],
     "resources": []
   },
@@ -652,7 +656,9 @@
   "DianJi/DianJi/baobiaoPage.html": {
     "refer": [
       "DianJi/DianJi/message.html",
-      "DianJi/DianJi/baogao.html"
+      "DianJi/DianJi/baogao.html",
+      "DianJi/DianJi/artificialcheck.html",
+      "DianJi/DianJi/baogaolistlocal.html"
     ],
     "resources": [
       "DianJi/DianJi/baobiaochart.html"
@@ -661,6 +667,7 @@
   "DianJi/DianJi/activescan.html": {
     "refer": [
       "DianJi/DianJi/DeviceDetail.html"
-    ]
+    ],
+    "resources": []
   }
 }
