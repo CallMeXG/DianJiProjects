@@ -178,30 +178,3 @@ if(strUserType < 10) {
 if(strUserType > 10) {
 	$("#DisplayChangeDevice").show();
 }
-$("#idForDeviceDetail").on('tap', function() {
-	mui('#popover').popover('hide');
-	mui.openWindow({
-		url: 'DeviceDetail.html'
-	})
-})
-$("#idForChangeDevice").on('tap', function() {
-	mui('#popover').popover('hide');
-	mui.openWindow({
-		url: 'ModifyInformation.html'
-	})
-})
-$("#idForDianjian").on('tap', function() {
-	mui('#popover').popover('hide');
-	mui.openWindow({
-		//		url:'newCheck.html',
-		url: 'view/check.html'
-	})
-})
-$("#idFordianjiaBaoGao").on('tap', function() {
-	mui('#popover').popover('hide');
-	mui.toast("没有点检报告");
-})
-$("#idHistoryBaogao").on('tap', function() {
-	mui('#popover').popover('hide');
-	mui.toast("没有历史报告");
-})

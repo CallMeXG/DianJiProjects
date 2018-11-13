@@ -37,19 +37,20 @@
 		<header class="mui-bar mui-bar-nav" id="head">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title ">修改信息</h1>
+			<a id="addNewCPX" class="mui-icon mui-icon-plus mui-pull-right"></a>
 		</header>
 		<!--<div class="mui-bar mui-bar-footer" >
 			<button type="button" id="FinshBth" class="mui-btn mui-btn-royal mui-btn-block">确定</button>
 
 		</div>-->
 		<div class="mui-content " id="content">
-			<div class="row">
+			<div class="row" style="margin-top: -47px;">
 				<div class="col-sm-6">
 					<div class="widget-box">
 						<div class="widget-header header-color-purple">
 							<h4 class="lighter smaller" id="deviceId">设备属性信息</h4>
 
-							<button type="button" id="addNewDevice" class="mui-btn mui-btn-royal">添加新卡</button>
+							<button style="display: none;" type="button" id="addNewDevice" class="mui-btn mui-btn-royal">添加新卡</button>
 
 						</div>
 
@@ -193,25 +194,19 @@
 				</div>
 			</div>
 			<button style="width: 80%;margin-left: 10%;height: 40px;padding-top:8px;" type="button" id="FinshBth" class="mui-btn mui-btn-royal mui-btn-block">确认修改</button>
-			
+
 		</div>
 	</body>
 	<link rel="stylesheet" type="text/css" href="css/shijian.css" />
 	<script type="text/javascript">
-		//B页面onload从服务器获取列表数据；
-		window.onload = function() {
-
-			$('#search').on('search', function() {
-				alert("点击了搜索按钮")
+		mui.plusReady(function() {
+			document.addEventListener('activeBack', function() {
+				var fatherWeb = plus.webview.currentWebview().opener();
+				mui.fire(fatherWeb, 'activeBack');
+				var objWeb = plus.webview.currentWebview();
+				plus.webview.close(objWeb.id,'none',0.01);
 			});
-
-			mui.plusReady(function() {
-				//关闭等待框
-				plus.nativeUI.closeWaiting();
-				//显示当前页面
-				mui.currentWebview.show();
-			});
-		}
+		});
 	</script>
 	<script src="js/bootstrap.min.js"></script>
 

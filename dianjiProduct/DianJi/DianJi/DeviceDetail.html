@@ -39,8 +39,7 @@
 				height: 30px;
 			}
 			
-			.classCellinput
-			{
+			.classCellinput {
 				color: red;
 			}
 		</style>
@@ -48,11 +47,10 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav" id="head">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a class=" mui-icon mui-icon-left-nav mui-pull-left" id="DeviceDetailBack"></a>
 			<h1 class="mui-title ">设备详情</h1>
-
+			<a id="changeDeviceID" class="mui-pull-right iconfont icon-xiugai_l" style="margin-top: 5px;font-weight: 700;font-size: 24px;"></a>
 		</header>
-
 
 		<div id="preview">
 			<div class="swiper-container">
@@ -78,7 +76,9 @@
 					<div class="col-sm-6">
 						<div class="widget-box">
 							<div class="widget-header header-color-purple">
-								<h4 class="lighter smaller" id="deviceId"></h4>
+								<h4 class="lighter smaller" id="deviceId">
+								</h4>
+								<a id="refreshDeviceDetail" style="float: right;color: white;margin-right: 10px;margin-top: 5px;" class="mui-icon mui-icon-spinner"></a>
 							</div>
 							<div>
 								<span class="Contentspan">设备名称：</span>
@@ -133,7 +133,7 @@
 							<!--<div>
 								<span class="Contentspan">预期寿命：</span>
 								<!--<input id="idOFage" disabled="disabled"  />-->
-								<!--<span style="width: 70%;" style="margin-top: 20px;margin-left: 5px;" id='bar'><i></i></span>
+							<!--<span style="width: 70%;" style="margin-top: 20px;margin-left: 5px;" id='bar'><i></i></span>
 							</div>-->
 							<!--<div>
 								<span class="Contentspan">故障类型：</span>
@@ -147,7 +147,7 @@
 								<span class="Contentspan">生产产线：  </span>
 								<input style="width: 70%;" id="idOFshengchanLine" readonly="readonly" />
 							</div>
-							
+
 							<div>
 								<span class="Contentspan">应用场景：</span>
 								<input style="width: 70%;" id="idOFchangjing" readonly="readonly" />
@@ -166,6 +166,10 @@
 								<input style="width: 70%;" id="idOFdianjieresult" readonly="readonly" />
 							</div>-->
 
+							<!--<p style="width: 100%;height: 30px;margin-top: 5px;">-->
+							<!--<a id="refreshDeviceDetail" style="float: right;color: gray;margin-right: 10px;margin-top: 5px;" class="mui-icon mui-icon-spinner"></a>-->
+							<!--</p>-->
+
 							<div class="widget-body">
 								<div class="widget-main padding-8" id="widget">
 									<div id="tree1" class="tree tree-selectable">
@@ -173,9 +177,9 @@
 									</div>
 								</div>
 							</div>
-							
+
 							<!--<button id="ActiveBackBtn" style="width: 80%;margin-left: 10%;margin-top: 10px;margin-bottom: 10px;display: block;background-color: #524598;color: white;height: 45px;">返回</button>-->
-							
+
 						</div>
 					</div>
 				</div>
@@ -202,35 +206,31 @@
 	<!-- inline scripts related to this page -->
 
 	<script type="text/javascript">
-		jQuery(function($) {
-			//console.log("========="+JSON.stringify(treeDataSource))
-			//			$('#tree1').ace_tree({
-			//				dataSource: treeDataSource,
-			//				loadingHTML: '<div class="tree-loading"><i class="icon-refresh icon-spin blue"></i></div>',
-			//				'open-icon': 'icon-minus',
-			//				'close-icon': 'icon-plus',
-			//				'selectable': false,
+		mui.plusReady(function() {
+
+			//			document.addEventListener('activeBack', function() {
+			//				var fatherWeb = plus.webview.currentWebview().opener();
+			//				console.log("9999999999===" + JSON.stringify(fatherWeb))
+			//				mui.fire(fatherWeb, 'activeBack');
+			//				var objWeb = plus.webview.currentWebview();
+			//				plus.webview.close(objWeb.id, 'none', 0.01);
 			//			});
+			//点击左上角返回按钮，如果是通过扫描页进来，则返回到扫码页面，并让扫描功能重新开启
+			$("#DeviceDetailBack").on('tap', function() {
+				if(localStorage.enterPage == "SCAN") {
+					var objBack = plus.webview.currentWebview().opener();
+					mui.fire(objBack, 'reTest');
+					mui.back();
+				} else {
+					mui.back();
+				}
+			})
+			//监听Android手机物理返回按键，返回到扫码页面时，重新进行扫描
+			plus.key.addEventListener('backbutton', function() {
+				var wobj = plus.webview.currentWebview().opener();
+				mui.fire(wobj, 'reTest');
+			}, false);
 		})
-		
-		
-//		var detailBack = localStorage.getItem("detailBack");
-//		if (detailBack == "back") {
-//			$("#ActiveBackBtn").css('display','block');
-//		} 
-//		if(detailBack == "unback"){
-//			$("#ActiveBackBtn").css('display','none');
-//		}
-		
-//		$("#ActiveBackBtn").on('tap',function () {
-//			console.log("==="+JSON.stringify(plus.webview.all()))
-//			mui.openWindow('newDataChart.html');
-//			window.location.replace('newDataChart.html');
-//			plus.webview.open('newDataChart.html');
-//mui.openWindow('newDataChart.html')
-//		})
-		
 	</script>
-	<!--<script src="js/deviceDetail.js"></script>-->
 
 </html>

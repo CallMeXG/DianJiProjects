@@ -4,120 +4,226 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-		<!--<meta http-equiv="refresh" content="10">-->
-
-
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
-		<script src="js/url_all.js"></script>
-		<!--<script src="js/fuelux.tree.min.js"></script>-->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/newActivation.js"></script>
+
 		<link href="css/newActivation.css" rel="stylesheet" />
-		
+		<style>
+			#deviceAddID p {
+				color: green;
+				margin-left: 10px;
+				margin-top: -10px;
+			}
+			
+			.cpxClass {
+				margin-top: 5px;
+			}
+		</style>
 	</head>
 
 	<body bgcolor="white">
-		<script src="js/mui.min.js"></script>
-		<script type="text/javascript">
-			mui.init()
-		</script>
-
 
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a style="color: white;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title ">卡激活等待页</h1>
+			<!--<a onclick="refreshButtonClick()" style="color: white;" class="mui-icon mui-icon-spinner mui-pull-right"></a>-->
 		</header>
 		<div class="mui-bar mui-bar-footer" id="footer">
-			<button type="button" id="FinshBth" class="mui-btn mui-btn-royal mui-btn-block">开始配置</button>
+			<button type="button" id="FinshBth" class="mui-btn mui-btn-royal mui-btn-block">确认激活</button>
 			<button type="button" id="CancelBtn" class="mui-btn mui-btn-royal mui-btn-block">中断激活</button>
 		</div>
-		
+
 		<div class="mui-content">
-			<div class="center">
-				<div class="Ccenter top">
-				<div>
-					<span>通信控制器:</span>
-					<input id="serialID" disabled="disabled" />
+
+			<div id="deviceAddID" class="mui-card">
+				<div class="mui-card-header">关联设备</div>
+				<div class="mui-card-content">
+					<p style="margin-top: 10px;">设备名称：{{deviceMessage.devices_name}}</p>
+					<p>设备编号：{{deviceMessage.devices_no}}</p>
+					<!--<p>设备型号：{{deviceMessage.devices_model}}</p>-->
+					<p>企业名称：{{deviceMessage.company_name}}</p>
+					<p>所属分厂：{{deviceMessage.region_name}}</p>
 				</div>
-				
-				<div>
-					<span>最后连接服务器时间:</span>
-					<input id="connect_severTime" disabled="disabled" />
+
+			</div>
+
+			<div class="mui-card">
+				<div class="mui-card-header">拓扑关系</div>
+				<div class="mui-card-content">
+					<div class="center" style="color: #1E90FF;">
+						<div class="Ccenter top">
+							<div class="cpxClass">
+								<span>通信控制器:</span>
+								<span id="serialID"></span>
+							</div>
+
+							<div class="cpxClass">
+								<span>最后连接服务器时间:</span>
+								<span id="connect_severTime"></span>
+							</div>
+							<!--<div class="cpxClass">
+								<span>最后断开服务器时间:</span>
+								<span id="close_severTime"></span>
+							</div>-->
+							<!--<div class="cpxClass">
+								<span>当前连接服务器状态:</span>
+								<span id="severStatus"></span>
+							</div>-->
+
+							<div class="cpxClass">
+								<span>最后数据上传传感器编号:</span>
+								<span id="id_lastuploadTime"></span></s>
+							</div>
+							<div class="cpxClass">
+								<span>最后数据上传时间:</span>
+								<span id="lastuploadTime"></span>
+							</div>
+							<!--<div class="cpxClass">
+								<span>上传状态:</span>
+								<span id="lastuploadStatus"></span>
+							</div>-->
+							<hr />
+						</div>
+					</div>
+					<br/>
 				</div>
+
+			</div>
+
+			<br />
+			<!--<br />-->
+			<div class="bottomRefresh">
 				<div>
-					<span>最后断开服务器时间:</span>
-					<input id="close_severTime" disabled="disabled" />
-				</div>
-				<div>
-					<span>当前连接服务器状态:</span>
-					<input id="severStatus" disabled="disabled" />
-				</div>
-				
-				<div>
-					<span>最后数据上传传感器编号:</span>
-					<input id="id_lastuploadTime" disabled="disabled"  />
-				</div>
-				<div>
-					<span>最后数据上传时间:</span>
-					<input id="lastuploadTime" disabled="disabled"  />
-				</div>
-				<div>
-					<span>上传状态:</span>
-					<input id="lastuploadStatus" disabled="disabled"  />
-				</div>
-				<hr />
+					<button onclick="refreshButtonClick()" class="buttonButton">刷新</button>
 				</div>
 			</div>
-		<br />
-		<br />
-		<div class="bottomRefresh">
-			<div>
-			<button onclick="refreshButtonClick()" class="buttonButton">刷新</button>
-			</div>
 		</div>
-		</div>
-		
+		<script src="js/mui.min.js"></script>
+		<script src="js/url_all.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/newActivation.js"></script>
+		<script src="js/vue.min.js"></script>
+
 		<script>
+			var obj_device = JSON.parse(localStorage.getItem('ActiveMZDevice'));
+			var addDevice = new Vue({
+				el: '#deviceAddID',
+				data: {
+					deviceMessage: obj_device
+				}
+			})
+
 			//取消激活
-			function cancelJihuo(e){
-				if (e.index == 1) {
+			function cancelJihuo(e) {
+				if(e.index == 1) {
 					$.ajax({
-					type:"get",
-					url:commen_confirm_unactive_Interface,
-					data:{
-						serial_no:localStorage.simID
-					},
-					async:true,
-					dataType: 'json',
-					success:function(resqMsg){
-						if (resqMsg.status == "SUCCESS") {
-							mui.toast(resqMsg.message);
-							history.back(-1);
-						} 
-						else{
+						type: "get",
+						url: commen_confirm_unactive_Interface,
+						data: {
+							serial_no: localStorage.simID
+						},
+						async: true,
+						dataType: 'json',
+						success: function(resqMsg) {
+							if(resqMsg.status == "SUCCESS") {
+								mui.toast(resqMsg.message);
+								mui.back();
+							} else {
+								mui.toast("中断激活失败，请重试");
+							}
+						},
+						error: function() {
 							mui.toast("中断激活失败，请重试");
 						}
-					},
-					error:function(){
-						mui.toast("中断激活失败，请重试");
-					}
-				});
-					
-				} 
-				
+					});
+
+				}
+
 			}
 			//取消激活按钮点击事件
-			$("#CancelBtn").click(function(){
+			$("#CancelBtn").click(function() {
 				mui.confirm("你确定要中断激活吗？", "系统提示", ["否", "是"], cancelJihuo);
 			});
-			//完成按钮点击事件
-			$("#FinshBth").click(function(){
-				window.location.href = "view/carInfo_activate.html";
-//				mui.openWindow({
-//					url:"view/carInfo_activate.html"
-//				})
-			});
+
+			mui.plusReady(function() {
+				$("#FinshBth").click(function() {
+					
+					plus.nativeUI.showWaiting('正在进行激活...');
+
+					var nowTime = new Date().getTime();
+					var clickTime = $(this).attr("ctime");
+					if(clickTime != 'undefined' && (nowTime - clickTime < 5000)) {
+						mui.toast('您已提交激活申请，请不要频繁操作！')
+						//						console.log('操作过于频繁，稍后再试');
+						return false;
+					} else {
+						$(this).attr("ctime", nowTime);
+						console.log('提交成功')
+						///*
+						var postParam = {
+							devices_no: localStorage.DeveciId,
+							serial_no: localStorage.simID
+						};
+						$.ajax({
+							type: "get",
+							url: commen_appAddSim_Interface,
+							async: true,
+							data: postParam,
+							dataType: 'json',
+							success: function(postMsg) {
+								plus.nativeUI.closeWaiting();
+								if(postMsg.status == 'SUCCESS') {
+									mui.toast('激活成功！');
+									setTimeout(function() {
+										var fatherWeb = plus.webview.currentWebview().opener();
+										mui.fire(fatherWeb, 'activeBack');
+										var objWeb = plus.webview.currentWebview();
+										plus.webview.close(objWeb.id, 'none', 0.01);
+									}, 1000);
+
+								} else {
+									mui.toast('激活失败，请重试！');
+								}
+							},
+							error: function() {
+								plus.nativeUI.closeWaiting();
+								mui.toast('激活失败，请重试！');
+							}
+						});
+						//*/
+
+					}
+
+					//					var fatherWeb = plus.webview.currentWebview().opener();
+					//					mui.fire(fatherWeb, 'activeBack');
+					//					var objWeb = plus.webview.currentWebview();
+					//					plus.webview.close(objWeb.id, 'none', 0.01);
+
+					///*
+
+					//*/
+
+					//无法跳转
+					//					mui.init({
+					//						subpages:[{
+					//							url:'headerindex.html',
+					//							id:'headerindex.html'
+					//						}]
+					//					})
+					//无法显示
+					//					window.location.replace('projectindex.html');
+					//显示以后，点击设备、我的，反应不及时，
+					//					window.location.replace('headerindex.html');
+					//往回跳转层级太多
+					//					var fatherWeb = plus.webview.currentWebview().opener();
+					//					mui.fire(fatherWeb, 'activeBack');
+					//					var objWeb = plus.webview.currentWebview();
+					//					plus.webview.close(objWeb.id, 'none', 0.01);
+
+				});
+			})
+
+			
 		</script>
 
 	</body>
