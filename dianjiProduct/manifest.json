@@ -5,10 +5,10 @@
 		"iPad"
 	],
 	"id": "H573E8CEF",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "机电测试",/*应用名称，程序桌面图标名称*/
+	"name": "嘉轩卫士",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.5.5.0",/*应用版本名称*/
-		"code": "1505"
+		"name": "1.5.1.0",/*应用版本名称*/
+		"code": "1500"
 	},
 	"description": "",/*应用描述信息*/
 	"icons": {
@@ -101,12 +101,12 @@
 					}
 				},
 				"android": {
-					"mdpi": "C:/Users/Administrator/Desktop/电机项目/dianjiDaima/dianjiProduct/DianJi/DianJi/img/logo1.png", /*普通屏程序图标，分辨率：48x48*/
-					"ldpi": "C:/Users/Administrator/Desktop/电机项目/dianjiDaima/dianjiProduct/DianJi/DianJi/img/logo1.png", /*大屏程序图标，分辨率：48x48*/
-					"hdpi": "C:/Users/Administrator/Desktop/电机项目/dianjiDaima/dianjiProduct/DianJi/DianJi/img/logo2.png", /*高分屏程序图标，分辨率：72x72*/
-					"xhdpi": "C:/Users/Administrator/Desktop/电机项目/dianjiDaima/dianjiProduct/DianJi/DianJi/img/logo3.png",/*720P高分屏程序图标，分辨率：96x96*/
-					"xxhdpi": "C:/Users/Administrator/Desktop/电机项目/dianjiDaima/dianjiProduct/DianJi/DianJi/img/logo4.png",
-					"xxxhdpi": "C:/Users/Administrator/Desktop/电机项目/dianjiDaima/dianjiProduct/DianJi/DianJi/img/logo5.png"
+					"mdpi": "DianJi/DianJi/img/logo1.png", /*普通屏程序图标，分辨率：48x48*/
+					"ldpi": "DianJi/DianJi/img/logo1.png", /*大屏程序图标，分辨率：48x48*/
+					"hdpi": "DianJi/DianJi/img/logo2.png", /*高分屏程序图标，分辨率：72x72*/
+					"xhdpi": "DianJi/DianJi/img/logo3.png",/*720P高分屏程序图标，分辨率：96x96*/
+					"xxhdpi": "DianJi/DianJi/img/logo4.png",
+					"xxxhdpi": "DianJi/DianJi/img/logo5.png"
 				}
 			},
 			"splashscreen": {
@@ -133,9 +133,9 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "DianJi/DianJi/img/qidong1.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "DianJi/DianJi/img/qidong2.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "DianJi/DianJi/img/qidong3.png"
+					"hdpi": "C:/Users/Administrator/Desktop/电机项目/电机王红笑/嘉轩logo/嘉轩app页面-01 - 副本 (2).png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "C:/Users/Administrator/Desktop/电机项目/电机王红笑/嘉轩logo/嘉轩app页面-01 - 副本.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "C:/Users/Administrator/Desktop/电机项目/电机王红笑/嘉轩logo/嘉轩app页面-01.png"
 				}
 			}
 		},"adid":"124588210706"
@@ -226,17 +226,10 @@
 				"priority": 0
 			},
 			"DianJi/DianJi/newIndex.html": {
-				"resources": [
-					"DianJi/DianJi/newIndexPage.html"
-				],
+				"resources": [],
 				"refer": [
 					"DianJi/DianJi/login.html",
-					"DianJi/DianJi/ScanCode.html",
-					"DianJi/DianJi/newDataChart.html",
-					"DianJi/DianJi/DeviceDetail.html",
-					"DianJi/DianJi/devicelisttoscancode.html",
-					"DianJi/DianJi/artificialcheckList.html",
-					"DianJi/DianJi/AddDevice.html"
+					"DianJi/DianJi/artificialcheckList.html"
 				],
 				"priority": 0
 			},
@@ -249,17 +242,35 @@
 				],
 				"priority": 0
 			},
-			"DianJi/DianJi/ScanCode.html": {
-				"resources": [],
+			"DianJi/DianJi/headerindex.html": {
+				"resources": [
+					"DianJi/DianJi/baobiaoPage.html"
+				],
 				"refer": [
-					"DianJi/DianJi/newDataChart.html"
+					"DianJi/DianJi/devicelist.html",
+					"DianJi/DianJi/minepage.html"
 				],
 				"priority": 0
 			},
-			"DianJi/DianJi/newDataChart.html": {
+			"DianJi/DianJi/minepage.html": {
 				"resources": [],
 				"refer": [
-					"DianJi/DianJi/ScanCode.html"
+					"DianJi/DianJi/AddDevice.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/devicelist.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/artificialcheckList.html",
+					"DianJi/DianJi/DeviceDetail.html"
+				],
+				"priority": 0
+			},
+			"DianJi/DianJi/artificialcheckList.html": {
+				"resources": [],
+				"refer": [
+					"DianJi/DianJi/artificialcheck.html"
 				],
 				"priority": 0
 			},
@@ -270,149 +281,18 @@
 				],
 				"priority": 0
 			},
-			"DianJi/DianJi/devicelisttoscancode.html": {
-				"resources": [],
-				"refer": [
-					"DianJi/DianJi/scancodetodetail.html",
-					"DianJi/DianJi/DeviceDetail.html"
-				],
-				"priority": 0
-			},
-			"DianJi/DianJi/artificialcheckList.html": {
-				"resources": [],
-				"refer": [
-					"DianJi/DianJi/artificialcheckhistory.html",
-					"DianJi/DianJi/artificialcheck.html"
-				],
-				"priority": 0
-			},
-			"DianJi/DianJi/scancodetodetail.html": {
-				"resources": [],
-				"refer": [
-					"DianJi/DianJi/carInfo_activate.html",
-					"DianJi/DianJi/newActivation.html"
-				],
-				"priority": 0
-			},
-			"DianJi/DianJi/newActivation.html": {
-				"resources": [],
-				"refer": [
-					"DianJi/DianJi/view/carInfo_activate.html",
-					"DianJi/DianJi/headerindex.html",
-					"DianJi/DianJi/devicelist.html",
-					"DianJi/DianJi/projectindex.html"
-				],
-				"priority": 0
-			},
-			"DianJi/DianJi/view/carInfo_activate.html": {
-				"resources": [],
-				"refer": [
-					"DianJi/DianJi/newActivation.html"
-				],
-				"priority": 0
-			},
-			"DianJi/DianJi/newIndexPage.html": {
-				"resources": [
-					"DianJi/DianJi/newIndex.html"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"DianJi/DianJi/headerindex.html": {
-				"resources": [
-					"DianJi/DianJi/AddDevice.html",
-					"DianJi/DianJi/newIndex.html",
-					"DianJi/DianJi/aboutUs.html",
-					"DianJi/DianJi/demo1.html",
-					"DianJi/DianJi/baobiaoPage.html"
-				],
-				"refer": [
-					"DianJi/DianJi/login.html",
-					"DianJi/DianJi/FeedBack.html",
-					"DianJi/DianJi/demo2.html",
-					"DianJi/DianJi/demo3.html",
-					"DianJi/DianJi/minepage.html",
-					"DianJi/DianJi/devicelist.html"
-				],
-				"priority": 0
-			},
-			"DianJi/DianJi/demo.html": {
-				"resources": [
-					"DianJi/DianJi/headerindex.html"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"DianJi/DianJi/demo3.html": {
-				"resources": [],
-				"refer": [
-					"DianJi/DianJi/demo.html"
-				],
-				"priority": 0
-			},
-			"DianJi/DianJi/minepage.html": {
-				"resources": [],
-				"refer": [
-					"DianJi/DianJi/view/resetPwd.html",
-					"DianJi/DianJi/updateList.html",
-					"DianJi/DianJi/FeedBack.html",
-					"DianJi/DianJi/AddDevice.html",
-					"DianJi/DianJi/aboutUs.html",
-					"DianJi/DianJi/login.html",
-					"DianJi/DianJi/insertdevice.html",
-					"DianJi/DianJi/uploadpicture.html",
-					"DianJi/DianJi/newuploaderpicture.html"
-				],
-				"priority": 0
-			},
-			"DianJi/DianJi/devicelist.html": {
-				"resources": [],
-				"refer": [
-					"DianJi/DianJi/login.html",
-					"DianJi/DianJi/devicelisttoscancode.html",
-					"DianJi/DianJi/DeviceDetail.html",
-					"DianJi/DianJi/newDataChart.html",
-					"DianJi/DianJi/artificialcheckList.html"
-				],
-				"priority": 0
-			},
-			"DianJi/DianJi/projectindex.html": {
-				"resources": [
-					"DianJi/DianJi/login.html",
-					"DianJi/DianJi/headerindex.html"
-				],
-				"refer": [
-					"DianJi/DianJi/newActivation.html",
-					"DianJi/DianJi/scancodetodetail.html"
-				],
-				"priority": 0
-			},
-			"DianJi/DianJi/baobiaoPage.html": {
-				"resources": [
-					"DianJi/DianJi/baobiaochart.html"
-				],
-				"refer": [
-					"DianJi/DianJi/message.html",
-					"DianJi/DianJi/baogao.html",
-					"DianJi/DianJi/artificialcheck.html",
-					"DianJi/DianJi/baogaolistlocal.html"
-				],
-				"priority": 0
-			},
 			"DianJi/DianJi/ModifyInformation.html": {
 				"resources": [],
 				"refer": [
-					"DianJi/DianJi/devicelisttoscancode.html",
-					"DianJi/DianJi/activescan.html",
-					"DianJi/DianJi/UploadImage.html",
 					"DianJi/DianJi/uploadpicture.html"
 				],
 				"priority": 0
 			},
-			"DianJi/DianJi/activescan.html": {
+			"DianJi/DianJi/baobiaoPage.html": {
 				"resources": [],
 				"refer": [
-					"DianJi/DianJi/DeviceDetail.html"
+					"DianJi/DianJi/baogao.html",
+					"DianJi/DianJi/baogaolistlocal.html"
 				],
 				"priority": 0
 			}
