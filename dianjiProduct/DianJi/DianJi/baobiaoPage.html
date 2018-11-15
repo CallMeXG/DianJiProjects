@@ -173,7 +173,7 @@
 									for(var j = 0; j < strList.region_list.length; j++) {
 										var strRegionList = strList.region_list[j];
 										var strs = '<li class="mui-table-view-cell">';
-										strs += '<p style="font-weight: 600;">' + strRegionList.region_name + '</p>';
+										strs += '<p style="font-weight: 600;">' + strRegionList.company_name + '<span style="font-size:18px;"> · </span>' + strRegionList.region_name + '</p>';
 
 										strs += '	<div style="width: 40%;float: left;">';
 										strs += '	<p style="margin-top: 10px;">设备总数：' + strRegionList.total_num + '</p>';
@@ -189,7 +189,7 @@
 										//										strs += '<p style="margin-top: 10px;">故障率：' + strRegionList.failure_rate + '%</p>';
 
 										strs += '</div>';
-										strs += '<div id="charts_' + i + j + '" style="float: right;height: 190px;width: 60%;background-color: red;margin-top:-30px;">' + i + '</div>';
+										strs += '<div id="charts_' + i + j + '" style="float: right;height: 190px;width: 60%;background-color: red;margin-top:0px;">' + i + '</div>';
 
 										strs += '</li>';
 										$('#baobiaoIDs').append(strs);

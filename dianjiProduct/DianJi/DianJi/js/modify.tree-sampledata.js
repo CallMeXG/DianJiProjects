@@ -365,10 +365,10 @@ function sensorData(emeId, i) {
 						}
 
 						if(senData[j].topology_xy != undefined) {
-							sensorStr += '<div class="modifyCom"><span class="name">拓扑位置：</span><span class="val">' + chuanganqiTuopu(senData[j].topology_xy) + '</span></div>';
+							sensorStr += '<div class="modifyCom"><span class="name">MODBUS地址：</span><span class="val">' + senData[j].topology_xy + '</span></div>';
 
 						} else {
-							sensorStr += '<div class="modifyCom"><span class="name">拓扑位置：</span><span class="val">' + "----" + '</span></div>';
+							sensorStr += '<div class="modifyCom"><span class="name">MODBUS地址：</span><span class="val">' + "----" + '</span></div>';
 						}
 
 						if(senData[j].sensor_status != undefined) {
@@ -503,27 +503,7 @@ function sensorData(emeId, i) {
 
 	//	return sensor;
 }
-/**
- * 拓扑位置；1,2,3,4为第一链；5,6,7,8为第二链
- */
-function topologyLocal(val) {
-	switch(val) {
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-			return "第一链";
-			break;
-		case 5:
-		case 6:
-		case 7:
-		case 8:
-			return "第二链";
-			break;
 
-	}
-
-}
 
 function getDate(tm) {
 	var tt = new Date(parseInt(tm)).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ")
@@ -590,20 +570,6 @@ function buildSensorData(sim) {
 	}
 }
 
-//传感器拓扑位置
-function chuanganqiTuopu(strings) {
-	if(strings != undefined) {
-		if(strings == 1 || strings == 2 || strings == 3 || strings == 4) {
-			return strings + "--第一链";
-		}
-		if(strings == 5 || strings == 6 || strings == 7 || strings == 8) {
-			return strings + "--第二链";
-		}
-	} else {
-		return "----";
-	}
-
-}
 
 //*/
 

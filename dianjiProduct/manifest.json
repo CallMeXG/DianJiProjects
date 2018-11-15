@@ -5,10 +5,10 @@
 		"iPad"
 	],
 	"id": "H573E8CEF",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "嘉轩卫士",/*应用名称，程序桌面图标名称*/
+	"name": "机电测试",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.5.1.0",/*应用版本名称*/
-		"code": "1500"
+		"name": "1.5.7.0",/*应用版本名称*/
+		"code": "1507"
 	},
 	"description": "",/*应用描述信息*/
 	"icons": {
@@ -133,9 +133,9 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "C:/Users/Administrator/Desktop/电机项目/电机王红笑/嘉轩logo/嘉轩app页面-01 - 副本 (2).png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "C:/Users/Administrator/Desktop/电机项目/电机王红笑/嘉轩logo/嘉轩app页面-01 - 副本.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "C:/Users/Administrator/Desktop/电机项目/电机王红笑/嘉轩logo/嘉轩app页面-01.png"
+					"hdpi": "C:/Users/Administrator/Desktop/电机项目10月份工作/qidong1.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "C:/Users/Administrator/Desktop/电机项目10月份工作/qidong2.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "C:/Users/Administrator/Desktop/电机项目10月份工作/qidong3.png"
 				}
 			}
 		},"adid":"124588210706"
@@ -255,7 +255,8 @@
 			"DianJi/DianJi/minepage.html": {
 				"resources": [],
 				"refer": [
-					"DianJi/DianJi/AddDevice.html"
+					"DianJi/DianJi/AddDevice.html",
+					"DianJi/DianJi/aboutUs.html"
 				],
 				"priority": 0
 			},
