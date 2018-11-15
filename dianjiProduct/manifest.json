@@ -7,13 +7,8 @@
 	"id": "H573E8CEF",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "机电测试",/*应用名称，程序桌面图标名称*/
 	"version": {
-<<<<<<< HEAD
-		"name": "1.4.1",/*应用版本名称*/
-		"code": "1496"
-=======
 		"name": "1.5.7.0",/*应用版本名称*/
 		"code": "1507"
->>>>>>> master
 	},
 	"description": "",/*应用描述信息*/
 	"icons": {
@@ -234,16 +229,14 @@
 				"resources": [],
 				"refer": [
 					"DianJi/DianJi/login.html",
-<<<<<<< HEAD
+
 					"DianJi/DianJi/checkHistory.html",
 					"DianJi/DianJi/ScanCode.html",
 					"DianJi/DianJi/artificialcheckList.html",
 					"DianJi/DianJi/devicelisttoscancode.html",
 					"DianJi/DianJi/aboutUs.html",
-					"DianJi/DianJi/DeviceDetail.html"
-=======
+					"DianJi/DianJi/DeviceDetail.html",
 					"DianJi/DianJi/artificialcheckList.html"
->>>>>>> master
 				],
 				"priority": 0
 			},
@@ -252,7 +245,6 @@
 				"refer": [
 					"DianJi/DianJi/newIndexPage.html",
 					"DianJi/DianJi/newIndex.html",
-<<<<<<< HEAD
 					"DianJi/DianJi/view/resetPwd.html",
 					"DianJi/DianJi/register.html"
 				],
@@ -269,8 +261,7 @@
 				"resources": [],
 				"refer": [
 					"DianJi/DianJi/artificialcheck.html",
-					"DianJi/DianJi/artificialcheckhistory.html"
-=======
+					"DianJi/DianJi/artificialcheckhistory.html",
 					"DianJi/DianJi/headerindex.html"
 				],
 				"priority": 0
@@ -289,18 +280,13 @@
 				"resources": [],
 				"refer": [
 					"DianJi/DianJi/AddDevice.html",
-					"DianJi/DianJi/aboutUs.html"
->>>>>>> master
-				],
+					"DianJi/DianJi/aboutUs.html"				],
 				"priority": 0
 			},
 			"DianJi/DianJi/devicelist.html": {
 				"resources": [],
 				"refer": [
-<<<<<<< HEAD
-=======
 					"DianJi/DianJi/artificialcheckList.html",
->>>>>>> master
 					"DianJi/DianJi/DeviceDetail.html"
 				],
 				"priority": 0
@@ -308,7 +294,6 @@
 			"DianJi/DianJi/ScanCode.html": {
 				"resources": [],
 				"refer": [
-<<<<<<< HEAD
 					"DianJi/DianJi/newDataChart.html",
 					"DianJi/DianJi/newActivation.html"
 				],
@@ -317,8 +302,7 @@
 			"DianJi/DianJi/newDataChart.html": {
 				"resources": [],
 				"refer": [
-					"DianJi/DianJi/ScanCode.html"
-=======
+					"DianJi/DianJi/ScanCode.html",
 					"DianJi/DianJi/artificialcheck.html"
 				],
 				"priority": 0
@@ -327,19 +311,15 @@
 				"resources": [],
 				"refer": [
 					"DianJi/DianJi/ModifyInformation.html"
->>>>>>> master
 				],
 				"priority": 0
 			},
 			"DianJi/DianJi/ModifyInformation.html": {
 				"resources": [],
 				"refer": [
-<<<<<<< HEAD
 					"DianJi/DianJi/view/carInfo_activate.html",
-					"DianJi/DianJi/ScanCode.html"
-=======
+					"DianJi/DianJi/ScanCode.html",
 					"DianJi/DianJi/uploadpicture.html"
->>>>>>> master
 				],
 				"priority": 0
 			},

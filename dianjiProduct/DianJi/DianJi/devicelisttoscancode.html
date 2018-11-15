@@ -73,36 +73,44 @@
 						type = '其它' + type;
 						break;
 				}
-
 				if(result.search('www.aiimoto.com') != -1) {
 					var scanResult;
-					if(result.search("p/") != -1) {
-						scanResult = result.split("p/");
-					}
+					//嘉轩APP只能显示 /j,
+// 					if(result.search("p/") != -1) {
+// 						scanResult = result.split("p/");
+// 					}
 					if(result.search("j/") != -1) {
 						scanResult = result.split("j/");
+						localStorage.searchType = "SCAN";
+						$.ajax({
+							type: "get",
+							url: appGetSim_Interface,
+							async: true,
+							data: {
+								serial_no: scanResult[1],
+								state: 'ACTIVE'
+							},
+							dataType: 'json',
+							success: function(respData) {
+								dealWithDataFormSever(respData);
+							},
+							error: function() {
+								mui.toast("查询失败，请重试！");
+								scan.start({
+									conserve: true,
+									filename: '_doc/barcode/'
+								});
+							}
+						});
 					}
-					localStorage.searchType = "SCAN";
-					$.ajax({
-						type: "get",
-						url: appGetSim_Interface,
-						async: true,
-						data: {
-							serial_no: scanResult[1],
-							state: 'ACTIVE'
-						},
-						dataType: 'json',
-						success: function(respData) {
-							dealWithDataFormSever(respData);
-						},
-						error: function() {
-							mui.toast("查询失败，请重试！");
+					else{
+						mui.alert("不符合本地校验规则，请扫描正确的二维码", function() {
 							scan.start({
 								conserve: true,
 								filename: '_doc/barcode/'
 							});
-						}
-					});
+						});
+					}
 
 				} else {
 					mui.alert("不符合本地校验规则，请扫描正确的二维码", function() {

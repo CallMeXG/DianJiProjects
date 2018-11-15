@@ -259,15 +259,8 @@ $(function() {
 			//			var webViewScan = plus.webview.create('devicelisttoscancode.html', 'devicelisttoscancode.html');
 			//			webViewScan.show();
 			mui.openWindow({
-<<<<<<< HEAD
-//				url: 'devicelisttoscancode.html',
-//				id:'devicelistscanID'
-				url: 'ScanCode.html'
-=======
 				url: 'devicelisttoscancode.html',
 				id: 'devicelisttoscancode.html'
-				//				url: 'ScanCode.html'
->>>>>>> master
 			})
 		})
 
