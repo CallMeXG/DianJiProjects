@@ -5,6 +5,7 @@
 		<meta charset="utf-8">
 		<title>Hello MUI</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+<<<<<<< HEAD
 		<script src="js/echarts.common.min.js"></script>
 	</head>
 
@@ -60,6 +61,47 @@
 			}
 		</script>
 
+=======
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<button class="mui-btn mui-btn-danger" id="closeAndBack">=====back</button>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			document.getElementById("closeAndBack").addEventListener('tap', function() {
+				console.log("[][][")
+				//获得主页面的webview
+				var main = plus.webview.getWebviewById('HBuilder');
+				console.log("---=" + JSON.stringify(main))
+				//触发主页面的gohome事件
+				mui.fire(main, 'backhome');
+				mui.back();
+			});
+			//mui初始化
+			//			mui.init({
+			//				subpages:[{
+			//					url:'headerindex.html',
+			//					id:'headerindexID'
+			//				}]
+			//			});
+//			function clickdedddd() {
+//				mui.openWindow('headerindex.html');
+//			}
+			//			var subpages = ['aboutUs.html', 'AddDevice.html', 'FeedBack.html'];
+		</script>
+>>>>>>> master
 	</body>
 
 </html>

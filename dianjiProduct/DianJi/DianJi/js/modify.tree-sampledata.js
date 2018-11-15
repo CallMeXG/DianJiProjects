@@ -7,6 +7,26 @@ var regionID = null;
 
 getInitCompany();
 
+$('#addNewCPX').on('tap', function() {
+	//	window.location.replace('devicelisttoscancode.html');
+	localStorage.setItem('fatherID', 'updateDevice');
+	
+//	var webViewScan = plus.webview.create('devicelisttoscancode.html','devicelisttoscancode.html');
+//	webViewScan.show();
+	
+//	mui.init({
+//		subpages:[{
+//			url:"devicelisttoscancode.html",
+//			id:'devicelisttoscancode.html'
+//		}]
+//	})
+	
+	mui.openWindow({
+		url: 'devicelisttoscancode.html',
+		id: 'devicelisttoscancode.html'
+	})
+})
+
 function getInitCompany() {
 	$.ajax({
 		type: "get",
@@ -111,10 +131,14 @@ function isUndefined(list, key) {
 
 $("#addphoto").click(function() {
 	var deviceId = $('#devices_no').html();
-	plus.storage.setItem('imgDeviceID', deviceId);
+//	plus.storage.setItem('imgDeviceID', deviceId);
+	localStorage.setItem('imgDeviceID', deviceId);
 	mui.openWindow({
-		url: 'UploadImage.html'
+		url:'uploadpicture.html'
 	})
+//	mui.openWindow({
+//		url: 'UploadImage.html'
+//	})
 })
 
 /**
@@ -136,7 +160,7 @@ function sensorData(emeId, i) {
 			if(typeof(data) != "undefined") {
 
 				var sensorStr = '<div class="tree-folder" >';
-				sensorStr += '<div class="tree-folder-header"> <i style="hidden:display" onclick="hiddenOrDisplay(this)" class="icon-minus"></i><div class="tree-folder-name">' + isUndefined(data, 'sim_name') + ' ' + data.serial_no + '</div><div  onclick="cancleCard(this)" class="cancle">取消关联</div></div>'
+				sensorStr += '<div class="tree-folder-header"> <i style="hidden:display" onclick="hiddenOrDisplay(this)" class="icon-minus"></i><div class="tree-folder-name">' + isUndefined(data, 'sim_name') + ' ' + data.serial_no + '</div><div onclick="cancleCard(this)" class="cancle">取消关联</div></div>'
 				sensorStr += '<div class="tree-folder-content" style="display: block;">';
 				sensorStr += '<div hidden="hidden" class="modifyCom"><span class="name">传感器卡编号：</span><input type="button" class="sensor_num" id="CPXID' + i + '" value=' + data.serial_no + ' /></div>';
 
@@ -341,10 +365,10 @@ function sensorData(emeId, i) {
 						}
 
 						if(senData[j].topology_xy != undefined) {
-							sensorStr += '<div class="modifyCom"><span class="name">拓扑位置：</span><span class="val">' + chuanganqiTuopu(senData[j].topology_xy) + '</span></div>';
+							sensorStr += '<div class="modifyCom"><span class="name">MODBUS地址：</span><span class="val">' + senData[j].topology_xy + '</span></div>';
 
 						} else {
-							sensorStr += '<div class="modifyCom"><span class="name">拓扑位置：</span><span class="val">' + "----" + '</span></div>';
+							sensorStr += '<div class="modifyCom"><span class="name">MODBUS地址：</span><span class="val">' + "----" + '</span></div>';
 						}
 
 						if(senData[j].sensor_status != undefined) {
@@ -479,27 +503,7 @@ function sensorData(emeId, i) {
 
 	//	return sensor;
 }
-/**
- * 拓扑位置；1,2,3,4为第一链；5,6,7,8为第二链
- */
-function topologyLocal(val) {
-	switch(val) {
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-			return "第一链";
-			break;
-		case 5:
-		case 6:
-		case 7:
-		case 8:
-			return "第二链";
-			break;
 
-	}
-
-}
 
 function getDate(tm) {
 	var tt = new Date(parseInt(tm)).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ")
@@ -566,20 +570,6 @@ function buildSensorData(sim) {
 	}
 }
 
-//传感器拓扑位置
-function chuanganqiTuopu(strings) {
-	if(strings != undefined) {
-		if(strings == 1 || strings == 2 || strings == 3 || strings == 4) {
-			return strings + "--第一链";
-		}
-		if(strings == 5 || strings == 6 || strings == 7 || strings == 8) {
-			return strings + "--第二链";
-		}
-	} else {
-		return "----";
-	}
-
-}
 
 //*/
 
@@ -1005,6 +995,7 @@ function getDefData() {
 		url: commen_gain_device_detail_Interface,
 		dataType: 'json',
 		success: function(msg) {
+			localStorage.setItem('ActiveMZDevice', JSON.stringify(msg.data));
 			var data = msg.data;
 			var sim_list = null;
 			if(data.hasOwnProperty("sim_list") == true) {
@@ -1114,7 +1105,8 @@ function cancleCard(obj) {
 						$(treeFolder).remove();
 						//				getDefData();
 						window.location.reload();
-
+						var fatherWeb = plus.webview.currentWebview().opener();
+						mui.fire(fatherWeb, 'activeBack');
 					}
 				}
 			})
@@ -1374,12 +1366,12 @@ function finshBtnClickReturnData() {
 						var mins = arrZQ[1] * 60;
 						var hours = arrZQ[0] * 3600;
 						var toCount = parseInt(hours) + parseInt(mins) + parseInt(seconds);
-//						if(toCount < 3600) {
-//							mui.toast("数据采集周期不得小于1小时");
-//							return false;
-//						} else {
-							sim_dic.sampling_duration = obj_caiji_zhouqi;
-//						}
+						//						if(toCount < 3600) {
+						//							mui.toast("数据采集周期不得小于1小时");
+						//							return false;
+						//						} else {
+						sim_dic.sampling_duration = obj_caiji_zhouqi;
+						//						}
 					} else {
 						sim_dic.sampling_duration = obj_caiji_zhouqi;
 					}
@@ -1390,12 +1382,12 @@ function finshBtnClickReturnData() {
 						var mins = arrZQ[1] * 60;
 						var hours = arrZQ[0] * 3600;
 						var toCount = parseInt(hours) + parseInt(mins) + parseInt(seconds);
-//						if(toCount < 3600) {
-//							mui.toast("数据上传周期不得小于1小时");
-//							return false;
-//						} else {
-							sim_dic.update_duration = obj_caiji_uploadzhouqi;
-//						}
+						//						if(toCount < 3600) {
+						//							mui.toast("数据上传周期不得小于1小时");
+						//							return false;
+						//						} else {
+						sim_dic.update_duration = obj_caiji_uploadzhouqi;
+						//						}
 					} else {
 						sim_dic.update_duration = obj_caiji_uploadzhouqi;
 					}

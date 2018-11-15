@@ -353,6 +353,7 @@ function chartshiyu(seriseData) {
 			symbolSize: 6,
 			symbol: 'circle',
 			showSymbol: false,
+			animation:false,
 			lineStyle: {
 				width: 0.5,
 				color: "blue"
@@ -409,6 +410,7 @@ function chartpinpu(seriseData) {
 			symbolSize: 6,
 			symbol: 'circle',
 			showSymbol: false,
+			animation:false,
 			lineStyle: {
 				width: 0.5,
 				color: "blue"
@@ -464,6 +466,7 @@ function chartBaoluo(seriseData) {
 			symbolSize: 6,
 			symbol: 'circle',
 			showSymbol: false,
+			animation:false,
 			lineStyle: {
 				width: 0.5,
 				color: "blue"
@@ -527,6 +530,7 @@ function chartSuduNew(seriseData) {
 			symbolSize: 6,
 			symbol: 'circle',
 			showSymbol: false,
+			animation:false,
 			lineStyle: {
 				width: 0.5,
 				color: "blue"

@@ -213,7 +213,8 @@ function chart_qushifengfengzhi( strTile, strPostID, legendData, xData, yDatax, 
 						color: 'green'
 					}
 				},
-				inverse: true
+				inverse: true,
+				animation:false
 			},
 			{
 				name: "Y",
@@ -232,7 +233,8 @@ function chart_qushifengfengzhi( strTile, strPostID, legendData, xData, yDatax, 
 						color: '#5cc0d6'
 					}
 				},
-				inverse: true
+				inverse: true,
+				animation:false
 			},
 			{
 				name: "Z",
@@ -251,7 +253,8 @@ function chart_qushifengfengzhi( strTile, strPostID, legendData, xData, yDatax, 
 						color: 'blue'
 					}
 				},
-				inverse: true
+				inverse: true,
+				animation:false
 			},
 			{
 				name: "温度",
@@ -271,7 +274,8 @@ function chart_qushifengfengzhi( strTile, strPostID, legendData, xData, yDatax, 
 						color: '#eb1958'
 					}
 				},
-				inverse: true
+				inverse: true,
+				animation:false
 			}
 		]
 	};

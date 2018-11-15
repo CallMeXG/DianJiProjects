@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>APP入口页</title>
+		<script src="js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<script>
+			mui.plusReady(function() {
+				console.log('shoye  === ' + plus.webview.currentWebview().id)
+			});
+			document.addEventListener('logoutEvent', function() {
+				console.log("0000000000000000======000000000000000==="+localStorage.getItem("userName"));
+				alert('----------')
+				location.reload();
+			});
+
+			if(localStorage.getItem("userName") != undefined) {
+				mui.init({
+					subpages: [{
+						url: 'headerindex.html',
+						id: 'headerindex.html'
+					}]
+				})
+			} else {
+				alert('===')
+				mui.init({
+					subpages: [{
+						url: 'login.html',
+						id: 'login.html'
+					}]
+				})
+			}
+		</script>
+	</body>
+
+</html>

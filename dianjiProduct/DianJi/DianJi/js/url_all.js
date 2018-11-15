@@ -10,6 +10,8 @@
 var url = 'http://47.94.166.103:1111/';
 
 
+
+
 //var fileUrlHeader = "http://47.94.166.103:3000/group1/";
              
 //登录接口
@@ -118,3 +120,11 @@ var new_commen_gain_manual_list_Interface = url + 'check/commen_gain_manual_list
 var new_commen_gain_check_device_list_Interface = url + 'check/commen_gain_check_device_list';
 //点检详情
 var new_commen_gain_check_device_detail_Interface = url + 'check/commen_gain_check_device_detail';
+//设备运行状态统计
+var new_commen_statis_device_Interface = url +'device/commen_statis_device';
+
+//诊断报告列表
+var new_commen_gain_user_check_Interface = url + 'check/commen_gain_user_check';
+
+
+

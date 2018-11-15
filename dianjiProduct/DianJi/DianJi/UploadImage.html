@@ -173,6 +173,7 @@
 			//			}
 			//加载页面初始化需要加载的图片信息  
 			function showImgDetail(imgId, imgkey, id, src) {
+				console.log('111111='+src)
 				var html = "";
 				html += '<div  id="Img' + imgId + imgkey + '" class="image-item ">';
 				html += '    <img id="picBig" data-preview-src="" data-preview-group="1" ' + src + '/>';
@@ -261,6 +262,7 @@
 				var cmr = plus.camera.getCamera();
 				cmr.captureImage(function(p) {
 					plus.io.resolveLocalFileSystemURL(p, function(entry) {
+						console.log('00000'+entry.toLocalURL())
 						compressImage(entry.toLocalURL(), entry.name, divid);
 					}, function(e) {
 						plus.nativeUI.toast("读取拍照文件错误：" + e.message);
@@ -272,6 +274,7 @@
 			}
 			//压缩图片  
 			function compressImage(url, filename, divid) {
+				console.log('22222=='+filename);
 				var name = "_doc/upload/" + divid + "-" + filename; //_doc/upload/F_ZDDZZ-1467602809090.jpg  
 				plus.zip.compressImage({
 						src: url, //src: (String 类型 )压缩转换原始图片的路径  
@@ -298,6 +301,7 @@
 			 * @param {Object} name   图片的名称  
 			 */
 			function saveimage(url, divid, name, path) {
+				console.log('4444444==='+url+'^^'+divid+'^^'+name+'^^'+path)
 				var state = 0;
 				var wt = plus.nativeUI.showWaiting();
 				//  plus.storage.clear();   
@@ -313,6 +317,7 @@
 				plus.storage.setItem(itemname, itemvalue);
 
 				var src = 'src="' + url + '"';
+				console.log('555555==='+name+'^^'+divid+'^^'+id+'^^'+src)
 				//alert("itemvalue="+itemvalue);  
 				showImgDetail(name, divid, id, src);
 				wt.close();

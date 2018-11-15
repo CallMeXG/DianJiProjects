@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>上传照片</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<style>
+			.div_image {
+				width: 28%;
+				margin-left: 3%;
+				height: auto;
+				float: left;
+				text-align: center;
+				margin-top: 8px;
+				position: relative;
+			}
+			
+			.div_image img {
+				width: 90%;
+			}
+			
+			.div_image a {
+				position: absolute;
+				right: 1px;
+				top: -5px;
+				z-index: 100;
+				color: red;
+				display: none;
+			}
+			
+			.div_image p {
+				color: darkgray;
+				font-size: 12px;
+			}
+			
+			.image_item {
+				width: 30%;
+				float: left;
+				text-align: center;
+			}
+			
+			.image_item img {
+				width: 90%;
+			}
+			
+			.detailItem {
+				width: 35%;
+				height: 100px;
+				float: left;
+				margin-left: 5px;
+			}
+			
+			.mui-btn {
+				height: 20px;
+				/*float: right;*/
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left" style="color: white;"></a>
+			<h1 class="mui-title" style="color: white;">上传照片</h1>
+			<a id="submitPicture" class="mui-pull-right" style="color: white;margin-top: 15px;">上传</a>
+		</header>
+		<div class="mui-content" style="background-color: white;">
+
+			<div class="div_image">
+				<img id="image_1" onclick="imageClick(this.id)" src="img/addpicture.png" />
+				<a id="btnimage_1" onclick="deletePicture(this.id,'image_1')" class="iconfont icon-chahao"></a>
+				<p>i. 设备整体照片:可以看到设备总体状态</p>
+			</div>
+			<div class="div_image">
+				<img id="image_2" onclick="imageClick(this.id)" src="img/addpicture.png" />
+				<a id="btnimage_2" onclick="deletePicture(this.id,'image_2')" class="iconfont icon-chahao"></a>
+				<p>ii. 铭牌照片:可清晰看到名牌内容</p>
+			</div>
+			<div class="div_image">
+				<img id="image_3" onclick="imageClick(this.id)" src="img/addpicture.png" />
+				<a id="btnimage_3" onclick="deletePicture(this.id,'image_3')" class="iconfont icon-chahao"></a>
+				<p>iii. 控制器安装照片:距离控制器1.5米处拍摄</p>
+			</div>
+			<div class="div_image">
+				<img id="image_4" onclick="imageClick(this.id)" src="img/addpicture.png" />
+				<a id="btnimage_4" onclick="deletePicture(this.id,'image_4')" class="iconfont icon-chahao"></a>
+				<p>iv. 传感器安装照片:距离传感器1.5米处拍摄</p>
+			</div>
+			<div class="div_image">
+				<img id="image_5" onclick="imageClick(this.id)" src="img/addpicture.png" />
+				<a id="btnimage_5" onclick="deletePicture(this.id,'image_5')" class="iconfont icon-chahao"></a>
+				<p>v. 传感器安装照片:距离传感器1.5米处拍摄</p>
+			</div>
+			<div class="div_image">
+				<img id="image_6" onclick="imageClick(this.id)" src="img/addpicture.png" />
+				<a id="btnimage_6" onclick="deletePicture(this.id,'image_6')" class="iconfont icon-chahao"></a>
+				<p>vi. 传感器安装照片:距离传感器1.5米处拍摄</p>
+			</div>
+			<div class="div_image">
+				<img id="image_7" onclick="imageClick(this.id)" src="img/addpicture.png" />
+				<a id="btnimage_7" onclick="deletePicture(this.id,'image_7')" class="iconfont icon-chahao"></a>
+				<p>vii. 传感器安装照片:距离传感器1.5米处拍摄</p>
+			</div>
+			<div class="div_image">
+				<img id="image_8" onclick="imageClick(this.id)" src="img/addpicture.png" />
+				<a id="btnimage_8" onclick="deletePicture(this.id,'image_8')" class="iconfont icon-chahao"></a>
+				<p>viii. 走线照片</p>
+			</div>
+			<div class="div_image">
+				<img id="image_9" onclick="imageClick(this.id)" src="img/addpicture.png" />
+				<a id="btnimage_9" onclick="deletePicture(this.id,'image_9')" class="iconfont icon-chahao"></a>
+				<p>ix. 其他细节</p>
+			</div>
+
+			<!--<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<div class="image_item">
+						<img id="image_1" onclick="imageClick(this.id)" src="img/addpicture.png" />
+					</div>
+					<div class="detailItem">
+						<p>i. 设备整体照片:</p>
+						<p>可以看到设备总体状态</p>
+					</div>
+					<div style="float: right;width: 30%;">
+						<button id="btnimage_1" onclick="deletePicture(this.id,'image_1')" class="mui-btn mui-btn-green" style="margin-top: 5px;">删除</button>
+					</div>
+
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="image_item">
+						<img id="image_2" onclick="imageClick(this.id)" src="img/addpicture.png" />
+					</div>
+					<div class="detailItem">
+						<p>ii. 铭牌照片:</p>
+						<p>可清晰看到名牌内容</p>
+					</div>
+					<div style="float: right;width: 30%;">
+						<button id="btnimage_2" onclick="deletePicture(this.id,'image_2')" class="mui-btn mui-btn-green" style="margin-top: 5px;">删除</button>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="image_item">
+						<img id="image_3" onclick="imageClick(this.id)" src="img/addpicture.png" />
+					</div>
+					<div class="detailItem">
+						<p>iii. 控制器安装照片:</p>
+						<p>距离控制器1.5米处拍摄</p>
+					</div>
+					<div style="float: right;width: 30%;">
+						<button id="btnimage_3" onclick="deletePicture(this.id,'image_3')" class="mui-btn mui-btn-green" style="margin-top: 5px;">删除</button>
+					</div>
+				</li>
+			</ul>-->
+
+		</div>
+		<script src="js/url_all.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script>
+			var gentry = null;
+			var picArray = new Array();
+			var imageArray = new Array();
+
+			function deletePicture(btnID, imgID) {
+				for(var i = 0; i < imageArray.length; i++) {
+					var objPhoto = imageArray[i];
+					var objPhotoKey = objPhoto.keyName;
+					var keyArr = objPhotoKey.split('-');
+					if(keyArr[1] == imgID) {
+						var strindex = imageArray.indexOf(objPhoto);
+						imageArray.splice(strindex, 1);
+						picArray.splice(imgID);
+					}
+				}
+				document.getElementById(imgID).src = 'img/addpicture.png';
+				$('#'+btnID).hide();
+			}
+
+			function imageClick(imgID) {
+				var actionbuttons = [{
+					title: "拍照"
+				}, {
+					title: "相册选取"
+				}];
+				var actionstyle = {
+					title: "选择照片",
+					cancel: "取消",
+					buttons: actionbuttons
+				};
+				plus.nativeUI.actionSheet(actionstyle, function(e) {
+					if(e.index == 1) {
+						getImage(imgID);
+					} else if(e.index == 2) {
+						galleryImg(imgID);
+					}
+				});
+			}
+			//拍照
+			function getImage(strImgID) {
+				var cmr = plus.camera.getCamera();
+				cmr.captureImage(function(p) {
+					plus.io.resolveLocalFileSystemURL(p, function(entry) {
+						compressImage(entry.toLocalURL(), entry.name, strImgID);
+					}, function(e) {
+						plus.nativeUI.toast("读取拍照文件错误：" + e.message);
+					})
+				}, function(e) {}, {
+					filename: "_doc/camera/",
+					index: 1
+				});
+			}
+			//从相册获取
+			function galleryImg(strImgID) {
+				plus.gallery.pick(function(path) {
+					plus.io.resolveLocalFileSystemURL(path, function(entry) {
+						compressImage(entry.toLocalURL(), entry.name, strImgID);
+					}, function(error) {
+						mui.toast('读取拍照文件错误：' + error.message)
+					});
+				}, function(e) {}, {
+					filename: "_doc/camera",
+					filter: "image"
+				});
+
+			}
+			//压缩图片  
+			function compressImage(url, filename, divid) {
+				var name = "_doc/upload/" + divid + "-" + filename; //_doc/upload/F_ZDDZZ-1467602809090.jpg  
+				plus.zip.compressImage({
+						src: url, //src: (String 类型 )压缩转换原始图片的路径  
+						dst: name, //压缩转换目标图片的路径  
+						quality: 20, //quality: (Number 类型 )压缩图片的质量.取值范围为1-100  
+						overwrite: true //overwrite: (Boolean 类型 )覆盖生成新文件  
+					},
+					function(event) {
+						//uploadf(event.target,divid);  
+						var path = name; //压缩转换目标图片的路径  
+						//event.target获取压缩转换后的图片url路  
+						//filename图片名称  
+						saveimage(event.target, divid, filename, path);
+					},
+					function(error) {
+						plus.nativeUI.toast("压缩图片失败，请稍候再试");
+					});
+			}
+
+			function saveimage(url, divid, name, path) {
+				name = name.substring(0, name.indexOf("."));
+
+				if(picArray.indexOf(divid) == -1) {
+					var itemname = "img-" + divid;
+					var itemImage = {
+						'keyName': itemname,
+						'name': itemname + '-' + name,
+						'value': path
+					};
+					picArray.push(divid);
+					imageArray.push(itemImage);
+				} else {
+					var itemname = "img-" + divid;
+					var itemImage = {
+						'keyName': itemname,
+						'name': itemname + '-' + name,
+						'value': path
+					};
+					for(var i = 0; i < imageArray.length; i++) {
+						var obj_image = imageArray[i];
+						if(obj_image.keyName == itemname) {
+							var strindex = imageArray.indexOf(obj_image);
+							imageArray.splice(strindex, 1);
+							imageArray.push(itemImage);
+						}
+					}
+
+				}
+				showImgDetail(divid, url);
+			}
+
+			function showImgDetail(imgId, src) {
+				$('#' + imgId).css('height', $('#' + imgId).css('width'));
+				document.getElementById(imgId).src = src;
+				$('#btn'+imgId).show();
+			}
+
+			//提交上传图片
+			$('#submitPicture').on('tap', function() {
+				plus.nativeUI.showWaiting('正在上传图片...');
+				var task = plus.uploader.createUpload(appPhotoUpload_Interface, {
+					method: 'POST'
+				}, function(t, status) {
+					if(status == 200) {
+						plus.nativeUI.toast('照片上传成功!');
+						mui.back();
+					} else {
+						plus.nativeUI.toast('照片上传失败，请重试...');
+					}
+
+				});
+				task.addData('devices_no', localStorage.getItem('imgDeviceID'));
+				plus.nativeUI.closeWaiting();
+				if(imageArray.length == 0) {
+					mui.alert('请至少提交一张照片！')
+				} else {
+					for(var i = 0; i < imageArray.length; i++) {
+						var objPic = imageArray[i].value;
+						var strValueArray = objPic.split('/');
+						task.addFile(objPic, {
+							key: objPic.name
+						});
+					}
+					task.start();
+				}
+			})
+		</script>
+
+	</body>
+
+</html>

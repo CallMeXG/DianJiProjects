@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>诊断报告列表</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<a style="color: white;" class="mui-icon mui-icon-left-nav mui-action-back mui-pull-left"></a>
+			<h1 class="mui-title" style="color: white;">诊断报告</h1>
+		</header>
+		<div class="mui-content" id="atfi_contentList">
+
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script>
+			function sliderBtnClicked(event, strFileName) {
+				console.log("====" + event)
+
+				var btnArray = ['确认', '取消'];
+				mui.confirm('确认删除该条记录？', 'Hello MUI', btnArray, function(e) {
+					if(e.index == 0) {
+						plus.io.resolveLocalFileSystemURL('_downloads/localBaogao/' + strFileName, function(entry) {
+							entry.remove(function() {//删除成功,然后重新刷新
+								var strLocalUrl = '_downloads/localBaogao/';
+								plus.io.resolveLocalFileSystemURL(strLocalUrl, function(enrty) {
+									// 可通过fs操作PUBLIC_DOWNLOADS文件系统 
+									var directoryReader = enrty.createReader();
+									directoryReader.readEntries(function(entries) {
+										$('#atfi_contentList ul').remove()
+										var strings = '<ul class="mui-table-view">'
+										for(var i = 0; i < entries.length; i++) {
+											console.log(entries[i].name);
+											strings += '<ul class="mui-table-view"><li class="mui-table-view-cell" ><div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red" onclick="sliderBtnClicked(event,\'' + entries[i].name + '\')">删除</a></div>	<div class="mui-slider-handle"><div class="iconfont icon-baogao mui-media-object mui-pull-left" style="color: gray;font-size: 50px;"></div><div class="mui-media-body"><div class="mui-ellipsis-2" onclick="clickAndOpenFile(\'' + entries[i].name + '\')">' + entries[i].name + '</div></div></div></li></ul>';
+										}
+										strings += '</ul>'
+										$('#atfi_contentList').append(strings);
+									}, function(e) {
+										mui.alert("读取文件失败: " + e.message);
+									});
+								}, function(e) {
+									mui.alert('暂无诊断报告');
+								});
+							}, function(error) {
+								console.log(error)
+							});
+						})
+
+					} 
+					//获取父节点的父节点 li
+					var elem = event.target.parentNode.parentNode;
+					//隐藏右滑显示
+					mui.swipeoutClose(elem);
+				});
+			}
+			
+			// 扩展API加载完毕后调用onPlusReady回调函数 
+			document.addEventListener("plusready", onPlusReady, false);
+			// 扩展API加载完毕，现在可以正常调用扩展API
+			function onPlusReady() {
+				var strLocalUrl = '_downloads/localBaogao/';
+				// rBGU7luM_-WATesMAAIDgrKr7VY78(1).xlsx
+				plus.io.resolveLocalFileSystemURL(strLocalUrl, function(enrty) {
+					// 可通过fs操作PUBLIC_DOWNLOADS文件系统 
+					// ......
+
+					var directoryReader = enrty.createReader();
+
+					directoryReader.readEntries(function(entries) {
+
+						var strings = '<ul class="mui-table-view">'
+						for(var i = 0; i < entries.length; i++) {
+							strings += '<ul class="mui-table-view"><li class="mui-table-view-cell" ><div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red" onclick="sliderBtnClicked(event,\'' + entries[i].name + '\')">删除</a></div>	<div class="mui-slider-handle"><div class="iconfont icon-baogao mui-media-object mui-pull-left" style="color: gray;font-size: 50px;"></div><div class="mui-media-body"><div class="mui-ellipsis-2" onclick="clickAndOpenFile(\'' + entries[i].name + '\')">' + entries[i].name + '</div></div></div></li></ul>';
+						}
+						strings += '</ul>'
+						$('#atfi_contentList').append(strings)
+					}, function(e) {
+						mui.alert("读取文件失败: " + e.message);
+					});
+				}, function(e) {
+					mui.alert('暂无诊断报告');
+				});
+
+			}
+
+			function clickAndOpenFile(item) {
+				plus.runtime.openFile('_downloads/localBaogao/' + item)
+			}
+		</script>
+	</body>
+
+</html>

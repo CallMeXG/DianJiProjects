@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -12,14 +13,14 @@
 		<script>
 			mui.init();
 		</script>
-		<title>诊断详情</title>
+		<title>报告</title>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
 			<a style="color: white;" class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
-			<h1 class="mui-title" style="color: white;">诊断报告</h1>
-			<a id="downLoadID" class="iconfont icon-down mui-pull-right" style="color: white;font-size: 24px;margin-top: 8px;display: none;"></a>
+			<h1 class="mui-title" style="color: white;">报告</h1>
+			<a id="downLoadID" class="mui-pull-right" style="color: white;font-size: 18px;margin-top: 15px;display: none;">下载报告</a>
 		</header>
 
 		<div class="mui-content" id="ContentStrID" style="display: none;">
@@ -61,7 +62,9 @@
 						<div v-if="message.apply_status == 0">
 							<div style="margin-left: 10px;margin-right: 5px;color: gray;">正在进行远程诊断，请稍后...</div>
 						</div>
-						<!--<div style="margin-left: 10px;margin-right: 5px;color: gray;">正在进行远程诊断，请稍后...</div>-->
+						<div v-if="message.apply_status == 1">
+							<div style="margin-left: 10px;margin-right: 5px;color: gray;">###无诊断描述###</div>
+						</div>
 					</div>
 					<br />
 				</div>
@@ -116,15 +119,15 @@
 
 				$('#downLoadID').on('tap', function() {
 
-					downArtificalFile(self.message.file_path, self.message.apply_devices_no ,self.message.file_name);
+					downArtificalFile(self.message.file_path, self.message.apply_devices_no, self.message.file_name);
 				})
 
 				//下载报告
-				function downArtificalFile(strFileUrl,strFilePath, strFileName) {
+				function downArtificalFile(strFileUrl, strFilePath, strFileName) {
 					var strLoadURL = strFileUrl;
 					var encodeUrl = encodeURI(strLoadURL); //文件的具体地址，具体到文件名称
-					var strLocalDownUrl = '_downloads/' + strFilePath + '/' + strFileName;
-					console.log("========"+strLocalDownUrl)
+					var strLocalDownUrl = '_downloads/localBaogao/' + strFileName;
+					console.log("========" + strLocalDownUrl)
 					var dtask = plus.downloader.createDownload(encodeUrl, {
 						filename: strLocalDownUrl
 					}); //新建下载任务

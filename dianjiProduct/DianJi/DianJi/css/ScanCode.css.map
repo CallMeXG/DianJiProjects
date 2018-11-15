@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA,KAAM;EACF,QAAQ,EAAE,OAAO;EACjB,MAAM,EAAE,IAAI;;AACZ,cAAS;EACL,KAAK,EAAE,KAAK;;AAEhB,sBAAiB;EACb,UAAU,EAAE,KAAK;;;AAKzB,UAAW;EAGP,MAAM,EAAC,IAAI;EAEX,UAAU,EAAE,UAAU",
-"sources": ["ScanCode.scss"],
-"names": [],
-"file": "ScanCode.css"
-}

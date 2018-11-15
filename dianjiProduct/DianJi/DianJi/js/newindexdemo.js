@@ -1,75 +1,16 @@
 $(function() {
-
+	///*
 	mui.plusReady(function() {
 
-		mui.init({
-			subpages: [{
-				url: 'newIndex.html',
-				id: 'newIndexID'
-			}]
-		})
-		//		console.log("登录登录登录登录登录登录登录登录登录登录登录")
+		document.addEventListener('activeBack', function() {
+			console.log('8888888888888888888888888888=== ')
+		});
 
 		///*
 		plus.webview.currentWebview().setStyle({
 			softinputMode: "adjustResize" // 弹出软键盘时自动改变webview的高度
 		});
 
-		$('#minePageClicked').on('tap', function() {
-			$('#mineHeader').css('display', 'block');
-			$('#head').css('display', 'none');
-		})
-		$('#defaultTab').on('tap', function() {
-			$('#mineHeader').css('display', 'none');
-			$('#head').css('display', 'block');
-		})
-		$("#addDeviceNew").on("tap", function() {
-			mui.openWindow({
-				url: "AddDevice.html"
-			})
-
-			//	window.location.replace('AddDevice.html');
-
-		})
-		$("#feedback").on("tap", function() {
-			mui.openWindow({
-				url: "FeedBack.html"
-			})
-		})
-		$("#aboutUs").on("tap", function() {
-			mui.openWindow({
-				url: "aboutUs.html"
-			})
-		})
-
-		$("#reset_pwd").on("tap", function() {
-			localStorage.setItem("resetType", "restpwd");
-			mui.openWindow({
-				url: "view/resetPwd.html"
-			})
-		})
-		//功能介绍
-		$("#codeUpdate").on("tap", function() {
-			mui.openWindow({
-				url: "updateList.html"
-			})
-		})
-
-		function ConfirmCallBack(e) {
-			if(e.index == 1) {
-				localStorage.removeItem("isLogin");
-				localStorage.removeItem("userName");
-				localStorage.removeItem("userPwd");
-				localStorage.clear();
-				window.location.replace('login.html');
-			}
-		}
-
-		$("#logoutButton").on('tap', function() {
-			mui.confirm("退出登录？", "", ["否", "是"], ConfirmCallBack)
-		})
-
-		$("#username").html(localStorage.getItem("userName"))
 		$("#nullDataPage").hide();
 
 		var strKeyWord = "";
@@ -100,7 +41,10 @@ $(function() {
 						e.cancelBubble = true; //ie兼容
 					}
 					localStorage.setItem('DeveciId', items.devices_no);
-					mui.openWindow('newDataChart.html')
+					mui.openWindow({
+						url: 'newDataChart.html',
+						id: 'newDataChart.html'
+					});
 				},
 				open_detail(items) {
 					e = window.event || e;
@@ -111,7 +55,14 @@ $(function() {
 					}
 					localStorage.setItem('DeveciId', items.devices_no);
 					localStorage.enterPage = "Enter";
-					mui.openWindow('DeviceDetail.html')
+					mui.openWindow({
+						url: 'DeviceDetail.html',
+						id: 'DeviceDetail.html'
+					})
+					//获取父节点的父节点 li
+					var elem = event.target.parentNode.parentNode;
+					//隐藏右滑显示
+					mui.swipeoutClose(elem);
 				},
 				sliderBtnClicked: function(event, selType, CellItems) {
 
@@ -128,9 +79,7 @@ $(function() {
 					if(selType == "ZD") {
 						localStorage.DeveciId = CellItems.devices_no;
 						localStorage.DeveciName = CellItems.devices_name;
-						mui.openWindow('artificialcheckList.html')
-						//				mui.openWindow('artificialcheck.html')
-						//				mui.alert('您的人工诊断申请已发送，机电卫士专家会及时对您的设备进行诊断！','人工诊断');
+						mui.openWindow('artificialcheckList.html');
 					}
 					//获取父节点的父节点 li
 					var elem = event.target.parentNode.parentNode;
@@ -183,7 +132,6 @@ $(function() {
 										var indexPa = newReginListID.indexOf(mseItem.id);
 										newReginListID.splice(indexPa, 1);
 									}
-									
 
 								}
 							}
@@ -248,10 +196,10 @@ $(function() {
 						window.location.replace("login.html");
 					}
 				},
-				error:function(error){
+				error: function(error) {
 					mui.toast("登录失败，请检查网络连接");
 				}
-				
+
 			});
 
 		} //自动登录结束
@@ -262,7 +210,6 @@ $(function() {
 		}
 		//厂区筛选事件
 		$("#regionButton").on("tap", function() {
-
 			//保存选择的厂区
 			var strRegionID = newReginListID.toString();
 			localStorage.setItem('strRegion', strRegionID);
@@ -283,12 +230,14 @@ $(function() {
 			}, {
 				title: "工作状态",
 				values: '3'
-			}, {
-				title: "故障类型",
-				values: '4'
-			}];
+			}
+//			, {
+//				title: "故障类型",
+//				values: '4'
+//			}
+			];
 			plus.nativeUI.actionSheet({
-				title: "",
+				title: "按照以下规则进行排序",
 				cancel: "取消",
 				buttons: btnArray
 			}, function(e) {
@@ -305,10 +254,20 @@ $(function() {
 
 		//左上角扫描点击事件
 		$("#scanCodeClicked").on('tap', function() {
+			localStorage.removeItem('DeveciId');
+			localStorage.setItem('fatherID', 'deviceList');
+			//			var webViewScan = plus.webview.create('devicelisttoscancode.html', 'devicelisttoscancode.html');
+			//			webViewScan.show();
 			mui.openWindow({
+<<<<<<< HEAD
 //				url: 'devicelisttoscancode.html',
 //				id:'devicelistscanID'
 				url: 'ScanCode.html'
+=======
+				url: 'devicelisttoscancode.html',
+				id: 'devicelisttoscancode.html'
+				//				url: 'ScanCode.html'
+>>>>>>> master
 			})
 		})
 
@@ -333,9 +292,9 @@ $(function() {
 		});
 
 		//搜索设备接口
-		function searchDevice(keyWord, pageNum, keyType, strPostRegion, thisIndex) {
-			var wa = plus.nativeUI.showWaiting();
-			
+		function searchDevice(keyWord, pageNum, keyType, strPostRegion, thisIndex, strDeviceStatus) {
+			var wa = plus.nativeUI.showWaiting('数据加载中...');
+
 			$.ajax({
 				type: "get",
 				url: commen_search_device_Interface,
@@ -348,7 +307,8 @@ $(function() {
 					company_id: localStorage.getItem("company_id"),
 					region_id_list: strPostRegion,
 					startRecords: pageNum,
-					pageSize: 10
+					pageSize: 10,
+					device_status: strDeviceStatus
 				},
 				dataType: 'json',
 				success: function(res) {
@@ -356,7 +316,7 @@ $(function() {
 					if(res.status == "SUCCESS") {
 						if(res.data.search_list.length > 0) {
 							content.message = res.data.search_list;
-							$('#content').css('display','block');
+							$('#content').css('display', 'block');
 							$("#nullDataPage").hide();
 							$("#content").show();
 							var pagecount = res.data.total_records / 10;
@@ -380,6 +340,7 @@ $(function() {
 					setFenyefunction(0, thisIndex);
 				}
 			});
+
 		}
 
 		function setFenyefunction(totalCount, thisIndex) {
@@ -414,7 +375,36 @@ $(function() {
 				totalPage: totalCount,
 				totalSize: 90
 			});
-		}
+		};
+
+		document.addEventListener('enterPage_deviceList_refresh', function() {
+			
+			newReginListID.push(parseInt(localStorage.getItem('tongji_regionId')));
+			localStorage.removeItem('strRegion');
+			newReginListID.splice(0,newReginListID.length-1);
+			var arrRegion = JSON.parse(localStorage.getItem("reginArray"));
+			for (var i = 0; i < arrRegion.length; i++) {
+			   var strregion = arrRegion[i].reginID;
+			   document.getElementById(strregion).checked = false;
+			}
+			localStorage.setItem('strRegion', localStorage.getItem('tongji_regionId'));
+			document.getElementById(localStorage.getItem('tongji_regionId')).checked = true;
+			searchDevice('', 0, 2, localStorage.getItem('tongji_regionId'), 0, localStorage.getItem('tongji_type'));
+			
+			//			var strRegion_new = localStorage.getItem('tongji_regionId');
+			//			if(typeof(strRegion_new) != "undefined" && strRegion_new != null) {
+			//				if(strRegion_new.length > 0) {
+			//					var RegionArray_new = strRegion_new.split(',');
+			//					for(var i = 0; i < RegionArray_new.length; i++) {
+			//						var strIDS = RegionArray_new[i];
+			//						console.log('00000000=='+strIDS)
+			//						document.getElementById(strIDS).checked = true;
+			//						newReginListID.push(parseInt(strIDS));
+			//					}
+			//				}
+			//			}
+
+		});
 
 		//获取用户类型，根据权限隐藏某些显示内容
 		function hiddenUIWithUserType() {
@@ -422,7 +412,6 @@ $(function() {
 			//		console.log(strUserType);
 			if(strUserType < 10) {
 				$("#newAddDevice").hide();
-
 			}
 			if(strUserType > 10) {
 				$("#newAddDevice").show();
@@ -458,4 +447,5 @@ $(function() {
 		}
 		//*/
 	})
+
 });
