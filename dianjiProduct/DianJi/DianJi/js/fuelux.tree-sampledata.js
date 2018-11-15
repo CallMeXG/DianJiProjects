@@ -306,7 +306,7 @@ mui.plusReady(function() {
 				sensorStr += '<li class="mui-table-view-cell">固件版本：' + isUndefined(sensorData, 'fw_version') + '</li>';
 				sensorStr += '<li class="mui-table-view-cell">校准日期：' + isUndefined(sensorData, 'calibration_time') + '</li>';
 				sensorStr += '<li class="mui-table-view-cell">安装位置：' + isUndefined(sensorData, 'install_xy') + '</li>';
-				sensorStr += '<li class="mui-table-view-cell">拓扑位置：' + chuanganqiTuopu(sensorData.topology_xy) + '</li>';
+				sensorStr += '<li class="mui-table-view-cell">MODBUS地址：' + sensorData.topology_xy + '</li>';
 				sensorStr += '<li class="mui-table-view-cell">传感器状态：' + chuanganqiStatus(sensorData.sensor_status) + '</li>';
 				sensorStr += '<li class="mui-table-view-cell">温度传感器灵敏度：' + isUndefined(sensorData, 'sensitives') + '</li>';
 				sensorStr += '<li class="mui-table-view-cell">振动传感器灵敏度：' + isUndefined(sensorData, 'sensitivity') + '</li>';
@@ -340,20 +340,6 @@ mui.plusReady(function() {
 
 	}
 
-	//传感器拓扑位置
-	function chuanganqiTuopu(strings) {
-		if(strings != undefined) {
-			if(strings == 1 || strings == 2 || strings == 3 || strings == 4) {
-				return strings + "--第一链";
-			}
-			if(strings == 5 || strings == 6 || strings == 7 || strings == 8) {
-				return strings + "--第二链";
-			}
-		} else {
-			return "----";
-		}
-
-	}
 	//传感器状态
 	function chuanganqiStatus(strings) {
 		if(strings != undefined) {

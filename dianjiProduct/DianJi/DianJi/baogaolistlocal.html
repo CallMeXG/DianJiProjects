@@ -44,10 +44,10 @@
 										strings += '</ul>'
 										$('#atfi_contentList').append(strings);
 									}, function(e) {
-										alert("读取文件失败: " + e.message);
+										mui.alert("读取文件失败: " + e.message);
 									});
 								}, function(e) {
-									alert('暂无诊断报告');
+									mui.alert('暂无诊断报告');
 								});
 							}, function(error) {
 								console.log(error)
@@ -83,10 +83,10 @@
 						strings += '</ul>'
 						$('#atfi_contentList').append(strings)
 					}, function(e) {
-						alert("读取文件失败: " + e.message);
+						mui.alert("读取文件失败: " + e.message);
 					});
 				}, function(e) {
-					alert('暂无诊断报告');
+					mui.alert('暂无诊断报告');
 				});
 
 			}
