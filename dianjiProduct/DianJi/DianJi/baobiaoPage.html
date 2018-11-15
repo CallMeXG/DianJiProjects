@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>报表</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="css/pagination.css" />
+		<script src="js/vue.min.js"></script>
+		<style>
+			.mui-control-content {
+				/*background-color: white;*/
+				min-height: calc(100vh - 80px);
+			}
+			
+			#slider {
+				margin-top: 0px;
+			}
+			/*正常/预警/报警/严重等报告中的设备状态*/
+			
+			.style_status {
+				float: right;
+				width: 60px;
+				color: white;
+				text-align: center;
+				padding-top: 3px;
+				margin-right: 20px;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="baobiaoHeader" class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<h1 class="mui-title"><img height="15px" src="img/home.png" id="logo" /></h1>
+			<!--<a id="messageID" class="mui-icon mui-icon-chat mui-pull-right" style="color: white;"><span class="mui-badge" style="margin-left: -20px;margin-top: 5px;text-align: center;">9</span></a>-->
+		</header>
+		<div class="mui-content">
+
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a id="baobiaoDoubleOnclick" class="mui-control-item" href="#item1mobile">
+						报表
+					</a>
+					<a class="mui-control-item" href="#item2mobile">
+						报告
+					</a>
+
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+
+								<div class="mui-card">
+
+									<div class="mui-card-header">
+										<span>图例：</span>
+										<p style="float: right;margin-top: 10px;">
+											<span style="background-color: #00CD00;width: 10px;height: 10px;float: left;border-radius: 3px;margin-top: 3px;"></span>
+											<span style="float: left;margin-left: 2px;">正常</span>
+											<span style="background-color: #EEEE00;width: 10px;height: 10px;float: left;border-radius: 3px;margin-left: 10px;margin-top: 3px;"></span>
+											<span style="float: left;margin-left: 2px;">预警</span>
+											<span style="background-color: orange;width: 10px;height: 10px;float: left;border-radius: 3px;margin-left: 10px;margin-top: 3px;"></span>
+											<span style="float: left;margin-left: 2px;">报警</span>
+											<span style="background-color: red;width: 10px;height: 10px;float: left;border-radius: 3px;margin-left: 10px;margin-top: 3px;"></span>
+											<span style="float: left;margin-left: 2px;">严重</span>
+											<span style="background-color: #C2C2C2;width: 10px;height: 10px;float: left;border-radius: 3px;margin-left: 10px;margin-top: 3px;"></span>
+											<span style="float: left;margin-left: 2px;">未知</span>
+										</p>
+
+									</div>
+									<div class="mui-card-content">
+										<ul class="mui-table-view" id="baobiaoIDs" style="display: none;">
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<p style="margin: 5px;">注：
+									<a class="iconfont icon-tuisong"></a> 表示专家主动推送的报告；
+									<a class="iconfont icon-shenqingzhong"></a> 表示用户申请远程诊断的报告
+								</p>
+
+								<ul class="mui-table-view" id="baogaoList">
+									<li class="mui-table-view-cell" id="readLocalBaogao" v-on:click="openBaoLocalList()">
+										<a class="mui-navigate-right">查看本地报告</a>
+									</li>
+									<li class="mui-table-view-cell" v-for="baogaoMsg in msgList" v-on:click="openArtifiDetail(baogaoMsg)">
+										<p style="width: 100%;height: 20px;max-height: 60px;">
+											<a v-if="baogaoMsg.ck_type == 1" class="iconfont icon-tuisong" style="float:left;"></a>
+											<a v-else="" class="iconfont icon-shenqingzhong" style="float:left;"></a>
+											<span style="font-weight: 700;word-wrap: break-word;">&nbsp;&nbsp;{{baogaoMsg.apply_devices_name}} :
+												{{baogaoMsg.apply_devices_no}}</span>
+										</p>
+
+										<p style="clear: both;width: 100%;height: 10px;margin-top: 10px;"></p>
+										<p style="margin-top: 5px;width: 100%;height: 20px;">
+											<span v-if="typeof(baogaoMsg.ck_content) == 'undefined'" style="float: left;margin-left: 20px;">##无报告描述##</span>
+											<span v-if="typeof(baogaoMsg.ck_content) != 'undefined' && baogaoMsg.ck_content.length > 15" style="float: left;margin-left: 20px;">{{baogaoMsg.ck_content.substr(0,15)}}...</span>
+											<span v-if="typeof(baogaoMsg.ck_content) != 'undefined' && (baogaoMsg.ck_content.length < 15 || baogaoMsg.ck_content.length == 15)"
+											 style="float: left;margin-left: 20px;">{{baogaoMsg.ck_content}}</span>
+											<a style="float: right;color: lightgray;" class="mui-icon mui-icon-forward"></a>
+											<span v-if="baogaoMsg.apply_status == '0'" style="float: right;text-align: center;color: #9ACD32;">正在诊断...</span>
+											<span v-if="baogaoMsg.apply_status == '1' && baogaoMsg.ck_result == '1'" class="style_status" style="background-color: #00CD00;">正常</span>
+											<span v-if="baogaoMsg.apply_status == '1' && baogaoMsg.ck_result == '2'" class="style_status" style="background-color: #EEEE00;color: gray;">预警</span>
+											<span v-if="baogaoMsg.apply_status == '1' && baogaoMsg.ck_result == '3'" class="style_status" style="background-color: orange;">报警</span>
+											<span v-if="baogaoMsg.apply_status == '1' && baogaoMsg.ck_result == '4'" class="style_status" style="background-color: red;">严重</span>
+										</p>
+										<p style="clear: both;"></p>
+										<p style="width: 100%;height: 20px;margin-top: 5px;">
+											<span style="font-size: 12px;color: #B5B5B5;margin-left: 20px;">{{baogaoMsg.apply_time.substr(0,19)}}</span>
+											<a v-if="typeof(baogaoMsg.file_path) != 'undefined'" class="iconfont icon-baogao" style="color: gray;float: right;"></a>
+										</p>
+									</li>
+
+								</ul>
+								<div style="height: 50px;margin-top: 10px;text-align: center;">
+									<div id="pagination_9" style="width: 100%;height: 30px;margin-top: 10px;"></div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<script src="js/echarts.common.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/url_all.js"></script>
+
+		<script src="js/highlight.min.js"></script>
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="js/jquery.pagination.js"></script>
+		<script type="text/javascript" src="js/pagination.min.js"></script>
+
+		<script>
+			mui('.mui-scroll-wrapper').scroll();
+
+			mui.plusReady(function() {
+
+				plus.nativeUI.showWaiting('正在加载数据...');
+				//获取统计信息
+				getdevicechartdataFormSever();
+
+				function getdevicechartdataFormSever() {
+					$.ajax({
+						type: "get",
+						url: new_commen_statis_device_Interface,
+						async: true,
+						dataType: 'json',
+						data: {
+							id: localStorage.getItem('strLoginId'),
+							strLoginId: localStorage.getItem('strLoginId'),
+							strLoginToken: localStorage.getItem('strLoginToken'),
+							company_id: localStorage.getItem("company_id")
+						},
+						success: function(respData) {
+							if (respData.status == "SUCCESS") {
+								$('#baobiaoIDs').show();
+								for (var i = 0; i < respData.data.company_list.length; i++) {
+									var strList = respData.data.company_list[i];
+									for (var j = 0; j < strList.region_list.length; j++) {
+										var strRegionList = strList.region_list[j];
+										var strs = '<li class="mui-table-view-cell">';
+										strs += '<p style="font-weight: 600;">' + strRegionList.company_name +
+											'<span style="font-size:18px;"> · </span>' + strRegionList.region_name + '</p>';
+
+										strs += '	<div style="width: 40%;float: left;">';
+										strs += '	<p style="margin-top: 10px;">设备总数：' + strRegionList.total_num + '</p>';
+										//										strs += '	<p style="margin-top: 10px;">已监测设备：' + strRegionList.checkDevice + '</p>';
+										//										strs += '	<p style="margin-top: 10px;">未监测设备：' + strRegionList.undetected + '</p>';
+										strs += '	<p style="margin-top: 10px;">';
+										strs += '	<span>正常：' + strRegionList.normal_num + '</span>';
+										strs += '	<span style="margin-left: 20px;">预警：' + strRegionList.fault2_num + '</span>';
+										strs += '	<span>报警：' + strRegionList.fault3_num + '</span>';
+										strs += '	<span style="margin-left: 20px;">严重：' + strRegionList.fault4_num + '</span>';
+										strs += '</p>';
+										strs += '<p style="margin-top: 10px;">未知：' + strRegionList.unknown_num + '</p>';
+										//										strs += '<p style="margin-top: 10px;">故障率：' + strRegionList.failure_rate + '%</p>';
+
+										strs += '</div>';
+										strs += '<div id="charts_' + i + j +
+											'" style="float: right;height: 190px;width: 60%;background-color: red;margin-top:0px;">' + i + '</div>';
+
+										strs += '</li>';
+										$('#baobiaoIDs').append(strs);
+										echartsSetting(strRegionList, 'charts_' + i + j);
+										plus.nativeUI.closeWaiting();
+									}
+
+								}
+
+								//							baobiaoIDs.dataMsg = respData.data.company_list;
+							} else {
+								$('#baobiaoIDs').hide();
+								plus.nativeUI.closeWaiting();
+							}
+						},
+						error: function(error) {
+							$('#baobiaoIDs').hide();
+							plus.nativeUI.closeWaiting();
+						}
+					});
+				}
+
+				//绘图
+				function echartsSetting(dataMessage, strIDs) {
+					///*
+					var chartCelljiaxuan = echarts.init(document.getElementById(strIDs));
+					var optionChartsCelljiaxuan = {
+						tooltip: {
+							trigger: 'item',
+							formatter: "{a} <br/>{b} : {c} "
+						},
+						//												legend: {
+						//													orient: 'horizontal',
+						//						
+						//													data: ['正常', '故障', '未监测', '未知']
+						//												},
+						series: [{
+							name: dataMessage.region_name,
+							type: 'pie',
+							animation: true,
+							//							label: {
+							//								show: 'true',
+							//								position: 'inner'
+							//							},
+							data: [{
+									value: dataMessage.normal_num,
+									name: '正常' + '(' + dataMessage.normal_num + ')',
+									label: {
+										show: 'true',
+										position: 'inner'
+									},
+									itemStyle: {
+										color: '#00CD00'
+									}
+								},
+								{
+									value: dataMessage.fault2_num,
+									name: '预警' + '(' + dataMessage.fault2_num + ')',
+									label: {
+										show: 'true',
+										position: 'inner'
+									},
+									itemStyle: {
+										color: '#EEEE00'
+									}
+								},
+								{
+									value: dataMessage.fault3_num,
+									name: '报警' + '(' + dataMessage.fault3_num + ')',
+									label: {
+										show: 'true',
+										position: 'inner'
+									},
+									itemStyle: {
+										color: 'orange'
+									}
+								},
+								{
+									value: dataMessage.fault4_num,
+									name: '严重' + '(' + dataMessage.fault4_num + ')',
+									label: {
+										show: 'true',
+										position: 'inner'
+									},
+									itemStyle: {
+										color: 'red'
+									}
+								},
+								{
+									value: dataMessage.unknown_num,
+									name: '未知' + '(' + dataMessage.unknown_num + ')',
+									label: {
+										show: 'true',
+										position: 'inner'
+									},
+									itemStyle: {
+										color: '#C2C2C2'
+									}
+								}
+							]
+						}]
+					};
+					var opt = optionChartsCelljiaxuan.series[0];
+					lineHide(opt);
+					//数据为零时隐藏线段
+					function lineHide(opt) {
+						jQuery.each(opt.data, function(i, item) {
+							if (item.value == 0) {
+								//								item.itemStyle.normal.labelLine.show = false;
+								item.label.show = false;
+							}
+						});
+					}
+
+					chartCelljiaxuan.setOption(optionChartsCelljiaxuan);
+
+					chartCelljiaxuan.on('click', function(params) {
+
+						var objFather = plus.webview.getWebviewById('headerindex.html');
+						localStorage.setItem('pageItemID', 'devicelist.html');
+
+						localStorage.setItem('tongji_regionId', dataMessage.id);
+						var strTypeStatus = params.data.name.substr(0, 2);
+						var strStatus = null;
+						if (strTypeStatus == '正常') {
+							strStatus = 1;
+						}
+						if (strTypeStatus == '预警') {
+							strStatus = 2;
+						}
+						if (strTypeStatus == '报警') {
+							strStatus = 3;
+						}
+						if (strTypeStatus == '严重') {
+							strStatus = 4;
+						}
+						if (strTypeStatus == '未知') {
+							strStatus = 5;
+						}
+						localStorage.setItem('tongji_type', strStatus);
+
+						mui.fire(objFather, 'enterPage_deviceList');
+
+					})
+					//*/
+				}
+
+				var touchtime = new Date().getTime();
+				//刷新绘图
+				$("#baobiaoDoubleOnclick").on("tap", function() {
+					console.log('[[[[[')
+					plus.nativeUI.showWaiting('正在加载数据...');
+					$('#baobiaoIDs li').remove();
+					getdevicechartdataFormSever();
+					/*
+					if(new Date().getTime() - touchtime < 500) {
+						console.log("dblclick");
+						plus.nativeUI.showWaiting('正在加载数据...');
+						$('#baobiaoIDs li').remove();
+						getdevicechartdataFormSever();
+					} else {
+						touchtime = new Date().getTime();
+						console.log("click")
+					}
+					//*/
+				});
+
+				var baogaoListVue = new Vue({
+					el: '#baogaoList',
+					data: {
+						msgList: []
+					},
+
+					methods: {
+
+						//进入报告详情
+						openArtifiDetail(mesItem) {
+							mui.openWindow({
+								url: 'baogao.html',
+								extras: {
+									message: mesItem
+								}
+							})
+						},
+						openBaoLocalList() {
+							mui.openWindow({
+								url: 'baogaolistlocal.html'
+							})
+						}
+
+						//						//查看报告
+						//						openCheckAtrList() {
+						//							mui.openWindow('artificialcheckhistory.html')
+						//						},
+
+					}
+				});
+
+				//获取报告列表
+				getBaoGaoList(0, 1);
+
+				function getBaoGaoList(startIndex, thisIndex) {
+					$.ajax({
+						type: "get",
+						url: new_commen_gain_user_check_Interface,
+						async: true,
+						dataType: 'json',
+						data: {
+							id: localStorage.getItem('strLoginId'),
+							c_id: localStorage.getItem("c_id"),
+							startRecords: startIndex,
+							pageSize: 10
+						},
+						success: function(respData) {
+							if (respData.status == "SUCCESS") {
+								if (typeof(respData.data) != "undefined") {
+									if (typeof(respData.data.devicesManualCheckList) != "undefined") {
+										baogaoListVue.msgList = respData.data.devicesManualCheckList;
+										var pagecount = respData.data.totalCount / 10;
+										setFenyefunction(Math.ceil(pagecount), thisIndex);
+									} else {
+										mui.toast('暂无报告!');
+									}
+								} else {
+									mui.toast('暂无报告!');
+								}
+							} else {
+								mui.toast('获取报告失败，请重试！');
+							}
+						},
+						error: function(error) {
+							mui.toast('获取数据失败，请检查网络连接...');
+						}
+					});
+				}
+
+				function setFenyefunction(totalCount, thisIndex) {
+
+					$('#pagination_9').whjPaging({
+						css: 'css-user',
+						totalPage: totalCount,
+						isShowTotalSize: false,
+						isShowTotalPage: true,
+						isShowRefresh: false,
+						isShowSkip: false,
+						isShowPageSizeOpt: false,
+						isShowFL: false,
+						callBack: function(currPage) {
+							console.log('currPage:' + currPage);
+							var indexPage = currPage;
+							if (indexPage == 1) {
+								getBaoGaoList(0, indexPage);
+							} else {
+								var startIndex = (indexPage - 1) * 10;
+								getBaoGaoList(startIndex, indexPage);
+							}
+
+						}
+					});
+
+					$("#pagination_9").whjPaging("setPage", {
+						currPage: thisIndex,
+						totalPage: totalCount,
+						totalSize: 90
+					});
+				}
+
+			})
+
+			//点击进入消息列表页面
+			$('#messageID').on('tap', function() {
+				mui.openWindow({
+					url: 'message.html',
+					id: 'message.html'
+				})
+			});
+			(function($) {
+
+				$('.mui-scroll-wrapper').scroll({
+					indicators: true //是否显示滚动条
+				});
+
+				var sliderSegmentedControl = document.getElementById('sliderSegmentedControl');
+				$('.mui-input-group').on('change', 'input', function() {
+					console.log('======')
+					if (this.checked) {
+
+						sliderSegmentedControl.className =
+							'mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-' + this.value;
+						//force repaint
+						sliderProgressBar.setAttribute('style', sliderProgressBar.getAttribute('style'));
+					}
+				});
+			})(mui);
+		</script>
+	</body>
+
+</html>
