@@ -176,18 +176,12 @@
 										strs += '<p style="font-weight: 600;">' + strRegionList.company_name + '<span style="font-size:18px;"> · </span>' + strRegionList.region_name + '</p>';
 
 										strs += '	<div style="width: 40%;float: left;">';
-										strs += '	<p style="margin-top: 10px;">设备总数：' + strRegionList.total_num + '</p>';
-										//										strs += '	<p style="margin-top: 10px;">已监测设备：' + strRegionList.checkDevice + '</p>';
-										//										strs += '	<p style="margin-top: 10px;">未监测设备：' + strRegionList.undetected + '</p>';
-										strs += '	<p style="margin-top: 10px;">';
-										strs += '	<span>正常：' + strRegionList.normal_num + '</span>';
-										strs += '	<span style="margin-left: 20px;">预警：' + strRegionList.fault2_num + '</span>';
-										strs += '	<span>报警：' + strRegionList.fault3_num + '</span>';
-										strs += '	<span style="margin-left: 20px;">严重：' + strRegionList.fault4_num + '</span>';
-										strs += '</p>';
-										strs += '<p style="margin-top: 10px;">未知：' + strRegionList.unknown_num + '</p>';
-										//										strs += '<p style="margin-top: 10px;">故障率：' + strRegionList.failure_rate + '%</p>';
-
+										strs += '<p style="margin-top: 10px;">设备总数：' + strRegionList.total_num + '</p>';
+										strs += '<p style="margin-top: 10px;">正常数量：' + strRegionList.normal_num + '</p>';
+										strs += '<p style="margin-top: 10px;">预警数量：' + strRegionList.fault2_num + '</p>';
+										strs += '<p style="margin-top: 10px;">报警数量：' + strRegionList.fault3_num + '</p>';
+										strs += '<p style="margin-top: 10px;">严重数量：' + strRegionList.fault4_num + '</p>';
+										strs += '<p style="margin-top: 10px;">未知数量：' + strRegionList.unknown_num + '</p>';
 										strs += '</div>';
 										strs += '<div id="charts_' + i + j + '" style="float: right;height: 190px;width: 60%;background-color: red;margin-top:0px;">' + i + '</div>';
 
