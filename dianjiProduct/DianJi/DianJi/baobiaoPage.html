@@ -99,8 +99,7 @@
 										<p style="width: 100%;height: 20px;max-height: 60px;">
 											<a v-if="baogaoMsg.ck_type == 1" class="iconfont icon-tuisong" style="float:left;"></a>
 											<a v-else="" class="iconfont icon-shenqingzhong" style="float:left;"></a>
-											<span style="font-weight: 700;word-wrap: break-word;">&nbsp;&nbsp;{{baogaoMsg.apply_devices_name}}:
-												{{baogaoMsg.apply_devices_no}}</span>
+											<span style="font-weight: 700;word-wrap: break-word;">&nbsp;&nbsp;{{baogaoMsg.apply_devices_name}} : {{baogaoMsg.apply_devices_no}}</span>
 										</p>
 
 										<p style="clear: both;width: 100%;height: 10px;margin-top: 10px;"></p>
@@ -109,7 +108,6 @@
 											<span v-if="typeof(baogaoMsg.ck_content) != 'undefined' && baogaoMsg.ck_content.length > 15" style="float: left;margin-left: 20px;">{{baogaoMsg.ck_content.substr(0,15)}}...</span>
 											<span v-if="typeof(baogaoMsg.ck_content) != 'undefined' && (baogaoMsg.ck_content.length < 15 || baogaoMsg.ck_content.length == 15)"
 											 style="float: left;margin-left: 20px;">{{baogaoMsg.ck_content}}</span>
-
 											<a style="float: right;color: lightgray;" class="mui-icon mui-icon-forward"></a>
 											<span v-if="baogaoMsg.apply_status == '0'" style="float: right;text-align: center;color: #9ACD32;">正在诊断...</span>
 											<span v-if="baogaoMsg.apply_status == '1' && baogaoMsg.ck_result == '1'" class="style_status" style="background-color: #00CD00;">正常</span>
@@ -170,7 +168,6 @@
 							company_id: localStorage.getItem("company_id")
 						},
 						success: function(respData) {
-
 							if (respData.status == "SUCCESS") {
 								$('#baobiaoIDs').show();
 								for (var i = 0; i < respData.data.company_list.length; i++) {
@@ -182,18 +179,12 @@
 											'<span style="font-size:18px;"> · </span>' + strRegionList.region_name + '</p>';
 
 										strs += '	<div style="width: 40%;float: left;">';
-										strs += '	<p style="margin-top: 10px;">设备总数：' + strRegionList.total_num + '</p>';
-										//										strs += '	<p style="margin-top: 10px;">已监测设备：' + strRegionList.checkDevice + '</p>';
-										//										strs += '	<p style="margin-top: 10px;">未监测设备：' + strRegionList.undetected + '</p>';
-										strs += '	<p style="margin-top: 10px;">';
-										strs += '	<span>正常：' + strRegionList.normal_num + '</span>';
-										strs += '	<span style="margin-left: 20px;">预警：' + strRegionList.fault2_num + '</span>';
-										strs += '	<span>报警：' + strRegionList.fault3_num + '</span>';
-										strs += '	<span style="margin-left: 20px;">严重：' + strRegionList.fault4_num + '</span>';
-										strs += '</p>';
-										strs += '<p style="margin-top: 10px;">未知：' + strRegionList.unknown_num + '</p>';
-										//										strs += '<p style="margin-top: 10px;">故障率：' + strRegionList.failure_rate + '%</p>';
-
+										strs += '<p style="margin-top: 10px;">设备总数：' + strRegionList.total_num + '</p>';
+										strs += '<p style="margin-top: 10px;">正常数量：' + strRegionList.normal_num + '</p>';
+										strs += '<p style="margin-top: 10px;">预警数量：' + strRegionList.fault2_num + '</p>';
+										strs += '<p style="margin-top: 10px;">报警数量：' + strRegionList.fault3_num + '</p>';
+										strs += '<p style="margin-top: 10px;">严重数量：' + strRegionList.fault4_num + '</p>';
+										strs += '<p style="margin-top: 10px;">未知数量：' + strRegionList.unknown_num + '</p>';
 										strs += '</div>';
 										strs += '<div id="charts_' + i + j +
 											'" style="float: right;height: 190px;width: 60%;background-color: red;margin-top:0px;">' + i + '</div>';
@@ -349,6 +340,7 @@
 					}
 					//*/
 				});
+				
 
 				var baogaoListVue = new Vue({
 					el: '#baogaoList',
@@ -372,12 +364,6 @@
 								url: 'baogaolistlocal.html'
 							})
 						}
-
-						//						//查看报告
-						//						openCheckAtrList() {
-						//							mui.openWindow('artificialcheckhistory.html')
-						//						},
-
 					}
 				});
 
@@ -400,7 +386,6 @@
 						success: function(respData) {
 							plus.nativeUI.closeWaiting();
 							if (respData.status == "SUCCESS") {
-
 								if (typeof(respData.data) != "undefined") {
 									if (typeof(respData.data.devicesManualCheckList) != "undefined") {
 										baogaoListVue.msgList = respData.data.devicesManualCheckList;
@@ -470,12 +455,9 @@
 
 				var sliderSegmentedControl = document.getElementById('sliderSegmentedControl');
 				$('.mui-input-group').on('change', 'input', function() {
-
 					if (this.checked) {
-
 						sliderSegmentedControl.className =
-							'mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-' +
-							this.value;
+							'mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-' + this.value;
 						//force repaint
 						sliderProgressBar.setAttribute('style', sliderProgressBar.getAttribute('style'));
 					}
