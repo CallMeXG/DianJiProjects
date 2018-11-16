@@ -3,8 +3,8 @@
     "id" : "H5BF4D615", /*应用的标识，创建应用时自动生成，勿手动修改*/
     "name" : "机电卫士", /*应用名称，程序桌面图标名称*/
     "version" : {
-        "name" : "1.5.0.1", /*应用版本名称*/
-        "code" : "1551"
+        "name" : "1.5.1.1", /*应用版本名称*/
+        "code" : 1552
     },
     "description" : "", /*应用描述信息*/
     "icons" : {
@@ -134,6 +134,11 @@
                     "hdpi" : "C:/Users/Administrator/Desktop/电机项目10月份工作/qidong1.png", /*高分屏启动图片，分辨率：480x762*/
                     "xhdpi" : "C:/Users/Administrator/Desktop/电机项目10月份工作/qidong2.png", /*720P高分屏启动图片，分辨率：720x1242*/
                     "xxhdpi" : "C:/Users/Administrator/Desktop/电机项目10月份工作/qidong3.png"
+                }
+            },
+            "plugins" : {
+                "speech" : {
+                    "ifly" : {}
                 }
             }
         },
