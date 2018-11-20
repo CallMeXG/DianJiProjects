@@ -85,7 +85,7 @@
 							<hr />
 						</div>
 					</div>
-					<br/>
+					<br />
 				</div>
 
 			</div>
@@ -101,7 +101,7 @@
 		<script src="js/mui.min.js"></script>
 		<script src="js/url_all.js"></script>
 		<script src="js/jquery.min.js"></script>
-		<script src="js/newActivation.js"></script>
+		<!-- <script src="js/newActivation.js"></script> -->
 		<script src="js/vue.min.js"></script>
 
 		<script>
@@ -115,7 +115,7 @@
 
 			//取消激活
 			function cancelJihuo(e) {
-				if(e.index == 1) {
+				if (e.index == 1) {
 					$.ajax({
 						type: "get",
 						url: commen_confirm_unactive_Interface,
@@ -125,7 +125,7 @@
 						async: true,
 						dataType: 'json',
 						success: function(resqMsg) {
-							if(resqMsg.status == "SUCCESS") {
+							if (resqMsg.status == "SUCCESS") {
 								mui.toast(resqMsg.message);
 								mui.back();
 							} else {
@@ -145,19 +145,258 @@
 				mui.confirm("你确定要中断激活吗？", "系统提示", ["否", "是"], cancelJihuo);
 			});
 
+
+			var regionData = null;
+
+			getDataFromSever();
+
+			function getDataFromSever() {
+				$.ajax({
+					type: "get",
+					url: commen_active_wait_Interface,
+					async: true,
+					data: {
+						serial_no: localStorage.simID
+					},
+					dataType: 'json',
+					success: function(msg) {
+						// console.log(JSON.stringify(msg))
+						if (msg.status == "SUCCESS") {
+							setDataToHtml(msg.data);
+							regionData = msg.data;
+						} else {
+							mui.toast(msg.message);
+						}
+					},
+					error: function(error) {}
+				})
+			}
+
+
+
+
+			function setDataToHtml(reqMsg) {
+				if (reqMsg.serial_no != undefined) {
+					$('#serialID').html(reqMsg.serial_no);
+				} else {
+					$('#serialID').html("----");
+				}
+				if (reqMsg.connectionVO != undefined) {
+					var timePO = reqMsg.connectionVO;
+					$('#connect_severTime').html(timePO.connection_time);
+					if (timePO.release_time != undefined) {
+						$('#close_severTime').html(timePO.release_time);
+					} else {
+						$('#close_severTime').html("----");
+					}
+
+					if (timePO.status == "Y") {
+						$('#severStatus').html("已连接");
+					} else {
+						$('#severStatus').html("未连接");
+					}
+
+				} else {
+					$('#connect_severTime').html("----");
+					$('#close_severTime').html("----");
+					$('#severStatus').html("----");
+				}
+
+				if (reqMsg.sensor_no != undefined) {
+					$('#id_lastuploadTime').html(reqMsg.sensor_no);
+				} else {
+					$('#id_lastuploadTime').html("----");
+				}
+
+				if (reqMsg.data_upload_status == "N") {
+					$('#lastuploadStatus').html("未上传");
+				} else if (reqMsg.data_upload_status == "Y") {
+					$('#lastuploadStatus').html("已上传");
+				} else {
+					$('#lastuploadStatus').html("----");
+				}
+				if (reqMsg.data_upload_time != undefined) {
+					$('#lastuploadTime').html(reqMsg.data_upload_time);
+				} else {
+					$('#lastuploadTime').html("----");
+				}
+
+				if (reqMsg.sensorList != undefined) {
+					var sensorList = reqMsg.sensorList;
+					for (var i = 0; i < sensorList.length; i++) {
+						var sensorStr = '<div class="sensorDiv" style="color:gray;">';
+						sensorStr += '<div><span>传感器序列编号：</span><input disabled="disabled" value="' + sensorList[i].sensor_no +
+							'"/></div>';
+						sensorStr += '</div>';
+						$('.center').append(sensorStr);
+					}
+				}
+			}
+
+			function refreshButtonClick() {
+				location.reload();
+			}
+
+
 			mui.plusReady(function() {
+
+
 				$("#FinshBth").click(function() {
-					
 					plus.nativeUI.showWaiting('正在进行激活...');
+					// plus.nativeUI.closeWaiting();
 
 					var nowTime = new Date().getTime();
 					var clickTime = $(this).attr("ctime");
-					if(clickTime != 'undefined' && (nowTime - clickTime < 5000)) {
+					if (clickTime != 'undefined' && (nowTime - clickTime < 5000)) {
 						mui.toast('您已提交激活申请，请不要频繁操作！')
 						//						console.log('操作过于频繁，稍后再试');
 						return false;
 					} else {
+
+
+						if (regionData != null) {
+
+							if (typeof(regionData.sensorList) == "undefined" || regionData.sensorList.length == 0) {
+								mui.toast('必须绑定传感器才能进行激活！');
+
+							} else {
+								var json_commen = new Array();
+								for (var i = 0; i < regionData.sensorList.length; i++) {
+									var timePoint = ['0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0',
+										'0', '0', '0', '0', '0', '0'
+									];
+									var work_json = {
+										sample_time_point: timePoint
+									};
+
+									var simWorkPO = {
+										serial_no: regionData.sensorList[i].serial_no,
+										sampling_duration: '00:00:00',
+										update_duration: '00:00:00',
+										work_point_json: JSON.stringify(work_json)
+									};
+									var sensorPO = {
+										working_axis: "111",
+										calibration_coefficient: "1.000 ",
+										serial_no: regionData.sensorList[i].serial_no,
+										sensor_no: regionData.sensorList[i].sensor_no,
+										sampling_model: "出厂模式",
+										sampling_number: "4096",
+										sampling_frequency: "1600",
+										sampling_accuracy: "13",
+										range_data: "±16g",
+										install_xy: ""
+									}
+
+									json_commen.push({
+										simWorkModelPO: simWorkPO,
+										sensorMsgPO: sensorPO
+									});
+
+								}
+								
+								var commenParam = {
+									strLoginId:localStorage.getItem("strLoginId"),
+									strLoginToken : localStorage.getItem("strLoginToken"),
+									devices_no : addDevice.deviceMessage.devices_no,
+									devices_name : addDevice.deviceMessage.devices_name,
+									work_status:'0',
+									commen_json : JSON.stringify(json_commen)
+								}
+								
+								console.log('-------' + JSON.stringify(json_commen));
+								$.ajax({
+									type: "POST",
+									url: commen_update_device_Interface,
+									async: true,
+									data: commenParam,
+									dataType: 'json',
+									success: function(postMsg) {
+										plus.nativeUI.closeWaiting();
+										if (postMsg.status == 'SUCCESS') {
+											console.log('=================================')
+											///*
+											var postParam = {
+												devices_no: localStorage.DeveciId,
+												serial_no: localStorage.simID
+											};
+											$.ajax({
+												type: "get",
+												url: commen_appAddSim_Interface,
+												async: true,
+												data: postParam,
+												dataType: 'json',
+												success: function(postMsg) {
+													plus.nativeUI.closeWaiting();
+													if (postMsg.status == 'SUCCESS') {
+														mui.toast('激活成功！');
+														setTimeout(function() {
+															var fatherWeb = plus.webview.currentWebview().opener();
+															mui.fire(fatherWeb, 'activeBack');
+															var objWeb = plus.webview.currentWebview();
+															plus.webview.close(objWeb.id, 'none', 0.01);
+														}, 1000);
+
+													} else {
+														mui.toast('激活失败，请重试！');
+													}
+												},
+												error: function() {
+													plus.nativeUI.closeWaiting();
+													mui.toast('激活失败，请重试！');
+												}
+											});
+											//*/
+										} else {
+
+										}
+									},
+									error: function() {
+										plus.nativeUI.closeWaiting();
+									}
+								});
+							}
+
+						} else {
+
+						}
+
+						/*
+
+						$.ajax({
+							type: "get",
+							url: commen_update_device_Interface,
+							async: true,
+							data: postParam,
+							dataType: 'json',
+							success: function(postMsg) {
+								plus.nativeUI.closeWaiting();
+								if (postMsg.status == 'SUCCESS') {
+									mui.toast('激活成功！');
+									setTimeout(function() {
+										var fatherWeb = plus.webview.currentWebview().opener();
+										mui.fire(fatherWeb, 'activeBack');
+										var objWeb = plus.webview.currentWebview();
+										plus.webview.close(objWeb.id, 'none', 0.01);
+									}, 1000);
+
+								} else {
+									mui.toast('激活失败，请重试！');
+								}
+							},
+							error: function() {
+								plus.nativeUI.closeWaiting();
+								mui.toast('激活失败，请重试！');
+							}
+						});
+
+//*/
+
+
+
+
 						$(this).attr("ctime", nowTime);
+						/*
 						console.log('提交成功')
 						///*
 						var postParam = {
@@ -172,7 +411,7 @@
 							dataType: 'json',
 							success: function(postMsg) {
 								plus.nativeUI.closeWaiting();
-								if(postMsg.status == 'SUCCESS') {
+								if (postMsg.status == 'SUCCESS') {
 									mui.toast('激活成功！');
 									setTimeout(function() {
 										var fatherWeb = plus.webview.currentWebview().opener();
@@ -194,36 +433,8 @@
 
 					}
 
-					//					var fatherWeb = plus.webview.currentWebview().opener();
-					//					mui.fire(fatherWeb, 'activeBack');
-					//					var objWeb = plus.webview.currentWebview();
-					//					plus.webview.close(objWeb.id, 'none', 0.01);
-
-					///*
-
-					//*/
-
-					//无法跳转
-					//					mui.init({
-					//						subpages:[{
-					//							url:'headerindex.html',
-					//							id:'headerindex.html'
-					//						}]
-					//					})
-					//无法显示
-					//					window.location.replace('projectindex.html');
-					//显示以后，点击设备、我的，反应不及时，
-					//					window.location.replace('headerindex.html');
-					//往回跳转层级太多
-					//					var fatherWeb = plus.webview.currentWebview().opener();
-					//					mui.fire(fatherWeb, 'activeBack');
-					//					var objWeb = plus.webview.currentWebview();
-					//					plus.webview.close(objWeb.id, 'none', 0.01);
-
 				});
 			})
-
-			
 		</script>
 
 	</body>
