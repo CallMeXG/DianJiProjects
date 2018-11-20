@@ -256,16 +256,16 @@ function sensorData(emeId, i) {
 				sensorStr += '<div class="modifyCom"><span class="name">数据流量：</span><span class="val"> ' + "----" + '</span></div>';
 				sensorStr += '<div class="modifyCom"><span class="name">工作状态：</span><span class="val"> ' + simState(data.state, data.work_status) + '</span></div>';
 				if(data.active_time != undefined) {
-					sensorStr += '<div class="modifyCom"><span class="name">卡激活时间：</span><span class="val">' + data.active_time + '</span></div>';
+					sensorStr += '<div class="modifyCom"><span class="name">激活时间：</span><span class="val">' + data.active_time + '</span></div>';
 
 				} else {
-					sensorStr += '<div class="modifyCom"><span class="name">卡激活时间：</span><span class="val">' + "----" + '</span></div>';
+					sensorStr += '<div class="modifyCom"><span class="name">激活时间：</span><span class="val">' + "----" + '</span></div>';
 				}
 				if(data.sim_verison_id != undefined) {
-					sensorStr += '<div class="modifyCom"><span class="name">卡固件版本：</span><span class="val">' + data.sim_verison_id + '</span></div>';
+					sensorStr += '<div class="modifyCom"><span class="name">固件版本：</span><span class="val">' + data.sim_verison_id + '</span></div>';
 
 				} else {
-					sensorStr += '<div class="modifyCom"><span class="name">卡固件版本：</span><span class="val">' + "----" + '</span></div>';
+					sensorStr += '<div class="modifyCom"><span class="name">固件版本：</span><span class="val">' + "----" + '</span></div>';
 				}
 
 				//			sensorStr += '<div class="modifyCom"><span class="modifyFont">卡工作模式：</span><input type="text" class="cardModel" value=' + data.sim_model + ' /></div>';
