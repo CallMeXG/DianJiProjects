@@ -1,10 +1,10 @@
 {
     "@platforms" : [ "android", "iPhone", "iPad" ],
-    "id" : "H573E8CEF", /*应用的标识，创建应用时自动生成，勿手动修改*/
-    "name" : "机电测试", /*应用名称，程序桌面图标名称*/
+    "id" : "H5BF4D615", /*应用的标识，创建应用时自动生成，勿手动修改*/
+    "name" : "机电卫士", /*应用名称，程序桌面图标名称*/
     "version" : {
-        "name" : "1.5.8.0", /*应用版本名称*/
-        "code" : 1508
+        "name" : "1.5.2.1", /*应用版本名称*/
+        "code" : "1521"
     },
     "description" : "", /*应用描述信息*/
     "icons" : {
@@ -63,29 +63,8 @@
                 "password" : "", /*Android应用打包使用密钥库中证书的密码*/
                 "aliasname" : "", /*Android应用打包使用密钥库中证书的别名*/
                 "permissions" : [
-                    "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
-                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
-                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
-                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
-                    "<uses-permission android:name=\"android.permission.INTERNET\"/>",
-                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
-                    "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
-                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
-                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
                     "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
                     "<uses-feature android:name=\"android.hardware.camera\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
                     "<uses-permission android:name=\"android.permission.CAMERA\"/>"
                 ]
             },
@@ -248,7 +227,16 @@
             },
             "DianJi/DianJi/newIndex.html" : {
                 "resources" : [],
-                "refer" : [ "DianJi/DianJi/login.html", "DianJi/DianJi/artificialcheckList.html" ],
+                "refer" : [
+                    "DianJi/DianJi/login.html",
+                    "DianJi/DianJi/checkHistory.html",
+                    "DianJi/DianJi/ScanCode.html",
+                    "DianJi/DianJi/artificialcheckList.html",
+                    "DianJi/DianJi/devicelisttoscancode.html",
+                    "DianJi/DianJi/aboutUs.html",
+                    "DianJi/DianJi/DeviceDetail.html",
+                    "DianJi/DianJi/artificialcheckList.html"
+                ],
                 "priority" : 0
             },
             "DianJi/DianJi/login.html" : {
@@ -256,6 +244,21 @@
                 "refer" : [
                     "DianJi/DianJi/newIndexPage.html",
                     "DianJi/DianJi/newIndex.html",
+                    "DianJi/DianJi/view/resetPwd.html",
+                    "DianJi/DianJi/register.html"
+                ],
+                "priority" : 0
+            },
+            "DianJi/DianJi/checkHistory.html" : {
+                "resources" : [],
+                "refer" : [ "DianJi/DianJi/checkdeviceResult.html" ],
+                "priority" : 0
+            },
+            "DianJi/DianJi/artificialcheckList.html" : {
+                "resources" : [],
+                "refer" : [
+                    "DianJi/DianJi/artificialcheck.html",
+                    "DianJi/DianJi/artificialcheckhistory.html",
                     "DianJi/DianJi/headerindex.html"
                 ],
                 "priority" : 0
@@ -278,9 +281,14 @@
                 ],
                 "priority" : 0
             },
-            "DianJi/DianJi/artificialcheckList.html" : {
+            "DianJi/DianJi/ScanCode.html" : {
                 "resources" : [],
-                "refer" : [ "DianJi/DianJi/artificialcheck.html" ],
+                "refer" : [ "DianJi/DianJi/newDataChart.html", "DianJi/DianJi/newActivation.html" ],
+                "priority" : 0
+            },
+            "DianJi/DianJi/newDataChart.html" : {
+                "resources" : [],
+                "refer" : [ "DianJi/DianJi/ScanCode.html", "DianJi/DianJi/artificialcheck.html" ],
                 "priority" : 0
             },
             "DianJi/DianJi/DeviceDetail.html" : {
@@ -290,7 +298,11 @@
             },
             "DianJi/DianJi/ModifyInformation.html" : {
                 "resources" : [],
-                "refer" : [ "DianJi/DianJi/uploadpicture.html" ],
+                "refer" : [
+                    "DianJi/DianJi/view/carInfo_activate.html",
+                    "DianJi/DianJi/ScanCode.html",
+                    "DianJi/DianJi/uploadpicture.html"
+                ],
                 "priority" : 0
             },
             "DianJi/DianJi/baobiaoPage.html" : {
