@@ -164,6 +164,9 @@ mui.plusReady(function() {
 		if(cardJihuostute == 7) {
 			strJiHuoStatus = "待激活";
 		}
+		if(cardJihuostute == 8) {
+			strJiHuoStatus = "待解绑";
+		}
 
 		if(workStute == undefined) {
 			strWorkStuts = "----";

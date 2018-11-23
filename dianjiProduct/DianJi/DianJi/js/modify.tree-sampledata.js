@@ -528,7 +528,7 @@ function simState(statue, work_statues) {
 	var sta_1 = statue;
 
 	var sta_2 = work_statues;
-	var strStute = "";
+	var strStute = "----";
 	///*
 	if(sta_1 == 5) {
 		if(sta_2 == 0) {
@@ -554,6 +554,9 @@ function simState(statue, work_statues) {
 	if(sta_1 == 7) {
 		strStute = "待激活";
 	}
+	if(sta_1 == 8) {
+		strStute = "待解绑";
+	}
 	return strStute;
 	//*/
 
@@ -564,7 +567,6 @@ function buildSensorData(sim) {
 	console.log("--------" + JSON.stringify(sim));
 
 	var cheArray = [1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1];
-
 	for(var i = 0; i < sim.length; i++) {
 		sensorData(sim[i]['serial_no'], i);
 	}
@@ -1102,7 +1104,7 @@ function cancleCard(obj) {
 					//			console.log(JSON.stringify(msg))
 					if(msg.status == "SUCCESS") {
 						mui.toast(msg.message);
-						$(treeFolder).remove();
+						// $(treeFolder).remove();
 						//				getDefData();
 						window.location.reload();
 						var fatherWeb = plus.webview.currentWebview().opener();

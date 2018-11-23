@@ -8,6 +8,8 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="css/mui.min.css" />
+		<script src="js/vue.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/pagination.css" />
 	</head>
 
 	<body>
@@ -16,23 +18,118 @@
 			<a class="mui-title" style="color: white;">消息</a>
 		</header>
 		<div class="mui-content">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<p>2018-10-19 12:34:56</p>
-					<p style="margin-top: 5px;">设备三相异步电动机，编号：MZ101511 出现温度告警，请及时检查</p>
+			<ul class="mui-table-view" id="messageListID" style="display: none;">
+				<li class="mui-table-view-cell" v-for="msgItem in mesList">
+					<p>{{msgItem.create_time.substr(0,19)}}</p>
+					<p style="margin-top: 5px;">{{msgItem.event_info}}</p>
 				</li>
-				<li class="mui-table-view-cell">
-					<p>2018-10-18 11:10:09</p>
-					<p style="margin-top: 5px;">设备三相异步电动机，编号：MZ101511 出现温度告警，请及时检查</p>
-				</li>
-				<li class="mui-table-view-cell">
-					<p>2018-10-17 02:03:04</p>
-					<p style="margin-top: 5px;">设备三相异步电动机，编号：MZ101511 出现振动告警，请及时检查</p>
-				</li>
+
 			</ul>
+			<div style="height: 50px;margin-top: 10px;text-align: center;">
+				<div id="pagination_9" style="width: 100%;height: 30px;margin-top: 10px;"></div>
+			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script src="js/jquery.min.js"></script>
+		<script src="js/url_all.js"></script>
+
+		<script src="js/highlight.min.js"></script>
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="js/jquery.pagination.js"></script>
+		<script type="text/javascript" src="js/pagination.min.js"></script>
+		<script>
+			// 
+			mui.plusReady(function() {
+
+
+				var msgVue = new Vue({
+					el: '#messageListID',
+					data: {
+						mesList: []
+					}
+				})
+
+				//获取报告列表
+				getBaoGaoList(0, 1);
+
+				function getBaoGaoList(startIndex, thisIndex) {
+					plus.nativeUI.showWaiting('正在获取消息，请稍后...');
+					$.ajax({
+						type: "get",
+						url: new_commen_gain_event_list_Interface,
+						async: true,
+						dataType: 'json',
+						data: {
+							id: localStorage.getItem('strLoginId'),
+							c_id: localStorage.getItem("c_id"),
+							startRecords: startIndex,
+							pageSize: 10
+						},
+						success: function(respData) {
+							if (respData.status == "SUCCESS") {
+								plus.nativeUI.closeWaiting();
+								$("#messageListID").show();
+
+								var strFatherID = plus.webview.currentWebview().opener();
+								mui.fire(strFatherID, 'messageCountRest');
+
+								if (typeof(respData.data) != "undefined") {
+									if (typeof(respData.data.event_list) != "undefined") {
+										msgVue.mesList = respData.data.event_list;
+										var pagecount = respData.data.total_records / 10;
+										setFenyefunction(Math.ceil(pagecount), thisIndex);
+									} else {
+										mui.toast('暂无消息！');
+									}
+								} else {
+
+									mui.toast('暂无消息!');
+								}
+							} else {
+								plus.nativeUI.closeWaiting();
+								mui.toast('获取消息失败，请重试！');
+							}
+						},
+						error: function(error) {
+							plus.nativeUI.closeWaiting();
+							mui.toast('获取数据失败，请检查网络连接...');
+						}
+					});
+				}
+
+
+				function setFenyefunction(totalCount, thisIndex) {
+
+					$('#pagination_9').whjPaging({
+						css: 'css-user',
+						totalPage: totalCount,
+						isShowTotalSize: false,
+						isShowTotalPage: true,
+						isShowRefresh: false,
+						isShowSkip: false,
+						isShowPageSizeOpt: false,
+						isShowFL: false,
+						callBack: function(currPage) {
+							console.log('currPage:' + currPage);
+							var indexPage = currPage;
+							if (indexPage == 1) {
+								getBaoGaoList(0, indexPage);
+							} else {
+								var startIndex = (indexPage - 1) * 10;
+								getBaoGaoList(startIndex, indexPage);
+							}
+
+						}
+					});
+
+					$("#pagination_9").whjPaging("setPage", {
+						currPage: thisIndex,
+						totalPage: totalCount,
+						totalSize: 90
+					});
+				}
+			})
+		</script>
 	</body>
 
 </html>
