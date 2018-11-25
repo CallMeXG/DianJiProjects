@@ -253,7 +253,7 @@ mui.plusReady(function() {
 		}
 
 		sensorStr += '<li class="mui-table-view-cell">数据流量：----</li>';
-		sensorStr += '<li class="mui-table-view-cell">固件版本：' + isUndefined(simData, 'sim_verison_id') + '</li>';
+		sensorStr += '<li class="mui-table-view-cell">固件版本：' + isUndefined(simData, 'software_version') + '</li>';
 		sensorStr += '<li class="mui-table-view-cell">激活状态：' + strJiHuoStatus + '</li>';
 		sensorStr += '<li class="mui-table-view-cell">激活时间：' + isUndefined(simData, 'active_time') + '</li>';
 		sensorStr += '<li class="mui-table-view-cell">最后一次连接服务器时间：' + isUndefined(simData.connectionVO, 'connection_time') + '</li>';
