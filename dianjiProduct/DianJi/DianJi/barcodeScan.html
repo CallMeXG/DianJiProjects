@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="MobileOptimized" content="320" />
+		<title>扫描结果</title>
+		<script type="text/javascript" src="js/common.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
+			<h1 class="mui-title" style="color: white;">扫描</h1>
+			<a id="scanCodeClicked" style="color: white;" class="mui-icon iconfont icon-tubiaozhizuomoban mui-pull-right"></a>
+		</header>
+		<div class="mui-content">
+
+			<div class="mui-input-row mui-search" style="margin:5px 5px 0px 5px">
+				<input id="search" type="search" style="background-color: white;" class="mui-input-clear" placeholder="请输入设备编号" />
+			</div>
+
+			<div class="mui-card" id="cardCPXMsg" style="display: none;">
+				<div class="mui-card-header">物联网通信控制器</div>
+				<div class="mui-content" style="background-color: white;">
+					<p style="margin-left: 20px;background-color: white;margin-top: 10px;">设备编号：{{cpxMsg.serial_no}}</p>
+					<p style="margin-left: 20px;background-color: white;">设备型号：{{cpxMsg.sim_name}}</p>
+					<p style="margin-left: 20px;background-color: white;" v-if="cpxMsg.state == 0">工作状态：工作</p>
+					<p style="margin-left: 20px;background-color: white;" v-if="cpxMsg.state == 1">工作状态：失联</p>
+					<p style="margin-left: 20px;background-color: white;" v-if="cpxMsg.state == 2">工作状态：关机</p>
+					<p style="margin-left: 20px;background-color: white;" v-if="cpxMsg.state == 3">工作状态：休眠</p>
+					<p style="margin-left: 20px;background-color: white;" v-if="cpxMsg.state == 4">工作状态：故障</p>
+					<p style="margin-left: 20px;background-color: white;" v-if="cpxMsg.state == 5">工作状态：已激活</p>
+					<p style="margin-left: 20px;background-color: white;" v-if="cpxMsg.state == 6">工作状态：未激活</p>
+					<p style="margin-left: 20px;background-color: white;" v-if="cpxMsg.state == 7">工作状态：待激活</p>
+					<p style="margin-left: 20px;background-color: white;" v-if="cpxMsg.state == 8">工作状态：待解绑</p>
+					<hr style="height:1px;border:none;border-top:2px lightgray;margin-left: 10px;margin-right: 10px;color: lightgray;background-color: lightgray;" />
+					<div v-for="sensorItem in sensorData">
+						<p style="margin-left: 30px;background-color: white;">传感器编号：{{sensorItem.sensor_no}}</p>
+					</div>
+					
+				</div>
+				<div class="mui-card-footer"  id="guanDevice">
+					<p style="width: 100%;font-size: 16px;">
+						<span style="float: left;color: seagreen;">关联设备：</span>
+						<span id="deviceNoId" style="text-align: left;color: seagreen;">{{cpxMsg.devices_no}}</span>
+					</p>
+					
+				</div>
+			</div>
+			<button onclick="enterDeviceDetail()" id="enterDeviceDetail" style="width: 70%;margin-left: 15%;display: none;margin-top: 30px;" type="button" class="mui-btn mui-btn-success">去激活 >>> </button>
+
+			<div style="text-align: center;margin-top: 100px;">
+				<p style="color: slategray;">请扫描二维码或在搜索框中搜索设备</p>
+			</div>
+
+		</div>
+		<script src="js/url_all.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/vue.min.js"></script>
+		<script>
+			
+			//搜索点击事件
+			$('#search').on('search', function() {
+				$('#search').blur();
+				var strKeyWord = $('#search').val();
+				getDataFromSever(strKeyWord);
+			});
+			
+			
+			function getDataFromSever(serialNO){
+				$.ajax({
+					type: "get",
+					url: appGetSim_Interface,
+					async: true,
+					data: {
+						serial_no: serialNO,
+						state: 'ACTIVE'
+					},
+					dataType: 'json',
+					success: function(respData) {
+						dealWithDataFormSever(respData);
+					},
+					error: function() {
+						mui.toast("查询失败，请重试！");
+						$('#cardCPXMsg').hide();
+					}
+				});
+			}
+			
+			function scaned(t, result, f) {
+				
+				if (result.search('www.aiimoto.com') != -1) {
+					var scanResult;
+					if (result.search("p/") != -1) {
+						scanResult = result.split("p/");
+					}
+					if (result.search("j/") != -1) {
+						scanResult = result.split("j/");
+					}
+					localStorage.searchType = "SCAN";
+					getDataFromSever(scanResult[1]);
+
+				} else {
+					mui.alert("不符合本地校验规则，请扫描正确的二维码", function() {
+					});
+				}
+
+			}
+			var StrcardCPXMsg = new Vue({
+				el: '#cardCPXMsg',
+				data: {
+					cpxMsg: [],
+					sensorData:[]
+				}
+			});
+			
+			//判断是否激活
+			var bolActive = false;
+			
+			function dealWithDataFormSever(respData) {
+				if (respData.status == "SUCCESS") {
+					
+					if (typeof(respData.data) != "undefined" && respData.data.length != 0) {
+						$('#cardCPXMsg').show();
+						var dicSim = respData.data;
+						if (dicSim.sim.length > 0) {
+							StrcardCPXMsg.cpxMsg = dicSim.sim[0];
+							if (typeof(dicSim.sensor)!="undefined") {
+								StrcardCPXMsg.sensorData = dicSim.sensor;
+							}
+							
+							//state 6 未激活 ，
+							if (dicSim.sim[0].state == 6) {
+								// $('#enterDeviceDetail').show();
+								// $('#enterDeviceDetail').html('去激活 >> ');
+								$('#guanDevice').hide();
+								$('#deviceNoId').hide();
+								bolActive = false;
+							}
+							 else {
+								 bolActive = true;
+								 $('#guanDevice').show();
+								 $('#deviceNoId').show();
+								 $('#enterDeviceDetail').show();
+								 $('#enterDeviceDetail').html('查看设备详情 >>>');
+							}
+							
+						} else {
+							findErrorWithMessage('未能查询到该卡，请重试！');
+							$('#cardCPXMsg').hide();
+						}
+
+					} else {
+						findErrorWithMessage('未能查询到该卡，请重试！');
+						$('#cardCPXMsg').hide();
+					}
+				} else {
+
+					findErrorWithMessage('查询失败，请重试！');
+					$('#cardCPXMsg').hide();
+				}
+			}
+			
+			function enterDeviceDetail(deviceID){
+				if (bolActive == false) {
+					console.log('===未激活，进入激活页面')
+				} else{
+					localStorage.DeveciId = $('#deviceNoId').html();
+					mui.openWindow({
+						url: "DeviceDetail.html",
+						id: 'DeviceDetail.html'
+					});
+				}
+				
+			}
+			
+
+			mui.plusReady(function() {
+
+				$("#scanCodeClicked").on('tap', function() {
+					
+					mui.openWindow({
+						url: 'barcode_scan.html',
+						id: 'barcode_scan.html'
+					})
+					
+				});
+
+				
+
+
+			})
+		</script>
+	</body>
+</html>

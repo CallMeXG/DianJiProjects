@@ -91,7 +91,7 @@
 
 								<p style="margin-top: 10px;">申请时间：{{mesItem.apply_time.substring(0,19)}}
 									<div v-if="typeof(mesItem.file_path) != 'undefined'">
-										<a class="iconfont icon-baogao" style="float: right;color: gray;font-size: 24px;margin-right: 10px;margin-top: -20px;" ></a>
+										<a class="iconfont icon-baogao" style="float: right;color: gray;font-size: 24px;margin-right: 10px;margin-top: -20px;"></a>
 									</div>
 								</p>
 								<a class="mui-navigate-right" style="float: right;margin-top: 15px;">
@@ -133,14 +133,18 @@
 
 				$('.mui-btn-success').on('tap', function() {
 					console.log("===");
-					if(dataList.length > 0) {
-						if(dataList[0].apply_status == 0) {
-							mui.alert('您已有正在处理的诊断申请，请在诊断结束后再申请诊断！')
-						} else {
-							applyCheck();
+					if (dataList.length > 0) {
+						for (var i = 0; i < dataList.length; i++) {
+							if (dataList[i].apply_status == 0) {
+								mui.alert('您已有正在处理的诊断申请，请在诊断结束后再申请诊断！');
+								break;
+							} else {
+								applyCheck();
+							}
 						}
+
 					}
-					if(dataList.length == 0) {
+					if (dataList.length == 0) {
 						applyCheck();
 					}
 
@@ -161,21 +165,21 @@
 							},
 							0);
 					}
-					if(el.addEventListener) {
+					if (el.addEventListener) {
 						el.addEventListener('input', function() {
 							setStyle(el)
 						}, false);
 						setStyle(el)
-					} else if(el.attachEvent) {
+					} else if (el.attachEvent) {
 						el.attachEvent('onpropertychange', function() {
 							setStyle(el)
 						});
 						setStyle(el)
 					}
-					if(window.VBArray && window.addEventListener) { //IE9  
+					if (window.VBArray && window.addEventListener) { //IE9  
 						el.attachEvent("onkeydown", function() {
 							var key = window.event.keyCode;
-							if(key == 8 || key == 46) delayedResize(el);
+							if (key == 8 || key == 46) delayedResize(el);
 
 						});
 						el.attachEvent("oncut", function() {
@@ -199,7 +203,7 @@
 						dataType: 'json',
 						success: function(respData) {
 							waitings.close();
-							if(respData.status == "SUCCESS") {
+							if (respData.status == "SUCCESS") {
 								cardContent.message = respData.data;
 								dataList = respData.data;
 							}
@@ -226,12 +230,12 @@
 							apply_user_phone: localStorage.userName,
 							apply_devices_no: localStorage.DeveciId,
 							apply_info: $('textarea').val(),
-							apply_devices_name:localStorage.DeveciName
+							apply_devices_name: localStorage.DeveciName
 						},
 						dataType: 'json',
 						success: function(respData) {
 							waitings.close();
-							if(respData.status == "SUCCESS") {
+							if (respData.status == "SUCCESS") {
 								mui('#popover').popover('toggle');
 
 								mui.toast("您已经成功提交远程诊断申请!");

@@ -34,6 +34,7 @@
 	</head>
 
 	<body>
+		
 		<header class="mui-bar mui-bar-nav" id="head">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title ">修改信息</h1>
@@ -70,17 +71,13 @@
 										<input id="devices_company" type="button" />
 									</div>
 									<div class="modifyCom">
-										<span class="modifyFont">分        厂：</span>
+										<span class="modifyFont">分 厂：</span>
 										<input id="devices_region" type="button" />
 									</div>
 									<div class="modifyCom">
 										<span class="modifyFont">设备型号：</span>
 										<input id="devices_model" type="text" />
 									</div>
-									<!--<div class="modifyCom">
-										<span class="modifyFont">企业名称：</span>
-										<input type="text" id="company_name" />
-									</div>-->
 
 									<div class="modifyCom">
 										<span class="modifyFont">出厂时间：</span>
@@ -148,7 +145,8 @@
 									<!--<br />-->
 									<div class="modifyCom">
 										<span class="modifyFont">安装照片：</span>
-										<input style="border: thin solid #5798f9;height: 20px;font-size: 11px;" type="button" class="val" id="addphoto" value="请拍摄现场安装照片" />
+										<input style="border: thin solid #5798f9;height: 20px;font-size: 11px;" type="button" class="val" id="addphoto"
+										 value="请拍摄现场安装照片" />
 									</div>
 									<div class="modifyCom">
 										<span class="modifyFont">电机额定转速：</span>
@@ -184,7 +182,7 @@
 									</div>
 
 									<br />
-
+									
 								</div>
 
 							</div>
@@ -204,7 +202,7 @@
 				var fatherWeb = plus.webview.currentWebview().opener();
 				mui.fire(fatherWeb, 'activeBack');
 				var objWeb = plus.webview.currentWebview();
-				plus.webview.close(objWeb.id,'none',0.01);
+				plus.webview.close(objWeb.id, 'none', 0.01);
 			});
 		});
 	</script>
