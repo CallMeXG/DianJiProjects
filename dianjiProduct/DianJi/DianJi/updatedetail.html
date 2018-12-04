@@ -27,6 +27,14 @@
 			<h1 class="mui-title" style="color: white;">功能介绍</h1>
 		</header>
 		<div class="mui-content">
+			<div id="code1_5" style="display: none;">
+				<p>1、新增数据统计功能：统计各厂区被检测设备状态</p>
+				<p>2、新增报告管理功能</p>
+				<p>3、优化CPX激活流程</p>
+				<p>4、新增消息显示功能</p>
+				<p>5、优化设备状态显示功能</p>
+				<p>6、优化APP UI页面显示，提升用户使用体验</p>
+			</div>
 			<div id="code1_4" style="display: none;">
 				<p>1、优化点检功能</p>
 				<p>2、新优化远程诊断功能</p>
@@ -69,6 +77,9 @@
 	</body>
 	<script type="text/javascript">
 		var strCode = localStorage.getItem('updateNum');
+		if (strCode == '1.5') {
+			$('#code1_5').css('display','block');
+		}
 		if (strCode == '1.4') {
 			$('#code1_4').css('display','block');
 		}
