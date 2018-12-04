@@ -254,15 +254,21 @@ $(function() {
 
 		//左上角扫描点击事件
 		$("#scanCodeClicked").on('tap', function() {
+			console.log("扫码扫码扫码扫码扫码扫码扫码扫码扫码扫码")
 			localStorage.removeItem('DeveciId');
 			localStorage.setItem('fatherID', 'deviceList');
-			//			var webViewScan = plus.webview.create('devicelisttoscancode.html', 'devicelisttoscancode.html');
-			//			webViewScan.show();
 			mui.openWindow({
-				url: 'devicelisttoscancode.html',
-				id: 'devicelisttoscancode.html'
+				url: 'barcodeScan.html',
+				id: 'barcodeScan.html'
 				//				url: 'ScanCode.html'
 			})
+			//			var webViewScan = plus.webview.create('devicelisttoscancode.html', 'devicelisttoscancode.html');
+			//			webViewScan.show();
+// 			mui.openWindow({
+// 				url: 'devicelisttoscancode.html',
+// 				id: 'devicelisttoscancode.html'
+// 				//				url: 'ScanCode.html'
+// 			})
 		})
 
 		//当没有搜索到数据时的页面显示内容

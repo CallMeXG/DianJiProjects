@@ -73,7 +73,7 @@
 						type = '其它' + type;
 						break;
 				}
-				
+
 				if(result.search('www.aiimoto.com') != -1) {
 					var scanResult;
 					if(result.search("p/") != -1) {
@@ -157,12 +157,11 @@
 								scan.close();
 								localStorage.DeveciId = dicSim.sim[0].devices_no;
 								localStorage.enterPage = "SCAN";
-// 								var webDetail = plus.webview.create('DeviceDetail.html','DeviceDetail.html');
-// 								webDetail.show();
-								mui.openWindow({
-									url: "DeviceDetail.html",
-									id:'DeviceDetail.html'
-								});
+								var webDetail = plus.webview.create('DeviceDetail.html','DeviceDetail.html');
+								webDetail.show();
+//								mui.openWindow({
+//									url: "DeviceDetail.html",
+//								});
 							}
 						}else{
 							findErrorWithMessage('未能查询到该卡，请重试！');

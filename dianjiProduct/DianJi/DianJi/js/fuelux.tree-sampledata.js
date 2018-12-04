@@ -12,6 +12,13 @@ function hiddenOrDisplay(obj) {
 }
 
 mui.plusReady(function() {
+	
+	function reloadSensor() {
+					
+		console.log('刷新刷新刷新刷新刷新刷新刷新刷新刷新刷新')			
+	
+	}
+				
 
 	document.addEventListener('activeBack', function() {
 		console.log('=====激活后，返回到设备详情页，并刷新');
@@ -81,6 +88,7 @@ mui.plusReady(function() {
 		if(strUserType > 10) {
 			var webDetail = plus.webview.create('ModifyInformation.html', 'ModifyInformation.html');
 			webDetail.show();
+			mui('.mui-popover').popover("hide");
 
 //			mui.openWindow({
 //				url: 'ModifyInformation.html',
@@ -89,6 +97,24 @@ mui.plusReady(function() {
 		}
 
 	})
+	$("#changeCEDianName").on('tap', function() {
+			//判断权限，是否显示修改信息
+			var strUserType = localStorage.getItem("userType");
+			if(strUserType < 10) {
+				mui.alert('您没有权限进行设备信息修改，请先去申请相关权限！', '无访问权限', '我知道了');
+			}
+			if(strUserType > 10) {
+// 				var webDetail = plus.webview.create('ModifyInformation.html', 'ModifyInformation.html');
+// 				webDetail.show();
+				mui('.mui-popover').popover("hide");
+	
+				mui.openWindow({
+					url: 'updateCeDianName.html',
+					id: 'updateCeDianName.html'
+				})
+			}
+	
+		})
 
 	function ckResult(val) {
 
@@ -163,6 +189,9 @@ mui.plusReady(function() {
 		}
 		if(cardJihuostute == 7) {
 			strJiHuoStatus = "待激活";
+		}
+		if(cardJihuostute == 8) {
+			strJiHuoStatus = "待解绑";
 		}
 
 		if(workStute == undefined) {
@@ -466,7 +495,6 @@ mui.plusReady(function() {
 		console.log("000000000===" + localStorage.DeveciId)
 		plus.nativeUI.showWaiting('正在加载数据...');
 		$.ajax({
-
 			type: "GET",
 			async: false,
 			data: {

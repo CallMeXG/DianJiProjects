@@ -37,7 +37,8 @@
 	<body>
 		<header id="baobiaoHeader" class="mui-bar mui-bar-nav" style="background-color: #524598;">
 			<h1 class="mui-title"><img height="15px" src="img/home.png" id="logo" /></h1>
-			<a id="messageID" class="mui-icon mui-icon-chat mui-pull-right" style="color: white;"><span class="mui-badge" style="margin-left: -20px;margin-top: 5px;text-align: center;">9</span></a>
+			<a id="messageID" class="mui-icon mui-icon-chat mui-pull-right" style="color: white;"><span id="messageCount" class="mui-badge"
+				 style="margin-left: -20px;margin-top: 5px;text-align: center;padding-top: 2px;display: none;">9</span></a>
 		</header>
 		<div class="mui-content">
 
@@ -171,6 +172,15 @@
 						success: function(respData) {
 							if (respData.status == "SUCCESS") {
 								$('#baobiaoIDs').show();
+								//未读消息数
+								if (typeof(respData.data.user_not_read_event) != "undefined" || respData.data.user_not_read_event != 0) {
+									if (respData.data.user_not_read_event > 0) {
+										$('#messageCount').show();
+										document.getElementById('messageCount').innerHTML = respData.data.user_not_read_event;
+									}
+								}
+
+
 								for (var i = 0; i < respData.data.company_list.length; i++) {
 									var strList = respData.data.company_list[i];
 									for (var j = 0; j < strList.region_list.length; j++) {
@@ -212,6 +222,10 @@
 
 				//绘图
 				function echartsSetting(dataMessage, strIDs) {
+					if (dataMessage.total_num == 0) {
+						$('#' + strIDs).hide();
+					}
+
 					///*
 					var chartCelljiaxuan = echarts.init(document.getElementById(strIDs));
 					var optionChartsCelljiaxuan = {
@@ -447,6 +461,10 @@
 					url: 'message.html',
 					id: 'message.html'
 				})
+			});
+			//自定义事件，模拟点击“首页选项卡”；
+			document.addEventListener('messageCountRest', function() {
+				$('#messageCount').hide();
 			});
 			(function($) {
 
