@@ -1,4 +1,4 @@
-﻿(function(w){
+(function(w){
 // 空函数
 function shield(){
 	return false;
@@ -88,7 +88,20 @@ w.openDoc=function(t,c){
 			d.evalJS('updateDoc("'+t+'","'+c+'")');
 		},false);
 	}
+	plus.webview.create(c, 'document', {
+		titleNView:{
+			autoBackButton:true,
+			backgroundColor:'#D74B28',
+			titleColor:'#CCCCCC',
+			titleText:t
+		},
+		backButtonAutoControl:'close',
+		scalable:false
+	}).show('pop-in');
 }
+
+
+
 /**
  * 关闭等待框
  */

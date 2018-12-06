@@ -42,14 +42,30 @@
 			.classCellinput {
 				color: red;
 			}
+			#popover{
+				height: 100px;
+				width:200px;
+			}
 		</style>
 	</head>
 
 	<body>
+
+
+		<div id="popover" class="mui-popover">
+			<ul class="mui-table-view">
+				<p id="changeCEDianName" style="margin-top: 15px;height: 30px;text-align: center;">修改测点名称</p>
+				<hr style="margin-top: -10px;background-color: gray;" />
+				<p id="changeDeviceID" style="margin-top: 10px;height: 30px;text-align: center;">修改设备信息</p>
+			</ul>
+		</div>
 		<header class="mui-bar mui-bar-nav" id="head">
 			<a class=" mui-icon mui-icon-left-nav mui-pull-left" id="DeviceDetailBack"></a>
 			<h1 class="mui-title ">设备详情</h1>
-			<a id="changeDeviceID" class="mui-pull-right iconfont icon-xiugai_l" style="margin-top: 5px;font-weight: 700;font-size: 24px;"></a>
+			<a href="#popover" class="mui-pull-right iconfont icon-xiugai_l" style="margin-top: 5px;font-weight: 700;font-size: 24px;"></a>
+
+			<!-- 			<a id="changeDeviceID" class="mui-pull-right iconfont icon-xiugai_l" style="margin-top: 5px;font-weight: 700;font-size: 24px;"></a>
+ -->
 		</header>
 
 		<div id="preview">
@@ -144,7 +160,7 @@
 								<input style="width: 70%;" id="idOFchejian" readonly="readonly" />
 							</div>-->
 							<div>
-								<span class="Contentspan">生产产线：  </span>
+								<span class="Contentspan">生产产线： </span>
 								<input style="width: 70%;" id="idOFshengchanLine" readonly="readonly" />
 							</div>
 
@@ -217,7 +233,7 @@
 			//			});
 			//点击左上角返回按钮，如果是通过扫描页进来，则返回到扫码页面，并让扫描功能重新开启
 			$("#DeviceDetailBack").on('tap', function() {
-				if(localStorage.enterPage == "SCAN") {
+				if (localStorage.enterPage == "SCAN") {
 					var objBack = plus.webview.currentWebview().opener();
 					mui.fire(objBack, 'reTest');
 					mui.back();

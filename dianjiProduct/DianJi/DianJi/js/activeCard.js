@@ -384,10 +384,10 @@ $(function() {
 			$('#workStatus').html("----"); //no
 		}
 
-		if(sim.sim_verison_id != undefined) {
-			$('#sim_verison_id').html(sim.sim_verison_id); //no
+		if(sim.software_version != undefined) {
+			$('#software_version').html(sim.software_version); //no
 		} else {
-			$('#sim_verison_id').html("----"); //no
+			$('#software_version').html("----"); //no
 		}
 
 		if(sim.sampling_time != undefined) {
@@ -399,7 +399,7 @@ $(function() {
 		}
 
 		if(sim.upload_time_mode != undefined) {
-			$('#datacailoadtime').html(sim.sim_verison_id); //no
+			$('#datacailoadtime').html(sim.software_version); //no
 		}
 		if(sim.update_duration != undefined) {
 			$('#datacailoadzhouqi').html(sim.update_duration); //no

@@ -6,6 +6,9 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/mui.picker.css" />
+		<link rel="stylesheet" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
 
 		<link href="css/newActivation.css" rel="stylesheet" />
 		<style>
@@ -22,13 +25,6 @@
 	</head>
 
 	<body bgcolor="white">
-<<<<<<< HEAD
-		<script src="js/mui.min.js"></script>
-		<script type="text/javascript">
-			mui.init()
-		</script>
-=======
->>>>>>> master
 
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a style="color: white;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
@@ -45,11 +41,10 @@
 			<div id="deviceAddID" class="mui-card">
 				<div class="mui-card-header">关联设备</div>
 				<div class="mui-card-content">
-					<p style="margin-top: 10px;">设备名称：{{deviceMessage.devices_name}}</p>
-					<p>设备编号：{{deviceMessage.devices_no}}</p>
-					<!--<p>设备型号：{{deviceMessage.devices_model}}</p>-->
-					<p>企业名称：{{deviceMessage.company_name}}</p>
-					<p>所属分厂：{{deviceMessage.region_name}}</p>
+					<p style="margin-top: 10px;">{{deviceMessage.devices_name}}：{{deviceMessage.devices_no}}</p>
+					<!-- <p>设备编号</p> -->
+					<p>{{deviceMessage.company_name}} ---- {{deviceMessage.region_name}}</p>
+					<!-- <p>所属分厂</p> -->
 				</div>
 
 			</div>
@@ -90,39 +85,158 @@
 								<span id="lastuploadStatus"></span>
 							</div>-->
 							<hr />
+							<ul class="mui-table-view" id="id_sensorList" style="display: none;">
+								<li class="mui-table-view-cell" v-for="(sensorMsg,index) in sensorListMsg" style="color: gray;">
+									<p><span>传感器序列编号： {{sensorMsg.sensor_no}}</span></p>
+									<!-- <p v-if="typeof(sensorMsg.install_xy) != 'undefined'" style="height: 30px;">
+										<span style="margin-top: 10px;float: left;">传感器安装位置：</span>
+										<input type="button" :id="forId(index)" v-on:click="selectedInstall(index)" style="height: 30px;float: left;" v-bind:value="sensorMsg.install_xy" />
+									</p> -->
+
+									<!-- <p v-if="typeof(sensorMsg.install_xy) != 'undefined'">
+										<span style="float: left;">
+											传感器安装位置：{{sensorMsg.install_xy}}
+										</span>
+										
+									</p> -->
+								</li>
+
+							</ul>
 						</div>
 					</div>
-					<br/>
+					<br />
 				</div>
 
 			</div>
 
 			<br />
-			<!--<br />-->
+
 			<div class="bottomRefresh">
 				<div>
 					<button onclick="refreshButtonClick()" class="buttonButton">刷新</button>
 				</div>
 			</div>
+			<br />
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script src="js/url_all.js"></script>
 		<script src="js/jquery.min.js"></script>
-		<script src="js/newActivation.js"></script>
-		<script src="js/vue.min.js"></script>
+		<!-- <script src="js/newActivation.js"></script> -->
+		<script src="js/mui.picker.js"></script>
+		<script src="js/mui.poppicker.js"></script>
+		<script src="js/vue.js"></script>
+		<!-- <script src="js/vue.min.js"></script> -->
 
 		<script>
+			//设备信息
 			var obj_device = JSON.parse(localStorage.getItem('ActiveMZDevice'));
 			var addDevice = new Vue({
 				el: '#deviceAddID',
 				data: {
 					deviceMessage: obj_device
 				}
-			})
+			});
+			//传感器list信息
+			var sensorVue = new Vue({
+				el: '#id_sensorList',
+				data: {
+					sensorListMsg: []
+				},
+				methods: {
+					forId: function(index) {
+						console.log('000000==='+index)
+						return "forid_" + index;
+					},
+					selectedInstall: function(index) {
+						var userPicker = new mui.PopPicker();
+						userPicker.setData([{
+							value: 'ywj',
+							text: '测点1'
+						}, {
+							value: 'aaa',
+							text: '测点2'
+						}, {
+							value: 'lj',
+							text: '测点3'
+						}, {
+							value: 'ymt',
+							text: '测点4'
+						}, {
+							value: 'shq',
+							text: '测点5'
+						}, {
+							value: 'zhbh',
+							text: '测点6'
+						}, {
+							value: 'zhy',
+							text: '测点7'
+						}, {
+							value: 'gyf',
+							text: '测点8'
+						}, {
+							value: 'zhz',
+							text: '测点9'
+						}, {
+							value: 'gezh',
+							text: '测点10'
+						},{
+							value: 'ywj',
+							text: '测点11'
+						}, {
+							value: 'aaa',
+							text: '测点12'
+						}, {
+							value: 'lj',
+							text: '测点13'
+						}, {
+							value: 'ymt',
+							text: '测点14'
+						}, {
+							value: 'shq',
+							text: '测点15'
+						}, {
+							value: 'zhbh',
+							text: '测点16'
+						}, {
+							value: 'zhy',
+							text: '测点17'
+						}, {
+							value: 'gyf',
+							text: '测点18'
+						}, {
+							value: 'zhz',
+							text: '测点19'
+						}, {
+							value: 'gezh',
+							text: '测点20'
+						}]);
+
+						var userResult = document.getElementById("forid_" + index);
+						userPicker.show(function(items) {
+							console.log('[[[[]]]]===' + JSON.stringify(items[0]))
+							userResult.value = items[0].text;
+							var btnArr = ['修改','不修改'];
+							var mesStr = "您已选中测点位置" + '"'+items[0].text+ '",' +"是否修改测点位置名称？";
+							mui.prompt(mesStr,items[0].text,'测点位置',btnArr,function(e){
+								
+								if (e.index == 0) {
+									if (e.value == '') {
+										userResult.value = items[0].text;
+									}else{
+										userResult.value = e.value;
+									}
+								} else{
+									userResult.value = items[0].text;
+								}
+							})
+						});
+					}
+				}
+			});
 
 			//取消激活
 			function cancelJihuo(e) {
-				if(e.index == 1) {
+				if (e.index == 1) {
 					$.ajax({
 						type: "get",
 						url: commen_confirm_unactive_Interface,
@@ -132,7 +246,7 @@
 						async: true,
 						dataType: 'json',
 						success: function(resqMsg) {
-							if(resqMsg.status == "SUCCESS") {
+							if (resqMsg.status == "SUCCESS") {
 								mui.toast(resqMsg.message);
 								mui.back();
 							} else {
@@ -151,97 +265,261 @@
 			$("#CancelBtn").click(function() {
 				mui.confirm("你确定要中断激活吗？", "系统提示", ["否", "是"], cancelJihuo);
 			});
-<<<<<<< HEAD
-			//完成按钮点击事件
-			$("#FinshBth").click(function(){
-//				window.location.href = "view/demo.html";
-				window.location.href = "view/carInfo_activate.html";
-//				mui.openWindow({
-//					url:"view/carInfo_activate.html"
-//				})
-			});
-=======
+
+
+			var regionData = null;
+
+			getDataFromSever();
+
+			function getDataFromSever() {
+				$.ajax({
+					type: "get",
+					url: commen_active_wait_Interface,
+					async: true,
+					data: {
+						serial_no: localStorage.simID
+					},
+					dataType: 'json',
+					success: function(msg) {
+						// console.log(JSON.stringify(msg))
+						if (msg.status == "SUCCESS") {
+							setDataToHtml(msg.data);
+							regionData = msg.data;
+
+						} else {
+							mui.toast(msg.message);
+						}
+					},
+					error: function(error) {}
+				})
+			}
+
+
+
+
+			function setDataToHtml(reqMsg) {
+				if (reqMsg.serial_no != undefined) {
+					$('#serialID').html(reqMsg.serial_no);
+				} else {
+					$('#serialID').html("----");
+				}
+				if (reqMsg.connectionVO != undefined) {
+					var timePO = reqMsg.connectionVO;
+					$('#connect_severTime').html(timePO.connection_time);
+					if (timePO.release_time != undefined) {
+						$('#close_severTime').html(timePO.release_time);
+					} else {
+						$('#close_severTime').html("----");
+					}
+
+					if (timePO.status == "Y") {
+						$('#severStatus').html("已连接");
+					} else {
+						$('#severStatus').html("未连接");
+					}
+
+				} else {
+					$('#connect_severTime').html("----");
+					$('#close_severTime').html("----");
+					$('#severStatus').html("----");
+				}
+
+				if (reqMsg.sensor_no != undefined) {
+					$('#id_lastuploadTime').html(reqMsg.sensor_no);
+				} else {
+					$('#id_lastuploadTime').html("----");
+				}
+
+				if (reqMsg.data_upload_status == "N") {
+					$('#lastuploadStatus').html("未上传");
+				} else if (reqMsg.data_upload_status == "Y") {
+					$('#lastuploadStatus').html("已上传");
+				} else {
+					$('#lastuploadStatus').html("----");
+				}
+				if (reqMsg.data_upload_time != undefined) {
+					$('#lastuploadTime').html(reqMsg.data_upload_time);
+				} else {
+					$('#lastuploadTime').html("----");
+				}
+
+				if (reqMsg.sensorList != undefined) {
+					var sensorList = reqMsg.sensorList;
+
+					sensorVue.sensorListMsg = reqMsg.sensorList;
+					$('#id_sensorList').show();
+
+					// 					for (var i = 0; i < sensorList.length; i++) {
+					// 						var sensorStr = '<div class="sensorDiv" style="color:gray;">';
+					// 						sensorStr += '<div><span>传感器序列编号：</span><input style="padding-left:5px;" disabled="disabled" value="' +
+					// 							sensorList[i].sensor_no + '"/></div>';
+					// 						sensorStr += '<div><span style="float:left;padding-top:5px;">传感器安装位置：</span><input id="install_' + i +
+					// 							'" style="float:left;width:50%;height:30px;" type="button" value="' + sensorList[i].install_xy + '"/></div>';
+					// 						sensorStr += '</div>';
+					// 						// sensorStr += '<div style="height:2px;width:80%;background-color:white;clear:both;margin-left:10%;margin-right:10%;margin-top:5px;"></div>';
+					// 						$('.center').append(sensorStr);
+					// 					}
+				}
+			}
+
+
+			function refreshButtonClick() {
+				location.reload();
+			}
+
 
 			mui.plusReady(function() {
+
 				$("#FinshBth").click(function() {
-					
 					plus.nativeUI.showWaiting('正在进行激活...');
+					plus.nativeUI.closeWaiting();
 
 					var nowTime = new Date().getTime();
 					var clickTime = $(this).attr("ctime");
-					if(clickTime != 'undefined' && (nowTime - clickTime < 5000)) {
+					if (clickTime != 'undefined' && (nowTime - clickTime < 5000)) {
 						mui.toast('您已提交激活申请，请不要频繁操作！')
 						//						console.log('操作过于频繁，稍后再试');
 						return false;
 					} else {
-						$(this).attr("ctime", nowTime);
-						console.log('提交成功')
-						///*
-						var postParam = {
-							devices_no: localStorage.DeveciId,
-							serial_no: localStorage.simID
-						};
-						$.ajax({
-							type: "get",
-							url: commen_appAddSim_Interface,
-							async: true,
-							data: postParam,
-							dataType: 'json',
-							success: function(postMsg) {
-								plus.nativeUI.closeWaiting();
-								if(postMsg.status == 'SUCCESS') {
-									mui.toast('激活成功！');
-									setTimeout(function() {
-										var fatherWeb = plus.webview.currentWebview().opener();
-										mui.fire(fatherWeb, 'activeBack');
-										var objWeb = plus.webview.currentWebview();
-										plus.webview.close(objWeb.id, 'none', 0.01);
-									}, 1000);
 
-								} else {
-									mui.toast('激活失败，请重试！');
+
+						if (regionData != null) {
+
+							if (typeof(regionData.sensorList) == "undefined" || regionData.sensorList.length == 0) {
+								mui.toast('必须绑定传感器才能进行激活！');
+
+							} else {
+								console.log('-----------===' + JSON.stringify(regionData.sensorList));
+
+								var json_commen = new Array();
+								for (var i = 0; i < regionData.sensorList.length; i++) {
+									var timePoint = ['0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0',
+										'0', '0', '0', '0', '0', '0'
+									];
+									var work_json = {
+										sample_time_point: timePoint
+									};
+									//cpx信息
+									var simWorkPO = {
+										serial_no: regionData.sensorList[i].serial_no,
+										sampling_duration: '00:00:00',
+										update_duration: '00:00:00',
+										work_point_json: JSON.stringify(work_json)
+									};
+
+									//传感器安装位置,如果有历史,则提交历史信息,如果没有历史,则提交传感器编号
+// 									var strInstall = regionData.sensorList[i].sensor_no;
+// 									if (typeof(regionData.sensorList[i].install_xy) != 'undefined' && regionData.sensorList[i].install_xy !=
+// 										null && regionData.sensorList[i].install_xy.length != 0) {
+// 										strInstall = regionData.sensorList[i].install_xy;
+// 									}
+
+									// var strIds = 'install_' + i;
+									// var strInstallValue = document.getElementById(strIds).value;
+
+									//传感器信息
+									var sensorPO = {
+										working_axis: "111",
+										calibration_coefficient: "1.000",
+										serial_no: regionData.sensorList[i].serial_no,
+										sensor_no: regionData.sensorList[i].sensor_no,
+										sampling_model: "出厂模式",
+										sampling_number: "4096",
+										sampling_frequency: "1600",
+										sampling_accuracy: "13",
+										range_data: "±16g"
+									}
+
+									json_commen.push({
+										simWorkModelPO: simWorkPO,
+										sensorMsgPO: sensorPO
+									});
+
 								}
-							},
-							error: function() {
-								plus.nativeUI.closeWaiting();
-								mui.toast('激活失败，请重试！');
+
+								var commenParam = {
+									strLoginId: localStorage.getItem("strLoginId"),
+									strLoginToken: localStorage.getItem("strLoginToken"),
+									devices_no: addDevice.deviceMessage.devices_no,
+									devices_name: addDevice.deviceMessage.devices_name,
+									work_status: '0',
+									commen_json: JSON.stringify(json_commen)
+								}
+
+
+
+								console.log('-------' + JSON.stringify(json_commen));
+								///*
+								$.ajax({
+									type: "POST",
+									url: commen_update_device_Interface,
+									async: true,
+									data: commenParam,
+									dataType: 'json',
+									success: function(postMsg) {
+										plus.nativeUI.closeWaiting();
+										if (postMsg.status == 'SUCCESS') {
+											console.log('=================================')
+											///*
+											var postParam = {
+												devices_no: localStorage.DeveciId,
+												serial_no: localStorage.simID
+											};
+
+											$.ajax({
+												type: "get",
+												url: commen_appAddSim_Interface,
+												async: true,
+												data: postParam,
+												dataType: 'json',
+												success: function(postMsg) {
+													plus.nativeUI.closeWaiting();
+													if (postMsg.status == 'SUCCESS') {
+														mui.toast('激活成功！');
+														mui.openWindow({
+															url:'DeviceDetail.html',
+															id:'DeviceDetail.html'
+														});
+// 														setTimeout(function() {
+// 															var fatherWeb = plus.webview.currentWebview().opener();
+// 															mui.fire(fatherWeb, 'activeBack');
+// 															var objWeb = plus.webview.currentWebview();
+// 															plus.webview.close(objWeb.id, 'none', 0.01);
+// 														}, 1000);
+
+													} else {
+														mui.toast('激活失败，请重试！');
+													}
+												},
+												error: function() {
+													plus.nativeUI.closeWaiting();
+													mui.toast('激活失败，请重试！');
+												}
+											});
+											//*/
+
+										} else {
+
+										}
+									},
+									error: function() {
+										plus.nativeUI.closeWaiting();
+									}
+								});
+
+								//*/
 							}
-						});
-						//*/
+
+						} else {
+
+						}
+						$(this).attr("ctime", nowTime);
 
 					}
 
-					//					var fatherWeb = plus.webview.currentWebview().opener();
-					//					mui.fire(fatherWeb, 'activeBack');
-					//					var objWeb = plus.webview.currentWebview();
-					//					plus.webview.close(objWeb.id, 'none', 0.01);
-
-					///*
-
-					//*/
-
-					//无法跳转
-					//					mui.init({
-					//						subpages:[{
-					//							url:'headerindex.html',
-					//							id:'headerindex.html'
-					//						}]
-					//					})
-					//无法显示
-					//					window.location.replace('projectindex.html');
-					//显示以后，点击设备、我的，反应不及时，
-					//					window.location.replace('headerindex.html');
-					//往回跳转层级太多
-					//					var fatherWeb = plus.webview.currentWebview().opener();
-					//					mui.fire(fatherWeb, 'activeBack');
-					//					var objWeb = plus.webview.currentWebview();
-					//					plus.webview.close(objWeb.id, 'none', 0.01);
-
 				});
-			})
-
 			
->>>>>>> master
+			})
 		</script>
 
 	</body>

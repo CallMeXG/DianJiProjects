@@ -9,9 +9,6 @@
 //生产服务器地址
 var url = 'http://47.94.166.103:1111/';
 
-
-
-
 //var fileUrlHeader = "http://47.94.166.103:3000/group1/";
              
 //登录接口
@@ -56,7 +53,7 @@ var commen_add_device_Interface= url + 'device/commen_add_device';
 //commen_gain_sim接口c
 var commen_gain_sim_Interface= url + 'Sensor/commen_gain_sim';
 //commen_cancel_relation接口
-var commen_cancel_relation_Interface= url + 'Sensor/commen_cancel_relation';
+var commen_cancel_relation_Interface= url + 'Sensor/commen_cancel_relation_new';
 //commen_update_device接口
 var commen_update_device_Interface= url + 'device/commen_update_device';
 //commen_gain_detect_data接口
@@ -126,5 +123,12 @@ var new_commen_statis_device_Interface = url +'device/commen_statis_device';
 //诊断报告列表
 var new_commen_gain_user_check_Interface = url + 'check/commen_gain_user_check';
 
+//事件列表
+var new_commen_gain_event_list_Interface = url + 'event/commen_gain_event_list';
+
+//获取设备测点列表 2018-12-3
+var new_commen_gain_device_install_Interface = url + 'device/commen_gain_device_install';
+//修改设备测点名称  2018-12-3
+var new_commen_update_device_install_Interface = url + 'device/commen_update_device_install';
 
 

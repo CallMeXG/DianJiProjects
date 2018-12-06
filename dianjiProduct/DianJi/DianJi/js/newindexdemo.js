@@ -254,14 +254,20 @@ $(function() {
 
 		//左上角扫描点击事件
 		$("#scanCodeClicked").on('tap', function() {
+			console.log("扫码扫码扫码扫码扫码扫码扫码扫码扫码扫码")
 			localStorage.removeItem('DeveciId');
 			localStorage.setItem('fatherID', 'deviceList');
+			mui.openWindow({
+				url: 'barcodeScan.html',
+				id: 'barcodeScan.html'
+			})
 			//			var webViewScan = plus.webview.create('devicelisttoscancode.html', 'devicelisttoscancode.html');
 			//			webViewScan.show();
-			mui.openWindow({
-				url: 'devicelisttoscancode.html',
-				id: 'devicelisttoscancode.html'
-			})
+// 			mui.openWindow({
+// 				url: 'devicelisttoscancode.html',
+// 				id: 'devicelisttoscancode.html'
+// 				//				url: 'ScanCode.html'
+// 			})
 		})
 
 		//当没有搜索到数据时的页面显示内容
@@ -382,7 +388,58 @@ $(function() {
 			}
 			localStorage.setItem('strRegion', localStorage.getItem('tongji_regionId'));
 			document.getElementById(localStorage.getItem('tongji_regionId')).checked = true;
-			searchDevice('', 0, 2, localStorage.getItem('tongji_regionId'), 0, localStorage.getItem('tongji_type'));
+			
+			
+			// searchDevice('', 0, 2, localStorage.getItem('tongji_regionId'), 0, localStorage.getItem('tongji_type'));
+			
+			var wa = plus.nativeUI.showWaiting('数据加载中...');
+			
+						$.ajax({
+							type: "get",
+							url: commen_search_device_Interface,
+							async: true,
+							data: {
+								strLoginId: localStorage.getItem("strLoginId"),
+								strLoginToken: localStorage.getItem("strLoginToken"),
+								devices_name: "",
+								int_sort_type: 2,
+								company_id: localStorage.getItem("company_id"),
+								region_id_list: localStorage.getItem('tongji_regionId'),
+								startRecords: 0,
+								pageSize: 1000,
+								device_status: localStorage.getItem('tongji_type')
+							},
+							dataType: 'json',
+							success: function(res) {
+								wa.close();
+								if(res.status == "SUCCESS") {
+									if(res.data.search_list.length > 0) {
+										content.message = res.data.search_list;
+										$('#content').css('display', 'block');
+										$("#nullDataPage").hide();
+										$("#content").show();
+										var pagecount = res.data.total_records / 1000;
+										setFenyefunction(Math.ceil(pagecount), 0);
+									} else {
+										setFenyefunction(0, 0);
+										UIForNullData("nullData");
+										$("#content").hide();
+									}
+								} else {
+									UIForNullData("nullData");
+									$("#content").hide();
+									setFenyefunction(0, 0);
+								}
+							},
+							error: function(error) {
+								console.log("===1111")
+								wa.close();
+								UIForNullData("net");
+								$("#content").hide();
+								setFenyefunction(0, 0);
+							}
+						});
+			
 			
 			//			var strRegion_new = localStorage.getItem('tongji_regionId');
 			//			if(typeof(strRegion_new) != "undefined" && strRegion_new != null) {

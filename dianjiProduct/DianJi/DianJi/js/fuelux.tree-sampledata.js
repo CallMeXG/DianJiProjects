@@ -12,6 +12,13 @@ function hiddenOrDisplay(obj) {
 }
 
 mui.plusReady(function() {
+	
+	function reloadSensor() {
+					
+		console.log('刷新刷新刷新刷新刷新刷新刷新刷新刷新刷新')			
+	
+	}
+				
 
 	document.addEventListener('activeBack', function() {
 		console.log('=====激活后，返回到设备详情页，并刷新');
@@ -81,6 +88,7 @@ mui.plusReady(function() {
 		if(strUserType > 10) {
 			var webDetail = plus.webview.create('ModifyInformation.html', 'ModifyInformation.html');
 			webDetail.show();
+			mui('.mui-popover').popover("hide");
 
 //			mui.openWindow({
 //				url: 'ModifyInformation.html',
@@ -89,6 +97,24 @@ mui.plusReady(function() {
 		}
 
 	})
+	$("#changeCEDianName").on('tap', function() {
+			//判断权限，是否显示修改信息
+			var strUserType = localStorage.getItem("userType");
+			if(strUserType < 10) {
+				mui.alert('您没有权限进行设备信息修改，请先去申请相关权限！', '无访问权限', '我知道了');
+			}
+			if(strUserType > 10) {
+// 				var webDetail = plus.webview.create('ModifyInformation.html', 'ModifyInformation.html');
+// 				webDetail.show();
+				mui('.mui-popover').popover("hide");
+	
+				mui.openWindow({
+					url: 'updateCeDianName.html',
+					id: 'updateCeDianName.html'
+				})
+			}
+	
+		})
 
 	function ckResult(val) {
 
@@ -164,6 +190,9 @@ mui.plusReady(function() {
 		if(cardJihuostute == 7) {
 			strJiHuoStatus = "待激活";
 		}
+		if(cardJihuostute == 8) {
+			strJiHuoStatus = "待解绑";
+		}
 
 		if(workStute == undefined) {
 			strWorkStuts = "----";
@@ -205,56 +234,56 @@ mui.plusReady(function() {
 		//	sensorStr += '<li class="mui-table-view-cell">小区信息：' + isUndefined(simData, 'cell_no') + '</li>';
 		if(typeof(simData.signal_intensity) != 'undefined') {
 			if(simData.signal_intensity == 0) {
-				sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhaonull.png" width="30px" height="30px" style="margin-top:-10px;" /></li>';
+				sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhaonull.png" width="30px" height="20px" style="margin-top:-10px;" /></li>';
 			}
 			if((simData.signal_intensity > 1 || simData.signal_intensity == 1) && (simData.signal_intensity < 8 || simData.signal_intensity == 8)) {
-				sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao1.png" width="30px" height="30px" style="margin-top:-10px;" /></li>';
+				sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao1.png" width="30px" height="20px" style="margin-top:-10px;" /></li>';
 			}
 			if((simData.signal_intensity > 9 || simData.signal_intensity == 9) && (simData.signal_intensity < 12 || simData.signal_intensity == 12)) {
-				sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao2.png" width="30px" height="30px" style="margin-top:-10px;" /></li>';
+				sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao2.png" width="30px" height="20px" style="margin-top:-10px;" /></li>';
 			}
 			if((simData.signal_intensity > 13 || simData.signal_intensity == 13) && (simData.signal_intensity < 17 || simData.signal_intensity == 17)) {
-				sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao3.png" width="30px" height="30px" style="margin-top:-10px;" /></li>';
+				sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao3.png" width="30px" height="20px" style="margin-top:-10px;" /></li>';
 			}
 			if((simData.signal_intensity > 18 || simData.signal_intensity == 18) && (simData.signal_intensity < 20 || simData.signal_intensity == 20)) {
-				sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao4.png" width="30px" height="30px" style="margin-top:-10px;" /></li>';
+				sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao4.png" width="30px" height="20px" style="margin-top:-10px;" /></li>';
 			}
 			if((simData.signal_intensity > 21 || simData.signal_intensity == 21) && (simData.signal_intensity < 25 || simData.signal_intensity == 25)) {
-				sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao5.png" width="30px" height="30px" style="margin-top:-10px;" /></li>';
+				sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao5.png" width="30px" height="20px" style="margin-top:-10px;" /></li>';
 			}
 			if((simData.signal_intensity > 26 || simData.signal_intensity == 26) && (simData.signal_intensity < 31 || simData.signal_intensity == 31)) {
-				sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao6.png" width="30px" height="30px" style="margin-top:-10px;" /></li>';
+				sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span>    <img src="img/xinhao6.png" width="30px" height="20px" style="margin-top:-10px;" /></li>';
 			}
 		} else {
-			sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span><img src="img/xinhaoNO.png" width="30px" height="30px" style="margin-top:-10px;" /></li>';
+			sensorStr += '<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span><img src="img/xinhaoNO.png" width="30px" height="20px" style="margin-top:-10px;" /></li>';
 		}
 		if(typeof(simData.dump_percentage) != "undefined") {
 			if(simData.dump_percentage > 84 || simData.dump_percentage == 84) {
-				sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;" src="img/dianchi84.jpg" height="20px"/></li>';
+				sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi84.jpg" height="15px"/></li>';
 			}
 			if((simData.dump_percentage > 67 || simData.dump_percentage == 67) && simData.dump_percentage < 84) {
-				sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;" src="img/dianchi80.jpg" height="20px"/></li>';
+				sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi80.jpg" height="15px"/></li>';
 			}
 			if((simData.dump_percentage > 50 || simData.dump_percentage == 50) && simData.dump_percentage < 67) {
-				sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;" src="img/dianchi50.jpg" height="20px"/></li>';
+				sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi50.jpg" height="15px"/></li>';
 			}
 			if((simData.dump_percentage > 34 || simData.dump_percentage == 34) && simData.dump_percentage < 50) {
-				sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;" src="img/dianchi34.jpg" height="20px"/></li>';
+				sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi34.jpg" height="15px"/></li>';
 			}
 			if((simData.dump_percentage > 16 || simData.dump_percentage == 16) && simData.dump_percentage < 34) {
-				sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;" src="img/dianchi16.jpg" height="20px"/></li>';
+				sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi16.jpg" height="15px"/></li>';
 			}
 			if((simData.dump_percentage > 0 || simData.dump_percentage == 0) && simData.dump_percentage < 16) {
-				sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;" src="img/dianchi00.jpg" height="20px"/></li>';
+				sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi00.jpg" height="15px"/></li>';
 			}
 
 		} else {
-
+			sensorStr += '<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：----</span></li>';
 		}
 
 		sensorStr += '<li class="mui-table-view-cell">数据流量：----</li>';
-		sensorStr += '<li class="mui-table-view-cell">卡固件版本：' + isUndefined(simData, 'sim_verison_id') + '</li>';
-		sensorStr += '<li class="mui-table-view-cell">卡激活状态：' + strJiHuoStatus + '</li>';
+		sensorStr += '<li class="mui-table-view-cell">固件版本：' + isUndefined(simData, 'software_version') + '</li>';
+		sensorStr += '<li class="mui-table-view-cell">激活状态：' + strJiHuoStatus + '</li>';
 		sensorStr += '<li class="mui-table-view-cell">激活时间：' + isUndefined(simData, 'active_time') + '</li>';
 		sensorStr += '<li class="mui-table-view-cell">最后一次连接服务器时间：' + isUndefined(simData.connectionVO, 'connection_time') + '</li>';
 		sensorStr += '<li class="mui-table-view-cell">工作状态：' + strWorkStuts + '</li>';
@@ -466,7 +495,6 @@ mui.plusReady(function() {
 		console.log("000000000===" + localStorage.DeveciId)
 		plus.nativeUI.showWaiting('正在加载数据...');
 		$.ajax({
-
 			type: "GET",
 			async: false,
 			data: {

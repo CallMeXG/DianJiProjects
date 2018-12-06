@@ -161,14 +161,16 @@
 								});
 							} else {
 								console.log("999999")
-								scan.cancel();
+								// scan.cancel();
+								scan.close();
 								localStorage.DeveciId = dicSim.sim[0].devices_no;
 								localStorage.enterPage = "SCAN";
-								var webDetail = plus.webview.create('DeviceDetail.html','DeviceDetail.html');
-								webDetail.show();
-//								mui.openWindow({
-//									url: "DeviceDetail.html",
-//								});
+// 								var webDetail = plus.webview.create('DeviceDetail.html','DeviceDetail.html');
+// 								webDetail.show();
+								mui.openWindow({
+									url: "DeviceDetail.html",
+									id:'DeviceDetail.html'
+								});
 							}
 						}else{
 							findErrorWithMessage('未能查询到该卡，请重试！');
