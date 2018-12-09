@@ -42,8 +42,8 @@
 
 				</div>
 				<div class="mui-card-footer" id="guanDevice">
-					<p style="width: 100%;font-size: 16px;height: 50px;">
-						<span style="float: left;color: seagreen;">关联设备：</span>
+					<p style="width: 100%;font-size: 16px;">
+						<span style="float: left;color: seagreen;">关联设备：{{cpxMsg.devices_name}}--</span>
 						<span id="deviceNoId" style="text-align: left;color: seagreen;">{{cpxMsg.devices_no}}</span>
 					</p>
 				</div>
@@ -53,6 +53,7 @@
 			<!-- type="button" class="mui-btn mui-btn-success">去激活 >>> </button> -->
 
 			<div class="mui-card" id="cardClicked" style="display: none;">
+				<div class="mui-card-header">操作事件</div>
 				<div class="mui-card-content">
 					<ul class="mui-table-view" style="color: #0000FF;margin-top: 10px;clear: both;">
 						<li class="mui-table-view-cell" onclick="buttonClicked('A')">
@@ -170,6 +171,8 @@
 								$('#guanDevice').show();
 								$('#deviceNoId').show();
 								$('#cardClicked').show();
+								localStorage.DeveciName = dicSim.sim[0].devices_name;
+								console.log("00000000===" + dicSim.sim[0].devices_name)
 								// $('#enterDeviceDetail').html('查看设备详情 >>>');
 							}
 
@@ -192,7 +195,7 @@
 			function buttonClicked( typeSel ){
 				localStorage.DeveciId = $('#deviceNoId').html();
 				console.log("=====" + $('#deviceNoId').html());
-				console.log("-----" + typeSel);
+				console.log("-----" + localStorage.DeveciName);
 				if(typeSel == 'A'){
 					mui.openWindow({
 						url: "DeviceDetail.html",
