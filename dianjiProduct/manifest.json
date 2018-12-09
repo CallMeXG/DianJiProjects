@@ -185,12 +185,12 @@
                     "spotlight@2x" : "unpackage/res/icons/80x80.png",
                     "notification" : "unpackage/res/icons/20x20.png",
                     "notification@2x" : "unpackage/res/icons/40x40.png",
-                    "mdpi" : "DianJi/DianJi/img/logo1.png",
-                    "ldpi" : "DianJi/DianJi/img/logo1.png",
-                    "hdpi" : "DianJi/DianJi/img/logo2.png",
-                    "xhdpi" : "DianJi/DianJi/img/logo3.png",
-                    "xxhdpi" : "DianJi/DianJi/img/logo4.png",
-                    "xxxhdpi" : "DianJi/DianJi/img/logo5.png"
+                    "mdpi" : "",
+                    "ldpi" : "",
+                    "hdpi" : "",
+                    "xhdpi" : "",
+                    "xxhdpi" : "",
+                    "xxxhdpi" : ""
                 },
                 "appstore" : "unpackage/res/icons/1024x1024.png"
             },
@@ -208,9 +208,9 @@
             },
             "splashscreen" : {
                 "android" : {
-                    "hdpi" : "C:/Users/Administrator/Desktop/电机项目图片/qidong1.png",
-                    "xhdpi" : "C:/Users/Administrator/Desktop/电机项目图片/qidong2.png",
-                    "xxhdpi" : "C:/Users/Administrator/Desktop/电机项目图片/qidong3.png"
+                    "hdpi" : "",
+                    "xhdpi" : "",
+                    "xxhdpi" : ""
                 }
             }
         }

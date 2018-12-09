@@ -83,7 +83,7 @@ function register() {
 	}
 
 	$("#register_btn").on('tap', function() {
-		var agreement = $('#agreement');
+		// var agreement = $('#agreement');
 		var username = $("#username").val();
 		var tel = $("#tel").val();
 		var bussnicename = $("#bussniceName").val();
@@ -107,9 +107,7 @@ function register() {
 			mui.toast("两次密码输入不一致")
 		} else if(!(telTest.test(tel))) {
 			mui.toast("手机号格式不正确")
-		} else if(!$('#agreement').is(':checked')) {
-			mui.toast("请选择条款协议")
-		} else {
+		}else {
 			var paramData = {
 				username:username,
 				password:pwd1,
