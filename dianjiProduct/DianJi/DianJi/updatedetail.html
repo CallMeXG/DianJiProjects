@@ -27,6 +27,10 @@
 			<h1 class="mui-title" style="color: white;">功能介绍</h1>
 		</header>
 		<div class="mui-content">
+			<div id="code1_6" style="display: none;">
+				<p>修改扫描结果页显示内容</p>
+				
+			</div>
 			<div id="code1_5" style="display: none;">
 				<p>1、新增数据统计功能：统计各厂区被检测设备状态</p>
 				<p>2、新增报告管理功能</p>
@@ -77,6 +81,9 @@
 	</body>
 	<script type="text/javascript">
 		var strCode = localStorage.getItem('updateNum');
+		if (strCode == '1.6') {
+			$('#code1_6').css('display','block');
+		}
 		if (strCode == '1.5') {
 			$('#code1_5').css('display','block');
 		}
