@@ -44,13 +44,44 @@
 				</div>
 				<div class="mui-card-footer" id="guanDevice">
 					<p style="width: 100%;font-size: 16px;">
-						<span style="float: left;color: seagreen;">关联设备：</span>
+						<span style="float: left;color: seagreen;">关联设备：{{cpxMsg.devices_name}}--</span>
 						<span id="deviceNoId" style="text-align: left;color: seagreen;">{{cpxMsg.devices_no}}</span>
 					</p>
 
 				</div>
 			</div>
-			<button onclick="enterDeviceDetail()" id="enterDeviceDetail" style="width: 70%;margin-left: 15%;display: none;margin-top: 30px;"
+
+
+
+			<div class="mui-card" id="cardClicked" style="display: none;">
+				<div class="mui-card-header">操作事件</div>
+				<div class="mui-card-content">
+					<ul class="mui-table-view" style="color: #0000FF;margin-top: 10px;clear: both;">
+						<li class="mui-table-view-cell" onclick="buttonClicked('A')">
+							<a class="mui-navigate-right">
+								查看设备详情
+							</a>
+						</li>
+						<li class="mui-table-view-cell" onclick="buttonClicked('B')">
+							<a class="mui-navigate-right">
+								查看数据分析
+							</a>
+						</li>
+						<li class="mui-table-view-cell" onclick="buttonClicked('C')">
+							<a class="mui-navigate-right">
+								设备点检
+							</a>
+						</li>
+						<li class="mui-table-view-cell" onclick="buttonClicked('D')">
+							<a class="mui-navigate-right">
+								远程诊断
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<button onclick="enterActivePage()" id="enterDeviceDetail" style="width: 70%;margin-left: 15%;display: none;margin-top: 30px;"
 			 type="button" class="mui-btn mui-btn-success">去激活 >>> </button>
 
 			<div style="text-align: center;margin-top: 100px;">
@@ -69,9 +100,9 @@
 				var strKeyWord = $('#search').val();
 				getDataFromSever(strKeyWord);
 			});
-			
+
 			var getData = null;
-			
+
 			function getDataFromSever(serialNO) {
 				$.ajax({
 					type: "get",
@@ -140,13 +171,15 @@
 								$('#enterDeviceDetail').html('去激活 >> ');
 								$('#guanDevice').hide();
 								$('#deviceNoId').hide();
+								// $('#cardClicked').hide();
 								bolActive = false;
 							} else {
 								bolActive = true;
 								$('#guanDevice').show();
 								$('#deviceNoId').show();
-								$('#enterDeviceDetail').show();
-								$('#enterDeviceDetail').html('查看设备详情 >>>');
+								$('#enterDeviceDetail').hide();
+								// $('#cardClicked').show();								
+								// $('#enterDeviceDetail').html('查看设备详情 >>>');
 							}
 
 						} else {
@@ -165,36 +198,56 @@
 				}
 			}
 
-			function enterDeviceDetail(deviceID) {
-				if (bolActive == false) {
-					console.log('===未激活，进入激活页面');
-					$.ajax({
-						type: "get",
-						url: commen_confirm_active_Interface,
-						async: true,
-						data: {
-							serial_no: getData.serial_no
-						},
-						dataType: 'json',
-						success: function(resqMsg) {
-							if (resqMsg.status == "SUCCESS") {
-								localStorage.simID = getData.serial_no;
-								mui.openWindow("newActivation.html");
-							} else {}
-						},
-						error: function() {
+			function enterActivePage() {
+				$.ajax({
+					type: "get",
+					url: commen_confirm_active_Interface,
+					async: true,
+					data: {
+						serial_no: getData.serial_no
+					},
+					dataType: 'json',
+					success: function(resqMsg) {
+						if (resqMsg.status == "SUCCESS") {
+							localStorage.simID = getData.serial_no;
+							mui.openWindow("newActivation.html");
+						} else {}
+					},
+					error: function() {
 
-						}
-					});
-				} else {
-					localStorage.DeveciId = $('#deviceNoId').html();
+					}
+				});
+			}
+
+			function buttonClicked(typeSel) {
+				localStorage.DeveciId = $('#deviceNoId').html();
+				if (typeSel == 'A') {
 					mui.openWindow({
 						url: "DeviceDetail.html",
 						id: 'DeviceDetail.html'
 					});
 				}
+				if (typeSel == 'B') {
+					mui.openWindow({
+						url: "newDataChart.html",
+						id: 'newDataChart.html'
+					});
+				}
+				if (typeSel == 'C') {
+					mui.openWindow({
+						url: "checkHistory.html",
+						id: 'checkHistoryID'
+					});
+				}
+				if (typeSel == 'D') {
+					mui.openWindow({
+						url: "artificialcheckList.html",
+						id: 'artificialcheckList.html'
+					});
+				}
 
 			}
+
 
 
 			mui.plusReady(function() {

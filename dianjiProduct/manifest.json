@@ -5,9 +5,8 @@
     "name" : "嘉轩卫士",
     /*应用名称，程序桌面图标名称*/
     "version" : {
-        "name" : "1.5.0.2",
-        /*应用版本名称*/
-        "code" : 1550
+        "name" : "1.6", /*应用版本名称*/
+        "code" : "1690"
     },
     "description" : "",
     /*应用描述信息*/
@@ -47,7 +46,6 @@
         },
         "Zip" : {},
         "File" : {},
-        "OAuth" : {},
         "Camera" : {},
         "Device" : {},
         "Storage" : {},
@@ -90,7 +88,8 @@
                 /*iOS应用打包个人证书，打包配置文件关联的个人证书*/
                 "devices" : "universal",
                 /*iOS应用支持的设备类型，可取值iphone/ipad/universal*/
-                "frameworks" : []
+                "frameworks" : [],
+                "plistcmds" : [ "Set:NSCameraUsageDescription 二维码扫描" ]
             },
             "google" : {
                 "packagename" : "",
@@ -202,6 +201,7 @@
                     "xhdpi" : "DianJi/DianJi/img/96x96.png",
                     "xxhdpi" : "DianJi/DianJi/img/144x144.png",
                     "xxxhdpi" : "DianJi/DianJi/img/192x192.png"
+
                 },
                 "appstore" : "unpackage/res/icons/1024x1024.png"
             },

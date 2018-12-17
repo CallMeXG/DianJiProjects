@@ -16,6 +16,7 @@
 			<h1 class="mui-title" style="color: white;">扫描</h1>
 			<a id="scanCodeClicked" style="color: white;" class="mui-icon iconfont icon-tubiaozhizuomoban mui-pull-right"></a>
 		</header>
+
 		<div class="mui-content">
 			<div class="mui-input-row mui-search" style="margin:5px 5px 0px 5px">
 				<input id="search" type="search" style="background-color: white;" class="mui-input-clear" placeholder="请输入设备编号" />
@@ -42,14 +43,42 @@
 				</div>
 				<div class="mui-card-footer" id="guanDevice">
 					<p style="width: 100%;font-size: 16px;">
-						<span style="float: left;color: seagreen;">关联设备：</span>
+						<span style="float: left;color: seagreen;">关联设备：{{cpxMsg.devices_name}}--</span>
 						<span id="deviceNoId" style="text-align: left;color: seagreen;">{{cpxMsg.devices_no}}</span>
 					</p>
-
 				</div>
 			</div>
-			<button onclick="enterDeviceDetail()" id="enterDeviceDetail" style="width: 70%;margin-left: 15%;display: none;margin-top: 30px;"
-			 type="button" class="mui-btn mui-btn-success">去激活 >>> </button>
+
+			<!-- <button onclick="enterDeviceDetail()" id="enterDeviceDetail" style="width: 70%;margin-left: 15%;display: none;margin-top: 30px;" -->
+			<!-- type="button" class="mui-btn mui-btn-success">去激活 >>> </button> -->
+
+			<div class="mui-card" id="cardClicked" style="display: none;">
+				<div class="mui-card-header">操作事件</div>
+				<div class="mui-card-content">
+					<ul class="mui-table-view" style="color: #0000FF;margin-top: 10px;clear: both;">
+						<li class="mui-table-view-cell" onclick="buttonClicked('A')">
+							<a class="mui-navigate-right">
+								查看设备详情
+							</a>
+						</li>
+						<li class="mui-table-view-cell" onclick="buttonClicked('B')">
+							<a class="mui-navigate-right">
+								查看数据分析
+							</a>
+						</li>
+						<li class="mui-table-view-cell" onclick="buttonClicked('C')">
+							<a class="mui-navigate-right">
+								设备点检
+							</a>
+						</li>
+						<li class="mui-table-view-cell" onclick="buttonClicked('D')">
+							<a class="mui-navigate-right">
+								远程诊断
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 
 			<div style="text-align: center;margin-top: 100px;">
 				<p style="color: slategray;">请扫描二维码或在搜索框中搜索设备</p>
@@ -136,13 +165,16 @@
 								// $('#enterDeviceDetail').html('去激活 >> ');
 								$('#guanDevice').hide();
 								$('#deviceNoId').hide();
+								$('#cardClicked').hide();
 								bolActive = false;
 							} else {
 								bolActive = true;
 								$('#guanDevice').show();
 								$('#deviceNoId').show();
-								$('#enterDeviceDetail').show();
-								$('#enterDeviceDetail').html('查看设备详情 >>>');
+								$('#cardClicked').show();
+								localStorage.DeveciName = dicSim.sim[0].devices_name;
+								console.log("00000000===" + dicSim.sim[0].devices_name)
+								// $('#enterDeviceDetail').html('查看设备详情 >>>');
 							}
 
 						} else {
@@ -160,6 +192,37 @@
 					$('#cardCPXMsg').hide();
 				}
 			}
+			
+			function buttonClicked( typeSel ){
+				localStorage.DeveciId = $('#deviceNoId').html();
+				console.log("=====" + $('#deviceNoId').html());
+				console.log("-----" + localStorage.DeveciName);
+				if(typeSel == 'A'){
+					mui.openWindow({
+						url: "DeviceDetail.html",
+						id: 'DeviceDetail.html'
+					});
+				}
+				if(typeSel == 'B'){
+					mui.openWindow({
+						url: "newDataChart.html",
+						id: 'newDataChart.html'
+					});
+				}
+				if(typeSel == 'C'){
+					mui.openWindow({
+						url: "checkHistory.html",
+						id: 'checkHistoryID'
+					});
+				}
+				if(typeSel == 'D'){
+					mui.openWindow({
+						url: "artificialcheckList.html",
+						id: 'artificialcheckList.html'
+					});
+				}
+				
+			}
 
 			function enterDeviceDetail(deviceID) {
 				if (bolActive == false) {
@@ -176,6 +239,7 @@
 
 
 			mui.plusReady(function() {
+				
 
 				plus.webview.currentWebview().setStyle({
 					softinputMode: "adjustResize"
