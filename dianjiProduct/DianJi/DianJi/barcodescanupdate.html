@@ -128,13 +128,13 @@
 				if (result.search('www.aiimoto.com') != -1) {
 					var scanResult;
 					if (result.search("p/") != -1) {
-						scanResult = result.split("p/");
+						mui.alert("不符合本地校验规则，请扫描正确的二维码", function() {});
 					}
 					if (result.search("j/") != -1) {
 						scanResult = result.split("j/");
+						localStorage.searchType = "SCAN";
+						getDataFromSever(scanResult[1]);
 					}
-					localStorage.searchType = "SCAN";
-					getDataFromSever(scanResult[1]);
 
 				} else {
 					mui.alert("不符合本地校验规则，请扫描正确的二维码", function() {});

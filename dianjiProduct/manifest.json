@@ -5,8 +5,8 @@
     "name" : "嘉轩卫士",
     /*应用名称，程序桌面图标名称*/
     "version" : {
-        "name" : "1.6", /*应用版本名称*/
-        "code" : "1690"
+        "name" : "1.7", /*应用版本名称*/
+        "code" : "1790"
     },
     "description" : "",
     /*应用描述信息*/
@@ -149,8 +149,8 @@
                         /*iPhone4 Spotlight搜索程序图标，分辨率：58x58*//*iPhone4S/5/6 Spotlight搜索程序图标，分辨率：80x80*/
                         "settings-normal" : "",
                         /*iPhone4设置页面程序图标，分辨率：29x29*//*iPhone4S/5/6设置页面程序图标，分辨率：58x58*/
-                        "app@3x" : "unpackage/res/icons/180x180.png",
-                        "app@2x" : "unpackage/res/icons/120x120.png",
+                        "app@3x" : "DianJi/DianJi/img/72x72.png",
+                        "app@2x" : "DianJi/DianJi/img/48x48.png",
                         "settings@2x" : "unpackage/res/icons/58x58.png",
                         "settings@3x" : "unpackage/res/icons/87x87.png",
                         "spotlight@2x" : "unpackage/res/icons/80x80.png",
@@ -201,7 +201,6 @@
                     "xhdpi" : "DianJi/DianJi/img/96x96.png",
                     "xxhdpi" : "DianJi/DianJi/img/144x144.png",
                     "xxxhdpi" : "DianJi/DianJi/img/192x192.png"
-
                 },
                 "appstore" : "unpackage/res/icons/1024x1024.png"
             },
@@ -228,4 +227,3 @@
     },
     "adid" : "124588210706"
 }
-
