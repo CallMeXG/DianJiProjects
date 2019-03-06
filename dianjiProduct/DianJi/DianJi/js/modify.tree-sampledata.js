@@ -1821,7 +1821,7 @@ function postData(data) {
 		data: data,
 		dataType: 'json',
 		success: function(respData) {
-
+			console.log("++++++"+JSON.stringify(respData))
 			if (respData.status == 'SUCCESS') {
 				mui.toast(respData.message);
 

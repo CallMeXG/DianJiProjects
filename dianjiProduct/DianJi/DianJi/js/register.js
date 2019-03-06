@@ -6,16 +6,16 @@ function register() {
 		var tel = $("#tel").val();
 		var telTest = /^1[34578]\d{9}$/;
 		if(tel != "") {
-			if(telTest.test(tel)) {
+			// if(telTest.test(tel)) {
 				if(($(this).html() == "获取验证码") || ($(this).html() == "重新获取")) {
 
 					PhoneNumberCanBeUsed(tel);
 				} else {
 					$(this).off("click");
 				}
-			} else {
-				mui.toast("手机号格式不正确！")
-			}
+			// } else {
+				// mui.toast("手机号格式不正确！")
+			// }
 		} else {
 			mui.toast("请先输入手机号！")
 		}
@@ -105,9 +105,11 @@ function register() {
 			mui.toast("请再次确认密码")
 		} else if(pwd1 != pwd2) {
 			mui.toast("两次密码输入不一致")
-		} else if(!(telTest.test(tel))) {
-			mui.toast("手机号格式不正确")
-		} else if(!$('#agreement').is(':checked')) {
+		} 
+// 		else if(!(telTest.test(tel))) {
+// 			mui.toast("手机号格式不正确")
+// 		} 
+		else if(!$('#agreement').is(':checked')) {
 			mui.toast("请选择条款协议")
 		} else {
 			var paramData = {

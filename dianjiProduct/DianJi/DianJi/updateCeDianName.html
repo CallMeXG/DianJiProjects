@@ -75,7 +75,7 @@
 					},
 					dataType: "json",
 					success: function(respData) {
-						console.log('---------')
+						console.log('---------'+ JSON.stringify(respData))
 						if (respData.status == 'SUCCESS') {
 							if (respData.data.length > 0) {
 								objInstall_list = respData.data;

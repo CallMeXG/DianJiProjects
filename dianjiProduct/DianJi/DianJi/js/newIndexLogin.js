@@ -25,7 +25,7 @@
 					localStorage.setItem("strLoginToken", dataTemp.strLoginToken);
 					localStorage.setItem("strUserName", dataTemp.username);
 					localStorage.setItem("strUserPhone", dataTemp.phone);
-
+					localStorage.setItem('is_manage',dataTemp.is_manage);
 					if(dataTemp.c_id == undefined) {
 						localStorage.setItem("company_id", "");
 					} else {

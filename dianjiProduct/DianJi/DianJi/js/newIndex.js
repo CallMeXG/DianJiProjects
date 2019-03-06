@@ -83,6 +83,7 @@ function autoLogin() {
 				localStorage.setItem("strLoginToken", dataTemp.strLoginToken);
 				localStorage.setItem("strUserName", dataTemp.username);
 				localStorage.setItem("strUserPhone", dataTemp.phone);
+				localStorage.setItem('is_manage',dataTemp.is_manage);
 
 				//				if(dataTemp.c_id == undefined) {
 				//					localStorage.setItem("company_id", "");
@@ -478,7 +479,9 @@ function hiddenUIWithUserType() {
 	//		console.log(strUserType);
 	if(strUserType < 10) {
 		$("#newAddDevice").hide();
-
+		if(localStorage.getItem('is_manage') == '1'){
+			$("#newAddDevice").show();
+		}
 	}
 	if(strUserType > 10) {
 		$("#newAddDevice").show();

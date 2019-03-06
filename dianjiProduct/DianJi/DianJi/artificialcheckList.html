@@ -126,28 +126,29 @@
 
 				var dataList = [];
 
+
 				$('textarea').on('input propertychange', function() {
 					var textAreaCount = $('textarea').val().length;
 					$('#textCount').html(textAreaCount + '/144');
 				})
 
 				$('.mui-btn-success').on('tap', function() {
-					console.log("===");
+					
+					mui('#popover').popover('toggle');
 					if (dataList.length > 0) {
+						var ifArray = new Array();
 						for (var i = 0; i < dataList.length; i++) {
-							if (dataList[i].apply_status == 0) {
-								mui.alert('您已有正在处理的诊断申请，请在诊断结束后再申请诊断！');
-								break;
-							} else {
-								applyCheck();
-							}
+							ifArray.push(dataList[i].apply_status);
 						}
-
+						if (ifArray.indexOf('0') == -1) {
+							applyCheck();
+						} else {
+							mui.alert('您已有正在处理的诊断申请，请在诊断结束后再申请诊断！');
+						}
 					}
 					if (dataList.length == 0) {
 						applyCheck();
 					}
-
 				});
 				$('.mui-btn-danger').on('tap', function() {
 					mui('#popover').popover('toggle');
@@ -216,7 +217,7 @@
 				}
 
 				//插入设备名称和设备编号
-				console.log("------====" + localStorage.DeveciName )
+				console.log("------====" + localStorage.DeveciName)
 				$('#artDeviceMes').html(localStorage.DeveciName + '：' + localStorage.DeveciId);
 
 				//申请人工诊断
@@ -237,7 +238,7 @@
 						success: function(respData) {
 							waitings.close();
 							if (respData.status == "SUCCESS") {
-								mui('#popover').popover('toggle');
+								// mui('#popover').popover('toggle');
 
 								mui.toast("您已经成功提交远程诊断申请!");
 								setTimeout(function() {

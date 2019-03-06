@@ -9,9 +9,11 @@ $("#login_btn").click(function() {
 		mui.toast("手机号不能为空");
 	} else if(pwd == "") {
 		mui.toast("密码不能为空");
-	} else if(!(phoneTest.test(phone))) {
-		mui.toast("手机号码格式不正确");
-	} else {
+	} 
+// 	else if(!(phoneTest.test(phone))) {
+// 		mui.toast("手机号码格式不正确");
+// 	} 
+	else {
 
 		console.log(login_Interface);
 
@@ -35,7 +37,7 @@ $("#login_btn").click(function() {
 					localStorage.setItem("userName", phone);
 					localStorage.setItem("userPwd", pwd);
 					localStorage.setItem("isLogin", "true");
-
+					localStorage.setItem('is_manage',dataTemp.is_manage);
 					localStorage.setItem("strLoginId", dataTemp.strLoginId);
 					localStorage.setItem("strLoginToken", dataTemp.strLoginToken);
 					localStorage.setItem("strUserName", dataTemp.username);
@@ -142,7 +144,7 @@ mui.plusReady(function() {
 					localStorage.setItem("userName", localStorage.getItem("userName"));
 					localStorage.setItem("userPwd", localStorage.getItem("userPwd"));
 					localStorage.setItem("isLogin", "true");
-
+                    localStorage.setItem('is_manage',dataTemp.is_manage);
 					localStorage.setItem("strLoginId", dataTemp.strLoginId);
 					localStorage.setItem("strLoginToken", dataTemp.strLoginToken);
 					localStorage.setItem("strUserName", dataTemp.username);
