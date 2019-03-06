@@ -23,26 +23,14 @@
         "url" : ""
     },
     "permissions" : {
-        "Messaging" : {
-            "description" : "短彩邮件插件"
-        },
         "Cache" : {
             "description" : "管理应用缓存"
         },
         "Console" : {
             "description" : "跟踪调试输出日志"
         },
-        "Contacts" : {
-            "description" : "访问系统联系人信息"
-        },
         "Events" : {
             "description" : "应用扩展事件"
-        },
-        "Maps" : {
-            "description" : "管理地图插件"
-        },
-        "Speech" : {
-            "description" : "管理语音识别插件"
         },
         "Zip" : {},
         "File" : {},
@@ -61,7 +49,8 @@
         "Downloader" : {},
         "Invocation" : {},
         "Orientation" : {},
-        "XMLHttpRequest" : {}
+        "XMLHttpRequest" : {},
+        "Speech" : {}
     },
     "plus" : {
         "splashscreen" : {
@@ -101,33 +90,19 @@
                 "aliasname" : "",
                 /*Android应用打包使用密钥库中证书的别名*/
                 "permissions" : [
-                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
                     "<uses-feature android:name=\"android.hardware.camera\"/>",
+                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
                     "<uses-permission android:name=\"android.permission.CAMERA\"/>",
                     "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
-                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
-                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>",
-                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
-                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
-                    "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
-                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.INTERNET\"/>",
                     "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
+                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
                     "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
-                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
-                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
-                    "<uses-feature android:name=\"android.hardware.camera\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
-                    "<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
                 ]
@@ -149,8 +124,8 @@
                         /*iPhone4 Spotlight搜索程序图标，分辨率：58x58*//*iPhone4S/5/6 Spotlight搜索程序图标，分辨率：80x80*/
                         "settings-normal" : "",
                         /*iPhone4设置页面程序图标，分辨率：29x29*//*iPhone4S/5/6设置页面程序图标，分辨率：58x58*/
-                        "app@3x" : "DianJi/DianJi/img/72x72.png",
-                        "app@2x" : "DianJi/DianJi/img/48x48.png",
+                        "app@3x" : "unpackage/res/icons/180x180.png",
+                        "app@2x" : "unpackage/res/icons/120x120.png",
                         "settings@2x" : "unpackage/res/icons/58x58.png",
                         "settings@3x" : "unpackage/res/icons/87x87.png",
                         "spotlight@2x" : "unpackage/res/icons/80x80.png",
@@ -177,8 +152,18 @@
                         /*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
                         "settings-normal" : "",
                         /*iPad设置页面程序图标，分辨率：29x29*/
-                        "settings-retina" : ""
-                    }
+                        "settings-retina" : "",
+                        "app" : "unpackage/res/icons/76x76.png",
+                        "app@2x" : "unpackage/res/icons/152x152.png",
+                        "notification" : "unpackage/res/icons/20x20.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "proapp@2x" : "unpackage/res/icons/167x167.png",
+                        "settings" : "unpackage/res/icons/29x29.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "spotlight" : "unpackage/res/icons/40x40.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png"
+                    },
+                    "appstore" : "C:/Users/Administrator/Desktop/1024.png"
                 },
                 "android" : {
                     /*iPad iOS7程序图标，分辨率：76x76*//*iPad iOS7高分屏程序图标，分辨率：152x152*/
@@ -195,12 +180,12 @@
                     "spotlight@2x" : "unpackage/res/icons/80x80.png",
                     "notification" : "unpackage/res/icons/20x20.png",
                     "notification@2x" : "unpackage/res/icons/40x40.png",
-                    "mdpi" : "DianJi/DianJi/img/48x48.png",
-                    "ldpi" : "DianJi/DianJi/img/48x48.png",
-                    "hdpi" : "DianJi/DianJi/img/72x72.png",
-                    "xhdpi" : "DianJi/DianJi/img/96x96.png",
-                    "xxhdpi" : "DianJi/DianJi/img/144x144.png",
-                    "xxxhdpi" : "DianJi/DianJi/img/192x192.png"
+                    "mdpi" : "unpackage/res/icons/48x48.png",
+                    "ldpi" : "unpackage/res/icons/48x48.png",
+                    "hdpi" : "unpackage/res/icons/72x72.png",
+                    "xhdpi" : "unpackage/res/icons/96x96.png",
+                    "xxhdpi" : "unpackage/res/icons/144x144.png",
+                    "xxxhdpi" : "unpackage/res/icons/192x192.png"
                 },
                 "appstore" : "unpackage/res/icons/1024x1024.png"
             },
@@ -221,6 +206,23 @@
                     "hdpi" : "C:/Users/Administrator/Desktop/电机项目图片/jiaxuanqidong1.png",
                     "xhdpi" : "C:/Users/Administrator/Desktop/电机项目图片/jiaxuanqidong2.png",
                     "xxhdpi" : "C:/Users/Administrator/Desktop/电机项目图片/jiaxuanqidong3.png"
+                },
+                "ios" : {
+                    "iphone" : {
+                        "retina35" : "C:/Users/Administrator/Desktop/电机项目图片/嘉轩iOS图片/640x960.png",
+                        "retina40" : "C:/Users/Administrator/Desktop/电机项目图片/嘉轩iOS图片/640x1136.png",
+                        "retina40l" : "",
+                        "retina47" : "C:/Users/Administrator/Desktop/电机项目图片/嘉轩iOS图片/750x1334.png",
+                        "retina55" : "C:/Users/Administrator/Desktop/电机项目图片/嘉轩iOS图片/1242x2208.png",
+                        "iphonex" : "C:/Users/Administrator/Desktop/电机项目图片/嘉轩iOS图片/1125x2436.png",
+                        "portrait-896h@2x" : "C:/Users/Administrator/Desktop/电机项目图片/嘉轩iOS图片/828x1792.png",
+                        "portrait-896h@3x" : "C:/Users/Administrator/Desktop/电机项目图片/嘉轩iOS图片/1242x2688.png"
+                    }
+                }
+            },
+            "plugins" : {
+                "speech" : {
+                    "ifly" : {}
                 }
             }
         }
