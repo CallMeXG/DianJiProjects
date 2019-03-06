@@ -27,6 +27,11 @@
 			<h1 class="mui-title" style="color: white;">功能介绍</h1>
 		</header>
 		<div class="mui-content">
+			<div id="code1_7" style="display: none;">
+				<p>1、修改申请远程诊断出现多条一样的申请的bug</p>
+				<p>2、修改登录注册时手机号验证方式</p>
+				<p>3、处理普通用户拥有部分操作权限问题</p>
+			</div>
 			<div id="code1_6" style="display: none;">
 				<p>修改扫描结果页显示内容</p>
 				
@@ -81,6 +86,9 @@
 	</body>
 	<script type="text/javascript">
 		var strCode = localStorage.getItem('updateNum');
+		if (strCode == '1.7') {
+			$('#code1_7').css('display','block');
+		}
 		if (strCode == '1.6') {
 			$('#code1_6').css('display','block');
 		}

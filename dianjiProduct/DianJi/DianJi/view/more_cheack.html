@@ -274,10 +274,10 @@
 
 			var strUserType = localStorage.getItem("userType");
 			console.log(strUserType)
-			if(strUserType < 10) {
+			if(strUserType < 10 && localStorage.getItem('is_manage') != '1') {
 				mui.toast("您的权限不足，不能进行点检");
 			}
-			if(strUserType > 10) {
+			if(strUserType > 10 || localStorage.getItem('is_manage') == '1') {
 				var allID = "";
 				var allID_Array = [];
 				$('.center ul li').find(':checkbox').each(function() {
