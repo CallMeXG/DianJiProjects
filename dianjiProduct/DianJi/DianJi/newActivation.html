@@ -476,8 +476,9 @@
 									dataType: 'json',
 									success: function(postMsg) {
 										plus.nativeUI.closeWaiting();
+										console.log('================================='+postMsg.message)
 										if (postMsg.status == 'SUCCESS') {
-											console.log('=================================')
+											
 											///*
 											var postParam = {
 												devices_no: localStorage.DeveciId,

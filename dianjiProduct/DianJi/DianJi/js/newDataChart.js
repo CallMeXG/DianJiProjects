@@ -174,6 +174,9 @@ function getDataFromSeverWithParam(proid, strZhouXaing) {
 var strUserType = localStorage.getItem("userType");
 if(strUserType < 10) {
 	$("#DisplayChangeDevice").hide();
+	if(localStorage.getItem('is_manage') == '1'){
+		$("#DisplayChangeDevice").show();
+	}
 }
 if(strUserType > 10) {
 	$("#DisplayChangeDevice").show();

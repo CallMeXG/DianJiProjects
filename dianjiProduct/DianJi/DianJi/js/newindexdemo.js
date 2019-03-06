@@ -114,7 +114,7 @@ $(function() {
 						localStorage.setItem("strLoginToken", dataTemp.strLoginToken);
 						localStorage.setItem("strUserName", dataTemp.username);
 						localStorage.setItem("strUserPhone", dataTemp.phone);
-
+						localStorage.setItem('is_manage',dataTemp.is_manage);
 						var tanchuForm = new Vue({
 							el: '#tanchuForm',
 							data: {
@@ -463,6 +463,9 @@ $(function() {
 			//		console.log(strUserType);
 			if(strUserType < 10) {
 				$("#newAddDevice").hide();
+				if(localStorage.getItem('is_manage') == '1'){
+					$("#newAddDevice").show();
+				}
 			}
 			if(strUserType > 10) {
 				$("#newAddDevice").show();

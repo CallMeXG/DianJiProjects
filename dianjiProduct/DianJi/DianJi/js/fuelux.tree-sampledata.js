@@ -62,6 +62,9 @@ mui.plusReady(function() {
 	var strUserType = localStorage.getItem("userType");
 	if(strUserType < 10) {
 		$("#xiugai").hide();
+		if(localStorage.getItem('is_manage') == '1'){
+			$("#xiugai").show();
+		}
 	}
 	if(strUserType > 10) {
 		$("#xiugai").show();
@@ -82,10 +85,11 @@ mui.plusReady(function() {
 	$("#changeDeviceID").on('tap', function() {
 		//判断权限，是否显示修改信息
 		var strUserType = localStorage.getItem("userType");
-		if(strUserType < 10) {
+		if(strUserType < 10 && localStorage.getItem('is_manage') != '1') {
 			mui.alert('您没有权限进行设备信息修改，请先去申请相关权限！', '无访问权限', '我知道了');
 		}
-		if(strUserType > 10) {
+		
+		if(strUserType > 10 || localStorage.getItem('is_manage') == '1') {
 			var webDetail = plus.webview.create('ModifyInformation.html', 'ModifyInformation.html');
 			webDetail.show();
 			mui('.mui-popover').popover("hide");
@@ -100,10 +104,10 @@ mui.plusReady(function() {
 	$("#changeCEDianName").on('tap', function() {
 			//判断权限，是否显示修改信息
 			var strUserType = localStorage.getItem("userType");
-			if(strUserType < 10) {
+			if(strUserType < 10 && localStorage.getItem('is_manage') != '1') {
 				mui.alert('您没有权限进行设备信息修改，请先去申请相关权限！', '无访问权限', '我知道了');
 			}
-			if(strUserType > 10) {
+			if(strUserType > 10 || localStorage.getItem('is_manage') == '1') {
 // 				var webDetail = plus.webview.create('ModifyInformation.html', 'ModifyInformation.html');
 // 				webDetail.show();
 				mui('.mui-popover').popover("hide");

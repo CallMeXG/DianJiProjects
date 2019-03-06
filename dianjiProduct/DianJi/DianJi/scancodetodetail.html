@@ -85,6 +85,14 @@
 				var strUserType = localStorage.getItem("userType");
 				if(strUserType < 10) {
 					$("#footerActiveID").hide();
+					if(localStorage.getItem('is_manage') == '1'){
+						var strGranFather = localStorage.getItem('fatherID');
+						if(strGranFather == 'updateDevice') {
+							$("#footerActiveID").show();
+						} else {
+							$("#footerActiveID").hide();
+						}
+					}
 				}
 				if(strUserType > 10) {
 					//获取上 上一页的ID，判断是从设备列表页过来的，还是从设备信息修改页过来的

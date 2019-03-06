@@ -3,7 +3,7 @@ mui.plusReady(function() {
 	function getVersionCode() {
 		var strProject = "机电卫士";
 //		var strProject = "嘉轩卫士";
-		localStorage.setItem("localVersionCode", 1590);
+		localStorage.setItem("localVersionCode", 1690);
 		var strPhoneOSType;
 		if(mui.os.ios) {
 			strPhoneOSType = "iOS";
