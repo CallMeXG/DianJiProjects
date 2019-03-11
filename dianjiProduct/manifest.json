@@ -191,6 +191,17 @@
                     "hdpi" : "C:/Users/Administrator/Desktop/电机项目图片/qidong1.png",
                     "xhdpi" : "C:/Users/Administrator/Desktop/电机项目图片/qidong2.png",
                     "xxhdpi" : "C:/Users/Administrator/Desktop/电机项目图片/qidong3.png"
+                },
+                "ios" : {
+                    "iphone" : {
+                        "retina35" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/640_960.png",
+                        "retina40" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/640_1136.png",
+                        "retina47" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/750_1334.png",
+                        "retina55" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/1242_2208.png",
+                        "iphonex" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/1125_2436.png",
+                        "portrait-896h@2x" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/828_1792.png",
+                        "portrait-896h@3x" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/1242_2688.png"
+                    }
                 }
             }
         }
