@@ -98,13 +98,7 @@
                     "<uses-permission android:name=\"android.permission.CAMERA\"/>",
                     "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.INTERNET\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
-                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
-                    "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+                    "<uses-permission android:name=\"android.permission.INTERNET\"/>"
                 ]
             },
             "orientation" : [ "portrait-primary" ],
@@ -223,7 +217,12 @@
             "plugins" : {
                 "speech" : {
                     "ifly" : {}
-                }
+                    "hdpi" : "C:/Users/Administrator/Desktop/电机项目图片/qidong1.png",
+                    "xhdpi" : "C:/Users/Administrator/Desktop/电机项目图片/qidong2.png",
+                    "xxhdpi" : "C:/Users/Administrator/Desktop/电机项目图片/qidong3.png"
+                },
+                "ios" : {
+                    }
             }
         }
     },
