@@ -215,14 +215,7 @@
                 }
             },
             "plugins" : {
-                "speech" : {
-                    "ifly" : {}
-                    "hdpi" : "C:/Users/Administrator/Desktop/电机项目图片/qidong1.png",
-                    "xhdpi" : "C:/Users/Administrator/Desktop/电机项目图片/qidong2.png",
-                    "xxhdpi" : "C:/Users/Administrator/Desktop/电机项目图片/qidong3.png"
-                },
-                "ios" : {
-                    }
+               
             }
         }
     },
