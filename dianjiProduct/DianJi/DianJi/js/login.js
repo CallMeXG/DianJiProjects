@@ -1,7 +1,10 @@
 //function tip() {
 //点击登录事件
 
+
+
 $("#login_btn").click(function() {
+	
 	var phone = $("#login_phone").val();
 	var pwd = $("#login_pwd").val();
 	var phoneTest = /^1[34578]\d{9}$/;
