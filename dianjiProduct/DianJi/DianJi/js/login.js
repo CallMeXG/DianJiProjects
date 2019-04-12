@@ -116,7 +116,7 @@ $("#forgetPwd").on("tap", function() {
 
 //}
 mui.plusReady(function() {
-	//关闭等待框
+	
 	
 	if(localStorage.getItem("userName") != undefined) {
 		plus.nativeUI.showWaiting('正在登录...');

@@ -90,9 +90,13 @@ mui.plusReady(function() {
 		}
 		
 		if(strUserType > 10 || localStorage.getItem('is_manage') == '1') {
+			
 			var webDetail = plus.webview.create('ModifyInformation.html', 'ModifyInformation.html');
 			webDetail.show();
 			mui('.mui-popover').popover("hide");
+// var webDetail = plus.webview.create('html/changeDeviceDetail.html', 'changeDeviceDetail.html');
+// 			webDetail.show();
+// 			mui('.mui-popover').popover("hide");
 
 //			mui.openWindow({
 //				url: 'ModifyInformation.html',
