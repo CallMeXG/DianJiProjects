@@ -183,7 +183,8 @@ function dealWithData_boxing(dealData) {
 			for(var i = 0; i < xData.length; i++) {
 				seriesData.push([xData[i], yData[i]]);
 			}
-			console.log("===="+seriesData)
+			
+			// console.log("===="+seriesData)
 			chartBaoluo(seriesData);
 			$("#chart_baoluopu").show();
 		} else {

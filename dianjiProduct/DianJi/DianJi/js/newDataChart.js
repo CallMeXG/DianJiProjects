@@ -19,7 +19,7 @@ $.ajax({
 
 			if(respData.data.length != 'undefined') {
 
-				console.log("====" + JSON.stringify(respData.data))
+				// console.log("====" + JSON.stringify(respData.data))
 				if(typeof(respData.data) != "undefined") {
 					if(typeof(respData.data.probeDrawVO) != "undefined") {
 						if(typeof(respData.data.probeDrawVO.devices_name) != "undefined") {

@@ -336,7 +336,6 @@ function sensorData(emeId, i) {
 
 				} else {
 					sensorStr += '<div class="modifyCom" style="height:20px;"><span class="name">电池电量：&nbsp &nbsp</span>----</div>';
-
 				}
 
 

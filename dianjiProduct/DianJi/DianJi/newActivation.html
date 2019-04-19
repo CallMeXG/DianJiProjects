@@ -58,7 +58,10 @@
 								<span>通信控制器:</span>
 								<span id="serialID"></span>
 							</div>
-
+							<div class="cpxClass">
+								<span>控制器供电模式:</span>
+								<span id="powerModel"></span>
+							</div>
 							<div class="cpxClass">
 								<span>最后连接服务器时间:</span>
 								<span id="connect_severTime"></span>
@@ -303,6 +306,15 @@
 				} else {
 					$('#serialID').html("----");
 				}
+				
+				// powerModel ---cpx供电模式
+				if(reqMsg.connectionVO != undefined){
+					$('#powerModel').html('----')
+				}
+				else{
+					$('#powerModel').html('----')
+				}
+				
 				if (reqMsg.connectionVO != undefined) {
 					var timePO = reqMsg.connectionVO;
 					$('#connect_severTime').html(timePO.connection_time);
