@@ -147,7 +147,7 @@
 				},
 				methods: {
 					forId: function(index) {
-						console.log('000000==='+index)
+						console.log('000000===' + index)
 						return "forid_" + index;
 					},
 					selectedInstall: function(index) {
@@ -182,7 +182,7 @@
 						}, {
 							value: 'gezh',
 							text: '测点10'
-						},{
+						}, {
 							value: 'ywj',
 							text: '测点11'
 						}, {
@@ -218,17 +218,17 @@
 						userPicker.show(function(items) {
 							console.log('[[[[]]]]===' + JSON.stringify(items[0]))
 							userResult.value = items[0].text;
-							var btnArr = ['修改','不修改'];
-							var mesStr = "您已选中测点位置" + '"'+items[0].text+ '",' +"是否修改测点位置名称？";
-							mui.prompt(mesStr,items[0].text,'测点位置',btnArr,function(e){
-								
+							var btnArr = ['修改', '不修改'];
+							var mesStr = "您已选中测点位置" + '"' + items[0].text + '",' + "是否修改测点位置名称？";
+							mui.prompt(mesStr, items[0].text, '测点位置', btnArr, function(e) {
+
 								if (e.index == 0) {
 									if (e.value == '') {
 										userResult.value = items[0].text;
-									}else{
+									} else {
 										userResult.value = e.value;
 									}
-								} else{
+								} else {
 									userResult.value = items[0].text;
 								}
 							})
@@ -306,15 +306,20 @@
 				} else {
 					$('#serialID').html("----");
 				}
-				
+
 				// powerModel ---cpx供电模式
-				if(reqMsg.connectionVO != undefined){
+				if (reqMsg.supply_type != undefined) {
+					if (reqMsg.supply_type == '0') {
+						$('#powerModel').html('电池供电')
+
+					}
+					if (reqMsg.supply_type == '1') {
+						$('#powerModel').html('外接电源')
+					}
+				} else {
 					$('#powerModel').html('----')
 				}
-				else{
-					$('#powerModel').html('----')
-				}
-				
+
 				if (reqMsg.connectionVO != undefined) {
 					var timePO = reqMsg.connectionVO;
 					$('#connect_severTime').html(timePO.connection_time);
@@ -438,11 +443,11 @@
 									};
 
 									//传感器安装位置,如果有历史,则提交历史信息,如果没有历史,则提交传感器编号
-// 									var strInstall = regionData.sensorList[i].sensor_no;
-// 									if (typeof(regionData.sensorList[i].install_xy) != 'undefined' && regionData.sensorList[i].install_xy !=
-// 										null && regionData.sensorList[i].install_xy.length != 0) {
-// 										strInstall = regionData.sensorList[i].install_xy;
-// 									}
+									// 									var strInstall = regionData.sensorList[i].sensor_no;
+									// 									if (typeof(regionData.sensorList[i].install_xy) != 'undefined' && regionData.sensorList[i].install_xy !=
+									// 										null && regionData.sensorList[i].install_xy.length != 0) {
+									// 										strInstall = regionData.sensorList[i].install_xy;
+									// 									}
 
 									// var strIds = 'install_' + i;
 									// var strInstallValue = document.getElementById(strIds).value;
@@ -488,9 +493,9 @@
 									dataType: 'json',
 									success: function(postMsg) {
 										plus.nativeUI.closeWaiting();
-										console.log('================================='+postMsg.message)
+										console.log('=================================' + postMsg.message)
 										if (postMsg.status == 'SUCCESS') {
-											
+
 											///*
 											var postParam = {
 												devices_no: localStorage.DeveciId,
@@ -508,15 +513,15 @@
 													if (postMsg.status == 'SUCCESS') {
 														mui.toast('激活成功！');
 														mui.openWindow({
-															url:'DeviceDetail.html',
-															id:'DeviceDetail.html'
+															url: 'DeviceDetail.html',
+															id: 'DeviceDetail.html'
 														});
-// 														setTimeout(function() {
-// 															var fatherWeb = plus.webview.currentWebview().opener();
-// 															mui.fire(fatherWeb, 'activeBack');
-// 															var objWeb = plus.webview.currentWebview();
-// 															plus.webview.close(objWeb.id, 'none', 0.01);
-// 														}, 1000);
+														// 														setTimeout(function() {
+														// 															var fatherWeb = plus.webview.currentWebview().opener();
+														// 															mui.fire(fatherWeb, 'activeBack');
+														// 															var objWeb = plus.webview.currentWebview();
+														// 															plus.webview.close(objWeb.id, 'none', 0.01);
+														// 														}, 1000);
 
 													} else {
 														mui.toast('激活失败，请重试！');

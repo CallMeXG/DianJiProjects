@@ -56,32 +56,81 @@ function setEleForLongModel(valueData) {
 		var objRms = valueData[i].rmsDrawVO
 		var titleStart = valueData[i].install_xy
 		for (var keyItem in objRms) {
-			var strChart = '<div class="chart_qushiClass" id="chartLong_' + i + keyItem + '"';
-			strChart += '></div>';
-			$("#qiushitu").append(strChart);
+			
+			
+			
+			
+			
 			//图表的title ---- y轴单位
 			var titleType = keyItem.charAt(keyItem.length - 1)
 			var chartTitle = ''
 			var titleOfY = ''
+			var strCounts = ''
+			//MarkLine 标线值
+			var strMarkLine = ''
+			var strMarkLine_alerm = ''
+			var strMarkLine_denger = ''
 			if (titleType == 't') {
+				strCounts = titleStart + '温度'
 				chartTitle = titleStart + '温度趋势图'
 				titleOfY = "℃"
+				strMarkLine = valueData[i]['threshold_temperature_early']
+				strMarkLine_alerm = valueData[i]['threshold_temperature']
+				strMarkLine_denger = valueData[i]['threshold_temperature_danger']
 			} else {
 				chartTitle = titleStart + titleType + '轴趋势图'
 				titleOfY = "mm/s"
+				strCounts = titleStart + titleType + '轴'
+				if(titleType == 'x'){
+				  strMarkLine = valueData[i]['threshold_early_x']
+				  strMarkLine_alerm = valueData[i]['threshold_alarm_x']
+				  strMarkLine_denger = valueData[i]['threshold_danger_x']
+				}
+				if(titleType == 'y'){
+				  strMarkLine = valueData[i]['threshold_early_y']
+				  strMarkLine_alerm = valueData[i]['threshold_alarm_y']
+				  strMarkLine_denger = valueData[i]['threshold_danger_y']
+				}
+				if(titleType == 'z'){
+				  strMarkLine = valueData[i]['threshold_early_z']
+				  strMarkLine_alerm = valueData[i]['threshold_alarm_z']
+				  strMarkLine_denger = valueData[i]['threshold_danger_z']
+				}
 			}
+			
+			
 
 			//x轴数据
 			var dataHeng = objRms[keyItem].list_x
 			//y轴数据
 			var dataZong = objRms[keyItem].list_y
+			
+			
+			
+			var strNumber = "<div style='margin-top:15px;'>\
+			<p>\
+			<span>"+strCounts+"</span>\
+			<span style='color:#88d807'>预警值:"+strMarkLine+"</span>\
+			<span style='margin-left:3px;color:#d89e07'>告警值:"+strMarkLine_alerm+"</span>\
+			<span style='margin-left:3px;color:#d83b53'>危险值:"+strMarkLine_denger+"</span>\
+			</p>\
+			</div>"
+			$('#qiushitu').append(strNumber)
+			
+			var strChart = '<div class="chart_qushiClass" id="chartLong_' + i + keyItem + '"';
+			
+			strChart += '></div>';
+			
+			$("#qiushitu").append(strChart);
+						setChartLong('chartLong_' + i + keyItem, chartTitle, dataHeng, dataZong,titleOfY,strMarkLine,strMarkLine_alerm,strMarkLine_denger)
+			
 
-			setChartLong('chartLong_' + i + keyItem, chartTitle, dataHeng, dataZong,titleOfY)
+// 			setChartLong('chartLong_' + i + keyItem, chartTitle, dataHeng, dataZong,titleOfY,strMarkLine,strMarkLine_alerm,strMarkLine_denger)
 		}
 	}
 }
 
-function setChartLong(strLongChartID, strTitle, dataXHeng, dataYZong,YName) {
+function setChartLong(strLongChartID, strTitle, dataXHeng, dataYZong,YName,markLineData,strMarkLine_alerm,strMarkLine_denger) {
 
 
 	var option_long = {
@@ -126,12 +175,51 @@ function setChartLong(strLongChartID, strTitle, dataXHeng, dataYZong,YName) {
 				color: '#5692E8',
 				width: '1'
 			},
-			inverse: true
+			inverse: true,
+			markLine:{
+				symbol:'none',
+				silent:true,
+				data:[
+					{
+						yAxis: markLineData,
+						lineStyle:{
+							type: 'solid',
+							color: '#88d807'
+						},
+						label:{
+							position: 'start'
+						}
+					},
+					{
+						yAxis: strMarkLine_alerm,
+						lineStyle:{
+							type: 'solid',
+							color: '#d89e07'
+						},
+						label:{
+							position: 'start'
+						}
+					},
+					{
+						yAxis: strMarkLine_denger,
+						lineStyle:{
+							type: 'solid',
+							color: '#d83b53'
+						},
+						label:{
+							position: 'start'
+						}
+					}
+				]
+			}
 		}]
 	}
 	var longCharts = echarts.init(document.getElementById(strLongChartID))
 	longCharts.setOption(option_long)
 }
+
+
+
 
 function demofuncation(param_dateStart, param_dataend, param_place) {
 	$.ajax({

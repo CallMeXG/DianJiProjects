@@ -44,14 +44,14 @@
 	</head>
 
 	<body>
-		
+
 		<header class="mui-bar mui-bar-nav mui_header">
 			<a style="color: white;" id="backIDs" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 id="titleText" class="mui-title mui_header_title"></h1>
 		</header>
 
 		<nav class="mui-bar mui-bar-tab">
-			
+
 			<a id="qushiChart" class="mui-tab-item mui-active" href="#id_qushi">
 				<span class="mui-icon iconfont icon-qushi"></span>
 				<span class="mui-tab-label">趋势图</span>
@@ -84,6 +84,8 @@
 				<div id="qiushitu" style="width: 100%;min-height: 600px;text-align: center;color: darkgray;margin-top: -20px;">
 
 				</div>
+				
+				<div onclick="refreshQushiCharts()" style="position: fixed;bottom: 50px;background-color: #00A680;height: 40px;width: 100%;color:white;text-align: center;margin-left: -5px;padding-top: 5px;font-size: 20px;">刷新</div>
 
 			</div>
 			<!--特征值-->
@@ -257,7 +259,7 @@
 				<div id="headerSelect_boxing">
 					<div class="div_search">
 						<p>测点位置：</p>
-						<input id="boxing_weizhiText" type="button" style="font-size: 16px;"  />
+						<input id="boxing_weizhiText" type="button" style="font-size: 16px;" />
 					</div>
 					<div style="clear: both;"></div>
 					<div class="div_search">
@@ -268,7 +270,7 @@
 					<div style="clear: both;"></div>
 					<div class="div_search">
 						<p>振动方向：</p>
-						<input id="boxing_zhouxiang" type="button" value="x" style="font-size: 16px;"  />
+						<input id="boxing_zhouxiang" type="button" value="x" style="font-size: 16px;" />
 					</div>
 
 				</div>
@@ -296,8 +298,12 @@
 
 			</div>
 		</div>
-
-		</div>
+		<script>
+			function refreshQushiCharts() {
+				console.log('refresh')
+				location.reload()
+			}
+		</script>
 	</body>
 
 	<script src="js/chartQuShi.js"></script>
@@ -305,5 +311,5 @@
 	<script src="js/chartTeZheng.js"></script>
 	<script src="js/newDataChart.js"></script>
 	<script src="js/common.js"></script>
-	
+
 </html>

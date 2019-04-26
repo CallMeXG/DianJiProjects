@@ -697,68 +697,99 @@ function sensorData(emeId, i) {
 						//xY
 						if(senData[j].threshold_early_x != undefined){
 							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">X轴预警：</span><input id="sensorXY'+i+j+'" type="number" value="'+senData[j].threshold_early_x+'"/><span>mm/s</span></div>';
+								'<div class="modifyCom"><span class="modifyFont">X轴预警值：</span><input id="sensorXY'+i+j+'" type="number" value="'+senData[j].threshold_early_x+'"/><span>mm/s</span></div>';
 						}else{
 							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">X轴预警：</span><input id="sensorXY'+i+j+'" type="number" /><span>mm/s</span></div>';
+								'<div class="modifyCom"><span class="modifyFont">X轴预警值：</span><input id="sensorXY'+i+j+'" type="number" /><span>mm/s</span></div>';
 						}
 						//XG
 						if(senData[j].threshold_alarm_x != undefined){
 							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">X轴告警：</span><input id="sensorXG'+i+j+'" type="number" value="'+senData[j].threshold_alarm_x+'" /><span>mm/s</span></div>';
+								'<div class="modifyCom"><span class="modifyFont">X轴告警值：</span><input id="sensorXG'+i+j+'" type="number" value="'+senData[j].threshold_alarm_x+'" /><span>mm/s</span></div>';
 						}else{
 							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">X轴告警：</span><input id="sensorXG'+i+j+'" type="number" /><span>mm/s</span></div>';
+								'<div class="modifyCom"><span class="modifyFont">X轴告警值：</span><input id="sensorXG'+i+j+'" type="number" /><span>mm/s</span></div>';
+						}
+						//XWX
+						if(senData[j].threshold_danger_x != undefined){
+							sensorStr +=
+								'<div class="modifyCom"><span class="modifyFont">X轴危险值：</span><input id="sensorXW'+i+j+'" type="number" value="'+senData[j].threshold_danger_x+'" /><span>mm/s</span></div>';
+						}else{
+							sensorStr +=
+								'<div class="modifyCom"><span class="modifyFont">X轴危险值：</span><input id="sensorXW'+i+j+'" type="number" /><span>mm/s</span></div>';
 						}
 						//YY
 						if(senData[j].threshold_early_y != undefined){
 							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">y轴预警：</span><input id="sensorYY'+i+j+'" type="number" value="'+senData[j].threshold_early_y+'" /><span>mm/s</span></div>';
+								'<div class="modifyCom"><span class="modifyFont">Y轴预警值：</span><input id="sensorYY'+i+j+'" type="number" value="'+senData[j].threshold_early_y+'" /><span>mm/s</span></div>';
 						}else{
 							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">y轴预警：</span><input id="sensorYY'+i+j+'" type="number" /><span>mm/s</span></div>';
+								'<div class="modifyCom"><span class="modifyFont">Y轴预警值：</span><input id="sensorYY'+i+j+'" type="number" /><span>mm/s</span></div>';
 						}
 						// YG
 						if(senData[j].threshold_alarm_y != undefined){
 							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">y轴告警：</span><input id="sensorYG'+i+j+'" type="number" value="'+senData[j].threshold_alarm_y+'"/><span>mm/s</span></div>';
+								'<div class="modifyCom"><span class="modifyFont">Y轴告警值：</span><input id="sensorYG'+i+j+'" type="number" value="'+senData[j].threshold_alarm_y+'"/><span>mm/s</span></div>';
 						}else{
 							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">y轴告警：</span><input id="sensorYG'+i+j+'" type="number" /><span>mm/s</span></div>';
+								'<div class="modifyCom"><span class="modifyFont">Y轴告警值：</span><input id="sensorYG'+i+j+'" type="number" /><span>mm/s</span></div>';
+						}
+						// YW
+						if(senData[j].threshold_danger_y != undefined){
+							sensorStr +=
+								'<div class="modifyCom"><span class="modifyFont">Y轴危险值：</span><input id="sensorYW'+i+j+'" type="number" value="'+senData[j].threshold_danger_y+'"/><span>mm/s</span></div>';
+						}else{
+							sensorStr +=
+								'<div class="modifyCom"><span class="modifyFont">Y轴危险值：</span><input id="sensorYW'+i+j+'" type="number" /><span>mm/s</span></div>';
 						}
 						//ZY
 						if(senData[j].threshold_early_z != undefined){
 							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">z轴预警：</span><input id="sensorZY'+i+j+'" type="number" value="'+senData[j].threshold_early_z+'" /><span>mm/s</span></div>';
+								'<div class="modifyCom"><span class="modifyFont">Z轴预警值：</span><input id="sensorZY'+i+j+'" type="number" value="'+senData[j].threshold_early_z+'" /><span>mm/s</span></div>';
 						}else{
 							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">z轴预警：</span><input id="sensorZY'+i+j+'" type="number" /><span>mm/s</span></div>';
+								'<div class="modifyCom"><span class="modifyFont">Z轴预警值：</span><input id="sensorZY'+i+j+'" type="number" /><span>mm/s</span></div>';
 						}
 						// ZG
 						if(senData[j].threshold_alarm_z != undefined){
 							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">z轴告警：</span><input id="sensorZG'+i+j+'" type="number" value="'+senData[j].threshold_alarm_z+'"/><span>mm/s</span></div>';
+								'<div class="modifyCom"><span class="modifyFont">Z轴告警值：</span><input id="sensorZG'+i+j+'" type="number" value="'+senData[j].threshold_alarm_z+'"/><span>mm/s</span></div>';
 						}else{
 							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">z轴告警：</span><input id="sensorZG'+i+j+'" type="number" /><span>mm/s</span></div>';
+								'<div class="modifyCom"><span class="modifyFont">Z轴告警值：</span><input id="sensorZG'+i+j+'" type="number" /><span>mm/s</span></div>';
+						}
+						// ZW
+						if(senData[j].threshold_danger_z != undefined){
+							sensorStr +=
+								'<div class="modifyCom"><span class="modifyFont">Z轴危险值：</span><input id="sensorZW'+i+j+'" type="number" value="'+senData[j].threshold_danger_z+'"/><span>mm/s</span></div>';
+						}else{
+							sensorStr +=
+								'<div class="modifyCom"><span class="modifyFont">Z轴危险值：</span><input id="sensorZW'+i+j+'" type="number" /><span>mm/s</span></div>';
 						}
 						//TY
 						if(senData[j].threshold_temperature_early != undefined){
 							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">温度预警：</span><input id="sensorTY'+i+j+'" type="number" value="'+senData[j].threshold_temperature_early+'" /><span>mm/s</span></div>';
+								'<div class="modifyCom"><span class="modifyFont">温度预警值：</span><input id="sensorTY'+i+j+'" type="number" value="'+senData[j].threshold_temperature_early+'" /><span>℃</span></div>';
 						}else{
 							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">温度预警：</span><input id="sensorTY'+i+j+'" type="number" /><span>mm/s</span></div>';
+								'<div class="modifyCom"><span class="modifyFont">温度预警值：</span><input id="sensorTY'+i+j+'" type="number" /><span>℃</span></div>';
 						}
 						// TG
 						if(senData[j].threshold_temperature != undefined){
 							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">温度告警：</span><input id="sensorTG'+i+j+'" type="number" value="'+senData[j].threshold_temperature+'"/><span>mm/s</span></div>';
+								'<div class="modifyCom"><span class="modifyFont">温度告警值：</span><input id="sensorTG'+i+j+'" type="number" value="'+senData[j].threshold_temperature+'"/><span>℃</span></div>';
 						}else{
 							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">温度告警：</span><input id="sensorTG'+i+j+'" type="number" /><span>mm/s</span></div>';
+								'<div class="modifyCom"><span class="modifyFont">温度告警值：</span><input id="sensorTG'+i+j+'" type="number" /><span>℃</span></div>';
 						}
-						
+						// TW
+						if(senData[j].threshold_temperature_danger != undefined){
+							sensorStr +=
+								'<div class="modifyCom"><span class="modifyFont">温度危险值：</span><input id="sensorTW'+i+j+'" type="number" value="'+senData[j].threshold_temperature_danger+'"/><span>℃</span></div>';
+						}else{
+							sensorStr +=
+								'<div class="modifyCom"><span class="modifyFont">温度危险值：</span><input id="sensorTW'+i+j+'" type="number" /><span>℃</span></div>';
+						}
 						
 // 						sensorStr +=
 // 							'<div class="modifyCom"><span class="modifyFont">Y轴预警：</span><input id="sensorYY'+i+j+'" type="number" /><span>mm/s</span></div>';
@@ -2050,6 +2081,9 @@ function finshBtnClickReturnData() {
 								var strXZhouGJ = "#sensorXG" + i + j;
 								var objXZhouGJ = $(strXZhouGJ).val();
 								
+								var strXZhouWX = "#sensorXW" + i + j;
+								var objXZhouWX = $(strXZhouWX).val();
+								
 								
 								//-----------Y
 								var strYZhouYJ = "#sensorYY" + i + j;
@@ -2059,12 +2093,18 @@ function finshBtnClickReturnData() {
 								var strYZhouGJ = "#sensorYG" + i + j;
 								var objYZhouGJ = $(strYZhouGJ).val();
 								
+								var strYZhouWX = "#sensorYW" + i + j;
+								var objYZhouWX = $(strYZhouWX).val();
+								
 								//----------Z
 								var strZZhouYJ = "#sensorZY" + i + j;
 								var objZZhouYJ = $(strZZhouYJ).val();
 								
 								var strZZhouGJ = "#sensorZG" + i + j;
 								var objZZhouGJ = $(strZZhouGJ).val();
+								
+								var strZZhouWX = "#sensorZW" + i + j;
+								var objZZhouWX = $(strZZhouWX).val();
 								
 								//----------wendu
 								var strTZhouYJ = "#sensorTY" + i + j;
@@ -2073,20 +2113,30 @@ function finshBtnClickReturnData() {
 								var strTZhouGJ = "#sensorTG" + i + j;
 								var objTZhouGJ = $(strTZhouGJ).val();
 								
+								var strTZhouWX = "#sensorTW" + i + j;
+								var objTZhouWX = $(strTZhouWX).val();
+								
 								if(objXZhouYJ.length == 0 || objXZhouGJ.length == 0 || objYZhouYJ.length == 0 || objYZhouGJ.length == 0 || 
-								objZZhouYJ.length == 0 || objZZhouGJ.length == 0 || objTZhouYJ.length == 0 || objTZhouGJ.length == 0){
+								objZZhouYJ.length == 0 || objZZhouGJ.length == 0 || objTZhouYJ.length == 0 || objTZhouGJ.length == 0 || objXZhouWX.length == 0 || objYZhouWX.length == 0 || objTZhouWX.length == 0 ){
 									mui.toast("告警门限值必须填写！请检查是否填写");
 									return false;
 								}
 								else{
 									sensorGAoJingData.threshold_early_x = objXZhouYJ;
 									sensorGAoJingData.threshold_alarm_x = objXZhouGJ;
+									sensorGAoJingData.threshold_danger_x = objXZhouWX;
+									
 									sensorGAoJingData.threshold_early_y = objYZhouYJ;
 									sensorGAoJingData.threshold_alarm_y = objYZhouGJ;
+									sensorGAoJingData.threshold_danger_y = objYZhouWX;
+									
 									sensorGAoJingData.threshold_early_z = objZZhouYJ;
 									sensorGAoJingData.threshold_alarm_z = objZZhouGJ;
+									sensorGAoJingData.threshold_danger_z = objZZhouWX;
+									
 									sensorGAoJingData.threshold_temperature_early = objTZhouYJ;
 									sensorGAoJingData.threshold_temperature = objTZhouGJ;
+									sensorGAoJingData.threshold_temperature_danger = objTZhouWX;
 								}
 								
 								sensorGAoJingData.serial_no = obj_j_card;
@@ -2160,13 +2210,7 @@ function finshBtnClickReturnData() {
 							var str_j_chuan = "#chuanID" + i + j;
 							var obj_j_chaun = $(str_j_chuan).val();
 					
-					
-							
-							
-					
-					
 							var obj_commenDic = new Object();
-							
 							
 							
 							//安装位置
@@ -2202,6 +2246,9 @@ function finshBtnClickReturnData() {
 								var strXZhouGJ = "#sensorXG" + i + j;
 								var objXZhouGJ = $(strXZhouGJ).val();
 								
+								var strXZhouWX = "#sensorXW" + i + j;
+								var objXZhouWX = $(strXZhouWX).val();
+								
 								
 								//-----------Y
 								var strYZhouYJ = "#sensorYY" + i + j;
@@ -2211,40 +2258,50 @@ function finshBtnClickReturnData() {
 								var strYZhouGJ = "#sensorYG" + i + j;
 								var objYZhouGJ = $(strYZhouGJ).val();
 								
+								var strYZhouWX = "#sensorYW" + i + j;
+								var objYZhouWX = $(strYZhouWX).val();
 								
 								//----------Z
 								var strZZhouYJ = "#sensorZY" + i + j;
 								var objZZhouYJ = $(strZZhouYJ).val();
 								
-								
 								var strZZhouGJ = "#sensorZG" + i + j;
 								var objZZhouGJ = $(strZZhouGJ).val();
 								
+								var strZZhouWX = "#sensorZW" + i + j;
+								var objZZhouWX = $(strZZhouWX).val();
 								
 								//----------wendu
 								var strTZhouYJ = "#sensorTY" + i + j;
 								var objTZhouYJ = $(strTZhouYJ).val();
 								
-								
 								var strTZhouGJ = "#sensorTG" + i + j;
 								var objTZhouGJ = $(strTZhouGJ).val();
 								
-								console.log("=========menxianzhi=======" + objXZhouYJ)
+								var strTZhouWX = "#sensorTW" + i + j;
+								var objTZhouWX = $(strTZhouWX).val();
 								
 								if(objXZhouYJ.length == 0 || objXZhouGJ.length == 0 || objYZhouYJ.length == 0 || objYZhouGJ.length == 0 || 
-								objZZhouYJ.length == 0 || objZZhouGJ.length == 0 || objTZhouYJ.length == 0 || objTZhouGJ.length == 0){
+								objZZhouYJ.length == 0 || objZZhouGJ.length == 0 || objTZhouYJ.length == 0 || objTZhouGJ.length == 0 || objXZhouWX.length == 0 || objYZhouWX.length == 0 || objTZhouWX.length == 0 ){
 									mui.toast("告警门限值必须填写！请检查是否填写");
 									return false;
 								}
 								else{
 									sensorGAoJingData.threshold_early_x = objXZhouYJ;
 									sensorGAoJingData.threshold_alarm_x = objXZhouGJ;
+									sensorGAoJingData.threshold_danger_x = objXZhouWX;
+									
 									sensorGAoJingData.threshold_early_y = objYZhouYJ;
 									sensorGAoJingData.threshold_alarm_y = objYZhouGJ;
+									sensorGAoJingData.threshold_danger_y = objYZhouWX;
+									
 									sensorGAoJingData.threshold_early_z = objZZhouYJ;
 									sensorGAoJingData.threshold_alarm_z = objZZhouGJ;
+									sensorGAoJingData.threshold_danger_z = objZZhouWX;
+									
 									sensorGAoJingData.threshold_temperature_early = objTZhouYJ;
 									sensorGAoJingData.threshold_temperature = objTZhouGJ;
+									sensorGAoJingData.threshold_temperature_danger = objTZhouWX;
 								}
 								
 								
