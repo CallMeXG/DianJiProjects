@@ -106,7 +106,7 @@ function loadDataWithDate(respData) {
 			$("#chart_baoluopu").show();
 			dealWithData_boxing(proData);
 		} else {
-			mui.toast("没有相关数据...");
+			// mui.toast("没有相关数据...");
 			$("#chart_shiyu").hide();
 			$("#chart_pinpu").hide();
 			$("#chart_sudu").hide();
@@ -114,7 +114,7 @@ function loadDataWithDate(respData) {
 
 		}
 	} else {
-		mui.toast("没有相关数据...");
+		// mui.toast("没有相关数据...");
 		$("#chart_shiyu").hide();
 		$("#chart_pinpu").hide();
 		$("#chart_sudu").hide();

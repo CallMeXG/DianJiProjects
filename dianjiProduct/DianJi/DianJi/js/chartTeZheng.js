@@ -10,13 +10,16 @@ function getDataFromInitWithCaiyang(cedianArray, caijiTimeArray, strCedain, strT
 }
 //下面表中数据，根据newDataChart.js获取
 function getDataFromInit(respData) {
-	dealWithData_tezheng(respData.probeDrawVO,respData.installList);
+	if (respData.probeDrawVO != undefined) {
+		dealWithData_tezheng(respData.probeDrawVO,respData.installList);
+	}
+	
 }
 
 function dealWithData_tezheng(respData,installList) {
 	//X------------------------------------------------------------------
 	//x -1
-	//	console.log("teapmerature ==== "+respData.temperature);
+		
 
 	if(typeof(respData.install_xy) != "undefined") {
 		$('#tezheng_place').val(respData.install_xy);

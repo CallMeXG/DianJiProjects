@@ -1,0 +1,388 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<script src="js/vue.min.js"></script>
+		<style>
+			.deviceText{
+				padding: 5px 20px;
+				color: #00C1AA;
+			}
+			.textP {
+			}
+			.textP span{
+				float: left;
+				line-height: 20px;
+				height: 20px;
+			}
+			.textP input{
+				float: left;
+				width: 120px;
+				height: 20px;
+				margin-left: 5px;
+				margin-right: 5px;
+			}
+			button{
+				width: 100%;
+				height: 50px;
+				background-color: #00A680;
+				color: white;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" id="head">
+			<a class=" mui-icon mui-icon-left-nav mui-pull-left mui-action-back"></a>
+			<h1 class="mui-title ">告警配置</h1>
+		</header>
+		<div class="mui-content" id="settingID">
+			<div class="mui-card">
+				<div class="mui-card-header">设备信息</div>
+				<div class="mui-card-content">
+					<p class="deviceText">设备名称 : {{device_name}}</p>
+					<p class="deviceText" style="margin-top: -10px;">设备编号 : {{device_id}}</p>
+
+				</div>
+			</div>
+			<div class="mui-card">
+				<div class="mui-card-header">
+					配置告警信息
+				</div>
+				<div class="mui-card-content">
+
+					<template v-for="(item,index) in dataSimList">
+						<ul class="mui-table-view ">
+							<li class="mui-table-view-cell mui-collapse mui-active">
+								<a class="mui-navigate-right" href="#">{{item.serial_no}}</a>
+								<div class="mui-collapse-content">
+									<p>
+										<span style="float: left;">就地告警：</span>
+										<input v-model="item.alarm_on_off" type="checkbox" style="zoom: 160%;float: left;" />
+									</p>
+									<div style="clear: both;"></div>
+									<template v-if="item.sensorList != undefined">
+										<template v-for="sensorItem in item.sensorList">
+											<p style="margin-top: 10px;color: #007AFF;">---- SE-L01智能传感器 : {{sensorItem.sensor_no}}</p>
+											<p>
+												<span style="float: left;">告警输出：</span>
+												<input v-model="sensorItem.alarm_judge" type="checkbox" style="zoom: 160%;float: left;" />
+											</p>
+											<div style="clear: both;"></div>
+											<p>
+												<span style="float: left;">控制输出：</span>
+												<input @click="alermControllClicked($event)" v-model="sensorItem.control_notice" type="checkbox" style="zoom: 160%;float: left;" />
+											</p>
+											<div style="clear: both;"></div>
+											<p v-if="sensorItem.install_xy != undefined">安装位置：{{sensorItem.install_xy}}</p>
+											<p v-if="sensorItem.install_xy == undefined">安装位置：----</p>
+											<div v-show="item.alarm_on_off == '1'">
+												<div v-show="item.sensorType === 'V'">
+													<p class="textP" style="margin-top: 5px;">
+														<span>X轴预警值:</span>
+														<input type="tel" v-model="sensorItem.threshold_early_x" />
+														<span>mm/s</span>
+													</p>
+													<div style="clear: both;"></div>
+													<p class="textP">
+														<span>X告警轴值:</span>
+														<input type="tel" v-model="sensorItem.threshold_alarm_x" />
+														<span>mm/s</span>
+													</p>
+													<div style="clear: both;"></div>
+													<p class="textP">
+														<span>X轴危险值:</span>
+														<input type="tel" v-model="sensorItem.threshold_danger_x" />
+														<span>mm/s</span>
+													</p>
+													<div style="clear: both;"></div>
+													<p class="textP">
+														<span>Y轴预警值:</span>
+														<input type="tel" v-model="sensorItem.threshold_early_y" />
+														<span>mm/s</span>
+													</p>
+													<div style="clear: both;"></div>
+													<p class="textP">
+														<span>Y轴告警值:</span>
+														<input type="tel" v-model="sensorItem.threshold_alarm_y" />
+														<span>mm/s</span>
+													</p>
+													<div style="clear: both;"></div>
+													<p class="textP">
+														<span>Y轴危险值:</span>
+														<input type="tel" v-model="sensorItem.threshold_danger_y" />
+														<span>mm/s</span>
+													</p>
+													<div style="clear: both;"></div>
+													<p class="textP">
+														<span>Z轴预警值:</span>
+														<input type="tel" v-model="sensorItem.threshold_early_z" />
+														<span>mm/s</span>
+													</p>
+													<div style="clear: both;"></div>
+													<p class="textP">
+														<span>Z轴告警值:</span>
+														<input type="tel" v-model="sensorItem.threshold_alarm_z" />
+														<span>mm/s</span>
+													</p>
+													<div style="clear: both;"></div>
+													<p class="textP">
+														<span>Z轴危险值:</span>
+														<input type="tel" v-model="sensorItem.threshold_danger_z" />
+														<span>mm/s</span>
+													</p>
+												</div>
+												
+												<div style="clear: both;"></div>
+												<p class="textP">
+													<span>温度预警值:</span>
+													<input type="tel" v-model="sensorItem.threshold_temperature_early" />
+													<span>℃</span>
+												</p>
+												<div style="clear: both;"></div>
+												<p class="textP">
+													<span>温度告警值:</span>
+													<input type="tel" v-model="sensorItem.threshold_temperature" />
+													<span>℃</span>
+												</p>
+												<div style="clear: both;"></div>
+												<p class="textP">
+													<span>温度危险值:</span>
+													<input type="tel" v-model="sensorItem.threshold_temperature_danger" />
+													<span>℃</span>
+												</p>
+												<div style="clear: both;"></div>
+											</div>
+
+
+
+										</template>
+									</template>
+
+								</div>
+							</li>
+						</ul>
+						<template v-if="index != dataSimList.length - 1">
+							<hr />
+						</template>
+
+
+					</template>
+				</div>
+			</div>
+
+			<button @click="submitFunction">提交</button>
+
+		</div>
+		<script src="js/url_all.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+
+			mui.plusReady(function() {
+
+				var updateSetting = new Vue({
+					el: '#settingID',
+					data() {
+						return {
+							device_name: plus.webview.currentWebview().strDeviceName,
+							device_id: plus.webview.currentWebview().strDeviceID,
+							dataSimList: new Array(),
+							showText: false
+						}
+					},
+					mounted() {
+						console.log("[][][]")
+						var simListData = plus.webview.currentWebview().arrPushData
+						for (var i = 0; i < simListData.length; i++) {
+							var objSim = simListData[i]
+							var newObjSim = new Object()
+							newObjSim.serial_no = objSim.serial_no;
+							if (objSim.alarm_on_off != undefined) {
+								if (objSim.alarm_on_off == 0) {
+									newObjSim.alarm_on_off = false;
+								} else{
+									newObjSim.alarm_on_off = true;
+								}
+								
+							} else {
+								newObjSim.alarm_on_off = false
+							}
+
+							var arrSensor = new Array()
+							for (var j = 0; j < objSim.sensorList.length; j++) {
+								var objSensor = objSim.sensorList[j]
+								var newObjSensor = new Object()
+								newObjSensor.sensor_no = objSensor.sensor_no;
+								newObjSensor.install_xy = objSensor.install_xy;
+								newObjSensor.install_id = objSensor.install_id;
+								newObjSensor.threshold_early_x = objSensor.threshold_early_x;
+								newObjSensor.threshold_alarm_x = objSensor.threshold_alarm_x;
+								newObjSensor.threshold_danger_x = objSensor.threshold_danger_x;
+								newObjSensor.threshold_early_y = objSensor.threshold_early_y;
+								newObjSensor.threshold_alarm_y = objSensor.threshold_alarm_y;
+								newObjSensor.threshold_danger_y = objSensor.threshold_danger_y;
+								newObjSensor.threshold_early_z = objSensor.threshold_early_z;
+								newObjSensor.threshold_alarm_z = objSensor.threshold_alarm_z;
+								newObjSensor.threshold_danger_z = objSensor.threshold_danger_z;
+								newObjSensor.threshold_temperature_early = objSensor.threshold_temperature_early;
+								newObjSensor.threshold_temperature = objSensor.threshold_temperature;
+								newObjSensor.threshold_temperature_danger = objSensor.threshold_temperature_danger;
+								if (objSensor.alarm_judge != undefined && objSensor.alarm_judge == 1) {
+									newObjSensor.alarm_judge = true;
+								} else{
+									newObjSensor.alarm_judge = false;
+								}
+								
+								if (objSensor.control_notice != undefined && objSensor.control_notice == 1) {
+									newObjSensor.control_notice = true;
+								} else{
+									newObjSensor.control_notice = false;
+								}
+								
+
+
+								arrSensor.push(newObjSensor)
+
+								newObjSim.sensorList = arrSensor
+
+
+							}
+							this.dataSimList.push(newObjSim)
+
+						}
+
+
+					},
+					methods: {
+						
+						
+						checkXYZNumber(event){
+							var obj = event.currentTarget
+							console.log("[][][][][][][]" + JSON.stringify(obj))
+							//修复第一个字符是小数点 的情况.
+							if (obj.value != '' && obj.value.substr(0, 1) == '.') {
+								obj.value = "";
+							}
+							obj.value = obj.value.replace(/^0*(0\.|[1-9])/, '$1'); //解决 粘贴不生效
+							obj.value = obj.value.replace(/[^\d.]/g, ""); //清除“数字”和“.”以外的字符
+							obj.value = obj.value.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的
+							obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+							obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3'); //只能输入两个小数
+							if(event.currentTarget.value > 500)
+							{
+								event.currentTarget.value = ""
+								alert('请输入0到500的浮点数')
+								
+							}
+							// obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d\d\d).*$/,'$1$2.$3');//只能输入4个小数
+							if (obj.value.indexOf(".") < 0 && obj.value != "") { //以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
+								if (obj.value.substr(0, 1) == '0' && obj.value.length == 2) {
+									obj.value = obj.value.substr(1, obj.value.length);
+								}
+							}
+						},
+						
+						submitFunction() {
+
+							var newDataSimList = JSON.parse(JSON.stringify(this.dataSimList))
+
+							///*
+							var newObjPostParam = new Array()
+							for (var i = 0; i < newDataSimList.length; i++) {
+								var objSubSim = newDataSimList[i]
+								var objNewSubSim = objSubSim
+								
+								console.log("00000000000====" + objSubSim.alarm_on_off)
+								if (objSubSim.alarm_on_off == true) {
+									objNewSubSim.alarm_on_off = '1'
+								}
+								if (objSubSim.alarm_on_off == false) {
+									objNewSubSim.alarm_on_off = '0'
+								}
+
+								var arrSensorObj = new Array()
+								for (var j = 0; j < objSubSim.sensorList.length; j++) {
+									var objSubSensor = objSubSim.sensorList[j]
+
+									var objNewSubSensor = objSubSensor
+
+									if (objSubSensor.alarm_judge == false) {
+										objNewSubSensor.alarm_judge = '0'
+									}
+									if (objSubSensor.alarm_judge == true) {
+										objNewSubSensor.alarm_judge = '1'
+									}
+									if (objSubSensor.control_notice == false) {
+										objNewSubSensor.control_notice = '0'
+									}
+									if (objSubSensor.control_notice == true) {
+										objNewSubSensor.control_notice = '1'
+									}
+
+									arrSensorObj.push(objNewSubSensor)
+
+								}
+								newObjPostParam.push(objNewSubSim)
+							}
+
+							var data = {
+								simJson: JSON.stringify(newObjPostParam)
+							};
+							/*
+							$.ajax({
+								type: "post",
+								async: true,
+								data: data,
+								url: new_commen_update_config_Interface,
+								dataType: 'json',
+								success: function(msg) {
+									if (msg.status == 'SUCCESS') {
+										mui.toast('告警配置修改成功')
+										var old_back = mui.back;
+										mui.back = function() {
+											var wobj = plus.webview.getWebviewById("DeviceDetail.html");
+											//id为父页面id，可以换成任何准备刷新页面的id
+											wobj.reload(true);
+											old_back();
+										}
+										mui.back()
+									} else {
+										mui.toast('修改失败，请检查后重试')
+									}
+								},
+								error: function(error) {
+									mui.toast('修改失败，请检查后重试')
+								}
+							})
+						//*/
+						},
+
+						copyArray(arr) {
+							var res = []
+							for (var i = 0; i < arr.length; i++) {
+								res.push(arr[i])
+							}
+							return res
+						},
+
+						alermControllClicked(e) {
+							var targetEvent = e.target.checked
+
+							if (targetEvent == true) {
+								mui.alert('注意：输出信号可能会驱动系统控制，请谨慎设置')
+							}
+						}
+					}
+				})
+			})
+		</script>
+	</body>
+
+</html>

@@ -19,7 +19,6 @@ $.ajax({
 
 			if(respData.data.length != 'undefined') {
 
-				// console.log("====" + JSON.stringify(respData.data))
 				if(typeof(respData.data) != "undefined") {
 					if(typeof(respData.data.probeDrawVO) != "undefined") {
 						if(typeof(respData.data.probeDrawVO.devices_name) != "undefined") {
@@ -32,7 +31,7 @@ $.ajax({
 				//波形
 				loadDataWithDate(respData);
 				//趋势图
-				getInitData(respData.data);
+				// getInitData(respData.data);
 				//特征值
 				getDataFromInit(respData.data);
 				if(typeof(respData.data.installList) != "undefined") {
@@ -48,7 +47,7 @@ $.ajax({
 				}
 				
 				if(respData.data.probeDrawVO != 'undefined') {
-					if(respData.data.timeIntervalVO != 'undefined') {
+					if(respData.data.timeIntervalVO != 'undefined' && respData.data.timeIntervalVO != undefined) {
 						localStorage.setItem("StartTime", respData.data.timeIntervalVO.min_time);
 						localStorage.setItem("EndTime", respData.data.timeIntervalVO.max_time);
 						var timeStart = respData.data.timeIntervalVO.min_time;
@@ -59,10 +58,10 @@ $.ajax({
 
 				}
 			} else {
-				mui.toast("没有相关数据...");
+				// mui.toast("没有相关数据...");
 			}
 		} else {
-			mui.toast("没有相关数据...");
+			// mui.toast("没有相关数据...");
 		}
 	}
 });
@@ -108,7 +107,7 @@ function getCaiYangDianData(startTime, strEndTime, instally, strInitOrChoose, zh
 					}
 
 				} else {
-					mui.toast("没有相关数据...");
+					// mui.toast("没有相关数据...");
 					$("#boxing_weizhi").val("");
 					caiyangData.splice(0, caiyangData.length);
 				}
@@ -149,7 +148,7 @@ function getDataFromSeverWithParam(proid, strZhouXaing) {
 						//特征值
 						getDataFromInit(respData.data);
 					} else {
-						mui.toast("没有相关数据...");
+						// mui.toast("没有相关数据...");
 						$("#chart_shiyu").hide();
 						$("#chart_pinpu").hide();
 						$("#chart_sudu").hide();

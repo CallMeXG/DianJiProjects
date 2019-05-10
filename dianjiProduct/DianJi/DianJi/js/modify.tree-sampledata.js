@@ -186,7 +186,6 @@ function sensorData(emeId, i) {
 					'<div hidden="hidden" class="modifyCom"><span class="name">传感器卡编号：</span><input type="button" class="sensor_num" id="CPXID' +
 					i + '" value=' + data.serial_no + ' /></div>';
 
-				//sensorStr += '<div class="modifyCom"><span class="name">传感器卡：</span><span class="serial_no">' + data.sim_name + ' ' + data.serial_no + '</span></div>';
 				if (data.sim_name != undefined) {
 					sensorStr += '<div class="modifyCom"><span class="name">名称：</span><span class="serial_no">' + data.sim_name +
 						'</span></div>';
@@ -208,7 +207,6 @@ function sensorData(emeId, i) {
 					sensorStr += '<div class="modifyCom"><span class="name">IMEI：</span><span class="val">' + "----" +
 						'</span></div>';
 				}
-				//			sensorStr += '<div class="modifyCom"><span class="name">IMEI：</span><span class="val">' + data.imei + '</span><input class="sensor_num" type="hidden" value=' + data.serial_no + ' /></div>';
 				if (data.internet_things_no != undefined) {
 					sensorStr += '<div class="modifyCom"><span class="name">物联网卡：</span><span class="val">' + data.internet_things_no +
 						'</span></div>';
@@ -236,7 +234,6 @@ function sensorData(emeId, i) {
 						'</span></div>';
 
 				}
-				//			sensorStr += '<div class="modifyCom"><span class="name">当前状态：</span><span class="val">' + simState(data.state) + '</span><input class="workStatus" type="hidden" value=' + data.state + ' /></div>';
 
 				if (data.local_time != undefined) {
 					sensorStr += '<div class="modifyCom"><span class="name">本地时间：</span><span class="val">' + data.local_time +
@@ -248,8 +245,6 @@ function sensorData(emeId, i) {
 
 				}
 
-				//sensorStr += '<div class="modifyCom"><span class="modifyFont">上传时间：</span><input type="text" class="cardUpdateTime"  value=' + data.upload_time + ' /></div>';
-				//sensorStr += '<div class="modifyCom"><span class="name">卡固件版本：</span><span class="val">' + data.software_version + '</span></div>';
 				if (data.content) {
 					sensorStr += '<div class="divForMoreLine"><span class="name">维护日志：</span><span class="moreLine">' + "----" +
 						'</span></div>';
@@ -359,55 +354,24 @@ function sensorData(emeId, i) {
 					sensorStr += '<div class="modifyCom"><span class="name">固件版本：</span><span class="val">' + "----" +
 						'</span></div>';
 				}
-				
+
 				if (data.connect_model != undefined) {
 					if (data.connect_model == 0) {
 						sensorStr +=
 							'<div style="display:block" class="modifyCom"><span class="modifyFont">CPX工作模式：</span><input type="button" onclick="chooseCPXWorkType(' +
 							i + ')" id="cpxworktype' + i + '" value="省电模式"/></div>';
-					} else{
+					} else {
 						sensorStr +=
 							'<div style="display:block" class="modifyCom"><span class="modifyFont">CPX工作模式：</span><input type="button" onclick="chooseCPXWorkType(' +
 							i + ')" id="cpxworktype' + i + '" value="长连接模式"/></div>';
 					}
-					
-				}else{
+
+				} else {
 					sensorStr +=
 						'<div style="display:block" class="modifyCom"><span class="modifyFont">CPX工作模式：</span><input type="button" onclick="chooseCPXWorkType(' +
 						i + ')" id="cpxworktype' + i + '" value="省电模式"/></div>';
 				}
 
-				if (data.alarm_judge != undefined) {
-					if (data.alarm_judge == 0) {
-						sensorStr +=
-						'<div style="display:block" class="modifyCom"><span class="modifyFont">CPX告警判断：</span><input id="ifGaoJing' + i +
-						'" style="float:left;width:50px" type="checkbox" onclick="gaojingClicked(' + i + ')"/></div>';
-					}
-					else{
-						sensorStr +=
-						'<div style="display:block" class="modifyCom"><span class="modifyFont">CPX告警判断：</span><input id="ifGaoJing' + i +
-						'" style="float:left;width:50px" checked type="checkbox" onclick="gaojingClicked(' + i + ')"/></div>';
-					}
-					
-				} else{
-					sensorStr +=
-						'<div style="display:block" class="modifyCom"><span class="modifyFont">CPX告警判断：</span><input id="ifGaoJing' + i +
-						'" style="float:left;width:50px" checked type="checkbox" onclick="gaojingClicked(' + i + ')"/></div>';
-				}
-
-				
-					if(data.alarm_notice != undefined && data.alarm_notice == 1){
-						sensorStr +=
-							'<div style="display:block" style="height:45px;border:1px dashed red;padding-top:5px;" class="modifyCom"><span class="modifyFont">告警输出：</span><input checked id="gaojingshuchu'+i+'" style="float:left;width:50px" type="checkbox"/><span style="color:red;font-size:10px;">注意：输出信号可能会驱动系统控制，请谨慎设置</span></div>';
-					}
-					else{
-						sensorStr +=
-							'<div style="display:block" style="height:45px;border:1px dashed red;padding-top:5px;" class="modifyCom"><span class="modifyFont">告警输出：</span><input id="gaojingshuchu'+i+'" style="float:left;width:50px" type="checkbox"/><span style="color:red;font-size:10px;">注意：输出信号可能会驱动系统控制，请谨慎设置</span></div>';
-					}
-					
-				
-
-				
 				sensorStr += '<div style="display:block" class="div_cpxworktypeSD' + i + '">'; //省电模式
 
 				sensorStr += '<div class="modifyCom"><span class="modifyFont">数据采集模式：</span><input onclick="CPXModelClicked(' +
@@ -467,37 +431,35 @@ function sensorData(emeId, i) {
 
 				//长链接模式
 				sensorStr += '<div style="display:none" class="div_cpxworktypeCLJ' + i + '">';
-				if (data.sampling_duration != undefined) {
+				if (data.sampling_interval != undefined) {
 					sensorStr += '<div class="classCPXCLJ"><span>采样间隔时间：</span><input type="number" id="SD_caiyangjiange' + i +
-						'" value="'+data.sampling_duration+'"/><span>s</span></div>';
-				} else{
+						'" value="' + data.sampling_interval + '"/><span>s</span></div>';
+				} else {
 					sensorStr += '<div class="classCPXCLJ"><span>采样间隔时间：</span><input type="number" id="SD_caiyangjiange' + i +
 						'"/><span>s</span></div>';
 				}
 				if (data.upload_duration != undefined) {
 					sensorStr += '<div class="classCPXCLJ"><span>上传间隔时间：</span><input type="number" id="SD_shangchuanjiange' + i +
-						'" value="'+data.upload_duration+'"/><span>s</span></div>';
-				} else{
+						'" value="' + data.upload_duration + '"/><span>s</span></div>';
+				} else {
 					sensorStr += '<div class="classCPXCLJ"><span>上传间隔时间：</span><input type="number" id="SD_shangchuanjiange' + i +
 						'"/><span>s</span></div>';
 				}
-				
+
 				if (data.heart_duration != undefined) {
 					sensorStr += '<div class="classCPXCLJ"><span>心跳间隔时间：</span><input type="number" id="SD_xintiaojiange' + i +
-						'" value="'+data.heart_duration+'"/><span>s</span></div>';
-				} else{
+						'" value="' + data.heart_duration + '"/><span>s</span></div>';
+				} else {
 					sensorStr += '<div class="classCPXCLJ"><span>心跳间隔时间：</span><input type="number" id="SD_xintiaojiange' + i +
 						'"/><span>s</span></div>';
 				}
-				
-				
-				
+
+
+
 				sensorStr += '</div></div>'
 
 				sensorStr += '<div class="tree-folder-content" style="display: block;">';
 
-				//			if(data.sensorList != undefined || data.sensorList != '' || data.sensorList != 'undifined' || data.hasOwnProperty('sensorList') == true) {
-				//			console.log(JSON.stringify(data.sensorList))
 				if (typeof(data.sensorList) != 'undefined') {
 
 					senData = data.sensorList;
@@ -608,202 +570,93 @@ function sensorData(emeId, i) {
 						};
 						var strIndex = 'anzhuang' + i + j;
 						selInsObj[strIndex] = objDefInstall;
-						console.log("++++++++++++++===" + JSON.stringify(selInsObj))
+						//当传感器为振动类型时，显示信号采样模式、采样量程等
+						if (senData[j].sensorType == 'V') {
+							sensorStr += '<div class="sensorSD' + i + '">';
 
-						sensorStr += '<div class="sensorSD' + i + '">';
+							if (senData[j].sampling_model != undefined) {
+								sensorStr += '<div class="modifyCom"><span class="modifyFont">采样信号模式：</span><input id="caiyangmodel' + i + j +
+									'" type="button" onclick="caiyangModelClick(' + i + ',' + j + ')" class="sensorLocation" value=' + senData[
+										j]
+									.sampling_model + ' /></div>';
 
-						if (senData[j].sampling_model != undefined) {
-							sensorStr += '<div class="modifyCom"><span class="modifyFont">采样信号模式：</span><input id="caiyangmodel' + i + j +
-								'" type="button" onclick="caiyangModelClick(' + i + ',' + j + ')" class="sensorLocation" value=' + senData[j]
-								.sampling_model + ' /></div>';
+							} else {
+								sensorStr += '<div class="modifyCom"><span class="modifyFont">采样信号模式：</span><input id="caiyangmodel' + i + j +
+									'" type="button" onclick="caiyangModelClick(' + i + ',' + j + ')" class="sensorLocation"/></div>';
 
-						} else {
-							sensorStr += '<div class="modifyCom"><span class="modifyFont">采样信号模式：</span><input id="caiyangmodel' + i + j +
-								'" type="button" onclick="caiyangModelClick(' + i + ',' + j + ')" class="sensorLocation"/></div>';
+							}
 
+							if (senData[j].sampling_number != undefined) {
+								sensorStr += '<div class="modifyCom"><span class="modifyFont">采样信号点数：</span><input id="caiyangcount' + i + j +
+									'"  onclick="caiyangcountClick(' + i + ',' + j + ')" type="button" class="topology" value=' + senData[j].sampling_number +
+									' /><span style="margin-left:1px">点</span></div>';
+
+							} else {
+								sensorStr += '<div class="modifyCom"><span class="modifyFont">采样信号点数：</span><input id="caiyangcount' + i + j +
+									'"  onclick="caiyangcountClick(' + i + ',' + j +
+									')" type="button" class="topology" /><span style="margin-left:1px">点</span></div>';
+
+							}
+
+							if (senData[j].sampling_frequency != undefined) {
+								sensorStr +=
+									'<div class="modifyCom"><span class="modifyFont">采样信号频率：</span><input onclick="caiyangpinlvClick(' + i +
+									',' +
+									j + ')" id="caiyangpinlv' + i + j + '" type="button" class="sensorLocation" value=' + senData[j].sampling_frequency +
+									' /><span style="margin-left:1px">Hz</span></div>';
+
+							} else {
+								sensorStr +=
+									'<div class="modifyCom"><span class="modifyFont">采样信号频率：</span><input onclick="caiyangpinlvClick(' + i +
+									',' +
+									j + ')" id="caiyangpinlv' + i + j +
+									'" type="button" class="sensorLocation"/><span style="margin-left:1px">Hz</span></div>';
+
+							}
+
+							if (senData[j].range_data != undefined) {
+								sensorStr += '<div class="modifyCom"><span class="modifyFont">采样信号量程：</span><input id="caiyangliangcheng' +
+									i +
+									j + '"  onclick="caiyangliangchengClick(' + i + ',' + j + ')" type="button" class="sensorLocation" value=' +
+									senData[j].range_data + ' /></div>';
+
+							} else {
+								sensorStr += '<div class="modifyCom"><span class="modifyFont">采样信号量程：</span><input id="caiyangliangcheng' +
+									i +
+									j + '"  onclick="caiyangliangchengClick(' + i + ',' + j + ')" type="button" class="sensorLocation"/></div>';
+
+							}
+
+							if (senData[j].sampling_accuracy != undefined) {
+								sensorStr += '<div class="modifyCom"><span class="modifyFont">采样信号精度：</span><input id="caiyangjingdu' + i +
+									j +
+									'"  onclick="caiyangjingduClick(' + i + ',' + j + ')" type="button" class="sensorLocation" value=' +
+									senData[
+										j].sampling_accuracy + ' /><span style="margin-left:1px">bit</span></div>';
+
+							} else {
+								sensorStr += '<div class="modifyCom"><span class="modifyFont">采样信号精度：</span><input id="caiyangjingdu' + i +
+									j +
+									'"  onclick="caiyangjingduClick(' + i + ',' + j +
+									')" type="button" class="sensorLocation"/><span style="margin-left:1px">bit</span></div>';
+
+							}
+
+							if (senData[j].calibration_coefficient != undefined) {
+								sensorStr +=
+									'<div class="modifyCom"><span class="modifyFont">传感器频率校准系数：</span><input style="width:100px" id="jiaoxishu' +
+									i + '' + j + '" type="text" class="sensorLocation" value=' + senData[j].calibration_coefficient +
+									' /></div>';
+
+							} else {
+								sensorStr +=
+									'<div class="modifyCom"><span class="modifyFont">传感器频率校准系数：</span><input  style="width:100px" id="jiaoxishu' +
+									i + '' + j + '" type="text " class="sensorLocation " /></div>';
+
+							}
+							sensorStr += '</div>'
 						}
 
-						if (senData[j].sampling_number != undefined) {
-							sensorStr += '<div class="modifyCom"><span class="modifyFont">采样信号点数：</span><input id="caiyangcount' + i + j +
-								'"  onclick="caiyangcountClick(' + i + ',' + j + ')" type="button" class="topology" value=' + senData[j].sampling_number +
-								' /><span style="margin-left:1px">点</span></div>';
-
-						} else {
-							sensorStr += '<div class="modifyCom"><span class="modifyFont">采样信号点数：</span><input id="caiyangcount' + i + j +
-								'"  onclick="caiyangcountClick(' + i + ',' + j +
-								')" type="button" class="topology" /><span style="margin-left:1px">点</span></div>';
-
-						}
-
-						if (senData[j].sampling_frequency != undefined) {
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">采样信号频率：</span><input onclick="caiyangpinlvClick(' + i + ',' +
-								j + ')" id="caiyangpinlv' + i + j + '" type="button" class="sensorLocation" value=' + senData[j].sampling_frequency +
-								' /><span style="margin-left:1px">Hz</span></div>';
-
-						} else {
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">采样信号频率：</span><input onclick="caiyangpinlvClick(' + i + ',' +
-								j + ')" id="caiyangpinlv' + i + j +
-								'" type="button" class="sensorLocation"/><span style="margin-left:1px">Hz</span></div>';
-
-						}
-
-						if (senData[j].range_data != undefined) {
-							sensorStr += '<div class="modifyCom"><span class="modifyFont">采样信号量程：</span><input id="caiyangliangcheng' + i +
-								j + '"  onclick="caiyangliangchengClick(' + i + ',' + j + ')" type="button" class="sensorLocation" value=' +
-								senData[j].range_data + ' /></div>';
-
-						} else {
-							sensorStr += '<div class="modifyCom"><span class="modifyFont">采样信号量程：</span><input id="caiyangliangcheng' + i +
-								j + '"  onclick="caiyangliangchengClick(' + i + ',' + j + ')" type="button" class="sensorLocation"/></div>';
-
-						}
-
-						if (senData[j].sampling_accuracy != undefined) {
-							sensorStr += '<div class="modifyCom"><span class="modifyFont">采样信号精度：</span><input id="caiyangjingdu' + i + j +
-								'"  onclick="caiyangjingduClick(' + i + ',' + j + ')" type="button" class="sensorLocation" value=' + senData[
-									j].sampling_accuracy + ' /><span style="margin-left:1px">bit</span></div>';
-
-						} else {
-							sensorStr += '<div class="modifyCom"><span class="modifyFont">采样信号精度：</span><input id="caiyangjingdu' + i + j +
-								'"  onclick="caiyangjingduClick(' + i + ',' + j +
-								')" type="button" class="sensorLocation"/><span style="margin-left:1px">bit</span></div>';
-
-						}
-						//sensorStr += '<div class="modifyCom"><span class="modifyFont">传感器工作轴数（至少选择一个轴工作）：</span><input type="button" class="sensorLocation" value=' + "----" + ' /></div>';
-
-						sensorStr += '<div class="modifyCom"><span class="modifyFont">传感器工作轴数（至少选择一个轴工作）：</span></div>';
-						sensorStr += setCheckButton(i, j, senData[j].working_axis);
-
-						if (senData[j].calibration_coefficient != undefined) {
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">传感器频率校准系数：</span><input style="width:100px" id="jiaoxishu' +
-								i + '' + j + '" type="text" class="sensorLocation" value=' + senData[j].calibration_coefficient +
-								' /></div>';
-
-						} else {
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">传感器频率校准系数：</span><input  style="width:100px" id="jiaoxishu' +
-								i + '' + j + '" type="text " class="sensorLocation " /></div>';
-
-						}
-						sensorStr += '</div>'
-						
-						
-
-						//长连接模式，配置传感器信息
-						sensorStr += '<div style="display:block" class="sensorGaoJing' + i + '">';
-						//xY
-						if(senData[j].threshold_early_x != undefined){
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">X轴预警值：</span><input id="sensorXY'+i+j+'" type="number" value="'+senData[j].threshold_early_x+'"/><span>mm/s</span></div>';
-						}else{
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">X轴预警值：</span><input id="sensorXY'+i+j+'" type="number" /><span>mm/s</span></div>';
-						}
-						//XG
-						if(senData[j].threshold_alarm_x != undefined){
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">X轴告警值：</span><input id="sensorXG'+i+j+'" type="number" value="'+senData[j].threshold_alarm_x+'" /><span>mm/s</span></div>';
-						}else{
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">X轴告警值：</span><input id="sensorXG'+i+j+'" type="number" /><span>mm/s</span></div>';
-						}
-						//XWX
-						if(senData[j].threshold_danger_x != undefined){
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">X轴危险值：</span><input id="sensorXW'+i+j+'" type="number" value="'+senData[j].threshold_danger_x+'" /><span>mm/s</span></div>';
-						}else{
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">X轴危险值：</span><input id="sensorXW'+i+j+'" type="number" /><span>mm/s</span></div>';
-						}
-						//YY
-						if(senData[j].threshold_early_y != undefined){
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">Y轴预警值：</span><input id="sensorYY'+i+j+'" type="number" value="'+senData[j].threshold_early_y+'" /><span>mm/s</span></div>';
-						}else{
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">Y轴预警值：</span><input id="sensorYY'+i+j+'" type="number" /><span>mm/s</span></div>';
-						}
-						// YG
-						if(senData[j].threshold_alarm_y != undefined){
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">Y轴告警值：</span><input id="sensorYG'+i+j+'" type="number" value="'+senData[j].threshold_alarm_y+'"/><span>mm/s</span></div>';
-						}else{
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">Y轴告警值：</span><input id="sensorYG'+i+j+'" type="number" /><span>mm/s</span></div>';
-						}
-						// YW
-						if(senData[j].threshold_danger_y != undefined){
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">Y轴危险值：</span><input id="sensorYW'+i+j+'" type="number" value="'+senData[j].threshold_danger_y+'"/><span>mm/s</span></div>';
-						}else{
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">Y轴危险值：</span><input id="sensorYW'+i+j+'" type="number" /><span>mm/s</span></div>';
-						}
-						//ZY
-						if(senData[j].threshold_early_z != undefined){
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">Z轴预警值：</span><input id="sensorZY'+i+j+'" type="number" value="'+senData[j].threshold_early_z+'" /><span>mm/s</span></div>';
-						}else{
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">Z轴预警值：</span><input id="sensorZY'+i+j+'" type="number" /><span>mm/s</span></div>';
-						}
-						// ZG
-						if(senData[j].threshold_alarm_z != undefined){
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">Z轴告警值：</span><input id="sensorZG'+i+j+'" type="number" value="'+senData[j].threshold_alarm_z+'"/><span>mm/s</span></div>';
-						}else{
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">Z轴告警值：</span><input id="sensorZG'+i+j+'" type="number" /><span>mm/s</span></div>';
-						}
-						// ZW
-						if(senData[j].threshold_danger_z != undefined){
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">Z轴危险值：</span><input id="sensorZW'+i+j+'" type="number" value="'+senData[j].threshold_danger_z+'"/><span>mm/s</span></div>';
-						}else{
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">Z轴危险值：</span><input id="sensorZW'+i+j+'" type="number" /><span>mm/s</span></div>';
-						}
-						//TY
-						if(senData[j].threshold_temperature_early != undefined){
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">温度预警值：</span><input id="sensorTY'+i+j+'" type="number" value="'+senData[j].threshold_temperature_early+'" /><span>℃</span></div>';
-						}else{
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">温度预警值：</span><input id="sensorTY'+i+j+'" type="number" /><span>℃</span></div>';
-						}
-						// TG
-						if(senData[j].threshold_temperature != undefined){
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">温度告警值：</span><input id="sensorTG'+i+j+'" type="number" value="'+senData[j].threshold_temperature+'"/><span>℃</span></div>';
-						}else{
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">温度告警值：</span><input id="sensorTG'+i+j+'" type="number" /><span>℃</span></div>';
-						}
-						// TW
-						if(senData[j].threshold_temperature_danger != undefined){
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">温度危险值：</span><input id="sensorTW'+i+j+'" type="number" value="'+senData[j].threshold_temperature_danger+'"/><span>℃</span></div>';
-						}else{
-							sensorStr +=
-								'<div class="modifyCom"><span class="modifyFont">温度危险值：</span><input id="sensorTW'+i+j+'" type="number" /><span>℃</span></div>';
-						}
-						
-// 						sensorStr +=
-// 							'<div class="modifyCom"><span class="modifyFont">Y轴预警：</span><input id="sensorYY'+i+j+'" type="number" /><span>mm/s</span></div>';
-// 						sensorStr +=
-// 							'<div class="modifyCom"><span class="modifyFont">Y轴告警：</span><input id="sensorYG'+i+j+'" type="number" /><span>mm/s</span></div>';
-// 						sensorStr +=
-// 							'<div class="modifyCom"><span class="modifyFont">Z轴预警：</span><input id="sensorZY'+i+j+'" type="number" /><span>mm/s</span></div>';
-// 						sensorStr +=
-// 							'<div class="modifyCom"><span class="modifyFont">Z轴告警：</span><input id="sensorZG'+i+j+'" type="number" /><span>mm/s</span></div>';
-// 						sensorStr +=
-// 							'<div class="modifyCom"><span class="modifyFont">温度预警：</span><input id="sensorTY'+i+j+'" type="number" /><span>℃</span></div>';
-// 						sensorStr +=
-// 							'<div class="modifyCom"><span class="modifyFont">温度告警：</span><input id="sensorTG'+i+j+'" type="number" /><span>℃</span></div>';
-						sensorStr += '</div>'
 
 					}
 
@@ -828,74 +681,57 @@ function sensorData(emeId, i) {
 					$(this).prop("checked", bolCheck);
 				})
 			}
-			
+
 			if (typeof(data) != "undefined") {
-				
+
 				var objdiv_cpxworktypeSD = document.getElementById('div_cpxworktypeSD' + i)
 				//判断选择的cpx工作模式是哪个，
 				//省电模式：隐藏cpx采样时间间隔、心跳时间间隔等；显示数据采集模式、数据上传周期等；显示sensor信号采样模式、采样量程等
 				//长连接模式：cpx显示心跳时间；隐藏上传周期；sensor隐藏信号采样量程等
 				var objDivForTypeSD = document.getElementsByClassName('div_cpxworktypeSD' + i)
 				var objDivForTypeCLJ = document.getElementsByClassName('div_cpxworktypeCLJ' + i)
-				var objSensorSD = document.getElementsByClassName('sensorSD' + i)
 				var objSendorGaojing = document.getElementsByClassName('sensorGaoJing' + i)
-				console.log("--------------------------------shifoukaiqi===" + data.connect_model)
-				if(data.alarm_judge == undefined || data.alarm_judge == 0){
-					for(var k=0;k<objSendorGaojing.length;k++)
-					{
+				if (data.alarm_judge == undefined || data.alarm_judge == 0) {
+					for (var k = 0; k < objSendorGaojing.length; k++) {
 						objSendorGaojing[k].style.display = 'none'
 					}
 				}
-				if(data.alarm_judge == 1){
-					for(var k=0;k<objSendorGaojing.length;k++)
-					{
+				if (data.alarm_judge == 1) {
+					for (var k = 0; k < objSendorGaojing.length; k++) {
 						objSendorGaojing[k].style.display = 'block'
 					}
 				}
-				
+
 
 				// 长连接模式
 				if (data.connect_model != undefined && data.connect_model == 1) {
-					for(var k=0;k<objDivForTypeSD.length;k++)
-					{
+					for (var k = 0; k < objDivForTypeSD.length; k++) {
 						objDivForTypeSD[k].style.display = 'none'
 					}
-					for(var k=0;k<objSensorSD.length;k++)
-					{
-						objSensorSD[k].style.display = 'none'
-					}
-					for(var k=0;k<objDivForTypeCLJ.length;k++)
-					{
+					for (var k = 0; k < objDivForTypeCLJ.length; k++) {
 						objDivForTypeCLJ[k].style.display = 'block'
 					}
-				}
-				 else{ //省电模式
-				 console.log("***********************")
-					for(var k=0;k<objDivForTypeSD.length;k++)
-					{
+				} else { //省电模式
+					console.log("***********************")
+					for (var k = 0; k < objDivForTypeSD.length; k++) {
 						objDivForTypeSD[k].style.display = 'block'
 					}
-					for(var k=0;k<objSensorSD.length;k++)
-					{
-						objSensorSD[k].style.display = 'block'
-					}
-					for(var k=0;k<objDivForTypeCLJ.length;k++)
-					{
+					for (var k = 0; k < objDivForTypeCLJ.length; k++) {
 						objDivForTypeCLJ[k].style.display = 'none'
 					}
 				}
-				
+
 			}
 
-			if (typeof(data) != "undefined") {
-				if (data.sensorList != undefined) {
-					var whxSenData = data.sensorList;
-					for (var j = 0; j < whxSenData.length; j++) {
-						var strWorking = whxSenData[j].working_axis;
-						checkwork_axis(i, j, strWorking);
-					}
-				}
-			}
+			// 			if (typeof(data) != "undefined") {
+			// 				if (data.sensorList != undefined) {
+			// 					var whxSenData = data.sensorList;
+			// 					for (var j = 0; j < whxSenData.length; j++) {
+			// 						var strWorking = whxSenData[j].working_axis;
+			// 						checkwork_axis(i, j, strWorking);
+			// 					}
+			// 				}
+			// 			}
 
 		}
 	})
@@ -1168,15 +1004,12 @@ function chooseCPXWorkType(indexRowType) {
 		//长连接模式：cpx显示心跳时间；隐藏上传周期；sensor隐藏信号采样量程等
 		var objDivForTypeSD = document.getElementsByClassName('div_cpxworktypeSD' + indexRowType)
 		var objDivForTypeCLJ = document.getElementsByClassName('div_cpxworktypeCLJ' + indexRowType)
-		var objSensorSD = document.getElementsByClassName('sensorSD' + indexRowType)
 		// var cpxclj
 		if (items[0].text == '省电模式') {
 			for (var i = 0; i < objDivForTypeSD.length; i++) {
 				objDivForTypeSD[i].style.display = 'block'
 			}
-			for (var i = 0; i < objSensorSD.length; i++) {
-				objSensorSD[i].style.display = 'block'
-			}
+
 			for (var i = 0; i < objDivForTypeCLJ.length; i++) {
 				objDivForTypeCLJ[i].style.display = 'none'
 			}
@@ -1185,9 +1018,6 @@ function chooseCPXWorkType(indexRowType) {
 		if (items[0].text == '长连接模式') {
 			for (var i = 0; i < objDivForTypeSD.length; i++) {
 				objDivForTypeSD[i].style.display = 'none'
-			}
-			for (var i = 0; i < objSensorSD.length; i++) {
-				objSensorSD[i].style.display = 'none'
 			}
 			for (var i = 0; i < objDivForTypeCLJ.length; i++) {
 				objDivForTypeCLJ[i].style.display = 'block'
@@ -1696,8 +1526,8 @@ function getCaijishijian(caijiTimeIndex) {
 		alert("采集时间至少选择一个");
 		return;
 	}
-	
-	
+
+
 	return checkedArray.toString();
 
 	//	confirm("已选复选框的值：" + checkedArray + "\n" + "选中的复选框个数：" + count);
@@ -1739,12 +1569,7 @@ function finshBtnClickReturnData() {
 	} else {
 		///*
 		var deviceId = $('#devices_no').html();
-		//企业名称
-		//		var company_name = $('#company_name').val();
-		//		if(company_name == '' || company_name == undefined) {
-		//			mui.toast('企业名称不能为空');
-		//			return false;
-		//		}
+
 		//设备名称
 		var devices_name = $('#devices_name').val();
 		if (devices_name == '' || devices_name == undefined) {
@@ -1793,12 +1618,6 @@ function finshBtnClickReturnData() {
 		//设置内置轴承型号
 		var bearing_model = $('#bearing_model').val();
 
-		//分厂
-		//		var work_shop = $('#work_shop').val();
-		//		if(work_shop == '' || work_shop == undefined) {
-		//			mui.toast('分厂不能为空');
-		//			return false;
-		//		}
 		//生产线
 		var pro_line = $('#pro_line').val();
 		if (pro_line == '' || pro_line == undefined) {
@@ -1866,7 +1685,6 @@ function finshBtnClickReturnData() {
 
 			for (var i = 0; i < cancle.length; i++) {
 
-				//				var sim_jsonArray = new Array();
 				var sim_dic = new Object();
 				//传感器编号
 				var strCPXid = "#CPXID" + i;
@@ -1876,32 +1694,12 @@ function finshBtnClickReturnData() {
 
 				var strCPXType = "#cpxworktype" + i;
 				var objCPXType = $(strCPXType).val();
-				//判断是否勾选了cpx告警判断
-				var sensorGAoJingData = new Object();
-				var strCPXIFGaojing = 'ifGaoJing' + i;
-				var objCPXIFGaojing = document.getElementById(strCPXIFGaojing);
-				if (objCPXIFGaojing.checked == true) {
-					sim_dic.alarm_judge = '1';
-				}
-				else{
-					sim_dic.alarm_judge = '0';
-				}
-				
-				//判断是否勾选了cpx告警输出
-				var sensorGAoJingData = new Object();
-				var strCPXgaojingshuchu = 'gaojingshuchu' + i;
-				var objCPXgaojingshuchu = document.getElementById(strCPXgaojingshuchu);
-				if (objCPXgaojingshuchu.checked == true) {
-					sim_dic.alarm_notice = '1';
-				}
-				else{
-					sim_dic.alarm_notice = '0';
-				}
-				
-				
+
+
+
 				if (objCPXType == "省电模式") {
 					console.log('=====省电模式')
-					
+
 					//数据采集模式
 					var strdatacaijimodel = "#deviceCPX_model" + i;
 					var caijimodel = $(strdatacaijimodel).val();
@@ -1938,8 +1736,7 @@ function finshBtnClickReturnData() {
 					if (obj_caiji_zhouqi.length == 0 || obj_caiji_uploadzhouqi.length == 0) {
 						mui.toast("采集周期、上传周期必须全部填写！");
 						return false;
-					} 
-					else {
+					} else {
 
 						if (obj_caiji_zhouqi != "00:00:00") {
 							var arrZQ = obj_caiji_zhouqi.split(':');
@@ -1972,207 +1769,21 @@ function finshBtnClickReturnData() {
 						} else {
 							sim_dic.update_duration = obj_caiji_uploadzhouqi;
 						}
-						
-						
+
+
 
 						var chuannumstr = ".chuanNameNumber" + i;
 						var chuannum = $(chuannumstr);
 
-						for (var j = 0; j < chuannum.length; j++) {
-							var sensorObj = new Object();
-							
-							
-							
-
-							var bolCheck = checkCheckBox(i, j);
-							if (bolCheck == false) {
-								mui.toast("至少选择一个轴工作");
-								return false;
-							} else {
-								sensorObj.working_axis = bolCheck;
-							}
-							var bolxishu = checkXishu(i, j);
-							if (bolxishu == false) {
-								return false;
-							} else {
-
-								sensorObj.calibration_coefficient = bolxishu;
-
-							}
-
-							//卡编号
-							var str_j_card = "#cardID" + i + j;
-							var obj_j_card = $(str_j_card).val();
-
-							//传感器编号
-							var str_j_chuan = "#chuanID" + i + j;
-							var obj_j_chaun = $(str_j_chuan).val();
-
-							//采样信号模式
-							var str_j_model = "#caiyangmodel" + i + j;
-							var obj_j_model = $(str_j_model).val();
-							//采样点数
-							var str_j_count = "#caiyangcount" + i + j;
-							var obj_j_count = $(str_j_count).val();
-							//采样频率
-							var str_j_pinlv = "#caiyangpinlv" + i + j;
-							var obj_j_pinlv = $(str_j_pinlv).val();
-							//采样量程/精度
-							var str_j_liangcheng = "#caiyangliangcheng" + i + j;
-							var obj_j_liangcheng = $(str_j_liangcheng).val();
-							//采样量程/精度
-							var str_j_jingdu = "#caiyangjingdu" + i + j;
-							var obj_j_jingdu = $(str_j_jingdu).val();
-
-							//安装位置
-							var str_j_anzhuang = "anzhuang" + i + j;
-							// var obj_j_anzhuang = $(str_j_anzhuang).val();
-
-
-							sensorObj.serial_no = obj_j_card;
-							sensorObj.sensor_no = obj_j_chaun;
-
-							if (obj_j_model.length > 0) {
-								sensorObj.sampling_model = obj_j_model;
-							}
-							if (obj_j_count.length > 0) {
-								sensorObj.sampling_number = obj_j_count;
-							}
-							if (obj_j_pinlv.length > 0) {
-								sensorObj.sampling_frequency = obj_j_pinlv;
-							}
-							if (obj_j_jingdu.length > 0) {
-								sensorObj.sampling_accuracy = obj_j_jingdu;
-							}
-							if (obj_j_liangcheng.length > 0) {
-								sensorObj.range_data = obj_j_liangcheng;
-							}
-							var objSelIns = selInsObj[str_j_anzhuang];
-							// 						console.log('------==' + JSON.stringify(objSelIns));
-							console.log('22222===' + JSON.stringify(objSelIns))
-							if (objSelIns.new_installId != '') {
-								// console.log('00000000')
-								if (objSelIns.old_install_id != '') {
-									sensorObj.old_install_id = selInsObj[str_j_anzhuang].old_installId;
-								}
-								sensorObj.install_xy = selInsObj[str_j_anzhuang].new_installXY;
-								sensorObj.install_id = selInsObj[str_j_anzhuang].new_installId;
-							}
-							
-							
-
-
-							var obj_commenDic = new Object();
-							obj_commenDic.sensorMsgPO = sensorObj;
-							
-							//判断是否勾选了cpx告警判断
-							var sensorGAoJingData = new Object();
-							var strCPXIFGaojing = 'ifGaoJing' + i;
-							var objCPXIFGaojing = document.getElementById(strCPXIFGaojing);
-							if (objCPXIFGaojing.checked == true) {
-								console.log("[][][][]")
-								console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++" + objCPXIFGaojing.checked)
-								// sensorXY
-								//--------------X
-								var strXZhouYJ = "#sensorXY" + i + j;
-								var objXZhouYJ = $(strXZhouYJ).val();
-								
-								
-								var strXZhouGJ = "#sensorXG" + i + j;
-								var objXZhouGJ = $(strXZhouGJ).val();
-								
-								var strXZhouWX = "#sensorXW" + i + j;
-								var objXZhouWX = $(strXZhouWX).val();
-								
-								
-								//-----------Y
-								var strYZhouYJ = "#sensorYY" + i + j;
-								var objYZhouYJ = $(strYZhouYJ).val();
-								
-								
-								var strYZhouGJ = "#sensorYG" + i + j;
-								var objYZhouGJ = $(strYZhouGJ).val();
-								
-								var strYZhouWX = "#sensorYW" + i + j;
-								var objYZhouWX = $(strYZhouWX).val();
-								
-								//----------Z
-								var strZZhouYJ = "#sensorZY" + i + j;
-								var objZZhouYJ = $(strZZhouYJ).val();
-								
-								var strZZhouGJ = "#sensorZG" + i + j;
-								var objZZhouGJ = $(strZZhouGJ).val();
-								
-								var strZZhouWX = "#sensorZW" + i + j;
-								var objZZhouWX = $(strZZhouWX).val();
-								
-								//----------wendu
-								var strTZhouYJ = "#sensorTY" + i + j;
-								var objTZhouYJ = $(strTZhouYJ).val();
-								
-								var strTZhouGJ = "#sensorTG" + i + j;
-								var objTZhouGJ = $(strTZhouGJ).val();
-								
-								var strTZhouWX = "#sensorTW" + i + j;
-								var objTZhouWX = $(strTZhouWX).val();
-								
-								if(objXZhouYJ.length == 0 || objXZhouGJ.length == 0 || objYZhouYJ.length == 0 || objYZhouGJ.length == 0 || 
-								objZZhouYJ.length == 0 || objZZhouGJ.length == 0 || objTZhouYJ.length == 0 || objTZhouGJ.length == 0 || objXZhouWX.length == 0 || objYZhouWX.length == 0 || objTZhouWX.length == 0 ){
-									mui.toast("告警门限值必须填写！请检查是否填写");
-									return false;
-								}
-								else{
-									sensorGAoJingData.threshold_early_x = objXZhouYJ;
-									sensorGAoJingData.threshold_alarm_x = objXZhouGJ;
-									sensorGAoJingData.threshold_danger_x = objXZhouWX;
-									
-									sensorGAoJingData.threshold_early_y = objYZhouYJ;
-									sensorGAoJingData.threshold_alarm_y = objYZhouGJ;
-									sensorGAoJingData.threshold_danger_y = objYZhouWX;
-									
-									sensorGAoJingData.threshold_early_z = objZZhouYJ;
-									sensorGAoJingData.threshold_alarm_z = objZZhouGJ;
-									sensorGAoJingData.threshold_danger_z = objZZhouWX;
-									
-									sensorGAoJingData.threshold_temperature_early = objTZhouYJ;
-									sensorGAoJingData.threshold_temperature = objTZhouGJ;
-									sensorGAoJingData.threshold_temperature_danger = objTZhouWX;
-								}
-								
-								sensorGAoJingData.serial_no = obj_j_card;
-								sensorGAoJingData.sensor_no = obj_j_chaun;
-								
-								//安装位置
-								var str_j_anzhuang = "anzhuang" + i + j;
-								var objSelIns = selInsObj[str_j_anzhuang];
-								if (objSelIns.new_installId != '') {
-									if (objSelIns.old_install_id != '') {
-										sensorGAoJingData.old_install_id = selInsObj[str_j_anzhuang].old_installId;
-									}
-									sensorGAoJingData.install_xy = selInsObj[str_j_anzhuang].new_installXY;
-									sensorGAoJingData.install_id = selInsObj[str_j_anzhuang].new_installId;
-								}
-								
-								obj_commenDic.simWorkModelLongPO = sensorGAoJingData;
-								
-							}
-							
-							obj_commenDic.simWorkModelPO = sim_dic;
-
-							common_jsonArray.push(obj_commenDic);
-
-							// console.log(JSON.stringify(obj_commenDic))
-
-						}
 
 					}
-				
+
 				}
 
 				if (objCPXType == "长连接模式") {
-					
+
 					console.log('=====长连接模式')
-					
+
 					//采样间隔时间
 					var strSD_caiyangjiange = "#SD_caiyangjiange" + i;
 					var objSD_caiyangjiange = $(strSD_caiyangjiange).val();
@@ -2182,176 +1793,111 @@ function finshBtnClickReturnData() {
 					//心跳时间间隔
 					var strSD_xintiaojiange = "#SD_xintiaojiange" + i;
 					var objSD_xintiaojiange = $(strSD_xintiaojiange).val();
-					
-					
+
+
 					if (objSD_caiyangjiange.length == 0 || objSD_shangchuanjiange.length == 0 || objSD_xintiaojiange.length == 0) {
 						mui.toast("采样时间间隔、上传时间间隔、心跳时间间隔必须全部填写！");
 						return false;
-					} 
-					else {
+					} else {
 						sim_dic.serial_no = objCPXID;
-						sim_dic.sampling_duration = objSD_caiyangjiange;
+						sim_dic.sampling_interval = objSD_caiyangjiange;
 						sim_dic.upload_duration = objSD_shangchuanjiange;
 						sim_dic.heart_duration = objSD_xintiaojiange;
 						sim_dic.connect_model = '1';
-					
-					
-						var chuannumstr = ".chuanNameNumber" + i;
-						var chuannum = $(chuannumstr);
-					
-						for (var j = 0; j < chuannum.length; j++) {
-							var sensorObj = new Object();
-					
-							//卡编号
-							var str_j_card = "#cardID" + i + j;
-							var obj_j_card = $(str_j_card).val();
-					
-							//传感器编号
-							var str_j_chuan = "#chuanID" + i + j;
-							var obj_j_chaun = $(str_j_chuan).val();
-					
-							var obj_commenDic = new Object();
-							
-							
-							//安装位置
-							var str_j_anzhuang = "anzhuang" + i + j;					
-							var objSelIns = selInsObj[str_j_anzhuang];
-							if (objSelIns.new_installId != '') {
-								
-								if (objSelIns.old_install_id != '') {
-									sensorObj.old_install_id = selInsObj[str_j_anzhuang].old_installId;
-								}
-								sensorObj.install_xy = selInsObj[str_j_anzhuang].new_installXY;
-								sensorObj.install_id = selInsObj[str_j_anzhuang].new_installId;
-								sensorObj.serial_no = obj_j_card;
-								sensorObj.sensor_no = obj_j_chaun;
-								obj_commenDic.sensorMsgPO = sensorObj;
-							}
-							
-							
-							
-							//判断是否勾选了cpx告警判断
-							var sensorGAoJingData = new Object();
-							var strCPXIFGaojing = 'ifGaoJing' + i;
-							var objCPXIFGaojing = document.getElementById(strCPXIFGaojing);
-							if (objCPXIFGaojing.checked == true) {
-								console.log("[][][][]")
-								
-								// sensorXY
-								//--------------X
-								var strXZhouYJ = "#sensorXY" + i + j;
-								var objXZhouYJ = $(strXZhouYJ).val();
-								
-								
-								var strXZhouGJ = "#sensorXG" + i + j;
-								var objXZhouGJ = $(strXZhouGJ).val();
-								
-								var strXZhouWX = "#sensorXW" + i + j;
-								var objXZhouWX = $(strXZhouWX).val();
-								
-								
-								//-----------Y
-								var strYZhouYJ = "#sensorYY" + i + j;
-								var objYZhouYJ = $(strYZhouYJ).val();
-								
-								
-								var strYZhouGJ = "#sensorYG" + i + j;
-								var objYZhouGJ = $(strYZhouGJ).val();
-								
-								var strYZhouWX = "#sensorYW" + i + j;
-								var objYZhouWX = $(strYZhouWX).val();
-								
-								//----------Z
-								var strZZhouYJ = "#sensorZY" + i + j;
-								var objZZhouYJ = $(strZZhouYJ).val();
-								
-								var strZZhouGJ = "#sensorZG" + i + j;
-								var objZZhouGJ = $(strZZhouGJ).val();
-								
-								var strZZhouWX = "#sensorZW" + i + j;
-								var objZZhouWX = $(strZZhouWX).val();
-								
-								//----------wendu
-								var strTZhouYJ = "#sensorTY" + i + j;
-								var objTZhouYJ = $(strTZhouYJ).val();
-								
-								var strTZhouGJ = "#sensorTG" + i + j;
-								var objTZhouGJ = $(strTZhouGJ).val();
-								
-								var strTZhouWX = "#sensorTW" + i + j;
-								var objTZhouWX = $(strTZhouWX).val();
-								
-								if(objXZhouYJ.length == 0 || objXZhouGJ.length == 0 || objYZhouYJ.length == 0 || objYZhouGJ.length == 0 || 
-								objZZhouYJ.length == 0 || objZZhouGJ.length == 0 || objTZhouYJ.length == 0 || objTZhouGJ.length == 0 || objXZhouWX.length == 0 || objYZhouWX.length == 0 || objTZhouWX.length == 0 ){
-									mui.toast("告警门限值必须填写！请检查是否填写");
-									return false;
-								}
-								else{
-									sensorGAoJingData.threshold_early_x = objXZhouYJ;
-									sensorGAoJingData.threshold_alarm_x = objXZhouGJ;
-									sensorGAoJingData.threshold_danger_x = objXZhouWX;
-									
-									sensorGAoJingData.threshold_early_y = objYZhouYJ;
-									sensorGAoJingData.threshold_alarm_y = objYZhouGJ;
-									sensorGAoJingData.threshold_danger_y = objYZhouWX;
-									
-									sensorGAoJingData.threshold_early_z = objZZhouYJ;
-									sensorGAoJingData.threshold_alarm_z = objZZhouGJ;
-									sensorGAoJingData.threshold_danger_z = objZZhouWX;
-									
-									sensorGAoJingData.threshold_temperature_early = objTZhouYJ;
-									sensorGAoJingData.threshold_temperature = objTZhouGJ;
-									sensorGAoJingData.threshold_temperature_danger = objTZhouWX;
-								}
-								
-								
-								
-								
-								sensorGAoJingData.serial_no = obj_j_card;
-								sensorGAoJingData.sensor_no = obj_j_chaun;
-								
-								//安装位置
-								var str_j_anzhuang = "anzhuang" + i + j;
-								var objSelIns = selInsObj[str_j_anzhuang];
-								console.log("anzhuanweizhi ====== " + JSON.stringify(objSelIns))
-								if (objSelIns.new_installId != '') {
-									if (objSelIns.old_install_id != '') {
-										sensorGAoJingData.old_install_id = selInsObj[str_j_anzhuang].old_installId;
-									}
-									sensorGAoJingData.install_xy = selInsObj[str_j_anzhuang].new_installXY;
-									sensorGAoJingData.install_id = selInsObj[str_j_anzhuang].new_installId;
-								}
-								else{
-									
-								}
-								
-								obj_commenDic.simWorkModelLongPO = sensorGAoJingData;
-								
-							}
-							
-							obj_commenDic.simWorkModelPO = sim_dic;
-					
-							common_jsonArray.push(obj_commenDic);
-					
-							// console.log(JSON.stringify(obj_commenDic))
-					
-						}
-					
 					}
-									
+
 				}
+
+				var chuannumstr = ".chuanNameNumber" + i;
+				var chuannum = $(chuannumstr);
+				for (var j = 0; j < chuannum.length; j++) {
+					var sensorObj = new Object();
+					var bolxishu = checkXishu(i, j);
+					if (bolxishu == false) {
+						return false;
+					} else {
+
+						sensorObj.calibration_coefficient = bolxishu;
+
+					}
+
+					//卡编号
+					var str_j_card = "#cardID" + i + j;
+					var obj_j_card = $(str_j_card).val();
+
+					//传感器编号
+					var str_j_chuan = "#chuanID" + i + j;
+					var obj_j_chaun = $(str_j_chuan).val();
+
+					//采样信号模式
+					var str_j_model = "#caiyangmodel" + i + j;
+					var obj_j_model = $(str_j_model).val();
+					//采样点数
+					var str_j_count = "#caiyangcount" + i + j;
+					var obj_j_count = $(str_j_count).val();
+					//采样频率
+					var str_j_pinlv = "#caiyangpinlv" + i + j;
+					var obj_j_pinlv = $(str_j_pinlv).val();
+					//采样量程/精度
+					var str_j_liangcheng = "#caiyangliangcheng" + i + j;
+					var obj_j_liangcheng = $(str_j_liangcheng).val();
+					//采样量程/精度
+					var str_j_jingdu = "#caiyangjingdu" + i + j;
+					var obj_j_jingdu = $(str_j_jingdu).val();
+
+					//安装位置
+					var str_j_anzhuang = "anzhuang" + i + j;
+					// var obj_j_anzhuang = $(str_j_anzhuang).val();
+
+
+					sensorObj.serial_no = obj_j_card;
+					sensorObj.sensor_no = obj_j_chaun;
+
+					if (obj_j_model.length > 0) {
+						sensorObj.sampling_model = obj_j_model;
+					}
+					if (obj_j_count.length > 0) {
+						sensorObj.sampling_number = obj_j_count;
+					}
+					if (obj_j_pinlv.length > 0) {
+						sensorObj.sampling_frequency = obj_j_pinlv;
+					}
+					if (obj_j_jingdu.length > 0) {
+						sensorObj.sampling_accuracy = obj_j_jingdu;
+					}
+					if (obj_j_liangcheng.length > 0) {
+						sensorObj.range_data = obj_j_liangcheng;
+					}
+					var objSelIns = selInsObj[str_j_anzhuang];
+					if (objSelIns.new_installId != '') {
+						if (objSelIns.old_install_id != '') {
+							sensorObj.old_install_id = selInsObj[str_j_anzhuang].old_installId;
+						}
+						sensorObj.install_xy = selInsObj[str_j_anzhuang].new_installXY;
+						sensorObj.install_id = selInsObj[str_j_anzhuang].new_installId;
+					}
+
+					var obj_commenDic = new Object();
+					obj_commenDic.sensorMsgPO = sensorObj;
+				}
+				obj_commenDic.simWorkModelPO = sim_dic;
+
+				common_jsonArray.push(obj_commenDic);
+
 
 			}
 
-			paramData.commen_json = JSON.stringify(common_jsonArray);
-			console.log('data ==== ' + JSON.stringify(paramData));
-			return paramData;
 
 		}
+
+		paramData.commen_json = JSON.stringify(common_jsonArray);
+		console.log('data ==== ' + JSON.stringify(paramData));
+		return paramData;
 
 	}
 
 }
+
 
 
 
