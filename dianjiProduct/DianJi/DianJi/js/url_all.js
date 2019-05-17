@@ -1,7 +1,7 @@
 //、、--------- 测试GitHub master
 
 //服务器地址
-// var url = 'http://192.168.18.9:10082/server_appapi/';
+// var url = 'http://192.168.18.9:8080/server_appapi/';
 //本地测试服务器地址
 // var url = 'http://192.168.3.244:8080/server_appapi/';
 //测试服务器地址

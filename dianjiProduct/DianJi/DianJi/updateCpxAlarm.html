@@ -82,7 +82,7 @@
 											<p v-if="sensorItem.install_xy != undefined">安装位置：{{sensorItem.install_xy}}</p>
 											<p v-if="sensorItem.install_xy == undefined">安装位置：----</p>
 											<div v-show="item.alarm_on_off == '1'">
-												<div v-show="item.sensorType === 'V'">
+												<div v-show="sensorItem.sensorType === 'V'">
 													<p class="textP" style="margin-top: 5px;">
 														<span>X轴预警值:</span>
 														<input type="tel" v-model="sensorItem.threshold_early_x" />
@@ -137,7 +137,7 @@
 														<span>mm/s</span>
 													</p>
 												</div>
-												
+
 												<div style="clear: both;"></div>
 												<p class="textP">
 													<span>温度预警值:</span>
@@ -198,7 +198,7 @@
 						}
 					},
 					mounted() {
-						console.log("[][][]")
+
 						var simListData = plus.webview.currentWebview().arrPushData
 						for (var i = 0; i < simListData.length; i++) {
 							var objSim = simListData[i]
@@ -207,45 +207,55 @@
 							if (objSim.alarm_on_off != undefined) {
 								if (objSim.alarm_on_off == 0) {
 									newObjSim.alarm_on_off = false;
-								} else{
+								} else {
 									newObjSim.alarm_on_off = true;
 								}
-								
+
 							} else {
 								newObjSim.alarm_on_off = false
 							}
 
 							var arrSensor = new Array()
 							for (var j = 0; j < objSim.sensorList.length; j++) {
+
+
 								var objSensor = objSim.sensorList[j]
 								var newObjSensor = new Object()
+
+
 								newObjSensor.sensor_no = objSensor.sensor_no;
 								newObjSensor.install_xy = objSensor.install_xy;
 								newObjSensor.install_id = objSensor.install_id;
-								newObjSensor.threshold_early_x = objSensor.threshold_early_x;
-								newObjSensor.threshold_alarm_x = objSensor.threshold_alarm_x;
-								newObjSensor.threshold_danger_x = objSensor.threshold_danger_x;
-								newObjSensor.threshold_early_y = objSensor.threshold_early_y;
-								newObjSensor.threshold_alarm_y = objSensor.threshold_alarm_y;
-								newObjSensor.threshold_danger_y = objSensor.threshold_danger_y;
-								newObjSensor.threshold_early_z = objSensor.threshold_early_z;
-								newObjSensor.threshold_alarm_z = objSensor.threshold_alarm_z;
-								newObjSensor.threshold_danger_z = objSensor.threshold_danger_z;
+								newObjSensor.sensorType = objSensor.sensorType;
+
+								console.log("[][][]===" + objSensor.sensorType)
+								if (objSensor.sensorType != undefined && objSensor.sensorType == 'V') {
+									newObjSensor.threshold_early_x = objSensor.threshold_early_x;
+									newObjSensor.threshold_alarm_x = objSensor.threshold_alarm_x;
+									newObjSensor.threshold_danger_x = objSensor.threshold_danger_x;
+									newObjSensor.threshold_early_y = objSensor.threshold_early_y;
+									newObjSensor.threshold_alarm_y = objSensor.threshold_alarm_y;
+									newObjSensor.threshold_danger_y = objSensor.threshold_danger_y;
+									newObjSensor.threshold_early_z = objSensor.threshold_early_z;
+									newObjSensor.threshold_alarm_z = objSensor.threshold_alarm_z;
+									newObjSensor.threshold_danger_z = objSensor.threshold_danger_z;
+								}
+
 								newObjSensor.threshold_temperature_early = objSensor.threshold_temperature_early;
 								newObjSensor.threshold_temperature = objSensor.threshold_temperature;
 								newObjSensor.threshold_temperature_danger = objSensor.threshold_temperature_danger;
 								if (objSensor.alarm_judge != undefined && objSensor.alarm_judge == 1) {
 									newObjSensor.alarm_judge = true;
-								} else{
+								} else {
 									newObjSensor.alarm_judge = false;
 								}
-								
+
 								if (objSensor.control_notice != undefined && objSensor.control_notice == 1) {
 									newObjSensor.control_notice = true;
-								} else{
+								} else {
 									newObjSensor.control_notice = false;
 								}
-								
+
 
 
 								arrSensor.push(newObjSensor)
@@ -255,15 +265,17 @@
 
 							}
 							this.dataSimList.push(newObjSim)
+							
+							console.log("-----===" + JSON.stringify(this.dataSimList))
 
 						}
 
 
 					},
 					methods: {
-						
-						
-						checkXYZNumber(event){
+
+
+						checkXYZNumber(event) {
 							var obj = event.currentTarget
 							console.log("[][][][][][][]" + JSON.stringify(obj))
 							//修复第一个字符是小数点 的情况.
@@ -275,11 +287,10 @@
 							obj.value = obj.value.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的
 							obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
 							obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3'); //只能输入两个小数
-							if(event.currentTarget.value > 500)
-							{
+							if (event.currentTarget.value > 500) {
 								event.currentTarget.value = ""
 								alert('请输入0到500的浮点数')
-								
+
 							}
 							// obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d\d\d).*$/,'$1$2.$3');//只能输入4个小数
 							if (obj.value.indexOf(".") < 0 && obj.value != "") { //以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
@@ -288,7 +299,7 @@
 								}
 							}
 						},
-						
+
 						submitFunction() {
 
 							var newDataSimList = JSON.parse(JSON.stringify(this.dataSimList))
@@ -298,7 +309,7 @@
 							for (var i = 0; i < newDataSimList.length; i++) {
 								var objSubSim = newDataSimList[i]
 								var objNewSubSim = objSubSim
-								
+
 								console.log("00000000000====" + objSubSim.alarm_on_off)
 								if (objSubSim.alarm_on_off == true) {
 									objNewSubSim.alarm_on_off = '1'
@@ -335,7 +346,7 @@
 							var data = {
 								simJson: JSON.stringify(newObjPostParam)
 							};
-							/*
+							///*
 							$.ajax({
 								type: "post",
 								async: true,
@@ -361,7 +372,7 @@
 									mui.toast('修改失败，请检查后重试')
 								}
 							})
-						//*/
+							//*/
 						},
 
 						copyArray(arr) {

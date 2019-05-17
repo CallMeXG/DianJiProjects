@@ -404,8 +404,6 @@
 				///*
 				$("#FinshBth").click(function() {
 
-
-
 					plus.nativeUI.showWaiting('正在进行激活...');
 					plus.nativeUI.closeWaiting();
 
@@ -413,7 +411,6 @@
 					var clickTime = $(this).attr("ctime");
 					if (clickTime != 'undefined' && (nowTime - clickTime < 5000)) {
 						mui.toast('您已提交激活申请，请不要频繁操作！')
-						//						console.log('操作过于频繁，稍后再试');
 						return false;
 					} else {
 
@@ -424,7 +421,6 @@
 								mui.toast('必须绑定传感器才能进行激活！');
 
 							} else {
-								console.log('-----------===' + JSON.stringify(regionData.sensorList));
 
 								var json_commen = new Array();
 								for (var i = 0; i < regionData.sensorList.length; i++) {

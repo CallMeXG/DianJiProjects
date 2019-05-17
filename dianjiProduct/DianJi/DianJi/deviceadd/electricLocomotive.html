@@ -24,6 +24,14 @@
 				margin-top: 15px;
 				text-align: left;
 			}
+			#submitbutton{
+				margin-top: 20px;
+				width: 80%;
+				margin-left: 10%;
+				height: 40px;
+				color: white;
+				background-color: #524598;
+			}
 		</style>
 	</head>
 
@@ -44,25 +52,26 @@
 				</div>
 				<div class="mui-input-row">
 					<label>设备名称：</label>
-					<input type="text" placeholder="请输入设备名称" />
+					<input id="subDeviceName" type="text" placeholder="请输入设备名称" />
 				</div>
 				<div class="mui-input-row">
 					<label>设备编号：</label>
-					<input type="text" placeholder="请输入设备编号" />
+					<input id="subDeviceID" type="text" placeholder="请输入设备编号" />
 				</div>
 				<div class="mui-input-row">
 					<label>出厂时间：</label>
-					<input type="date" value="2000-01-01" />
+					<input id="subDeviceTime" type="date" value="2000-01-01" />
 				</div>
 				<div class="mui-input-row">
 					<label>配备电机功率(KW)：</label>
-					<input type="text" placeholder="请输入配备电机功率" />
+					<input id="subDeviceKW" type="text" placeholder="请输入配备电机功率" />
 				</div>
 				<div class="mui-input-row">
 					<label>配备电机台数<br />(标准6台)：</label>
-					<input type="text" placeholder="请输入配备电机台数" />
+					<input id="subDeviceCount" type="text" placeholder="请输入配备电机台数" />
 				</div>
 			</form>
+			<button id="submitbutton">提交</button>
 		</div>
 		<script src="../js/mui.js"></script>
 		<script src="../js/jquery.min.js"></script>
@@ -72,6 +81,19 @@
 		<script type="text/javascript">
 			mui.init()
 			mui.plusReady(function() {
+				var timer = null;
+				$('input').on('focus', function() {
+					clearInterval(timer);
+					var index = 0;
+					timer = setInterval(function() {
+						if (index > 5) {
+							$('body').scrollTop(10000);
+							clearInterval(timer);
+						}
+						index++;
+					}, 50)
+				})
+
 				var companyArray = new Array();
 				var reginArray = new Array();
 				var companyID = null;
@@ -109,7 +131,7 @@
 					});
 				}
 
-                $('#kehuName').on('tap',function(){
+				$('#kehuName').on('tap', function() {
 					console.log("++++++++++++")
 					var userPicker = new mui.PopPicker();
 					var setdataArray = new Array();
@@ -123,9 +145,9 @@
 						reginArray = items[0].children;
 						$("#kehuFenChang").val("");
 					});
-					
+
 				})
-				
+
 				//选择分厂
 				$("#kehuFenChang").click(function() {
 					var userPicker = new mui.PopPicker();
@@ -136,6 +158,67 @@
 						userResult.value = items[0].text;
 						regionID = items[0].value;
 					});
+				})
+
+				$('#submitbutton').on('tap', function() {
+					console.log("=====" + regionID + '==' + companyID)
+
+					var strkehuName = $('#kehuName').val()
+					var strfenchangName = $('#kehuFenChang').val()
+					var strdeviceName = $('#subDeviceName').val()
+					var strdeviceID = $('#subDeviceID').val()
+					var strdeviceTime = $('#subDeviceTime').val()
+					var strdeviceKW = $('#subDeviceKW').val()
+					var strdeviceCount = $('#subDeviceCount').val()
+
+					if (strkehuName == '点此选择' || strkehuName == '') {
+						mui.alert('请选择客户名称')
+					} else if (strfenchangName == '点此选择' || strfenchangName == '') {
+						mui.alert('请选择分厂')
+					} else if (strdeviceName == '') {
+						mui.alert('请填写设备名称')
+					} else if (strdeviceID == '') {
+						mui.alert('请填写设备编号')
+					} else if (strdeviceTime == '') {
+						mui.alert('请填写设备出厂时间')
+					} else if (strdeviceKW == '') {
+						mui.alert('请填写配备电机功率')
+					} else if (strdeviceCount == '') {
+						mui.alert('请填写配备电机台数')
+					} 
+					else{
+						var params = {
+						company_id: companyID,
+						region_id: regionID,
+						devices_name: strdeviceName,
+						devices_no: strdeviceID,
+						devices_out_time: strdeviceTime,
+						allocate_power: strdeviceKW,
+						electric_num: strdeviceCount,
+						devices_type: 'L',
+						strLoginId: localStorage.getItem("strLoginId"),
+						strLoginToken: localStorage.getItem("strLoginToken"),
+					}
+					$.ajax({
+						type: "get",
+						url: commen_add_device_Interface,
+						async: true,
+						dataType: 'json',
+						data: params,
+						success: function(msg) {
+							console.log(JSON.stringify(msg));
+							if (msg.status == "SUCCESS") {
+								mui.toast(msg.message);
+								mui.back();
+							} else if (msg.status = "FAILED") {
+								mui.toast(msg.message);
+							}
+						}
+					});
+
+					}
+
+					
 				})
 
 

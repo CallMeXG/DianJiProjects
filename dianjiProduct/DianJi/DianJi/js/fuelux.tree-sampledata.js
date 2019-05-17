@@ -13,17 +13,8 @@ function hiddenOrDisplay(obj) {
 
 mui.plusReady(function() {
 
-	function reloadSensor() {
-
-		console.log('刷新刷新刷新刷新刷新刷新刷新刷新刷新刷新')
-
-	}
-
 	var dataArraySim = new Array()
-
-
 	document.addEventListener('activeBack', function() {
-		console.log('=====激活后，返回到设备详情页，并刷新');
 		$('#tree1 div').remove();
 		plus.nativeUI.showWaiting('正在加载数据...');
 		$.ajax({
@@ -118,14 +109,6 @@ mui.plusReady(function() {
 			var webDetail = plus.webview.create('ModifyInformation.html', 'ModifyInformation.html');
 			webDetail.show();
 			mui('.mui-popover').popover("hide");
-			// var webDetail = plus.webview.create('html/changeDeviceDetail.html', 'changeDeviceDetail.html');
-			// 			webDetail.show();
-			// 			mui('.mui-popover').popover("hide");
-
-			//			mui.openWindow({
-			//				url: 'ModifyInformation.html',
-			//				id: 'ModifyInformation.html'
-			//			})
 		}
 
 	})
@@ -136,10 +119,7 @@ mui.plusReady(function() {
 			mui.alert('您没有权限进行设备信息修改，请先去申请相关权限！', '无访问权限', '我知道了');
 		}
 		if (strUserType > 10 || localStorage.getItem('is_manage') == '1') {
-			// 				var webDetail = plus.webview.create('ModifyInformation.html', 'ModifyInformation.html');
-			// 				webDetail.show();
 			mui('.mui-popover').popover("hide");
-
 			mui.openWindow({
 				url: 'updateCeDianName.html',
 				id: 'updateCeDianName.html'
@@ -147,18 +127,6 @@ mui.plusReady(function() {
 		}
 
 	})
-
-	function ckResult(val) {
-
-		if (val == 0) {
-			return '正常';
-		} else if (val == 1) {
-			return '故障';
-		} else {
-			return '未知';
-		}
-
-	}
 
 	function isUndefined(list, key) {
 		if (list == undefined || list == null || list[key] == null || list[key] == undefined) {
@@ -185,29 +153,22 @@ mui.plusReady(function() {
 			},
 			dataType: 'json',
 			success: function(msg) {
-
 				if (msg.status == "SUCCESS") {
-
 					if (typeof(msg.data) != "undefined") {
 						setUIForCPX(msg.data, index);
-
 					}
-
 				} else {
 					mui.toast(msg.message);
 				}
 
 			}
 		})
-
 		return children;
-
 	}
 
 	function setUIForCPX(simData, i) {
 
 		dataArraySim.push(simData)
-
 		//卡工作状态
 		var workStute = simData.work_status;
 		//卡激活状态
@@ -412,9 +373,9 @@ mui.plusReady(function() {
 		}
 
 		if (simData.connect_model == '1') {
-			sensorStr += '<li class="mui-table-view-cell">采样间隔时间：' + simData.sampling_interval + '  s</li>';
-			sensorStr += '<li class="mui-table-view-cell">上传间隔时间：' + simData.upload_duration + ' s</li>';
-			sensorStr += '<li class="mui-table-view-cell">心跳间隔时间：' + simData.heart_duration + '  s</li>';
+			sensorStr += '<li class="mui-table-view-cell">采样间隔时间：' + isUndefined(simData, 'sampling_interval') + '  s</li>';
+			sensorStr += '<li class="mui-table-view-cell">上传间隔时间：' + isUndefined(simData, 'upload_duration') + ' s</li>';
+			sensorStr += '<li class="mui-table-view-cell">心跳间隔时间：' + isUndefined(simData, 'heart_duration') + '  s</li>';
 		}
 
 		sensorStr += '<li class="mui-table-view-cell">休眠时间：' + isUndefined(simData, 'sleep_time') + '</li>';
@@ -438,8 +399,10 @@ mui.plusReady(function() {
 				sensorStr += '<li class="mui-table-view-cell">安装位置：' + isUndefined(sensorData, 'install_xy') + '</li>';
 				sensorStr += '<li class="mui-table-view-cell">MODBUS地址：' + sensorData.topology_xy + '</li>';
 				sensorStr += '<li class="mui-table-view-cell">传感器状态：' + chuanganqiStatus(sensorData.sensor_status) + '</li>';
+				if (sensorData.sensorType != undefined && sensorData.sensorType == 'V') {
+					sensorStr += '<li class="mui-table-view-cell">振动传感器灵敏度：' + isUndefined(sensorData, 'sensitivity') + '</li>';
+				}
 				sensorStr += '<li class="mui-table-view-cell">温度传感器灵敏度：' + isUndefined(sensorData, 'sensitives') + '</li>';
-				sensorStr += '<li class="mui-table-view-cell">振动传感器灵敏度：' + isUndefined(sensorData, 'sensitivity') + '</li>';
 
 				if (sensorData.alarm_judge == '1') {
 					sensorStr +=
@@ -457,7 +420,7 @@ mui.plusReady(function() {
 				}
 
 				if (simData.alarm_on_off == '1') {
-					if (simData.sensroType == 'V') {
+					if (sensorData.sensorType != undefined && sensorData.sensorType == 'V') {
 						sensorStr += '<li class="mui-table-view-cell">X轴预警值：' + isUndefined(sensorData, 'threshold_early_x') +
 							'  mm/s</li>';
 						sensorStr += '<li class="mui-table-view-cell">X轴告警值：' + isUndefined(sensorData, 'threshold_alarm_x') +
@@ -486,9 +449,10 @@ mui.plusReady(function() {
 						'  ℃</li>';
 
 				}
+				
+				console.log("sensor =====" + sensorData.sensorType)
 
-				if (simData.sensroType == 'V') {
-
+				if (sensorData.sensorType != undefined && sensorData.sensorType == 'V') {
 					sensorStr += '<li class="mui-table-view-cell">信号采样模式：' + isUndefined(sensorData, 'sampling_model') + '</li>';
 					sensorStr += '<li class="mui-table-view-cell">量程：' + isUndefined(sensorData, 'range_data') + '</li>';
 					sensorStr += '<li class="mui-table-view-cell">采样点数：' + isUndefined(sensorData, 'sampling_number') + '</li>';
@@ -503,11 +467,8 @@ mui.plusReady(function() {
 
 			}
 		}
-		//*/
 		sensorStr += '</div></div>';
-
 		$('#tree1').append(sensorStr);
-
 		var itemKey = '[name=item_' + i + ']:checkbox';
 		$(itemKey).each(function(index) {
 			var arrTimeCount = JSON.parse(simData.work_point_json).sample_time_point;
@@ -518,9 +479,7 @@ mui.plusReady(function() {
 			}
 			$(this).prop("checked", bolCheck);
 		})
-
 	}
-
 	//传感器状态
 	function chuanganqiStatus(strings) {
 		if (strings != undefined) {
@@ -646,7 +605,6 @@ mui.plusReady(function() {
 	getDataFromSever();
 
 	function getDataFromSever() {
-		console.log("000000000===" + localStorage.DeveciId)
 		plus.nativeUI.showWaiting('正在加载数据...');
 		$.ajax({
 			type: "GET",
@@ -700,73 +658,53 @@ mui.plusReady(function() {
 					$("#idOFCompany").val(isUndefined(info, 'company_name'));
 					//所属厂区 
 					$("#idOFRegin").val(isUndefined(info, 'region_name'));
-					//设备型号
-					$("#idOFdeviceType").val(isUndefined(info, 'devices_model'));
-					//企业名称
-					//			$("#idOFqiName").val(isUndefined(info, 'company'));
 					//设备出厂时间
 					$("#idOFdeviceTime").val(isUndefined(info, 'devices_out_time'));
-					//额定功率
-					$("#idOFGonglv").val(isUndefined(info, 'devices_power'));
-					//安装方式
-					$("#idOFAnzhuang").val(isUndefined(info, 'install_way'));
-					//工作电压
-					$("#idOFdianya").val(isUndefined(info, 'work_voltage'));
 
-					//设备生产商
-					$("#idOFshengchanshang").val(isUndefined(info, 'devices_produce'));
-					var strWorkStatus = workStatus(isUndefined(info, 'work_status'));
-					//工作状态
-					$("#idOFWorkStatus").val(strWorkStatus);
-					//设备预期寿命
-					var age = 0;
-					if (info['devices_age']) age = info['devices_age'];
-
-					$('#bar').css({
-						"background-color": "gray",
-						'width': '40%',
-						'display': 'inline-block',
-						'height': '2px',
-						'border-radius': '2px'
-					});
-					$('#bar i').css({
-						"background-color": "#007aff",
-						'width': age + '%',
-						'display': 'inline-block',
-						'height': '2px',
-						'border-radius': '2px',
-						'float': 'left'
-					});
-
-					//设备故障类型
-					if (info.devices_waring == undefined) {
-						$("#idOFguzhangtype").val("----");
-					} else {
-						var strGuzhangTyep = devicesWaring(isUndefined(info, 'devices_waring'));
-						$("#idOFguzhangtype").val(strGuzhangTyep);
+					//判断设备类型 E电机类型，L电动机车类型
+					if (info.devices_type != undefined && info.devices_type == 'L') {
+						
+						$("#idDeviceTypes").val('电动机车');
+						
+						$('#idDeviceKM').val(isUndefined(info, 'allocate_power'))
+						$('#idDeviceCount').val(isUndefined(info, 'electric_num'))
+						var objDianji = document.getElementsByClassName('typeJC')
+						for (var i = 0; i < objDianji.length; i++) {
+							objDianji[i].style.display = 'block'
+						}	
 					}
 
-					//车间
-					$("#idOFchejian").val(isUndefined(info, 'work_shop'));
-					//生产线
-					$("#idOFshengchanLine").val(isUndefined(info, 'pro_line'));
-					//设备应用场景
-					$("#idOFchangjing").val(isUndefined(info, 'use_scenes'));
-					//点检人信息
-					$("#idOFdianjianName").val(isUndefined(info, 'ck_name'));
-					//点检时间
-					$("#idOFdianjiaTime").val(isUndefined(info, 'ck_time'));
-					//点检结果
-					if (info.ck_result == undefined) {
-						$("#idOFdianjieresult").val("----");
-					} else {
-						if (info.ck_result == 0) {
-							$("#idOFdianjieresult").val("正常");
+					if (info.devices_type != undefined && info.devices_type == 'E') {
+						
+						$("#idDeviceTypes").val('电机');
+						
+						var objDianji = document.getElementsByClassName('typeDJ')
+						for (var i = 0; i < objDianji.length; i++) {
+							objDianji[i].style.display = 'block'
 						}
-						if (info.ck_result == 1) {
-							$("#idOFdianjieresult").val("故障");
-						}
+						
+						//设备型号
+						$("#idOFdeviceType").val(isUndefined(info, 'devices_model'));
+						//额定功率
+						$("#idOFGonglv").val(isUndefined(info, 'devices_power'));
+						//安装方式
+						$("#idOFAnzhuang").val(isUndefined(info, 'install_way'));
+						//工作电压
+						$("#idOFdianya").val(isUndefined(info, 'work_voltage'));
+						//设备生产商
+						$("#idOFshengchanshang").val(isUndefined(info, 'devices_produce'));
+						var strWorkStatus = workStatus(isUndefined(info, 'work_status'));
+						//工作状态
+						$("#idOFWorkStatus").val(strWorkStatus);
+						//生产线
+						$("#idOFshengchanLine").val(isUndefined(info, 'pro_line'));
+						//设备应用场景
+						$("#idOFchangjing").val(isUndefined(info, 'use_scenes'));
+						
 					}
+
+
+
 
 					var sim = "";
 					if (msg.data.hasOwnProperty("sim_list")) {

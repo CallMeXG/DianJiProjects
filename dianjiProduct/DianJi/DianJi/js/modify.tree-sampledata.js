@@ -532,23 +532,23 @@ function sensorData(emeId, i) {
 								'</span></div>';
 						}
 
-						if (senData[j].probe_name != undefined) {
-							sensorStr += '<div class="modifyCom"><span class="name">振动探头名称：</span><span class="emeId">' + senData[j].probe_name +
-								'</span></div>';
-
-						} else {
-							sensorStr += '<div class="modifyCom"><span class="name">振动探头名称：</span><span class="emeId">' + "----" +
-								'</span></div>';
-
-						}
-						if (senData[j].sensitivity != undefined) {
-							sensorStr += '<div class="modifyCom"><span class="name">振动传感器灵敏度：</span><span class="val">' + senData[j].sensitivity +
-								'</span></div>';
-
-						} else {
-							sensorStr += '<div class="modifyCom"><span class="name">振动传感器灵敏度：</span><span class="val">' + "----" +
-								'</span></div>';
-
+						
+						if (senData[j].sensorType != undefined && senData[j].sensorType == 'V') {
+							if (senData[j].probe_name != undefined) {
+								sensorStr += '<div class="modifyCom"><span class="name">振动探头名称：</span><span class="emeId">' + senData[j].probe_name +
+									'</span></div>';
+							
+							} else {
+								sensorStr += '<div class="modifyCom"><span class="name">振动探头名称：</span><span class="emeId">' + "----" +
+									'</span></div>';
+							}
+							if (senData[j].sensitivity != undefined) {
+								sensorStr += '<div class="modifyCom"><span class="name">振动传感器灵敏度：</span><span class="val">' + senData[j].sensitivity +
+									'</span></div>';
+							} else {
+								sensorStr += '<div class="modifyCom"><span class="name">振动传感器灵敏度：</span><span class="val">' + "----" +
+									'</span></div>';
+							}
 						}
 						if (senData[j].install_xy != undefined) {
 							sensorStr += '<div class="modifyCom"><span class="modifyFont">安装位置：</span><input id="anzhuang' + i + j +
@@ -570,8 +570,8 @@ function sensorData(emeId, i) {
 						};
 						var strIndex = 'anzhuang' + i + j;
 						selInsObj[strIndex] = objDefInstall;
-						//当传感器为振动类型时，显示信号采样模式、采样量程等
-						if (senData[j].sensorType == 'V') {
+						//当传感器为振动类型时，
+						if (senData[j].sensorType != undefined && senData[j].sensorType == 'V') {
 							sensorStr += '<div class="sensorSD' + i + '">';
 
 							if (senData[j].sampling_model != undefined) {
@@ -723,16 +723,6 @@ function sensorData(emeId, i) {
 
 			}
 
-			// 			if (typeof(data) != "undefined") {
-			// 				if (data.sensorList != undefined) {
-			// 					var whxSenData = data.sensorList;
-			// 					for (var j = 0; j < whxSenData.length; j++) {
-			// 						var strWorking = whxSenData[j].working_axis;
-			// 						checkwork_axis(i, j, strWorking);
-			// 					}
-			// 				}
-			// 			}
-
 		}
 	})
 
@@ -758,7 +748,6 @@ function gaojingClicked(index) {
 			objSensorGaoJing[i].style.display = 'none'
 		}
 	}
-	console.log("======" + objCheckbox.checked)
 }
 
 
@@ -768,17 +757,6 @@ function getDate(tm) {
 
 }
 
-function sensorStatus(val) {
-	switch (val) {
-		case 0:
-			return "正常";
-			break;
-		case 1:
-			return "损坏";
-			break;
-	}
-
-}
 
 function simState(statue, work_statues) {
 
@@ -786,7 +764,6 @@ function simState(statue, work_statues) {
 
 	var sta_2 = work_statues;
 	var strStute = "----";
-	///*
 	if (sta_1 == 5) {
 		if (sta_2 == 0) {
 			strStute = "工作";
@@ -815,7 +792,6 @@ function simState(statue, work_statues) {
 		strStute = "待解绑";
 	}
 	return strStute;
-	//*/
 
 }
 
@@ -827,44 +803,6 @@ function buildSensorData(sim) {
 	for (var i = 0; i < sim.length; i++) {
 		sensorData(sim[i]['serial_no'], i);
 	}
-}
-
-
-//*/
-
-function setCheckButton(i, j, str_working) {
-
-	return '<label class="checkLabel"><input id="xzhou' + i + j +
-		'" class="checkXYZBox" type="checkbox" value="" />X轴 </label><label class="checkLabel"><input id="yzhou' + i + j +
-		'" class="checkXYZBox" type="checkbox" value="" />Y轴 </label><label class="checkLabel"><input id="zzhou' + i + j +
-		'" class="checkXYZBox" type="checkbox" value="" />Z轴 </label>';
-
-}
-//传感器工作轴数
-function checkwork_axis(i, j, str_working) {
-
-	if (str_working != undefined) {
-		var xaxis = str_working.substring(0, 1);
-		var yaxis = str_working.substring(1, 2);
-		var zaxis = str_working.substring(2, 3);
-
-		if (xaxis == "1") {
-			var strXinputid = "xzhou" + i + j;
-			var obj_xinput = document.getElementById(strXinputid);
-			obj_xinput.checked = true;
-		}
-		if (yaxis == "1") {
-			var strYinputid = "yzhou" + i + j;
-			var obj_Yinput = document.getElementById(strYinputid);
-			obj_Yinput.checked = true;
-		}
-		if (zaxis == "1") {
-			var strZinputid = "zzhou" + i + j;
-			var obj_Zinput = document.getElementById(strZinputid);
-			obj_Zinput.checked = true;
-		}
-	}
-
 }
 
 function getDataTime(index) {
@@ -938,7 +876,6 @@ function uploadZhouqifun(index) {
 //初始化数据采集模式,数据采集时间、采集周期、数据上传时间
 function getStringForHtml(modelID, typeId) {
 
-	///*
 	var strReturn = "";
 
 	$.ajax({
@@ -965,7 +902,6 @@ function getStringForHtml(modelID, typeId) {
 		}
 	});
 	return strReturn;
-	//*/
 }
 //修改数据采集模式，并根据模式自动刷新下面三个时间
 var arrayDataModel = new Array();
@@ -1014,6 +950,10 @@ function chooseCPXWorkType(indexRowType) {
 				objDivForTypeCLJ[i].style.display = 'none'
 			}
 
+			var strid = "#deviceCPX_model" + indexRowType;
+			var objCpxModel = document.getElementById(strid);
+			$(strid).val(arrayDataModel[0].mode_name)
+			updateTimes(arrayDataModel[0].mode_name, indexRowType);
 		}
 		if (items[0].text == '长连接模式') {
 			for (var i = 0; i < objDivForTypeSD.length; i++) {
@@ -1024,7 +964,7 @@ function chooseCPXWorkType(indexRowType) {
 			}
 
 		}
-		// div_cpxworktype
+
 	});
 }
 
@@ -1060,7 +1000,6 @@ function CPXModelClicked(indexPathRow) {
 
 
 function updateTimes(modelID, index) {
-	// console.log("-=-=-=-")
 	$.ajax({
 		type: "get",
 		async: true,
@@ -1071,21 +1010,12 @@ function updateTimes(modelID, index) {
 		dataType: 'json',
 		success: function(msg) {
 
-			// console.log("++++" + JSON.stringify(msg))
-
-			//			var firststr = "getDataTime" + index;
 			var secondstr = "timeLangth" + index;
-			//			var thirdstr = "uploadTime" + index;
 			var uploadZhouqi = "uploadZhouqi" + index;
-
-			//			var getdatatimeobj = document.getElementById(firststr);
 			var timelengthobj = document.getElementById(secondstr);
-			//			var uploadTimeobj = document.getElementById(thirdstr);
 			var uploadZhouqiobj = document.getElementById(uploadZhouqi);
 
 			timelengthobj.value = msg.data[0].sampling_duration;
-			//			getdatatimeobj.value = msg.data[0].sampling_time;
-			//			uploadTimeobj.value = msg.data[0].upload_time;
 			uploadZhouqiobj.value = msg.data[0].update_duration;
 
 			var dataCaijiTime = msg.data[0].sampling_time;
@@ -1175,31 +1105,11 @@ function caiyangModelClick(index_1, index_2) {
 		//采样精度
 		var strCaiyangjingdu = "#caiyangjingdu" + index_1 + index_2;
 		$(strCaiyangjingdu).val(items[0].sampling_accuracy);
-		//工作轴数
-		var xyzzhou = items[0].working_axis;
-		var xaxis = xyzzhou.substring(0, 1);
-		var yaxis = xyzzhou.substring(1, 2);
-		var zaxis = xyzzhou.substring(2, 3);
 
-		if (xaxis == "1") {
-			var strXinputid = "xzhou" + index_1 + index_2;
-			var obj_xinput = document.getElementById(strXinputid);
-			obj_xinput.checked = true;
-		}
-		if (yaxis == "1") {
-			var strYinputid = "yzhou" + index_1 + index_2;
-			var obj_Yinput = document.getElementById(strYinputid);
-			obj_Yinput.checked = true;
-		}
-		if (zaxis == "1") {
-			var strZinputid = "zzhou" + index_1 + index_2;
-			var obj_Zinput = document.getElementById(strZinputid);
-			obj_Zinput.checked = true;
-		}
 		//校准系数
 		var strCaiyangxishu = "#jiaoxishu" + index_1 + index_2;
 		$(strCaiyangxishu).val(items[0].calibration_coefficient);
-		// console.log(JSON.stringify(items))
+
 	});
 
 }
@@ -1212,7 +1122,6 @@ function cedianSelected(index_1, index_2) {
 	var strIndex = "anzhuang" + index_1 + index_2;
 	var setdataArray = new Array();
 	setdataArray = installList.slice(0);
-	console.log("--------=====" + JSON.stringify(setdataArray))
 	for (var i = 0; i < setdataArray.length; i++) {
 		if (setdataArray[i].install_index == strIndex) {
 			setdataArray[i].status = "N";
@@ -1260,12 +1169,7 @@ function caiyangcountClick(index_1, index_2) {
 		};
 		setdataArray.push(textDic);
 	}
-	//	for(var i = 0; i < arrayDataModel.length; i++) {
-	//		var setdataDic = {
-	//			text: arrayDataModel[i].mode_name
-	//		};
-	//		setdataArray.push(setdataDic);
-	//	}
+
 	userPicker.setData(setdataArray);
 	var strid = "caiyangcount" + index_1 + index_2;
 	var userResult = document.getElementById(strid);
@@ -1278,12 +1182,7 @@ function caiyangpinlvClick(index_1, index_2) {
 
 	var userPicker = new mui.PopPicker();
 	var setdataArray = new Array();
-	//	for(var i = 0; i < arrayDataModel.length; i++) {
-	//		var setdataDic = {
-	//			text: arrayDataModel[i].mode_name
-	//		};
-	//		setdataArray.push(setdataDic);
-	//	}
+
 	userPicker.setData([{
 		text: "200"
 	}, {
@@ -1364,10 +1263,8 @@ function getDefData() {
 
 			}
 			if (typeof(data.install_list) != "undefined") {
-				// console.log('6666666===' + data.install_list.length)
-				// installList = data.install_list;
+
 				for (var i = 0; i < data.install_list.length; i++) {
-					// if (data.install_list[i].status == "N") {
 					var dicInstall = {
 						id: data.install_list[i].id,
 						devices_no: data.install_list[i].devices_no,
@@ -1378,14 +1275,10 @@ function getDefData() {
 						install_index: ''
 					}
 					installList.push(dicInstall);
-					// }
 				}
-				console.log("555555======" + JSON.stringify(installList))
 			}
-			//		var sim_list = data.sim_list;
 			var list = msg.data.list;
 
-			//			$('#company_name').val(isUndefined(data, 'company'));
 			$('#devices_name').val(isUndefined(data, 'devices_name'));
 			$('#devices_no').html(isUndefined(data, 'devices_no'));
 			//企业名称
@@ -1420,9 +1313,6 @@ function getDefData() {
 			$('#use_scenes').val(isUndefined(data, 'use_scenes'));
 			$('#create_time').val(isUndefined(data, 'update_time'));
 			$('#m_content').val(isUndefined(data, 'content'));
-
-			//		buildSensorData(sim_list);
-
 		}
 	});
 
@@ -1440,11 +1330,9 @@ function hiddenOrDisplay(obj) {
 		$(obj).prop('class', 'icon-minus');
 		$(header).find('.tree-folder-content').css('display', 'block');
 
-		//		$(header).next().next().css('display', 'block');
 	} else if (className == 'icon-minus') {
 		$(obj).prop('class', 'icon-plus');
 		$(header).find('.tree-folder-content').css('display', 'none');
-		//		$(header).next().next().css('display', 'none');
 	}
 }
 
@@ -1461,33 +1349,25 @@ function cancleCard(obj) {
 			var workStatus = $(treeFolder).find('.workStatus').val();
 			var cardModel = $(treeFolder).find('.cardModel').val();
 			var cardLedModel = $(treeFolder).find('.cardLedModel').val();
-
-			//			console.log(deviceId + "====" + emeId)
-
-			///*
 			$.ajax({
 				type: 'get',
 				async: true,
 				dataType: 'json',
-				//		url: 'http://47.94.166.103:1111/APP/commen_cancel_relation',
 				url: commen_cancel_relation_Interface,
 				data: {
 					devices_no: deviceId,
 					serial_no: emeId,
 				},
 				success: function(msg) {
-					//			console.log(JSON.stringify(msg))
 					if (msg.status == "SUCCESS") {
 						mui.toast(msg.message);
-						// $(treeFolder).remove();
-						//				getDefData();
 						window.location.reload();
 						var fatherWeb = plus.webview.currentWebview().opener();
 						mui.fire(fatherWeb, 'activeBack');
 					}
 				}
 			})
-			//*/
+
 		}
 	});
 
@@ -1499,8 +1379,6 @@ function cancleCard(obj) {
 
 $('#addNewDevice').click(function() {
 	var deviceId = $('#devices_no').html();
-	//		plus.storage.setItem('deviceId',deviceId);
-
 	window.location.href = "ScanCode.html";
 
 })
@@ -1518,7 +1396,6 @@ function getCaijishijian(caijiTimeIndex) {
 		if (checkBol == true) {
 			cheNum = 1;
 		}
-		//		console.log('=========' + $(this).attr('id'))
 		checkedArray.push(cheNum);
 		count++;
 	});
@@ -1530,7 +1407,6 @@ function getCaijishijian(caijiTimeIndex) {
 
 	return checkedArray.toString();
 
-	//	confirm("已选复选框的值：" + checkedArray + "\n" + "选中的复选框个数：" + count);
 }
 
 /**
@@ -1695,10 +1571,11 @@ function finshBtnClickReturnData() {
 				var strCPXType = "#cpxworktype" + i;
 				var objCPXType = $(strCPXType).val();
 
-
+				var strModelType = ''
 
 				if (objCPXType == "省电模式") {
 					console.log('=====省电模式')
+					strModelType = '0'
 
 					//数据采集模式
 					var strdatacaijimodel = "#deviceCPX_model" + i;
@@ -1707,13 +1584,9 @@ function finshBtnClickReturnData() {
 					var strgettime = "#getDataTime" + i;
 					var obj_caiji_gettime = new Array();
 					obj_caiji_gettime = getCaijishijian(i);
-					//				console.log("采集时间=====" + obj_caiji_gettime)
 					//采集周期
 					var strzhouqi = "#timeLangth" + i;
 					var obj_caiji_zhouqi = $(strzhouqi).val();
-					//数据上传时间
-					//				var struploadtime = "#uploadTime" + i;
-					//				var obj_caiji_uploadtime = $(struploadtime).val();
 
 					//数据上传周期
 					var struploadzhouqi = "#uploadZhouqi" + i;
@@ -1744,12 +1617,7 @@ function finshBtnClickReturnData() {
 							var mins = arrZQ[1] * 60;
 							var hours = arrZQ[0] * 3600;
 							var toCount = parseInt(hours) + parseInt(mins) + parseInt(seconds);
-							//						if(toCount < 3600) {
-							//							mui.toast("数据采集周期不得小于1小时");
-							//							return false;
-							//						} else {
 							sim_dic.sampling_duration = obj_caiji_zhouqi;
-							//						}
 						} else {
 							sim_dic.sampling_duration = obj_caiji_zhouqi;
 						}
@@ -1760,21 +1628,10 @@ function finshBtnClickReturnData() {
 							var mins = arrZQ[1] * 60;
 							var hours = arrZQ[0] * 3600;
 							var toCount = parseInt(hours) + parseInt(mins) + parseInt(seconds);
-							//						if(toCount < 3600) {
-							//							mui.toast("数据上传周期不得小于1小时");
-							//							return false;
-							//						} else {
 							sim_dic.update_duration = obj_caiji_uploadzhouqi;
-							//						}
 						} else {
 							sim_dic.update_duration = obj_caiji_uploadzhouqi;
 						}
-
-
-
-						var chuannumstr = ".chuanNameNumber" + i;
-						var chuannum = $(chuannumstr);
-
 
 					}
 
@@ -1783,6 +1640,7 @@ function finshBtnClickReturnData() {
 				if (objCPXType == "长连接模式") {
 
 					console.log('=====长连接模式')
+					strModelType = "1"
 
 					//采样间隔时间
 					var strSD_caiyangjiange = "#SD_caiyangjiange" + i;
@@ -1811,6 +1669,8 @@ function finshBtnClickReturnData() {
 				var chuannumstr = ".chuanNameNumber" + i;
 				var chuannum = $(chuannumstr);
 				for (var j = 0; j < chuannum.length; j++) {
+
+					console.log("000000000000000000")
 					var sensorObj = new Object();
 					var bolxishu = checkXishu(i, j);
 					if (bolxishu == false) {
@@ -1847,8 +1707,6 @@ function finshBtnClickReturnData() {
 
 					//安装位置
 					var str_j_anzhuang = "anzhuang" + i + j;
-					// var obj_j_anzhuang = $(str_j_anzhuang).val();
-
 
 					sensorObj.serial_no = obj_j_card;
 					sensorObj.sensor_no = obj_j_chaun;
@@ -1868,30 +1726,36 @@ function finshBtnClickReturnData() {
 					if (obj_j_liangcheng.length > 0) {
 						sensorObj.range_data = obj_j_liangcheng;
 					}
+
+					console.log('安装位置==== ' + JSON.stringify(selInsObj))
 					var objSelIns = selInsObj[str_j_anzhuang];
+
 					if (objSelIns.new_installId != '') {
 						if (objSelIns.old_install_id != '') {
 							sensorObj.old_install_id = selInsObj[str_j_anzhuang].old_installId;
 						}
 						sensorObj.install_xy = selInsObj[str_j_anzhuang].new_installXY;
 						sensorObj.install_id = selInsObj[str_j_anzhuang].new_installId;
+					} else {
+						sensorObj.install_id = selInsObj[str_j_anzhuang].old_installId;
 					}
+					sensorObj.connect_model = strModelType;
 
 					var obj_commenDic = new Object();
 					obj_commenDic.sensorMsgPO = sensorObj;
+					obj_commenDic.simWorkModelPO = sim_dic;
+					common_jsonArray.push(obj_commenDic);
 				}
-				obj_commenDic.simWorkModelPO = sim_dic;
-
-				common_jsonArray.push(obj_commenDic);
-
 
 			}
 
 
 		}
+		console.log('data ==== ' + JSON.stringify(common_jsonArray));
+
 
 		paramData.commen_json = JSON.stringify(common_jsonArray);
-		console.log('data ==== ' + JSON.stringify(paramData));
+
 		return paramData;
 
 	}
@@ -1986,7 +1850,6 @@ function postData(data) {
 		data: data,
 		dataType: 'json',
 		success: function(respData) {
-			console.log("++++++" + JSON.stringify(respData))
 			if (respData.status == 'SUCCESS') {
 				mui.toast(respData.message);
 
@@ -1995,11 +1858,7 @@ function postData(data) {
 				mui.toast(respData.message);
 			}
 		},
-		error: function(err) {
-
-		}
+		error: function(err) {}
 	});
 
 }
-
-//})

@@ -8,9 +8,6 @@
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="css/swiper.css" />
 		<link rel="stylesheet" type="text/css" href="css/common.css" />
-		<!--<link rel="stylesheet" type="text/css" href="css/modify.css" />-->
-
-		<!--<link rel="stylesheet" href="css/font-awesome.min.css">-->
 		<link rel="stylesheet" href="css/ace.min.css">
 		<link rel="stylesheet" type="text/css" href="css/DeviceDetail.css" />
 		<script src="js/mui.min.js"></script>
@@ -46,6 +43,13 @@
 				height: 140px;
 				width:200px;
 			}
+			.typeDJ{
+				display: none;
+			}
+			.typeJC{
+				display: none;
+			}
+		
 		</style>
 	</head>
 
@@ -65,9 +69,6 @@
 			<a class=" mui-icon mui-icon-left-nav mui-pull-left" id="DeviceDetailBack"></a>
 			<h1 class="mui-title ">设备详情</h1>
 			<a href="#popover" class="mui-pull-right iconfont icon-xiugai_l" style="margin-top: 5px;font-weight: 700;font-size: 24px;"></a>
-
-			<!-- 			<a id="changeDeviceID" class="mui-pull-right iconfont icon-xiugai_l" style="margin-top: 5px;font-weight: 700;font-size: 24px;"></a>
- -->
 		</header>
 
 		<div id="preview">
@@ -76,9 +77,6 @@
 
 				</div>
 				<div class="swiper-pagination"></div>
-				<!-- Add Arrows -->
-				<!--<div class="swiper-button-next"></div>
-				<div class="swiper-button-prev"></div>-->
 			</div>
 
 		</div>
@@ -115,78 +113,58 @@
 								<input style="width: 70%;" id="idOFRegin" readonly="readonly" />
 							</div>
 							<div>
+								<span class="Contentspan">设备类型：</span>
+								<input style="width: 70%;" id="idDeviceTypes" readonly="readonly" />
+							</div>
+							
+							<div class="typeDJ">
 								<span class="Contentspan">设备型号：</span>
 								<input style="width: 70%;" id="idOFdeviceType" readonly="readonly" />
 							</div>
-							<!--<div>
-								<span class="Contentspan">企业名称：</span>
-								<input id="idOFqiName" readonly="readonly" />
-							</div>-->
 							<div>
 								<span class="Contentspan">出厂时间：</span>
 								<input style="width: 70%;" id="idOFdeviceTime" readonly="readonly" />
 							</div>
-							<div>
+							<div class="typeDJ">
 								<span class="Contentspan">额定功率：</span>
 								<input style="width: 70%;" id="idOFGonglv" readonly="readonly" />
 								<span>KW</span>
 							</div>
-							<div>
+							<div class="typeDJ">
 								<span class="Contentspan">安装方式：</span>
 								<input style="width: 70%;" id="idOFAnzhuang" readonly="readonly" />
 							</div>
-							<div>
+							<div class="typeDJ">
 								<span style="width: 70%;" class="Contentspan">工作电压：</span>
 								<input style="width: 70%;" id="idOFdianya" readonly="readonly" />
 								<span>V</span>
 							</div>
-							<div>
+							<div class="typeDJ">
 								<span class="Contentspan">生产厂商：</span>
 								<input style="width: 70%;" id="idOFshengchanshang" readonly="readonly" />
 							</div>
-							<div>
+							<div class="typeDJ">
 								<span class="Contentspan">工作状态：</span>
 								<input style="width: 70%;" id="idOFWorkStatus" readonly="readonly" />
 							</div>
-							<!--<div>
-								<span class="Contentspan">预期寿命：</span>
-								<!--<input id="idOFage" disabled="disabled"  />-->
-							<!--<span style="width: 70%;" style="margin-top: 20px;margin-left: 5px;" id='bar'><i></i></span>
-							</div>-->
-							<!--<div>
-								<span class="Contentspan">故障类型：</span>
-								<input style="width: 70%;" id="idOFguzhangtype" readonly="readonly" />
-							</div>-->
-							<!--<div>
-								<span class="Contentspan">分厂：</span>
-								<input style="width: 70%;" id="idOFchejian" readonly="readonly" />
-							</div>-->
-							<div>
+							<div class="typeDJ">
 								<span class="Contentspan">生产产线： </span>
 								<input style="width: 70%;" id="idOFshengchanLine" readonly="readonly" />
 							</div>
 
-							<div>
+							<div class="typeDJ">
 								<span class="Contentspan">应用场景：</span>
 								<input style="width: 70%;" id="idOFchangjing" readonly="readonly" />
 							</div>
-							<!--<div>
-								<span class="Contentspan">点检人员：</span>
-								<input style="width: 70%;" id="idOFdianjianName" readonly="readonly" />
+							
+							<div class="typeJC">
+								<span class="Contentspan">配备电机功率（KM）：</span>
+								<input style="width: 50%;" id="idDeviceKM" readonly="readonly" />
 							</div>
-							<div>
-								<span class="Contentspan">点检时间：</span>
-								<input style="width: 70%;" id="idOFdianjiaTime" readonly="readonly" />
+							<div class="typeJC">
+								<span class="Contentspan">配备电机台数（台）：</span>
+								<input style="width: 50%;" id="idDeviceCount" readonly="readonly" />
 							</div>
-
-							<div>
-								<span class="Contentspan">点检结果：</span>
-								<input style="width: 70%;" id="idOFdianjieresult" readonly="readonly" />
-							</div>-->
-
-							<!--<p style="width: 100%;height: 30px;margin-top: 5px;">-->
-							<!--<a id="refreshDeviceDetail" style="float: right;color: gray;margin-right: 10px;margin-top: 5px;" class="mui-icon mui-icon-spinner"></a>-->
-							<!--</p>-->
 
 							<div class="widget-body">
 								<div class="widget-main padding-8" id="widget">
@@ -195,9 +173,6 @@
 									</div>
 								</div>
 							</div>
-
-							<!--<button id="ActiveBackBtn" style="width: 80%;margin-left: 10%;margin-top: 10px;margin-bottom: 10px;display: block;background-color: #524598;color: white;height: 45px;">返回</button>-->
-
 						</div>
 					</div>
 				</div>
@@ -207,17 +182,8 @@
 
 	</body>
 	<script src="js/swiper.js" type="text/javascript" charset="utf-8"></script>
-
 	<script src="js/bootstrap.min.js"></script>
-
-	<!-- page specific plugin scripts -->
-
 	<script src="js/fuelux.tree-sampledata.js"></script>
-
-	<!--<script src="js/fuelux.tree.min.js"></script>-->
-
-	<!-- ace scripts -->
-
 	<script src="js/ace-elements.min.js"></script>
 	<script src="js/ace.min.js"></script>
 

@@ -182,7 +182,8 @@ $('#addDevice').click(function() {
 		base_rigidity: gangdu,
 		gearbox_transmission_ratio: chuandongbi,
 		gearbox_gear_pair: chilunshu,
-		coupling_type: lianzhouType
+		coupling_type: lianzhouType,
+		devices_type: 'E'
 	};
 
 	console.log(JSON.stringify(data));
