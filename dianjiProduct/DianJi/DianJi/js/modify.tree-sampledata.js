@@ -1,6 +1,6 @@
 //mui.plusReady(function() {
 
-
+var sim_sensorList = new Array()
 
 var companyArray = new Array();
 var reginArray = new Array();
@@ -174,6 +174,7 @@ function sensorData(emeId, i) {
 		dataType: 'json',
 		success: function(msg) {
 			var data = msg.data;
+			sim_sensorList.push(msg.data)
 			if (typeof(data) != "undefined") {
 
 				var sensorStr = '<div class="tree-folder" >';
@@ -436,14 +437,14 @@ function sensorData(emeId, i) {
 						'" value="' + data.sampling_interval + '"/><span>s</span></div>';
 				} else {
 					sensorStr += '<div class="classCPXCLJ"><span>采样间隔时间：</span><input type="number" id="SD_caiyangjiange' + i +
-						'"/><span>s</span></div>';
+						'" value="5" /><span>s</span></div>';
 				}
 				if (data.upload_duration != undefined) {
 					sensorStr += '<div class="classCPXCLJ"><span>上传间隔时间：</span><input type="number" id="SD_shangchuanjiange' + i +
 						'" value="' + data.upload_duration + '"/><span>s</span></div>';
 				} else {
 					sensorStr += '<div class="classCPXCLJ"><span>上传间隔时间：</span><input type="number" id="SD_shangchuanjiange' + i +
-						'"/><span>s</span></div>';
+						'" value="60" /><span>s</span></div>';
 				}
 
 				if (data.heart_duration != undefined) {
@@ -451,7 +452,7 @@ function sensorData(emeId, i) {
 						'" value="' + data.heart_duration + '"/><span>s</span></div>';
 				} else {
 					sensorStr += '<div class="classCPXCLJ"><span>心跳间隔时间：</span><input type="number" id="SD_xintiaojiange' + i +
-						'"/><span>s</span></div>';
+						'" value="60" /><span>s</span></div>';
 				}
 
 
@@ -532,12 +533,12 @@ function sensorData(emeId, i) {
 								'</span></div>';
 						}
 
-						
+
 						if (senData[j].sensorType != undefined && senData[j].sensorType == 'V') {
 							if (senData[j].probe_name != undefined) {
 								sensorStr += '<div class="modifyCom"><span class="name">振动探头名称：</span><span class="emeId">' + senData[j].probe_name +
 									'</span></div>';
-							
+
 							} else {
 								sensorStr += '<div class="modifyCom"><span class="name">振动探头名称：</span><span class="emeId">' + "----" +
 									'</span></div>';
@@ -1422,6 +1423,9 @@ $('#FinshBth').click(function() {
 })
 
 function finshBtnClickReturnData() {
+
+
+
 	//电机额定转速
 	var obj_djedzs = $('#djedzs').val();
 	//电机磁极对数
@@ -1669,17 +1673,57 @@ function finshBtnClickReturnData() {
 				var chuannumstr = ".chuanNameNumber" + i;
 				var chuannum = $(chuannumstr);
 				for (var j = 0; j < chuannum.length; j++) {
-
-					console.log("000000000000000000")
+					
 					var sensorObj = new Object();
-					var bolxishu = checkXishu(i, j);
-					if (bolxishu == false) {
-						return false;
-					} else {
-
-						sensorObj.calibration_coefficient = bolxishu;
-
+					
+					//振动传感器时，修改采样量程，采样点数，传感器系数等
+					if (sim_sensorList[i].sensorList[j].sensorType == 'V') {
+						console.log("000000000000000000")
+						
+						var bolxishu = checkXishu(i, j);
+						if (bolxishu == false) {
+							return false;
+						} else {
+							sensorObj.calibration_coefficient = bolxishu;
+						}
+						
+						//采样信号模式
+						var str_j_model = "#caiyangmodel" + i + j;
+						var obj_j_model = $(str_j_model).val();
+						//采样点数
+						var str_j_count = "#caiyangcount" + i + j;
+						var obj_j_count = $(str_j_count).val();
+						//采样频率
+						var str_j_pinlv = "#caiyangpinlv" + i + j;
+						var obj_j_pinlv = $(str_j_pinlv).val();
+						//采样量程/精度
+						var str_j_liangcheng = "#caiyangliangcheng" + i + j;
+						var obj_j_liangcheng = $(str_j_liangcheng).val();
+						//采样量程/精度
+						var str_j_jingdu = "#caiyangjingdu" + i + j;
+						var obj_j_jingdu = $(str_j_jingdu).val();
+						
+						
+						
+						if (obj_j_model.length > 0) {
+							sensorObj.sampling_model = obj_j_model;
+						}
+						if (obj_j_count.length > 0) {
+							sensorObj.sampling_number = obj_j_count;
+						}
+						if (obj_j_pinlv.length > 0) {
+							sensorObj.sampling_frequency = obj_j_pinlv;
+						}
+						if (obj_j_jingdu.length > 0) {
+							sensorObj.sampling_accuracy = obj_j_jingdu;
+						}
+						if (obj_j_liangcheng.length > 0) {
+							sensorObj.range_data = obj_j_liangcheng;
+						}
+						
 					}
+
+
 
 					//卡编号
 					var str_j_card = "#cardID" + i + j;
@@ -1688,45 +1732,14 @@ function finshBtnClickReturnData() {
 					//传感器编号
 					var str_j_chuan = "#chuanID" + i + j;
 					var obj_j_chaun = $(str_j_chuan).val();
-
-					//采样信号模式
-					var str_j_model = "#caiyangmodel" + i + j;
-					var obj_j_model = $(str_j_model).val();
-					//采样点数
-					var str_j_count = "#caiyangcount" + i + j;
-					var obj_j_count = $(str_j_count).val();
-					//采样频率
-					var str_j_pinlv = "#caiyangpinlv" + i + j;
-					var obj_j_pinlv = $(str_j_pinlv).val();
-					//采样量程/精度
-					var str_j_liangcheng = "#caiyangliangcheng" + i + j;
-					var obj_j_liangcheng = $(str_j_liangcheng).val();
-					//采样量程/精度
-					var str_j_jingdu = "#caiyangjingdu" + i + j;
-					var obj_j_jingdu = $(str_j_jingdu).val();
-
-					//安装位置
-					var str_j_anzhuang = "anzhuang" + i + j;
-
+					
 					sensorObj.serial_no = obj_j_card;
 					sensorObj.sensor_no = obj_j_chaun;
 
-					if (obj_j_model.length > 0) {
-						sensorObj.sampling_model = obj_j_model;
-					}
-					if (obj_j_count.length > 0) {
-						sensorObj.sampling_number = obj_j_count;
-					}
-					if (obj_j_pinlv.length > 0) {
-						sensorObj.sampling_frequency = obj_j_pinlv;
-					}
-					if (obj_j_jingdu.length > 0) {
-						sensorObj.sampling_accuracy = obj_j_jingdu;
-					}
-					if (obj_j_liangcheng.length > 0) {
-						sensorObj.range_data = obj_j_liangcheng;
-					}
+					
 
+					//安装位置
+					var str_j_anzhuang = "anzhuang" + i + j;
 					console.log('安装位置==== ' + JSON.stringify(selInsObj))
 					var objSelIns = selInsObj[str_j_anzhuang];
 
