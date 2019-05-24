@@ -29,7 +29,7 @@ $.ajax({
 				}
 
 				//波形
-				loadDataWithDate(respData);
+				loadDataWithDate(respData,'init');
 				//趋势图
 				// getInitData(respData.data);
 				//特征值

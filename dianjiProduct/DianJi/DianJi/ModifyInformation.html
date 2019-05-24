@@ -63,6 +63,10 @@
 			    float: left;
 			    border: thin solid #5798f9;
 			}
+			
+			.classDDJC .classDJ{
+				display: none;
+			}
 
 		</style>
 	</head>
@@ -108,112 +112,105 @@
 										<span class="modifyFont">分 厂：</span>
 										<input id="devices_region" type="button" />
 									</div>
-									<div class="modifyCom">
+									<div class="modifyCom ">
+										<span class="modifyFont">出厂时间：</span>
+										<input id="devices_out_time" type="button" />
+									</div>
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">设备型号：</span>
 										<input id="devices_model" type="text" />
 									</div>
 
-									<div class="modifyCom">
-										<span class="modifyFont">出厂时间：</span>
-										<input id="devices_out_time" type="button" />
-									</div>
-									<div class="modifyCom">
+									
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">额定功率：</span>
 										<input id="devices_power" type="text" />
 										<span style="margin-left: 2px;padding-top: 2px;">KW</span>
 									</div>
-									<div class="modifyCom">
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">安装方式：</span>
 										<input id="install_way" type="text" />
 									</div>
-									<div class="modifyCom">
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">工作电压：</span>
 										<input id="work_voltage" type="text" />
 										<span style="margin-left: 2px;padding-top: 2px;">V</span>
 									</div>
-									<div class="modifyCom">
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">生产厂商：</span>
 										<input id="devices_produce" type="text" />
 									</div>
-									<div class="modifyCom">
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">功率因数：</span>
 										<input id="power_factor" type="text" />
 									</div>
-									<div class="modifyCom">
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">防护等级：</span>
 										<input id="protection" type="text" />
 									</div>
-									<div class="modifyCom">
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">绝缘等级：</span>
 										<input id="insulation" type="text" />
 									</div>
-									<div class="modifyCom">
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">轴承型号：</span>
 										<input id="bearing_model" type="text" />
 									</div>
-
-									<!--<div class="modifyCom">
-										<span class="modifyFont">分厂：</span>
-										<input id="work_shop" type="text" />
-									</div>-->
-									<div class="modifyCom">
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">生产产线：</span>
 										<input id="pro_line" type="text" />
 									</div>
-									<div class="modifyCom">
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">应用场景：</span>
 										<input id="use_scenes" type="text" />
 									</div>
-									<!--<div class="modifyCom">
-										<span class="modifyFont">维修记录：</span>
-										<input id="content" type="text" />
-									</div>-->
-									<div class="modifyCom">
-										<span class="modifyFont">维修记录：</span>
-										<input id="m_content" type="text" />
-									</div>
-									<div class="modifyCom">
-										<span class="modifyFont">维修日期：</span>
-										<input id="create_time" type="text" />
-									</div>
-									<!--<br />-->
 									<div class="modifyCom">
 										<span class="modifyFont">安装照片：</span>
 										<input style="border: thin solid #5798f9;height: 20px;font-size: 11px;" type="button" class="val" id="addphoto"
 										 value="请拍摄现场安装照片" />
 									</div>
-									<div class="modifyCom">
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">电机额定转速：</span>
 										<input id="djedzs" type="text" />
 										<span style="margin-left: 2px;">RPM</span>
 									</div>
-									<div class="modifyCom">
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">电机磁极对数：</span>
 										<input id="djcjds" type="text" />
 										<span style="margin-left: 2px;">对</span>
 									</div>
-									<div class="modifyCom">
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">电机基座刚度：</span>
 										<input id="djjzgd" type="button" />
 									</div>
 
-									<div class="modifyCom">
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">齿轮箱结构图：</span>
 										<!--<input id="clxjgt" type="text" />-->
 									</div>
 
-									<div class="modifyCom">
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">齿轮箱传动比：</span>
 										<input id="clxcdb" type="text" />
 									</div>
-									<div class="modifyCom">
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">齿轮箱齿轮齿数：</span>
 										<input id="clxcls" type="text" />
 									</div>
-									<div class="modifyCom">
+									<div class="modifyCom classDJ">
 										<span class="modifyFont">电机联轴器类型：</span>
 										<input id="djlaqlx" type="text" />
 									</div>
+									
+									<div class="modifyCom classDDJC">
+										<span class="modifyFont">配备电机功率(kW)：</span>
+										<input id="dojckW" type="text" />
+									</div>
+									<div class="modifyCom classDDJC">
+										<span class="modifyFont">配备电机台数(台)：</span>
+										<input id="ddjcCount" type="text" />
+									</div>
+									
 
 									<br />
 									

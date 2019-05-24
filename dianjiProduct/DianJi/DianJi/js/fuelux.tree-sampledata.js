@@ -76,16 +76,15 @@ mui.plusReady(function() {
 		//	window.location.href = "Monitor.html";
 	})
 	$("#updateSetting").on('tap', function() {
+		
 		//判断权限，是否显示修改信息
 		var strUserType = localStorage.getItem("userType");
+		
 		if (strUserType < 10 && localStorage.getItem('is_manage') != '1') {
 			mui.alert('您没有权限进行设备信息修改，请先去申请相关权限！', '无访问权限', '我知道了');
 		}
 
 		if (strUserType > 10 || localStorage.getItem('is_manage') == '1') {
-
-			console.log("000000000000000====" + JSON.stringify(dataArraySim))
-
 			var webDetail = plus.webview.create('updateCpxAlarm.html', 'updateCpxAlarm.html', {}, {
 				strDeviceName: $("#idOFdeviceName").val(),
 				strDeviceID: $("#idOFdeviceNUM").val(),

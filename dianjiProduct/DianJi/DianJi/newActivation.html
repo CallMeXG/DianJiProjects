@@ -29,7 +29,6 @@
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a style="color: white;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title ">卡激活等待页</h1>
-			<!--<a onclick="refreshButtonClick()" style="color: white;" class="mui-icon mui-icon-spinner mui-pull-right"></a>-->
 		</header>
 		<div class="mui-bar mui-bar-footer" id="footer">
 			<button type="button" id="FinshBth" class="mui-btn mui-btn-royal mui-btn-block">确认激活</button>
@@ -65,15 +64,7 @@
 							<div class="cpxClass">
 								<span>最后连接服务器时间:</span>
 								<span id="connect_severTime"></span>
-							</div>
-							<!--<div class="cpxClass">
-								<span>最后断开服务器时间:</span>
-								<span id="close_severTime"></span>
-							</div>-->
-							<!--<div class="cpxClass">
-								<span>当前连接服务器状态:</span>
-								<span id="severStatus"></span>
-							</div>-->
+							</div>、
 
 							<div class="cpxClass">
 								<span>最后数据上传传感器编号:</span>
@@ -83,25 +74,11 @@
 								<span>最后数据上传时间:</span>
 								<span id="lastuploadTime"></span>
 							</div>
-							<!--<div class="cpxClass">
-								<span>上传状态:</span>
-								<span id="lastuploadStatus"></span>
-							</div>-->
 							<hr />
 							<ul class="mui-table-view" id="id_sensorList" style="display: none;">
 								<li class="mui-table-view-cell" v-for="(sensorMsg,index) in sensorListMsg" style="color: gray;">
 									<p><span>传感器序列编号： {{sensorMsg.sensor_no}}</span></p>
-									<!-- <p v-if="typeof(sensorMsg.install_xy) != 'undefined'" style="height: 30px;">
-										<span style="margin-top: 10px;float: left;">传感器安装位置：</span>
-										<input type="button" :id="forId(index)" v-on:click="selectedInstall(index)" style="height: 30px;float: left;" v-bind:value="sensorMsg.install_xy" />
-									</p> -->
-
-									<!-- <p v-if="typeof(sensorMsg.install_xy) != 'undefined'">
-										<span style="float: left;">
-											传感器安装位置：{{sensorMsg.install_xy}}
-										</span>
-										
-									</p> -->
+									
 								</li>
 
 							</ul>
@@ -124,11 +101,9 @@
 		<script src="js/mui.min.js"></script>
 		<script src="js/url_all.js"></script>
 		<script src="js/jquery.min.js"></script>
-		<!-- <script src="js/newActivation.js"></script> -->
 		<script src="js/mui.picker.js"></script>
 		<script src="js/mui.poppicker.js"></script>
 		<script src="js/vue.js"></script>
-		<!-- <script src="js/vue.min.js"></script> -->
 
 		<script>
 			//设备信息
@@ -147,7 +122,6 @@
 				},
 				methods: {
 					forId: function(index) {
-						console.log('000000===' + index)
 						return "forid_" + index;
 					},
 					selectedInstall: function(index) {
@@ -284,7 +258,6 @@
 					},
 					dataType: 'json',
 					success: function(msg) {
-						// console.log(JSON.stringify(msg))
 						if (msg.status == "SUCCESS") {
 							setDataToHtml(msg.data);
 							regionData = msg.data;
@@ -365,17 +338,6 @@
 
 					sensorVue.sensorListMsg = reqMsg.sensorList;
 					$('#id_sensorList').show();
-
-					// 					for (var i = 0; i < sensorList.length; i++) {
-					// 						var sensorStr = '<div class="sensorDiv" style="color:gray;">';
-					// 						sensorStr += '<div><span>传感器序列编号：</span><input style="padding-left:5px;" disabled="disabled" value="' +
-					// 							sensorList[i].sensor_no + '"/></div>';
-					// 						sensorStr += '<div><span style="float:left;padding-top:5px;">传感器安装位置：</span><input id="install_' + i +
-					// 							'" style="float:left;width:50%;height:30px;" type="button" value="' + sensorList[i].install_xy + '"/></div>';
-					// 						sensorStr += '</div>';
-					// 						// sensorStr += '<div style="height:2px;width:80%;background-color:white;clear:both;margin-left:10%;margin-right:10%;margin-top:5px;"></div>';
-					// 						$('.center').append(sensorStr);
-					// 					}
 				}
 			}
 
@@ -387,21 +349,6 @@
 
 			mui.plusReady(function() {
 
-				// 				$("#FinshBth").click(function() {
-				// 					if (typeof(regionData.sensorList) != "undefined" || regionData.sensorList.length != 0) {
-				// 
-				// 						for (var i=0 ;i < regionData.sensorList.length; i++)
-				// 						{
-				// 							var strIds = 'install_' + i;
-				// 							var str = document.getElementById(strIds).value;
-				// 							console.log(']]]]]]]]]]]]]====' + str);
-				// 						}
-				// 							
-				// 					}
-				// 
-				// 				});
-
-				///*
 				$("#FinshBth").click(function() {
 
 					plus.nativeUI.showWaiting('正在进行激活...');
@@ -413,7 +360,6 @@
 						mui.toast('您已提交激活申请，请不要频繁操作！')
 						return false;
 					} else {
-
 
 						if (regionData != null) {
 
@@ -437,16 +383,6 @@
 										update_duration: '00:00:00',
 										work_point_json: JSON.stringify(work_json)
 									};
-
-									//传感器安装位置,如果有历史,则提交历史信息,如果没有历史,则提交传感器编号
-									// 									var strInstall = regionData.sensorList[i].sensor_no;
-									// 									if (typeof(regionData.sensorList[i].install_xy) != 'undefined' && regionData.sensorList[i].install_xy !=
-									// 										null && regionData.sensorList[i].install_xy.length != 0) {
-									// 										strInstall = regionData.sensorList[i].install_xy;
-									// 									}
-
-									// var strIds = 'install_' + i;
-									// var strInstallValue = document.getElementById(strIds).value;
 
 									//传感器信息
 									var sensorPO = {
@@ -476,10 +412,9 @@
 									work_status: '0',
 									commen_json: JSON.stringify(json_commen)
 								}
-
-
-
-								console.log('-------' + JSON.stringify(json_commen));
+								
+								
+								console.log('=======================' + JSON.stringify(commenParam))
 								///*
 								$.ajax({
 									type: "POST",
@@ -489,15 +424,14 @@
 									dataType: 'json',
 									success: function(postMsg) {
 										plus.nativeUI.closeWaiting();
-										console.log('=================================' + postMsg.message)
 										if (postMsg.status == 'SUCCESS') {
 
-											///*
 											var postParam = {
 												devices_no: localStorage.DeveciId,
 												serial_no: localStorage.simID
 											};
-
+											
+											
 											$.ajax({
 												type: "get",
 												url: commen_appAddSim_Interface,
@@ -512,13 +446,6 @@
 															url: 'DeviceDetail.html',
 															id: 'DeviceDetail.html'
 														});
-														// 														setTimeout(function() {
-														// 															var fatherWeb = plus.webview.currentWebview().opener();
-														// 															mui.fire(fatherWeb, 'activeBack');
-														// 															var objWeb = plus.webview.currentWebview();
-														// 															plus.webview.close(objWeb.id, 'none', 0.01);
-														// 														}, 1000);
-
 													} else {
 														mui.toast('激活失败，请重试！');
 													}
@@ -528,8 +455,7 @@
 													mui.toast('激活失败，请重试！');
 												}
 											});
-											//*/
-
+											
 										} else {
 
 										}
@@ -538,8 +464,7 @@
 										plus.nativeUI.closeWaiting();
 									}
 								});
-
-								//*/
+//*/
 							}
 
 						} else {
@@ -550,7 +475,7 @@
 					}
 
 				});
-				//*/
+				
 
 			})
 		</script>

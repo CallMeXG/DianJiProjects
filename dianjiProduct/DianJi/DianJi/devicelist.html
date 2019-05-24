@@ -167,7 +167,7 @@
 										<p style="float: left;">设备状态：</p>
 										<div v-if="typeof(mesItem.ck_result_manual) != 'undefined'">
 											<div v-if="mesItem.ck_result_manual == '0'">
-												<p style="float: left;color: gray;">未知</p>
+												<p style="float: left;color: gray;">未监测</p>
 											</div>
 											<div v-if="mesItem.ck_result_manual == '1'">
 												<p style="background-color: #00CD00;color: white;width: 80px;float: left;text-align: center;padding-top: 2px;">正常</p>
@@ -183,7 +183,7 @@
 											</div>
 										</div>
 										<div v-if="typeof(mesItem.ck_result_manual) == 'undefined'">
-											<p style="color: gray;float: left;">未知</p>
+											<p style="color: gray;float: left;">未监测</p>
 										</div>
 									</div>
 									<div class="mui-ellipsis" style="margin-top: 10px;">

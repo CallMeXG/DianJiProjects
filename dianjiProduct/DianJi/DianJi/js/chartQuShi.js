@@ -122,9 +122,10 @@ function setDataToEchart(DataResp) {
 	console.log("==========TTTTTTTTTTTTT====" + strSensorType)
 
 	// if (strSensorType == 'V') {
-		var strChart = '<div class="chart_qushiClass" id="chartQushi"';
+		var strChart = '<div class="chart_qushiClass" id="chartQushi" style="background-color:yellow;height:400px"';
 		strChart += '></div>';
 		$("#qiushitu").append(strChart);
+		
 
 		var eachData = DataResp;
 		var strInstally = selectObject.install_xy;
@@ -135,7 +136,24 @@ function setDataToEchart(DataResp) {
 
 		var strPostID = "chartQushi";
 
-		var legendData = ["X", "Y", "Z", "温度"];
+		
+		
+		var strLegendX = 'X'
+		if(selectObject.alias_x != undefined){
+			strLegendX = strLegendX + '(' +selectObject.alias_x +')'
+		}
+		
+		var strLegendY = 'Y'
+		if(selectObject.alias_y != undefined){
+			strLegendY = strLegendY + '(' + selectObject.alias_y +')'
+		}
+		
+		var strLegendZ = 'Z'
+		if(selectObject.alias_z != undefined){
+			strLegendZ = strLegendZ + '(' + selectObject.alias_z +')'
+		}
+		var legendData = [strLegendX,strLegendY,strLegendZ, "温度"];
+		
 		var xData = new Array();
 		var xData_x = new Array();
 		var xData_y = new Array();
@@ -266,7 +284,8 @@ function chart_qushifengfengzhi(strTile, strPostID, legendData, xData, yDatax, y
 		legend: {
 			data: legendData,
 			left: 'center',
-			top: 30
+			top: 30,
+			// show:false
 		},
 		tooltip: {
 			trigger: 'axis',
@@ -297,19 +316,30 @@ function chart_qushifengfengzhi(strTile, strPostID, legendData, xData, yDatax, y
 			name: 'RMS:m/s²',
 			splitLine: {
 				show: false
+			},
+			nameLocation: 'middle',
+			nameGap: 45,
+			nameTextStyle:{
+				color: 'blue'
 			}
 		}, {
 			type: 'value',
 			name: '温度:℃',
 			splitLine: {
 				show: false
+			},
+			nameLocation: 'middle',
+			nameGap: 30,
+			nameTextStyle:{
+				color: 'orange'
 			}
-		}],
+			}],
 
 		grid: {
 			left: '17%',
 			right: '15%',
-			bottom: '37%'
+			bottom: '37%',
+			top: '30%'
 		},
 		dataZoom: {
 			type: 'inside',
@@ -318,7 +348,7 @@ function chart_qushifengfengzhi(strTile, strPostID, legendData, xData, yDatax, y
 			end: 100
 		},
 		series: [{
-				name: "X",
+				name: legendData[0],
 				data: yDatax,
 				type: 'line',
 				symbolSize: 4,
@@ -338,7 +368,7 @@ function chart_qushifengfengzhi(strTile, strPostID, legendData, xData, yDatax, y
 				animation: false
 			},
 			{
-				name: "Y",
+				name: legendData[1],
 				data: yDatay,
 				type: 'line',
 				symbolSize: 4,
@@ -358,7 +388,7 @@ function chart_qushifengfengzhi(strTile, strPostID, legendData, xData, yDatax, y
 				animation: false
 			},
 			{
-				name: "Z",
+				name: legendData[2],
 				data: yDataz,
 				type: 'line',
 				symbolSize: 4,

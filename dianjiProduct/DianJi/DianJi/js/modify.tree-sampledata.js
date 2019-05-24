@@ -14,6 +14,9 @@ var selInstallArray = new Array();
 var selInsObj = new Object();
 
 
+//设备类型，L：电动机车，E:电机
+var strDeviceType = ''
+
 
 getInitCompany();
 
@@ -1260,9 +1263,7 @@ function getDefData() {
 				sim_list = data.sim_list;
 				CPXCount = sim_list.length;
 				buildSensorData(sim_list);
-			} else {
-
-			}
+			} 
 			if (typeof(data.install_list) != "undefined") {
 
 				for (var i = 0; i < data.install_list.length; i++) {
@@ -1279,6 +1280,34 @@ function getDefData() {
 				}
 			}
 			var list = msg.data.list;
+						
+			strDeviceType = data.devices_type
+			
+			//L 电动机车
+			if(data.devices_type == 'L'){
+				var objJCDD = document.getElementsByClassName('classDDJC')
+				for (var i = 0; i < objJCDD.length; i++) {
+					objJCDD[i].style.display = 'block'
+				}
+				
+				var objDianji = document.getElementsByClassName('classDJ')
+				for (var i = 0; i < objDianji.length; i++) {
+					objDianji[i].style.display = 'none'
+				}
+			}
+			//E电机
+			if(data.devices_type == 'E'){
+				
+				var objJCDD = document.getElementsByClassName('classDDJC')
+				for (var i = 0; i < objJCDD.length; i++) {
+					objJCDD[i].style.display = 'none'
+				}
+				
+				var objDianji = document.getElementsByClassName('classDJ')
+				for (var i = 0; i < objDianji.length; i++) {
+					objDianji[i].style.display = 'block'
+				}
+			}
 
 			$('#devices_name').val(isUndefined(data, 'devices_name'));
 			$('#devices_no').html(isUndefined(data, 'devices_no'));
@@ -1286,15 +1315,18 @@ function getDefData() {
 			$('#devices_company').val(isUndefined(data, 'company_name'));
 			//分厂
 			$('#devices_region').val(isUndefined(data, 'region_name'));
-			$('#devices_model').val(isUndefined(data, 'devices_model'));
+			
 			$('#devices_out_time').val(data.devices_out_time);
+			
+			$('#devices_model').val(isUndefined(data, 'devices_model'));
+			
 			$('#devices_power').val(isUndefined(data, 'devices_power'));
 			$('#install_way').val(isUndefined(data, 'install_way'));
-
+			
 			if (data.work_voltage != undefined) {
 				$('#work_voltage').val(isUndefined(data, 'work_voltage'));
 			}
-
+			
 			$('#devices_produce').val(isUndefined(data, 'devices_produce'));
 			$('#power_factor').val(isUndefined(data, 'power_factor'));
 			$('#protection').val(isUndefined(data, 'protection'));
@@ -1314,6 +1346,9 @@ function getDefData() {
 			$('#use_scenes').val(isUndefined(data, 'use_scenes'));
 			$('#create_time').val(isUndefined(data, 'update_time'));
 			$('#m_content').val(isUndefined(data, 'content'));
+			//--------------------------电动机车，
+			$('#dojckW').val(isUndefined(data, 'allocate_power'));
+			$('#ddjcCount').val(isUndefined(data, 'electric_num'));
 		}
 	});
 
@@ -1424,8 +1459,6 @@ $('#FinshBth').click(function() {
 
 function finshBtnClickReturnData() {
 
-
-
 	//电机额定转速
 	var obj_djedzs = $('#djedzs').val();
 	//电机磁极对数
@@ -1446,7 +1479,8 @@ function finshBtnClickReturnData() {
 
 	if (boldjedzs == false || boldjcjds == false || bolclxcls == false || bolclxcdb == false) {
 		return false;
-	} else {
+	} 
+	else {
 		///*
 		var deviceId = $('#devices_no').html();
 
@@ -1468,61 +1502,14 @@ function finshBtnClickReturnData() {
 			mui.toast('分厂不能为空');
 			return false;
 		}
-		//设备型号
-		var devices_model = $('#devices_model').val();
-
+		
 		//设备出厂时间
 		var devices_out_time = $('#devices_out_time').val();
-
-		//功率
-		var devices_power = $('#devices_power').val();
-
-		//安装方式
-		var install_way = $('#install_way').val();
-
-		//工作电压
-		var work_voltage = parseInt($('#work_voltage').val());
-
-		//设备生产厂商
-		var devices_produce = $('#devices_produce').val();
-
-		//功率因数
-		var power_factor = $('#power_factor').val();
-
-		//防护等级
-		var protection = $('#protection').val();
-
-		//绝缘等级
-		var insulation = $('#insulation').val();
-
-		//设置内置轴承型号
-		var bearing_model = $('#bearing_model').val();
-
-		//生产线
-		var pro_line = $('#pro_line').val();
-		if (pro_line == '' || pro_line == undefined) {
-			mui.toast('生产产线不能为空');
-			return false;
-		}
-		//设备应用场景
-		var use_scenes = $('#use_scenes').val();
-		if (use_scenes == '' || use_scenes == undefined) {
-			mui.toast('应用场景不能为空');
-			return false;
-		}
-
-		//维修记录
-		var content = $('#m_content').val();
-		//设备维修日期
-		var cardUpdateTime = $('#create_time').val();
-
-		//
 		var cancle = $('.cancle');
-
+		
 		var paramData = new Object();
 		paramData.strLoginId = localStorage.getItem("strLoginId");
 		paramData.strLoginToken = localStorage.getItem("strLoginToken");
-		//		paramData.company = company_name;
 		paramData.devices_no = deviceId;
 		if (companyID != undefined) {
 			paramData.company_id = companyID;
@@ -1530,30 +1517,90 @@ function finshBtnClickReturnData() {
 		if (regionID != undefined) {
 			paramData.region_id = regionID;
 		}
-		paramData.devices_model = devices_model;
+		
+		
+		//设备名称
 		paramData.devices_name = devices_name;
+		//出厂时间
 		paramData.devices_out_time = devices_out_time;
-		paramData.devices_power = devices_power;
-		paramData.install_way = install_way;
-		paramData.work_voltage = work_voltage;
-		paramData.devices_produce = devices_produce;
-		paramData.protection = protection;
-		paramData.insulation = insulation;
-		paramData.bearing_model = bearing_model;
-		//------
-		paramData.rated_speed = boldjedzs;
-		paramData.magnetism_pair = boldjcjds;
-		paramData.base_rigidity = obj_djjzgd;
-		paramData.coupling_type = obj_djlaqlx;
-		paramData.gearbox_gear_pair = bolclxcls;
-		paramData.gearbox_transmission_ratio = bolclxcdb;
-
-		//------
-		//		paramData.work_shop = work_shop;
-		paramData.pro_line = pro_line;
-		paramData.content = content;
-		paramData.maintenance_time = cardUpdateTime;
-		paramData.use_scenes = use_scenes;
+		
+		
+		//电动机车
+		if(strDeviceType == 'L'){
+			//设备配备电机功率
+			var devices_KW = $('#dojckW').val();
+			//配备电机台数
+			var devices_Count = $('#ddjcCount').val();
+			
+			paramData.allocate_power = devices_KW;
+			paramData.electric_num = devices_Count;
+		}
+		
+		console.log("type===" + JSON.stringify(paramData))
+		
+		//电机
+		if(strDeviceType == 'E'){
+			//设备型号
+			var devices_model = $('#devices_model').val();
+			
+			//功率
+			var devices_power = $('#devices_power').val();
+			
+			//安装方式
+			var install_way = $('#install_way').val();
+			
+			//工作电压
+			var work_voltage = parseInt($('#work_voltage').val());
+			
+			//设备生产厂商
+			var devices_produce = $('#devices_produce').val();
+			
+			//功率因数
+			var power_factor = $('#power_factor').val();
+			
+			//防护等级
+			var protection = $('#protection').val();
+			
+			//绝缘等级
+			var insulation = $('#insulation').val();
+			
+			//设置内置轴承型号
+			var bearing_model = $('#bearing_model').val();
+			
+			//生产线
+			var pro_line = $('#pro_line').val();
+			if (pro_line == '' || pro_line == undefined) {
+				mui.toast('生产产线不能为空');
+				return false;
+			}
+			//设备应用场景
+			var use_scenes = $('#use_scenes').val();
+			if (use_scenes == '' || use_scenes == undefined) {
+				mui.toast('应用场景不能为空');
+				return false;
+			}
+			
+			paramData.devices_model = devices_model;
+			
+			paramData.devices_power = devices_power;
+			paramData.install_way = install_way;
+			paramData.work_voltage = work_voltage;
+			paramData.devices_produce = devices_produce;
+			paramData.protection = protection;
+			paramData.insulation = insulation;
+			paramData.bearing_model = bearing_model;
+			//------
+			paramData.rated_speed = boldjedzs;
+			paramData.magnetism_pair = boldjcjds;
+			paramData.base_rigidity = obj_djjzgd;
+			paramData.coupling_type = obj_djlaqlx;
+			paramData.gearbox_gear_pair = bolclxcls;
+			paramData.gearbox_transmission_ratio = bolclxcdb;
+			
+			paramData.pro_line = pro_line;
+			paramData.use_scenes = use_scenes;
+		}
+		
 
 		if (cancle.length == 0) {
 			return paramData;
@@ -1678,7 +1725,6 @@ function finshBtnClickReturnData() {
 					
 					//振动传感器时，修改采样量程，采样点数，传感器系数等
 					if (sim_sensorList[i].sensorList[j].sensorType == 'V') {
-						console.log("000000000000000000")
 						
 						var bolxishu = checkXishu(i, j);
 						if (bolxishu == false) {
