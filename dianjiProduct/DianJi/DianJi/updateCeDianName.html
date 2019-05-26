@@ -56,7 +56,9 @@
 			var strID = null;
 			var strText = null;
 			strUpdateText = null;
-			var strInputX = null,strInputY = null,strInputZ = null;
+			var strInputX = null,
+				strInputY = null,
+				strInputZ = null;
 			var wo = null;
 			var ws = null,
 				domready = false;
@@ -91,7 +93,7 @@
 					},
 					dataType: "json",
 					success: function(respData) {
-						console.log('---------'+ JSON.stringify(respData))
+						console.log('---------' + JSON.stringify(respData))
 						if (respData.status == 'SUCCESS') {
 							if (respData.data.length > 0) {
 								objInstall_list = respData.data;
@@ -145,45 +147,50 @@
 				strInputY = document.getElementById('inputY').value;
 				strInputZ = document.getElementById('inputZ').value;
 				console.log("[[[[[]]]]]= === " + strUpdateText)
-				if (strUpdateText.length == 0 && strInputX.length == 0 && strInputY.length == 0 && strInputZ.length == 0 ) {
+				if (strUpdateText.length == 0 && strInputX.length == 0 && strInputY.length == 0 && strInputZ.length == 0) {
 					mui.alert("请输入需要修改的内容");
 				} else {
-					if (strText == null) {
-						mui.alert("请先选择测点位置！");
+					if (strInputX.length > 10 || strInputY.length > 10 || strInputZ.length > 10) {
+						mui.alert('X、Y、Z轴别名长度最大为10')
 					} else {
-
-						if (strUpdateText == strText) {
-							mui.alert("输入名称与原测点名称重复!");
+						if (strText == null) {
+							mui.alert("请先选择测点位置！");
 						} else {
-							console.log("====success")
-							///*
-							$.ajax({
-								type: "POST",
-								url: new_commen_update_device_install_Interface,
-								async: true,
-								data: {
-									strLoginId: localStorage.getItem("strLoginId"),
-									strLoginToken: localStorage.getItem("strLoginToken"),
-									devices_no: localStorage.DeveciId,
-									install_id: strID,
-									install_xy: strUpdateText,
-									alias_x:strInputX,
-									alias_y:strInputY,
-									alias_z:strInputZ
-								},
-								dataType: "json",
-								success: function(respData) {
-									console.log('changechange---------')
-									if (respData.status == 'SUCCESS') {
-										mui.toast('修改测点名称成功！');
-										// wo.evalJS("reloadSensor();");
-										location.reload();
-									} else {
-										mui.toast("测点名称修改失败：" + respData.message);
+
+							if (strUpdateText == strText) {
+								mui.alert("输入名称与原测点名称重复!");
+							} else {
+								console.log("====success")
+								///*
+								$.ajax({
+									type: "POST",
+									url: new_commen_update_device_install_Interface,
+									async: true,
+									data: {
+										strLoginId: localStorage.getItem("strLoginId"),
+										strLoginToken: localStorage.getItem("strLoginToken"),
+										devices_no: localStorage.DeveciId,
+										install_id: strID,
+										install_xy: strUpdateText,
+										alias_x: strInputX,
+										alias_y: strInputY,
+										alias_z: strInputZ
+									},
+									dataType: "json",
+									success: function(respData) {
+										console.log('changechange---------')
+										if (respData.status == 'SUCCESS') {
+											mui.toast('修改测点名称成功！');
+											// wo.evalJS("reloadSensor();");
+											location.reload();
+										} else {
+											mui.toast("测点名称修改失败：" + respData.message);
+										}
 									}
-								}
-							});
-							//*/
+								});
+								//*/
+
+							}
 
 						}
 

@@ -203,8 +203,9 @@ $('#addDevice').click(function() {
 //				//触发主页面的gohome事件
 //				mui.fire(main, 'backhome');
 				mui.back();
-			} else if(msg.status = "FAILED") {
-				mui.toast(msg.message);
+			} 
+			if (msg.status == 'ILLEGAL') {
+				mui.alert('您的账户登录过期，请退出重新登录！')
 			}
 		}
 	});

@@ -38,11 +38,11 @@ mui.plusReady(function() {
 							sensorData_whx(key, i);
 						}
 					}
-				} else {
+				} 
+				if (msg.status == 'ILLEGAL') {
 					plus.nativeUI.closeWaiting();
-					mui.toast(msg.message);
+					mui.alert('您的账户登录过期，请退出重新登录！')
 				}
-
 			},
 			error: function(error) {
 				plus.nativeUI.closeWaiting();
@@ -76,10 +76,10 @@ mui.plusReady(function() {
 		//	window.location.href = "Monitor.html";
 	})
 	$("#updateSetting").on('tap', function() {
-		
+
 		//判断权限，是否显示修改信息
 		var strUserType = localStorage.getItem("userType");
-		
+
 		if (strUserType < 10 && localStorage.getItem('is_manage') != '1') {
 			mui.alert('您没有权限进行设备信息修改，请先去申请相关权限！', '无访问权限', '我知道了');
 		}
@@ -156,8 +156,10 @@ mui.plusReady(function() {
 					if (typeof(msg.data) != "undefined") {
 						setUIForCPX(msg.data, index);
 					}
-				} else {
-					mui.toast(msg.message);
+				}
+				 if (msg.status == 'ILLEGAL') {
+					plus.nativeUI.closeWaiting();
+					mui.alert('您的账户登录过期，请退出重新登录！')
 				}
 
 			}
@@ -448,7 +450,7 @@ mui.plusReady(function() {
 						'  ℃</li>';
 
 				}
-				
+
 				console.log("sensor =====" + sensorData.sensorType)
 
 				if (sensorData.sensorType != undefined && sensorData.sensorType == 'V') {
@@ -587,9 +589,10 @@ mui.plusReady(function() {
 							sensorData_whx(key, i);
 						}
 					}
-				} else {
+				} 
+				if (msg.status == 'ILLEGAL') {
 					plus.nativeUI.closeWaiting();
-					mui.toast(msg.message);
+					mui.alert('您的账户登录过期，请退出重新登录！')
 				}
 
 			},
@@ -662,26 +665,26 @@ mui.plusReady(function() {
 
 					//判断设备类型 E电机类型，L电动机车类型
 					if (info.devices_type != undefined && info.devices_type == 'L') {
-						
+
 						$("#idDeviceTypes").val('电动机车');
-						
+
 						$('#idDeviceKM').val(isUndefined(info, 'allocate_power'))
 						$('#idDeviceCount').val(isUndefined(info, 'electric_num'))
 						var objDianji = document.getElementsByClassName('typeJC')
 						for (var i = 0; i < objDianji.length; i++) {
 							objDianji[i].style.display = 'block'
-						}	
+						}
 					}
 
 					if (info.devices_type != undefined && info.devices_type == 'E') {
-						
+
 						$("#idDeviceTypes").val('电机');
-						
+
 						var objDianji = document.getElementsByClassName('typeDJ')
 						for (var i = 0; i < objDianji.length; i++) {
 							objDianji[i].style.display = 'block'
 						}
-						
+
 						//设备型号
 						$("#idOFdeviceType").val(isUndefined(info, 'devices_model'));
 						//额定功率
@@ -699,7 +702,7 @@ mui.plusReady(function() {
 						$("#idOFshengchanLine").val(isUndefined(info, 'pro_line'));
 						//设备应用场景
 						$("#idOFchangjing").val(isUndefined(info, 'use_scenes'));
-						
+
 					}
 
 

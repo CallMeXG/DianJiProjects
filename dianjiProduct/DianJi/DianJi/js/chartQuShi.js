@@ -39,6 +39,9 @@ function getDeviceInstallActiveList() {
 				}
 
 			}
+			if (response.status == 'ILLEGAL') {
+				mui.alert('您的账户登录过期，请退出重新登录！')
+			}
 
 		},
 		error: function(error) {
@@ -108,7 +111,9 @@ function getChartDataWithInstall() {
 			if (response.status == "SUCCESS") {
 				setDataToEchart(response.data)
 			}
-
+if (response.status == 'ILLEGAL') {
+			mui.alert('您的账户登录过期，请退出重新登录！')
+		}
 		},
 		error: function(error) {
 			console.log(error)
@@ -537,6 +542,9 @@ function longChartsGetData(showType) {
 			if (response.status == "SUCCESS") {
 				setEleForLongModel(response.data)
 			}
+			if (response.status == 'ILLEGAL') {
+				mui.alert('您的账户登录过期，请退出重新登录！')
+			}
 
 		},
 		error: function(error) {
@@ -551,7 +559,11 @@ function setEleForLongModel(valueData) {
 
 		var array_x = new Array()
 		var array_y = new Array()
-		var simWorkModeLongVO = valueData.simWorkModeLongVO
+		
+		var simWorkModeLongVO =  {}
+		if(valueData.simWorkModeLongVO != undefined){
+			simWorkModeLongVO = valueData.simWorkModeLongVO
+		}
 		var strYJ = '--'
 		var strGJ = '--'
 		var strDanger = '--'
@@ -560,6 +572,8 @@ function setEleForLongModel(valueData) {
 
 		if (strSensorType == 'V') {
 			if (keyItem == 'store_rms_x') {
+				console.log("alarm-on-of===" + JSON.stringify(simWorkModeLongVO))
+
 
 				if (simWorkModeLongVO.alarm_on_off != undefined && simWorkModeLongVO.alarm_on_off == 1) {
 					if (simWorkModeLongVO.threshold_early_x != undefined) {
@@ -571,8 +585,8 @@ function setEleForLongModel(valueData) {
 					if (simWorkModeLongVO.threshold_danger_x != undefined) {
 						strDanger = simWorkModeLongVO.threshold_danger_x
 					}
-					if (simWorkModeLongVO.threshold_early_x != undefined && simWorkModeLongVO.threshold_alarm_x != undefined &&
-						simWorkModeLongVO.threshold_danger_x != undefined) {
+					// if (simWorkModeLongVO.threshold_early_x != undefined && simWorkModeLongVO.threshold_alarm_x != undefined &&
+						// simWorkModeLongVO.threshold_danger_x != undefined) {
 
 						var strNumber =
 							"<div style='margin-top:15px;'>\
@@ -588,7 +602,7 @@ function setEleForLongModel(valueData) {
 					</p></div>";
 						$('#qiushitu').append(strNumber)
 
-					}
+					// }
 
 				}
 
@@ -618,8 +632,8 @@ function setEleForLongModel(valueData) {
 					if (simWorkModeLongVO.threshold_danger_y != undefined) {
 						strDanger = simWorkModeLongVO.threshold_danger_y
 					}
-					if (simWorkModeLongVO.threshold_early_y != undefined && simWorkModeLongVO.threshold_alarm_y != undefined &&
-						simWorkModeLongVO.threshold_danger_y != undefined) {
+					// if (simWorkModeLongVO.threshold_early_y != undefined && simWorkModeLongVO.threshold_alarm_y != undefined &&
+						// simWorkModeLongVO.threshold_danger_y != undefined) {
 						var strNumber =
 							"<div style='margin-top:15px;'>\
 					<p style='margin-top:-10px'>\
@@ -634,7 +648,7 @@ function setEleForLongModel(valueData) {
 					</p></div>";
 						$('#qiushitu').append(strNumber)
 
-					}
+					// }
 
 				}
 
@@ -664,8 +678,8 @@ function setEleForLongModel(valueData) {
 					if (simWorkModeLongVO.threshold_danger_z != undefined) {
 						strDanger = simWorkModeLongVO.threshold_danger_z
 					}
-					if (simWorkModeLongVO.threshold_early_z != undefined && simWorkModeLongVO.threshold_alarm_z != undefined &&
-						simWorkModeLongVO.threshold_danger_z != undefined) {
+					// if (simWorkModeLongVO.threshold_early_z != undefined && simWorkModeLongVO.threshold_alarm_z != undefined &&
+						// simWorkModeLongVO.threshold_danger_z != undefined) {
 						var strNumber =
 							"<div style='margin-top:15px;'>\
 					<p style='margin-top:-10px'>\
@@ -680,7 +694,7 @@ function setEleForLongModel(valueData) {
 					</p></div>";
 						$('#qiushitu').append(strNumber)
 
-					}
+					// }
 
 				}
 
@@ -717,9 +731,9 @@ function setEleForLongModel(valueData) {
 				if (simWorkModeLongVO.threshold_temperature_danger != undefined) {
 					strDanger = simWorkModeLongVO.threshold_temperature_danger
 				}
-				if (simWorkModeLongVO.threshold_temperature_early != undefined && simWorkModeLongVO.threshold_temperature !=
-					undefined &&
-					simWorkModeLongVO.threshold_temperature_danger != undefined) {
+				// if (simWorkModeLongVO.threshold_temperature_early != undefined && simWorkModeLongVO.threshold_temperature !=
+					// undefined &&
+					// simWorkModeLongVO.threshold_temperature_danger != undefined) {
 					var strNumber =
 						"<div style='margin-top:15px;'>\
 					<p style='margin-top:-10px'>\
@@ -734,7 +748,7 @@ function setEleForLongModel(valueData) {
 					</p></div>";
 					$('#qiushitu').append(strNumber)
 
-				}
+				// }
 
 			}
 

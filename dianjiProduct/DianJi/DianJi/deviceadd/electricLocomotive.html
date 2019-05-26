@@ -185,40 +185,40 @@
 						mui.alert('请填写配备电机功率')
 					} else if (strdeviceCount == '') {
 						mui.alert('请填写配备电机台数')
-					} 
-					else{
+					} else {
 						var params = {
-						company_id: companyID,
-						region_id: regionID,
-						devices_name: strdeviceName,
-						devices_no: strdeviceID,
-						devices_out_time: strdeviceTime,
-						allocate_power: strdeviceKW,
-						electric_num: strdeviceCount,
-						devices_type: 'L',
-						strLoginId: localStorage.getItem("strLoginId"),
-						strLoginToken: localStorage.getItem("strLoginToken"),
-					}
-					$.ajax({
-						type: "get",
-						url: commen_add_device_Interface,
-						async: true,
-						dataType: 'json',
-						data: params,
-						success: function(msg) {
-							console.log(JSON.stringify(msg));
-							if (msg.status == "SUCCESS") {
-								mui.toast(msg.message);
-								mui.back();
-							} else if (msg.status = "FAILED") {
-								mui.toast(msg.message);
-							}
+							company_id: companyID,
+							region_id: regionID,
+							devices_name: strdeviceName,
+							devices_no: strdeviceID,
+							devices_out_time: strdeviceTime,
+							allocate_power: strdeviceKW,
+							electric_num: strdeviceCount,
+							devices_type: 'L',
+							strLoginId: localStorage.getItem("strLoginId"),
+							strLoginToken: localStorage.getItem("strLoginToken"),
 						}
-					});
+						$.ajax({
+							type: "get",
+							url: commen_add_device_Interface,
+							async: true,
+							dataType: 'json',
+							data: params,
+							success: function(msg) {
+								console.log(JSON.stringify(msg));
+								if (msg.status == "SUCCESS") {
+									mui.toast(msg.message);
+									mui.back();
+								}
+								if (msg.status == 'ILLEGAL') {
+									mui.alert('您的账户登录过期，请退出重新登录！')
+								}
+							}
+						});
 
 					}
 
-					
+
 				})
 
 

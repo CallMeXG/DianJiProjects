@@ -1401,6 +1401,9 @@ function cancleCard(obj) {
 						var fatherWeb = plus.webview.currentWebview().opener();
 						mui.fire(fatherWeb, 'activeBack');
 					}
+					if (msg.status == 'ILLEGAL') {
+						mui.alert('您的账户登录过期，请退出重新登录！')
+					}
 				}
 			})
 
@@ -1913,9 +1916,15 @@ function postData(data) {
 				mui.toast(respData.message);
 
 				window.location.replace("./DeviceDetail.html")
-			} else {
-				mui.toast(respData.message);
 			}
+			if(respData.status == 'ILLEGAL')
+			{
+				mui.alert('您的账户登录过期，请退出重新登录！')
+			}
+// 			
+// 			 else {
+// 				mui.toast(respData.message);
+// 			}
 		},
 		error: function(err) {}
 	});

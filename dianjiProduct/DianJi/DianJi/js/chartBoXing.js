@@ -216,16 +216,16 @@ function dealWithData_boxing(dealData, selType) {
 				document.getElementById('boxing_zhouxiang').value = strInstall
 			}
 
-			console.log("8888888888888888888888888888888888888888888======" + JSON.stringify(objXYZName))
 		}
 		strSelInstall = ''
 	}
 
 
 
-	console.log("==XYZ=======" + JSON.stringify(objXYZName))
+	
 
-	strZhou = $("#boxing_zhouxiang").val().substr(0, 1);
+	var strZhou = $("#boxing_zhouxiang").val().substr(0, 1).toLocaleLowerCase();
+	console.log("==XYZ=======" + strZhou)
 	if (strZhou == "x") {
 		//时域图X
 		if (typeof(dealData.data_store_x) != "undefined" && typeof(dealData.data_store_x.list_x) != "undefined") {

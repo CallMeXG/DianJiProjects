@@ -265,7 +265,7 @@
 
 							}
 							this.dataSimList.push(newObjSim)
-							
+
 							console.log("-----===" + JSON.stringify(this.dataSimList))
 
 						}
@@ -364,9 +364,11 @@
 											old_back();
 										}
 										mui.back()
-									} else {
-										mui.toast('修改失败，请检查后重试')
 									}
+									if (msg.status == 'ILLEGAL') {
+										mui.alert('您的账户登录过期，请退出重新登录！')
+									}
+
 								},
 								error: function(error) {
 									mui.toast('修改失败，请检查后重试')
