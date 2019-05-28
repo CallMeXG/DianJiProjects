@@ -307,8 +307,9 @@ $(function() {
 				if(msg.status == "SUCCESS") {
 					mui.toast(msg.message);
 					addSim(localStorage.simID);
-				} else {
-					mui.toast(msg.message);
+				} 
+				if (msg.status == 'ILLEGAL') {
+					mui.alert('您的账户登录过期，请退出重新登录！')
 				}
 			}
 
@@ -336,8 +337,9 @@ $(function() {
 					localStorage.DeveciId = $('#devices_no').val();
 					//					localStorage.setItem("detailBack","back");
 					window.location.replace("../DeviceDetail.html");
-				} else {
-					mui.toast(msg.message);
+				}
+				if (msg.status == 'ILLEGAL') {
+					mui.alert('您的账户登录过期，请退出重新登录！')
 				}
 
 			}
@@ -413,8 +415,9 @@ $(function() {
 				if(msg.status == "SUCCESS") {
 					var list = msg.data;
 					buildDeviceInfo(list);
-				} else {
-					mui.toast("获取不到信息");
+				} 
+				if (msg.status == 'ILLEGAL') {
+					mui.alert('您的账户登录过期，请退出重新登录！')
 				}
 			},
 			error: function(error) {

@@ -2,6 +2,15 @@
 var strProID_boxing = "";
 var boxing_cedian = new Array();
 var boxing_caijiTime = new Array();
+
+var strSelInstall = ''
+
+var objXYZName = {
+	x: '',
+	y: '',
+	z: ''
+}
+
 //获取测点位置和采集时间
 function getDataFromInitWithBoxing(cedianArray, caijiTimeArray, strCedain, strTime) {
 	$('#boxing_weizhiText').val(strCedain);
@@ -30,14 +39,17 @@ $("#boxing_weizhiText").on('tap', function() {
 		var startTime_tezheng = localStorage.getItem("StartTime");
 		var endTime_tezheng = localStorage.getItem("EndTime");
 		var zhouxiang = $("#boxing_zhouxiang").val();
-		getCaiYangDianData(startTime_tezheng, endTime_tezheng, items[0].text, "choose", zhouxiang);
+		var subZhou = zhouxiang.substr(0, 1)
+		var strZhouxiang = subZhou.toLowerCase()
+		strSelInstall = 'Y'
+		getCaiYangDianData(startTime_tezheng, endTime_tezheng, items[0].text, "choose", strZhouxiang);
 	});
 
 })
 
 //采样点点击选择事件
 $("#boxing_weizhi").on('tap', function() {
-	if(boxing_caijiTime.length > 0) {
+	if (boxing_caijiTime.length > 0) {
 		var userPicker = new mui.PopPicker();
 		userPicker.setData(boxing_caijiTime);
 		var strid = "boxing_weizhi";
@@ -47,7 +59,9 @@ $("#boxing_weizhi").on('tap', function() {
 			strProID_boxing = items[0].id;
 			$("#tezheng_timeCount").val(items[0].text);
 			var zhouxiang = $("#boxing_zhouxiang").val();
-			getDataFromSeverWithParam(items[0].id, zhouxiang);
+			var subZhou = zhouxiang.substr(0, 1)
+			var strZhouxiang = subZhou.toLowerCase()
+			getDataFromSeverWithParam(items[0].id, strZhouxiang);
 		});
 	} else {
 		mui.toast("没有采集时间数据")
@@ -58,19 +72,58 @@ $("#boxing_weizhi").on('tap', function() {
 $("#boxing_zhouxiang").on('tap', function() {
 	var userPicker = new mui.PopPicker();
 	var setdataArray = new Array();
+	var XYZNameArray = []
+	var objXData = {}
+	var objYData = {}
+	var objZData = {}
+	//x
+	if (objXYZName.x == '') {
+		objXData = {
+			text: "X",
+			value: 'x'
+		}
+	} else {
+		objXData = {
+			text: "X(" + objXYZName.x + ")",
+			value: 'x'
+		}
+	}
+	XYZNameArray.push(objXData)
+	//y
+	if (objXYZName.y == '') {
+		objYData = {
+			text: "Y",
+			value: 'y'
+		}
+	} else {
+		objYData = {
+			text: "Y(" + objXYZName.y + ")",
+			value: 'y'
+		}
+	}
+	XYZNameArray.push(objYData)
+	//z
+	if (objXYZName.z == '') {
+		objZData = {
+			text: "Z",
+			value: 'z'
+		}
+	} else {
+		objZData = {
+			text: "Z(" + objXYZName.z + ")",
+			value: 'z'
+		}
+	}
+	XYZNameArray.push(objZData)
 
-	userPicker.setData([{
-		text: "x"
-	}, {
-		text: "y"
-	}, {
-		text: "z"
-	}]);
+
+	userPicker.setData(XYZNameArray)
 	var strid = "boxing_zhouxiang";
 	var userResult = document.getElementById(strid);
 	userPicker.show(function(items) {
+		console.log("aaaaaaaaaaaaaaaaaaaaaaa===" + JSON.stringify(items[0]))
 		userResult.value = items[0].text;
-		var zhouxiang = items[0].text;
+		var zhouxiang = items[0].value;
 		getDataFromSeverWithParam(strProID_boxing, zhouxiang);
 	});
 
@@ -79,17 +132,17 @@ $("#boxing_zhouxiang").on('tap', function() {
 //波形---初始化数据
 //	loadDataWithDate();
 //波形---初始化数据
-function loadDataWithDate(respData) {
+function loadDataWithDate(respData, selType) {
 
 	//	if(respData.data.length != 'undefined') {
-	if(typeof(respData.data.timeIntervalVO) != "undefined") {
+	if (typeof(respData.data.timeIntervalVO) != "undefined") {
 		//最大最小时间
 		var strmin = respData.data["timeIntervalVO"]["min_time"];
 		strMinTime = strmin;
 		var strmax = respData.data["timeIntervalVO"]["max_time"];
 		strMaxTime = strmax;
 
-		if(respData.data["installList"] != undefined) {
+		if (respData.data["installList"] != undefined) {
 			//安装位置筛选
 			anzhuangArray = respData.data["installList"];
 			boxing_cedian = respData.data["installList"];
@@ -97,16 +150,16 @@ function loadDataWithDate(respData) {
 
 		var proData = respData.data["probeDrawVO"];
 
-		if(proData != 'undefined') {
+		if (proData != 'undefined') {
 			$("#boxing_weizhiText").val(proData.install_xy);
 
 			$("#chart_shiyu").show();
 			$("#chart_pinpu").show();
 			//						$("#chart_sudu").show();
 			$("#chart_baoluopu").show();
-			dealWithData_boxing(proData);
+			dealWithData_boxing(proData, selType);
 		} else {
-			mui.toast("没有相关数据...");
+			// mui.toast("没有相关数据...");
 			$("#chart_shiyu").hide();
 			$("#chart_pinpu").hide();
 			$("#chart_sudu").hide();
@@ -114,7 +167,7 @@ function loadDataWithDate(respData) {
 
 		}
 	} else {
-		mui.toast("没有相关数据...");
+		// mui.toast("没有相关数据...");
 		$("#chart_shiyu").hide();
 		$("#chart_pinpu").hide();
 		$("#chart_sudu").hide();
@@ -123,23 +176,60 @@ function loadDataWithDate(respData) {
 
 }
 //处理数据，为画图准备
-function dealWithData_boxing(dealData) {
+function dealWithData_boxing(dealData, selType) {
 
 	var width = $(window).width();
 	$("#chart_shiyu").css("width", width);
 	$("#chart_pinpu").css("width", width);
 	$("#chart_sudu").css("width", width);
 	$("#chart_baoluopu").css("width", width);
+	
+	objXYZName = {
+		x: '',
+		y: '',
+		z: ''
+	}
 
-	strZhou = $("#boxing_zhouxiang").val();
-	if(strZhou == "x") {
+	if (dealData.alias_x != undefined) {
+		objXYZName.x = dealData.alias_x
+	}
+	if (dealData.alias_y != undefined) {
+		objXYZName.y = dealData.alias_y
+	}
+	if (dealData.alias_z != undefined) {
+		objXYZName.z = dealData.alias_z
+	}
+
+	if (selType == 'init') {
+		if (objXYZName.x != '') {
+			document.getElementById('boxing_zhouxiang').value = 'x(' + objXYZName.x + ')'
+		}
+	} else {
+		if (strSelInstall == 'Y') {
+			var strInstall = $('#boxing_zhouxiang').val().substr(0, 1)
+			var lowStrInstall = strInstall.toLowerCase()
+			
+			if (objXYZName[lowStrInstall] != '') {
+				document.getElementById('boxing_zhouxiang').value = strInstall + '(' + objXYZName[lowStrInstall] + ')'
+			}
+			if (objXYZName[lowStrInstall] == '') {
+				document.getElementById('boxing_zhouxiang').value = strInstall
+			}
+
+		}
+		strSelInstall = ''
+	}
+
+	var strZhou = $("#boxing_zhouxiang").val().substr(0, 1).toLocaleLowerCase();
+	console.log("==XYZ=======" + strZhou)
+	if (strZhou == "x") {
 		//时域图X
-		if(typeof(dealData.data_store_x)!="undefined" && typeof(dealData.data_store_x.list_x)!="undefined") {
+		if (typeof(dealData.data_store_x) != "undefined" && typeof(dealData.data_store_x.list_x) != "undefined") {
 			var xData = dealData.data_store_x.list_x;
 			var yData = dealData.data_store_x.list_y;
-			
+
 			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
+			for (var i = 0; i < xData.length; i++) {
 				seriesData.push([xData[i], yData[i]]);
 			}
 			chartshiyu(seriesData);
@@ -148,11 +238,11 @@ function dealWithData_boxing(dealData) {
 			$("#chart_shiyu").hide();
 		}
 		//频谱图X
-		if(dealData.fft_store_x != undefined && typeof(dealData.fft_store_x.list_x)!="undefined") {
+		if (dealData.fft_store_x != undefined && typeof(dealData.fft_store_x.list_x) != "undefined") {
 			var xData = dealData.fft_store_x.list_x;
 			var yData = dealData.fft_store_x.list_y;
 			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
+			for (var i = 0; i < xData.length; i++) {
 				seriesData.push([xData[i], yData[i]]);
 			}
 			chartpinpu(seriesData);
@@ -162,28 +252,29 @@ function dealWithData_boxing(dealData) {
 		}
 
 		//		速度谱X
-		if(dealData.speed_store_x != undefined && typeof(dealData.speed_store_x.list_x)!="undefined") {
+		if (dealData.speed_store_x != undefined && typeof(dealData.speed_store_x.list_x) != "undefined") {
 			var xData = dealData.speed_store_x.list_x;
 			var yData = dealData.speed_store_x.list_y;
 			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
+			for (var i = 0; i < xData.length; i++) {
 				seriesData.push([xData[i], yData[i]]);
 			}
 			chartSuduNew(seriesData);
-			
+
 			$("#chart_sudu").show();
 		} else {
 			$("#chart_sudu").hide();
 		}
 		//包络谱X
-		if(dealData.envelope_store_x != undefined && typeof(dealData.envelope_store_x.list_x)!="undefined") {
+		if (dealData.envelope_store_x != undefined && typeof(dealData.envelope_store_x.list_x) != "undefined") {
 			var xData = dealData.envelope_store_x.list_x;
 			var yData = dealData.envelope_store_x.list_y;
 			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
+			for (var i = 0; i < xData.length; i++) {
 				seriesData.push([xData[i], yData[i]]);
 			}
-			console.log("===="+seriesData)
+
+			// console.log("===="+seriesData)
 			chartBaoluo(seriesData);
 			$("#chart_baoluopu").show();
 		} else {
@@ -192,13 +283,13 @@ function dealWithData_boxing(dealData) {
 
 	}
 
-	if(strZhou == "y") {
+	if (strZhou == "y") {
 		//时域图Y
-		if(dealData.data_store_y != undefined && typeof(dealData.data_store_y.list_x)!="undefined") {
+		if (dealData.data_store_y != undefined && typeof(dealData.data_store_y.list_x) != "undefined") {
 			var xData = dealData.data_store_y.list_x;
 			var yData = dealData.data_store_y.list_y;
 			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
+			for (var i = 0; i < xData.length; i++) {
 				seriesData.push([xData[i], yData[i]]);
 			}
 			chartshiyu(seriesData);
@@ -207,11 +298,11 @@ function dealWithData_boxing(dealData) {
 			$("#chart_shiyu").hide();
 		}
 		//频谱图Y
-		if(dealData.fft_store_y != undefined && typeof(dealData.fft_store_y.list_x)!="undefined") {
+		if (dealData.fft_store_y != undefined && typeof(dealData.fft_store_y.list_x) != "undefined") {
 			var xData = dealData.fft_store_y.list_x;
 			var yData = dealData.fft_store_y.list_y;
 			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
+			for (var i = 0; i < xData.length; i++) {
 				seriesData.push([xData[i], yData[i]]);
 			}
 			chartpinpu(seriesData);
@@ -220,11 +311,11 @@ function dealWithData_boxing(dealData) {
 			$("#chart_pinpu").hide();
 		}
 		//速度谱Y
-		if(dealData.speed_store_y != undefined && typeof(dealData.speed_store_y.list_x)!="undefined") {
+		if (dealData.speed_store_y != undefined && typeof(dealData.speed_store_y.list_x) != "undefined") {
 			var xData = dealData.speed_store_y.list_x;
 			var yData = dealData.speed_store_y.list_y;
 			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
+			for (var i = 0; i < xData.length; i++) {
 				seriesData.push([xData[i], yData[i]]);
 			}
 			chartSuduNew(seriesData);
@@ -233,11 +324,11 @@ function dealWithData_boxing(dealData) {
 			$("#chart_sudu").hide();
 		}
 		//包络谱Y
-		if(dealData.envelope_store_y != undefined && typeof(dealData.envelope_store_y.list_x)!="undefined") {
+		if (dealData.envelope_store_y != undefined && typeof(dealData.envelope_store_y.list_x) != "undefined") {
 			var xData = dealData.envelope_store_y.list_x;
 			var yData = dealData.envelope_store_y.list_y;
 			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
+			for (var i = 0; i < xData.length; i++) {
 				seriesData.push([xData[i], yData[i]]);
 			}
 			chartBaoluo(seriesData);
@@ -247,13 +338,13 @@ function dealWithData_boxing(dealData) {
 		}
 
 	}
-	if(strZhou == "z") {
+	if (strZhou == "z") {
 		//时域图Z
-		if(dealData.data_store_z != undefined && typeof(dealData.data_store_z.list_x)!="undefined") {
+		if (dealData.data_store_z != undefined && typeof(dealData.data_store_z.list_x) != "undefined") {
 			var xData = dealData.data_store_z.list_x;
 			var yData = dealData.data_store_z.list_y;
 			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
+			for (var i = 0; i < xData.length; i++) {
 				seriesData.push([xData[i], yData[i]]);
 			}
 			chartshiyu(seriesData);
@@ -262,11 +353,11 @@ function dealWithData_boxing(dealData) {
 			$("#chart_shiyu").hide();
 		}
 		//频谱图Z
-		if(dealData.fft_store_z != undefined && typeof(dealData.fft_store_z.list_x)!="undefined") {
+		if (dealData.fft_store_z != undefined && typeof(dealData.fft_store_z.list_x) != "undefined") {
 			var xData = dealData.fft_store_z.list_x;
 			var yData = dealData.fft_store_z.list_y;
 			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
+			for (var i = 0; i < xData.length; i++) {
 				seriesData.push([xData[i], yData[i]]);
 			}
 			chartpinpu(seriesData);
@@ -275,11 +366,11 @@ function dealWithData_boxing(dealData) {
 			$("#chart_pinpu").hide();
 		}
 		//速度谱Z
-		if(dealData.speed_store_z != undefined && typeof(dealData.speed_store_z.list_x)!="undefined") {
+		if (dealData.speed_store_z != undefined && typeof(dealData.speed_store_z.list_x) != "undefined") {
 			var xData = dealData.speed_store_z.list_x;
 			var yData = dealData.speed_store_z.list_y;
 			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
+			for (var i = 0; i < xData.length; i++) {
 				seriesData.push([xData[i], yData[i]]);
 			}
 			chartSuduNew(seriesData);
@@ -288,11 +379,11 @@ function dealWithData_boxing(dealData) {
 			$("#chart_sudu").hide();
 		}
 		//包络谱Z
-		if(dealData.envelope_store_z != undefined && typeof(dealData.envelope_store_z.list_x)!="undefined") {
+		if (dealData.envelope_store_z != undefined && typeof(dealData.envelope_store_z.list_x) != "undefined") {
 			var xData = dealData.envelope_store_z.list_x;
 			var yData = dealData.envelope_store_z.list_y;
 			var seriesData = [];
-			for(var i = 0; i < xData.length; i++) {
+			for (var i = 0; i < xData.length; i++) {
 				seriesData.push([xData[i], yData[i]]);
 			}
 			chartBaoluo(seriesData);
@@ -353,7 +444,7 @@ function chartshiyu(seriseData) {
 			symbolSize: 6,
 			symbol: 'circle',
 			showSymbol: false,
-			animation:false,
+			animation: false,
 			lineStyle: {
 				width: 0.5,
 				color: "blue"
@@ -410,7 +501,7 @@ function chartpinpu(seriseData) {
 			symbolSize: 6,
 			symbol: 'circle',
 			showSymbol: false,
-			animation:false,
+			animation: false,
 			lineStyle: {
 				width: 0.5,
 				color: "blue"
@@ -466,7 +557,7 @@ function chartBaoluo(seriseData) {
 			symbolSize: 6,
 			symbol: 'circle',
 			showSymbol: false,
-			animation:false,
+			animation: false,
 			lineStyle: {
 				width: 0.5,
 				color: "blue"
@@ -530,7 +621,7 @@ function chartSuduNew(seriseData) {
 			symbolSize: 6,
 			symbol: 'circle',
 			showSymbol: false,
-			animation:false,
+			animation: false,
 			lineStyle: {
 				width: 0.5,
 				color: "blue"
