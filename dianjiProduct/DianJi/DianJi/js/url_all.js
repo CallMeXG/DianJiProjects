@@ -1,7 +1,7 @@
 //、、--------- 测试GitHub master
 
 //服务器地址
-// var url = 'http://192.168.18.9:10082/server_appapi/';
+// var url = 'http://192.168.18.9:8080/server_appapi/';
 //本地测试服务器地址
 //var url = 'http://192.168.2.246:8080/server_appapi/';
 //测试服务器地址
@@ -132,3 +132,14 @@ var new_commen_gain_device_install_Interface = url + 'device/commen_gain_device_
 var new_commen_update_device_install_Interface = url + 'device/commen_update_device_install';
 
 
+//长连接模式下的趋势图数据
+var new_commen_gain_trend_chart_long_Interface = url + '/draw/commen_gain_trend_chart_long'
+//修改告警配置接口
+var new_commen_update_config_Interface = url + '/APP/commen_update_config'
+
+//趋势图页面获取测点列表
+var new_commen_gain_device_install_activate_Interface = url + '/device/commen_gain_device_install_activate'
+//趋势图,根据测点获取趋势图数据 -- 省电模式
+var new_commen_gain_trend_chart_Interface = url + '/draw/commen_gain_trend_chart'
+//趋势图,根据测点获取趋势图数据 -- 长连接模式
+var new_commen_gain_trend_chart_install_long_Interface = url + '/draw/commen_gain_trend_chart_install_long'

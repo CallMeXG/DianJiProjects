@@ -325,11 +325,14 @@ $(function() {
 							UIForNullData("nullData");
 							$("#content").hide();
 						}
-					} else {
+					} 
+					if (res.status == 'ILLEGAL') {
 						UIForNullData("nullData");
 						$("#content").hide();
 						setFenyefunction(0, thisIndex);
+						mui.alert('您的账户登录过期，请退出重新登录！')
 					}
+					
 				},
 				error: function(error) {
 					console.log("===1111")
@@ -425,10 +428,12 @@ $(function() {
 										UIForNullData("nullData");
 										$("#content").hide();
 									}
-								} else {
+								} 
+								if (res.status == 'ILLEGAL') {
 									UIForNullData("nullData");
 									$("#content").hide();
 									setFenyefunction(0, 0);
+									mui.alert('您的账户登录过期，请退出重新登录！')
 								}
 							},
 							error: function(error) {

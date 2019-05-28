@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-	
+
 	<head>
-		
+
 		<meta charset="UTF-8">
 		<title>我的</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -32,7 +32,7 @@
 			<ul class="mui-table-view mui-table-view-chevron">
 				<li class="mui-table-view-cell">
 					<a id="codeUpdate" class="mui-navigate-right">
-						<span>版本信息</span><span style="float: right;">1.8</span>
+						<span>版本信息</span><span style="float: right;">1.9</span>
 					</a>
 				</li>
 				<li class="mui-table-view-cell ">
@@ -68,25 +68,29 @@
 		<script>
 			//判断权限，是否显示新增设备项
 			var strUserType = localStorage.getItem("userType");
-			if(strUserType < 10) {
+			if (strUserType < 10) {
 				$("#newAddDevice").hide();
-				if(localStorage.getItem('is_manage') == '1'){
+				if (localStorage.getItem('is_manage') == '1') {
 					$("#newAddDevice").show();
 				}
 			}
-			if(strUserType > 10) {
+			if (strUserType > 10) {
 				$("#newAddDevice").show();
 			}
 
 			$("#addDeviceNew").on("tap", function() {
-//				mui.openWindow({
-//					url: "uploadpicture.html"
-//				})
-//				mui.openWindow({
-//					url: "insertdevice.html"
-//				})
+				//				mui.openWindow({
+				//					url: "uploadpicture.html"
+				//				})
+				//				mui.openWindow({
+				//					url: "insertdevice.html"
+				//				})
+				// 				mui.openWindow({
+				// 					url: "AddDevice.html"
+				// 				})
+				//2019-05-08
 				mui.openWindow({
-					url: "AddDevice.html"
+					url: "adddevicetype.html"
 				})
 			})
 			$("#feedback").on("tap", function() {
@@ -115,20 +119,20 @@
 
 			mui.plusReady(function() {
 				function ConfirmCallBack(e) {
-					if(e.index == 1) {
+					if (e.index == 1) {
 						localStorage.removeItem("isLogin");
 						localStorage.removeItem("userName");
 						localStorage.removeItem("userPwd");
 						localStorage.removeItem('strRegion');
 						localStorage.clear();
-						
-						
-						console.log('333333333'+JSON.stringify(plus.webview.currentWebview().opener()));
+
+
+						console.log('333333333' + JSON.stringify(plus.webview.currentWebview().opener()));
 						//退出登录时，先获取进入APP页面ID，然后根据ID，调用判断是否登录的方法，最后关闭该页面
-//						var objLogin = plus.webview.getWebviewById('HBuilder');
-//						mui.fire(objLogin, 'logoutEvent');
+						//						var objLogin = plus.webview.getWebviewById('HBuilder');
+						//						mui.fire(objLogin, 'logoutEvent');
 						plus.webview.close('headerindex.html');
-						
+
 					}
 				}
 
