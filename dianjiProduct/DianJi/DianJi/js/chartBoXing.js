@@ -220,10 +220,6 @@ function dealWithData_boxing(dealData, selType) {
 		strSelInstall = ''
 	}
 
-
-
-	
-
 	var strZhou = $("#boxing_zhouxiang").val().substr(0, 1).toLocaleLowerCase();
 	console.log("==XYZ=======" + strZhou)
 	if (strZhou == "x") {

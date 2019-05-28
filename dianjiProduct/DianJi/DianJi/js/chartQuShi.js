@@ -63,7 +63,7 @@ $("#qushiChartSelected").on('tap', function() {
 			alias_x: installArrayList[i].alias_x,
 			alias_y: installArrayList[i].alias_y,
 			alias_z: installArrayList[i].alias_z,
-			sensorType:installArrayList[i].sensorType,
+			sensorType: installArrayList[i].sensorType,
 		}
 		newUserPickerData.push(objPickerData)
 	}
@@ -79,8 +79,8 @@ $("#qushiChartSelected").on('tap', function() {
 			alias_y: items[0].alias_y,
 			alias_z: items[0].alias_z,
 		}
-		
-		
+
+
 
 		strSensorType = items[0].sensorType
 		console.log("===EEEEEEEEEE===" + strSensorType)
@@ -111,9 +111,9 @@ function getChartDataWithInstall() {
 			if (response.status == "SUCCESS") {
 				setDataToEchart(response.data)
 			}
-if (response.status == 'ILLEGAL') {
-			mui.alert('您的账户登录过期，请退出重新登录！')
-		}
+			if (response.status == 'ILLEGAL') {
+				mui.alert('您的账户登录过期，请退出重新登录！')
+			}
 		},
 		error: function(error) {
 			console.log(error)
@@ -123,145 +123,150 @@ if (response.status == 'ILLEGAL') {
 }
 //省电模式绘图数据处理2019-05-08
 function setDataToEchart(DataResp) {
-	
+
 	console.log("==========TTTTTTTTTTTTT====" + strSensorType)
 
 	// if (strSensorType == 'V') {
-		var strChart = '<div class="chart_qushiClass" id="chartQushi" style="background-color:yellow;height:400px"';
-		strChart += '></div>';
-		$("#qiushitu").append(strChart);
-		
-
-		var eachData = DataResp;
-		var strInstally = selectObject.install_xy;
-
-		var width = $(window).width();
-		var strIDs = '#chartQushi';
-		$(strIDs).css("width", width);
-
-		var strPostID = "chartQushi";
-
-		
-		
-		var strLegendX = 'X'
-		if(selectObject.alias_x != undefined){
-			strLegendX = strLegendX + '(' +selectObject.alias_x +')'
-		}
-		
-		var strLegendY = 'Y'
-		if(selectObject.alias_y != undefined){
-			strLegendY = strLegendY + '(' + selectObject.alias_y +')'
-		}
-		
-		var strLegendZ = 'Z'
-		if(selectObject.alias_z != undefined){
-			strLegendZ = strLegendZ + '(' + selectObject.alias_z +')'
-		}
-		var legendData = [strLegendX,strLegendY,strLegendZ, "温度"];
-		
-		var xData = new Array();
-		var xData_x = new Array();
-		var xData_y = new Array();
-		var xData_z = new Array();
-		var xData_t = new Array();
-		if (eachData.store_rms_x.list_x.length > 0) {
-			xData_x = eachData.store_rms_x.list_x;
-		}
-		if (eachData.store_rms_y.list_x.length > 0) {
-			xData_y = eachData.store_rms_y.list_x;
-		}
-		if (eachData.store_rms_z.list_x.length > 0) {
-			xData_z = eachData.store_rms_z.list_x;
-		}
-		if (eachData.store_rms_t != undefined) {
-			xData_t = eachData.store_rms_t.list_x;
-		}
-
-		var elements = [xData_x, xData_y, xData_z, xData_t];
-		sort(elements);
-		xData = elements[elements.length - 1];
+	var strChart = '<div class="chart_qushiClass" id="chartQushi" style="background-color:yellow;"';
+	strChart += '></div>';
+	$("#qiushitu").append(strChart);
 
 
-		var xDataArr = new Array();
-		for (var j = 0; j < xData.length; j++) {
-			var strTime = xData[j].substr(0, 19);
-			xDataArr.push(strTime);
-		}
-		var yDatax = eachData.store_rms_x.list_y;
-		var yDatay = eachData.store_rms_y.list_y;
-		var yDataz = eachData.store_rms_z.list_y;
-		var yDataTeamer = eachData.store_rms_t.list_y;
+	var eachData = DataResp;
+	var strInstally = selectObject.install_xy;
 
-		var float_Yellow; //预警线
-		var float_Orange; //报警线
-		if (typeof(eachData.threshold_No) != "undefined") {
-			float_Yellow = JSON.parse(eachData.threshold_No).B;
-			float_Orange = JSON.parse(eachData.threshold_No).C;
-		}
+	var width = $(window).width();
+	var strIDs = '#chartQushi';
+	$(strIDs).css("width", width);
 
-		chart_qushifengfengzhi(strInstally, strPostID, legendData, eachData.store_rms_z.list_x, yDatax, yDatay, yDataz,
-			yDataTeamer);
+	var strPostID = "chartQushi";
+
+
+
+	var strLegendX = ''
+	if (selectObject.alias_x != undefined) {
+		strLegendX = strLegendX + 'X(' + selectObject.alias_x + ')'
+	}
+	var strLegendY = ''
+	if (selectObject.alias_y != undefined) {
+		strLegendY = strLegendY + 'Y(' + selectObject.alias_y + ')'
+	}
+	var strLegendZ = ''
+	if (selectObject.alias_z != undefined) {
+		strLegendZ = strLegendZ + 'Z(' + selectObject.alias_z + ')'
+	}
+	var strXYZ = '<div style="text-align:center;padding-top:10px">';
+	strXYZ += '<p>' + strLegendX + '<p>';
+	strXYZ += '<p>' + strLegendY + '<p>';
+	strXYZ += '<p>' + strLegendZ + '<p>';
+	strXYZ += '</div>';
+	$("#qiushitu").append(strXYZ);
+	// var legendData = [strLegendX, strLegendY, strLegendZ, "温度"];
+	var legendData = ['X', 'Y', 'Z', "温度"];
+
+	var xData = new Array();
+	var xData_x = new Array();
+	var xData_y = new Array();
+	var xData_z = new Array();
+	var xData_t = new Array();
+	if (eachData.store_rms_x.list_x.length > 0) {
+		xData_x = eachData.store_rms_x.list_x;
+	}
+	if (eachData.store_rms_y.list_x.length > 0) {
+		xData_y = eachData.store_rms_y.list_x;
+	}
+	if (eachData.store_rms_z.list_x.length > 0) {
+		xData_z = eachData.store_rms_z.list_x;
+	}
+	if (eachData.store_rms_t != undefined) {
+		xData_t = eachData.store_rms_t.list_x;
+	}
+
+	var elements = [xData_x, xData_y, xData_z, xData_t];
+	sort(elements);
+	xData = elements[elements.length - 1];
+
+
+	var xDataArr = new Array();
+	for (var j = 0; j < xData.length; j++) {
+		var strTime = xData[j].substr(0, 19);
+		xDataArr.push(strTime);
+	}
+	var yDatax = eachData.store_rms_x.list_y;
+	var yDatay = eachData.store_rms_y.list_y;
+	var yDataz = eachData.store_rms_z.list_y;
+	var yDataTeamer = eachData.store_rms_t.list_y;
+
+	var float_Yellow; //预警线
+	var float_Orange; //报警线
+	if (typeof(eachData.threshold_No) != "undefined") {
+		float_Yellow = JSON.parse(eachData.threshold_No).B;
+		float_Orange = JSON.parse(eachData.threshold_No).C;
+	}
+
+	chart_qushifengfengzhi(strInstally, strPostID, legendData, eachData.store_rms_z.list_x, yDatax, yDatay, yDataz,
+		yDataTeamer);
 	// }
 
-/*
-	if (strSensorType == 'T') {
-		var strChart = '<div class="chart_qushiClass" id="chartQushi"';
-		strChart += '></div>';
-		$("#qiushitu").append(strChart);
+	/*
+		if (strSensorType == 'T') {
+			var strChart = '<div class="chart_qushiClass" id="chartQushi"';
+			strChart += '></div>';
+			$("#qiushitu").append(strChart);
 
-		var eachData = DataResp;
-		var strInstally = selectObject.install_xy;
+			var eachData = DataResp;
+			var strInstally = selectObject.install_xy;
 
-		var width = $(window).width();
-		var strIDs = '#chartQushi';
-		$(strIDs).css("width", width);
+			var width = $(window).width();
+			var strIDs = '#chartQushi';
+			$(strIDs).css("width", width);
 
-		var strPostID = "chartQushi";
+			var strPostID = "chartQushi";
 
-		var legendData = ["X", "Y", "Z", "温度"];
-		var xData = new Array();
-		var xData_x = new Array();
-		var xData_y = new Array();
-		var xData_z = new Array();
-		var xData_t = new Array();
-		if (eachData.store_rms_x.list_x.length > 0) {
-			xData_x = eachData.store_rms_x.list_x;
+			var legendData = ["X", "Y", "Z", "温度"];
+			var xData = new Array();
+			var xData_x = new Array();
+			var xData_y = new Array();
+			var xData_z = new Array();
+			var xData_t = new Array();
+			if (eachData.store_rms_x.list_x.length > 0) {
+				xData_x = eachData.store_rms_x.list_x;
+			}
+			if (eachData.store_rms_y.list_x.length > 0) {
+				xData_y = eachData.store_rms_y.list_x;
+			}
+			if (eachData.store_rms_z.list_x.length > 0) {
+				xData_z = eachData.store_rms_z.list_x;
+			}
+			if (eachData.store_rms_t != undefined) {
+				xData_t = eachData.store_rms_t.list_x;
+			}
+
+			var elements = [xData_x, xData_y, xData_z, xData_t];
+			sort(elements);
+			xData = elements[elements.length - 1];
+
+
+			var xDataArr = new Array();
+			for (var j = 0; j < xData.length; j++) {
+				var strTime = xData[j].substr(0, 19);
+				xDataArr.push(strTime);
+			}
+			var yDatax = eachData.store_rms_x.list_y;
+			var yDatay = eachData.store_rms_y.list_y;
+			var yDataz = eachData.store_rms_z.list_y;
+			var yDataTeamer = eachData.store_rms_t.list_y;
+
+			var float_Yellow; //预警线
+			var float_Orange; //报警线
+			if (typeof(eachData.threshold_No) != "undefined") {
+				float_Yellow = JSON.parse(eachData.threshold_No).B;
+				float_Orange = JSON.parse(eachData.threshold_No).C;
+			}
+
+			chart_qushifengfengzhi(strInstally, strPostID, legendData, eachData.store_rms_z.list_x, yDataTeamer);
 		}
-		if (eachData.store_rms_y.list_x.length > 0) {
-			xData_y = eachData.store_rms_y.list_x;
-		}
-		if (eachData.store_rms_z.list_x.length > 0) {
-			xData_z = eachData.store_rms_z.list_x;
-		}
-		if (eachData.store_rms_t != undefined) {
-			xData_t = eachData.store_rms_t.list_x;
-		}
-
-		var elements = [xData_x, xData_y, xData_z, xData_t];
-		sort(elements);
-		xData = elements[elements.length - 1];
-
-
-		var xDataArr = new Array();
-		for (var j = 0; j < xData.length; j++) {
-			var strTime = xData[j].substr(0, 19);
-			xDataArr.push(strTime);
-		}
-		var yDatax = eachData.store_rms_x.list_y;
-		var yDatay = eachData.store_rms_y.list_y;
-		var yDataz = eachData.store_rms_z.list_y;
-		var yDataTeamer = eachData.store_rms_t.list_y;
-
-		var float_Yellow; //预警线
-		var float_Orange; //报警线
-		if (typeof(eachData.threshold_No) != "undefined") {
-			float_Yellow = JSON.parse(eachData.threshold_No).B;
-			float_Orange = JSON.parse(eachData.threshold_No).C;
-		}
-
-		chart_qushifengfengzhi(strInstally, strPostID, legendData, eachData.store_rms_z.list_x, yDataTeamer);
-	}
-//*/
+	//*/
 
 }
 
@@ -324,7 +329,7 @@ function chart_qushifengfengzhi(strTile, strPostID, legendData, xData, yDatax, y
 			},
 			nameLocation: 'middle',
 			nameGap: 45,
-			nameTextStyle:{
+			nameTextStyle: {
 				color: 'blue'
 			}
 		}, {
@@ -335,16 +340,16 @@ function chart_qushifengfengzhi(strTile, strPostID, legendData, xData, yDatax, y
 			},
 			nameLocation: 'middle',
 			nameGap: 30,
-			nameTextStyle:{
+			nameTextStyle: {
 				color: 'orange'
 			}
-			}],
+		}],
 
 		grid: {
 			left: '17%',
 			right: '15%',
 			bottom: '37%',
-			top: '30%'
+			// top: '30%'
 		},
 		dataZoom: {
 			type: 'inside',
@@ -559,15 +564,15 @@ function setEleForLongModel(valueData) {
 
 		var array_x = new Array()
 		var array_y = new Array()
-		
-		var simWorkModeLongVO =  {}
-		if(valueData.simWorkModeLongVO != undefined){
+
+		var simWorkModeLongVO = {}
+		if (valueData.simWorkModeLongVO != undefined) {
 			simWorkModeLongVO = valueData.simWorkModeLongVO
 		}
 		var strYJ = '--'
 		var strGJ = '--'
 		var strDanger = '--'
-		
+
 		console.log("===RRRRR====" + strSensorType)
 
 		if (strSensorType == 'V') {
@@ -586,21 +591,21 @@ function setEleForLongModel(valueData) {
 						strDanger = simWorkModeLongVO.threshold_danger_x
 					}
 					// if (simWorkModeLongVO.threshold_early_x != undefined && simWorkModeLongVO.threshold_alarm_x != undefined &&
-						// simWorkModeLongVO.threshold_danger_x != undefined) {
+					// simWorkModeLongVO.threshold_danger_x != undefined) {
 
-						var strNumber =
-							"<div style='margin-top:15px;'>\
+					var strNumber =
+						"<div style='margin-top:15px;'>\
 					<p style='margin-top:-10px'>\
 					<span></span>\
 					<span style='color:#88d807'>预警值:" +
-							strYJ +
-							" (mm/s)</span>\
+						strYJ +
+						" (mm/s)</span>\
 					<span style='margin-left:3px;color:#d89e07'>告警值:" + strGJ +
-							" (mm/s)</span>\
+						" (mm/s)</span>\
 					<span style='margin-left:3px;color:#d83b53'>危险值:" + strDanger +
-							" (mm/s)</span>\
+						" (mm/s)</span>\
 					</p></div>";
-						$('#qiushitu').append(strNumber)
+					$('#qiushitu').append(strNumber)
 
 					// }
 
@@ -633,20 +638,20 @@ function setEleForLongModel(valueData) {
 						strDanger = simWorkModeLongVO.threshold_danger_y
 					}
 					// if (simWorkModeLongVO.threshold_early_y != undefined && simWorkModeLongVO.threshold_alarm_y != undefined &&
-						// simWorkModeLongVO.threshold_danger_y != undefined) {
-						var strNumber =
-							"<div style='margin-top:15px;'>\
+					// simWorkModeLongVO.threshold_danger_y != undefined) {
+					var strNumber =
+						"<div style='margin-top:15px;'>\
 					<p style='margin-top:-10px'>\
 					<span></span>\
 					<span style='color:#88d807'>预警值:" +
-							strYJ +
-							" (mm/s)</span>\
+						strYJ +
+						" (mm/s)</span>\
 					<span style='margin-left:3px;color:#d89e07'>告警值:" + strGJ +
-							" (mm/s)</span>\
+						" (mm/s)</span>\
 					<span style='margin-left:3px;color:#d83b53'>危险值:" + strDanger +
-							" (mm/s)</span>\
+						" (mm/s)</span>\
 					</p></div>";
-						$('#qiushitu').append(strNumber)
+					$('#qiushitu').append(strNumber)
 
 					// }
 
@@ -679,20 +684,20 @@ function setEleForLongModel(valueData) {
 						strDanger = simWorkModeLongVO.threshold_danger_z
 					}
 					// if (simWorkModeLongVO.threshold_early_z != undefined && simWorkModeLongVO.threshold_alarm_z != undefined &&
-						// simWorkModeLongVO.threshold_danger_z != undefined) {
-						var strNumber =
-							"<div style='margin-top:15px;'>\
+					// simWorkModeLongVO.threshold_danger_z != undefined) {
+					var strNumber =
+						"<div style='margin-top:15px;'>\
 					<p style='margin-top:-10px'>\
 					<span></span>\
 					<span style='color:#88d807'>预警值:" +
-							strYJ +
-							" (mm/s)</span>\
+						strYJ +
+						" (mm/s)</span>\
 					<span style='margin-left:3px;color:#d89e07'>告警值:" + strGJ +
-							" (mm/s)</span>\
+						" (mm/s)</span>\
 					<span style='margin-left:3px;color:#d83b53'>危险值:" + strDanger +
-							" (mm/s)</span>\
+						" (mm/s)</span>\
 					</p></div>";
-						$('#qiushitu').append(strNumber)
+					$('#qiushitu').append(strNumber)
 
 					// }
 
@@ -732,21 +737,21 @@ function setEleForLongModel(valueData) {
 					strDanger = simWorkModeLongVO.threshold_temperature_danger
 				}
 				// if (simWorkModeLongVO.threshold_temperature_early != undefined && simWorkModeLongVO.threshold_temperature !=
-					// undefined &&
-					// simWorkModeLongVO.threshold_temperature_danger != undefined) {
-					var strNumber =
-						"<div style='margin-top:15px;'>\
+				// undefined &&
+				// simWorkModeLongVO.threshold_temperature_danger != undefined) {
+				var strNumber =
+					"<div style='margin-top:15px;'>\
 					<p style='margin-top:-10px'>\
 					<span></span>\
 					<span style='color:#88d807'>预警值:" +
-						strYJ +
-						" (℃)</span>\
+					strYJ +
+					" (℃)</span>\
 					<span style='margin-left:3px;color:#d89e07'>告警值:" + strGJ +
-						" (℃)</span>\
+					" (℃)</span>\
 					<span style='margin-left:3px;color:#d83b53'>危险值:" + strDanger +
-						" (℃)</span>\
+					" (℃)</span>\
 					</p></div>";
-					$('#qiushitu').append(strNumber)
+				$('#qiushitu').append(strNumber)
 
 				// }
 
