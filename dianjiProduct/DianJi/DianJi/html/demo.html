@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>修改信息</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script src="../js/jquery-1.11.3.js"></script>
+		<script src="../js/vue.js"></script>
+		<script src="../js/url_all.js"></script>
+	</head>
+
+	<body>
+		<div id="content">
+			<p>==={{deviceDetailItem.devices_name}}</p>
+		</div>
+
+	</body>
+	<link rel="stylesheet" type="text/css" href="../css/shijian.css" />
+	
+	<script type="text/javascript">
+		
+		var vueObj = new Vue({
+			el: '#content',
+			data() {
+				return {
+					deviceDetailItem:{
+						devices_name:'dong'
+					}
+				}
+			},
+			mounted() {
+				
+			}
+		})
+		getDefData()
+		function getDefData(){
+			$.ajax({
+				type: "get",
+				async: true,
+				data: {
+					str_devices_no: localStorage.DeveciId
+				},
+				url: commen_gain_device_detail_Interface,
+				dataType: 'json',
+				success: function(msg) {
+					vueObj.deviceDetailItem = msg.data
+					console.log("====" + vueObj.deviceDetailItem.devices_name)
+				}
+			});
+		}
+	</script>
+
+</html>

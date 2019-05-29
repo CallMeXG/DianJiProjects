@@ -60,14 +60,7 @@ $(function() {
 
 	mui.plusReady(function() {
 		$('#nestStap').click(function() {
-			//		var subcad = $("#subcarids").val();
-
-//			console.log(sensorListArray.length);
-			//		window.location.href = "carInfo_activate2.html";
-
-			//		if(subcad == "undefined" || subcad == undefined) {
-			//			mui.toast("传感器卡需要绑定传感器才能激活");
-			//		} 
+			
 			if(sensorListArray.length == 0) {
 				mui.toast("传感器卡需要绑定传感器才能激活");
 			} else {
@@ -149,9 +142,6 @@ $(function() {
 				paramDic.update_duration = strUploadzhouqi;
 			}
 
-			//			paramDic.sampling_duration = strCaijizhouqi;
-			//上传时间
-			//			paramDic.upload_time = strUploadTime;
 
 			var Ccenter = $('.Ccenter');
 			for(var i = 0; i < Ccenter.length; i++) {
@@ -250,9 +240,7 @@ $(function() {
 					simWorkModelPO: paramDic,
 					sensorMsgPO: sensorDic
 				});
-//				paramArray.push({
-//					
-//				});
+
 
 			}
 

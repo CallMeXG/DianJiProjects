@@ -5,8 +5,8 @@
     "name" : "机电卫士",
     /*应用名称，程序桌面图标名称*/
     "version" : {
-        "name" : "1.8", /*应用版本名称*/
-        "code" : "1880"
+        "name" : "1.9", /*应用版本名称*/
+        "code" : "1980"
     },
     "description" : "",
     /*应用描述信息*/
@@ -28,9 +28,6 @@
         },
         "Console" : {
             "description" : "跟踪调试输出日志"
-        },
-        "Contacts" : {
-            "description" : "访问系统联系人信息"
         },
         "Events" : {
             "description" : "应用扩展事件"
@@ -80,7 +77,9 @@
                 "devices" : "universal",
                 /*iOS应用支持的设备类型，可取值iphone/ipad/universal*/
                 "frameworks" : [],
-                "plistcmds" : [ "Set:NSCameraUsageDescription 二维码扫描" ]
+                "plistcmds" : [
+                    "Set:NSCameraUsageDescription 需要调用您的相机，扫描设备二维码，以便进行设备的绑定，您允许吗？"
+                ]
             },
             "google" : {
                 "packagename" : "",
@@ -92,35 +91,17 @@
                 "aliasname" : "",
                 /*Android应用打包使用密钥库中证书的别名*/
                 "permissions" : [
-                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
                     "<uses-feature android:name=\"android.hardware.camera\"/>",
+                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
                     "<uses-permission android:name=\"android.permission.CAMERA\"/>",
                     "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
-                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
-                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>",
-                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
-                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
-                    "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
-                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
-                    "<uses-permission android:name=\"android.permission.INTERNET\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.INTERNET\"/>",
                     "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
-                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
-                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
-                    "<uses-feature android:name=\"android.hardware.camera\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
-                    "<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>"
                 ]
             },
             "orientation" : [ "portrait-primary" ],
@@ -212,6 +193,17 @@
                     "hdpi" : "",
                     "xhdpi" : "",
                     "xxhdpi" : ""
+                },
+                "ios" : {
+                    "iphone" : {
+                        "retina35" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/640_960.png",
+                        "retina40" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/640_1136.png",
+                        "retina47" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/750_1334.png",
+                        "retina55" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/1242_2208.png",
+                        "iphonex" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/1125_2436.png",
+                        "portrait-896h@2x" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/828_1792.png",
+                        "portrait-896h@3x" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/1242_2688.png"
+                    }
                 }
             }
         }

@@ -10,13 +10,26 @@ function getDataFromInitWithCaiyang(cedianArray, caijiTimeArray, strCedain, strT
 }
 //下面表中数据，根据newDataChart.js获取
 function getDataFromInit(respData) {
-	dealWithData_tezheng(respData.probeDrawVO,respData.installList);
+	if (respData.probeDrawVO != undefined) {
+		dealWithData_tezheng(respData.probeDrawVO,respData.installList);
+	}
+	
 }
 
 function dealWithData_tezheng(respData,installList) {
 	//X------------------------------------------------------------------
 	//x -1
-	//	console.log("teapmerature ==== "+respData.temperature);
+	
+	if(respData.alias_x != undefined){
+		document.getElementById('XTZText').innerHTML = 'X轴（' + respData.alias_x + '）特征值'
+	}
+	if(respData.alias_y != undefined){
+		document.getElementById('YTZText').innerHTML = 'Y轴（' + respData.alias_y + '）特征值'
+	}
+	if(respData.alias_z != undefined){
+		document.getElementById('ZTZText').innerHTML = 'Z轴（' + respData.alias_z + '）特征值'
+	}
+		
 
 	if(typeof(respData.install_xy) != "undefined") {
 		$('#tezheng_place').val(respData.install_xy);

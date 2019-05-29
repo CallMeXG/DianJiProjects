@@ -52,8 +52,9 @@ $.ajax({
 
 			dealDeviceData(res);
 
-		} else {
-			mui.toast("获取数据失败，请重试...")
+		} 
+		if (res.status == 'ILLEGAL') {
+			mui.alert('您的账户登录过期，请退出重新登录！')
 		}
 	},
 	error: function() {

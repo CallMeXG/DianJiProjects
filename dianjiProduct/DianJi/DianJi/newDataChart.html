@@ -39,19 +39,67 @@
 				text-align: center;
 				font-size: 16px;
 			}
+			.chartQuShiSelect{
+				position: fixed;
+				width: 100%;
+				height: 100px;
+				top: 45px;
+				margin: -5px;
+				text-align: center;
+				z-index: 9;
+				background-color: #EBEBF1;
+			}
+			.chartQuShiSelect #qushiChartSelected{
+				margin-top: 10px;
+				float: left;
+				width: 40%;
+				margin-left: 5px;
+			}
+			.chartQuShiSelect .selCEDIAN{
+				float: left;
+				line-height: 50px;
+				padding-top: 5px;
+				padding-left: 10px;
+				font-size: 18px;
+			}
+			.chartQuShiSelect .refreshPage{
+				float: right;
+				font-size: 18px;
+				margin-right: 15px;
+				
+				border: 1px solid lightgray;
+				width: 50px;
+			}
+			.chartQuShiSelect .selectButton{
+				width: 50px;
+				border: 1px solid grey;
+				margin-left: 10px;
+				height: 30px;
+				background-color: #524598;
+				color: white;
+			}
+			
+			.chartQuShiSelect .unselectButton{
+				width: 50px;
+				border: 1px solid grey;
+				margin-left: 10px;
+				height: 30px;
+			}
+			
+			
 		</style>
 
 	</head>
 
 	<body>
-		
+
 		<header class="mui-bar mui-bar-nav mui_header">
 			<a style="color: white;" id="backIDs" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 id="titleText" class="mui-title mui_header_title"></h1>
 		</header>
 
 		<nav class="mui-bar mui-bar-tab">
-			
+
 			<a id="qushiChart" class="mui-tab-item mui-active" href="#id_qushi">
 				<span class="mui-icon iconfont icon-qushi"></span>
 				<span class="mui-tab-label">趋势图</span>
@@ -81,9 +129,28 @@
 			<!--趋势图-->
 			<div id="id_qushi" class="mui-control-content mui-active">
 
-				<div id="qiushitu" style="width: 100%;min-height: 600px;text-align: center;color: darkgray;margin-top: -20px;">
+				<div  style="width: 100%;min-height: 600px;text-align: center;color: darkgray;margin-top: -20px;">
+					<div class="chartQuShiSelect">
+						<p>
+							<span class="selCEDIAN">选择测点</span>
+							<button id="qushiChartSelected">选择测点</button>
+							<p class="refreshPage" onclick="refreshQushiCharts()">刷新</p>
+						</p>
+						
+						<div style="clear: both;"></div>
+						<p id="showSeletedType" style="display: none;">
+							<button id="selHour" class="selectButton">小时</button>
+							<button id="selDay" class="unselectButton">天</button>
+							<button id="selMonth" class="unselectButton">月</button>
+							<button id="selYear" class="unselectButton">年</button>
+						</p>
+
+					</div>
+					<div id="qiushitu" style="margin-top: 100px;"></div>
 
 				</div>
+
+				<!-- <div onclick="refreshQushiCharts()" style="position: fixed;bottom: 50px;background-color: #00A680;height: 40px;width: 100%;color:white;text-align: center;margin-left: -5px;padding-top: 5px;font-size: 20px;">刷新</div> -->
 
 			</div>
 			<!--特征值-->
@@ -107,7 +174,7 @@
 						<span id="tezhengzhi_temperNum" class="spanCenter"></span>
 						<span id="tezhengzhi_tem_result" class="spanRight" style="margin-right: 10px;"></span>
 					</p>
-					<p style="margin-left: 10px;">X轴特征值</p>
+					<p id="XTZText" style="margin-left: 10px;">X轴特征值</p>
 				</p>
 				<div class="divTable" id="X_TeZhengZhi">
 					<ul class="mui-table-view">
@@ -155,7 +222,7 @@
 					</ul>
 				</div>
 
-				<p style="margin-left: 10px;margin-top: 10px;">Y轴特征值</p>
+				<p id="YTZText" style="margin-left: 10px;margin-top: 10px;">Y轴特征值</p>
 				<div class="divTable" id="Y_TeZhengZhi">
 					<ul class="mui-table-view">
 
@@ -203,7 +270,7 @@
 					</ul>
 				</div>
 
-				<p style="margin-left: 10px;margin-top: 10px;">Z轴特征值</p>
+				<p id="ZTZText" style="margin-left: 10px;margin-top: 10px;">Z轴特征值</p>
 				<div class="divTable" id="Z_TeZhengZhi">
 					<ul class="mui-table-view">
 
@@ -257,7 +324,7 @@
 				<div id="headerSelect_boxing">
 					<div class="div_search">
 						<p>测点位置：</p>
-						<input id="boxing_weizhiText" type="button" style="font-size: 16px;"  />
+						<input id="boxing_weizhiText" type="button" style="font-size: 16px;" />
 					</div>
 					<div style="clear: both;"></div>
 					<div class="div_search">
@@ -268,7 +335,7 @@
 					<div style="clear: both;"></div>
 					<div class="div_search">
 						<p>振动方向：</p>
-						<input id="boxing_zhouxiang" type="button" value="x" style="font-size: 16px;"  />
+						<input id="boxing_zhouxiang" type="button" value="x" style="font-size: 16px;" />
 					</div>
 
 				</div>
@@ -296,8 +363,7 @@
 
 			</div>
 		</div>
-
-		</div>
+		
 	</body>
 
 	<script src="js/chartQuShi.js"></script>
@@ -305,5 +371,5 @@
 	<script src="js/chartTeZheng.js"></script>
 	<script src="js/newDataChart.js"></script>
 	<script src="js/common.js"></script>
-	
+
 </html>
