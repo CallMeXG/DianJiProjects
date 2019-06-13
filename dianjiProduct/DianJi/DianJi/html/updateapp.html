@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<style>
+			.xianjianButton{
+				background-color: #524598;
+				color: white;
+				float: left;
+				margin-left: 20px;
+				border: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
+			<h1 class="mui-title" style="color: white;">版本更新</h1>
+		</header>
+		<div class="mui-content">
+			<div style="text-align: center;margin-top: 50px;">
+				<p style="font-size: 16px;color: #524598;">当前版本：1.9</p>
+				<p style="font-size: 16px;color: #524598;">您已是最新版本，无须更新。</p>
+				<p style="font-size: 16px;color: #524598;">最新版本2.0</p>
+				<p style="font-size: 16px;color: #524598;">新版本更新提示：</p>
+			</div>
+			<div style="margin-left: 10%;">
+				<p style="color: #524598;float: left;">更新方式：</p>
+				<button class="xianjianButton" onclick="IOSForXianjian()">点此安装</button>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+			mui.plusReady(function () {
+				
+				if(mui.os.android)
+				{
+					console.log("0000000---==== android")
+				}
+				if (mui.os.ios) {
+					console.log("1111111==== ios")
+				}
+				
+				
+				
+			    function IOSForXianjian(){
+			    	location.href = 'https://itunes.apple.com/cn/app/%E6%9C%BA%E7%94%B5%E5%8D%AB%E5%A3%AB/id1404806698?mt=8';
+			    }
+			})
+			
+			
+			
+		</script>
+	</body>
+
+</html>

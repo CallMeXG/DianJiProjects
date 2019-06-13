@@ -144,3 +144,6 @@ var new_commen_gain_device_install_activate_Interface = url + '/device/commen_ga
 var new_commen_gain_trend_chart_Interface = url + '/draw/commen_gain_trend_chart'
 //趋势图,根据测点获取趋势图数据 -- 长连接模式
 var new_commen_gain_trend_chart_install_long_Interface = url + '/draw/commen_gain_trend_chart_install_long'
+
+//修改短信通知勾选
+var new_commen_updata_sms_notice_Interface = url + '/user/commen_updata_sms_notice'
