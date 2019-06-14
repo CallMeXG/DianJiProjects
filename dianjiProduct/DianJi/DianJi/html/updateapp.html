@@ -31,24 +31,31 @@
 			</div>
 			<div style="margin-left: 10%;">
 				<p style="color: #524598;float: left;">更新方式：</p>
-				<button class="xianjianButton" onclick="IOSForXianjian()">点此安装</button>
+				<button id="downLoadID" class="xianjianButton">点此安装</button>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
 			
 			mui.plusReady(function () {
+				//先见 Android
+				var strAPPType = "AndroidPrefoco";
+				//先见 iOS
+				// var strAPPType = "iOSPrefoco";
+				//嘉轩Android
+				// var strAPPType = "AndroidJiaXuan";
+				//嘉轩iOS
+				// var strAPPType = "iOSJiaXuan";
+				//Android 中材高新
+				// var strAPPType = "AndroidZhongCai";
+				//Android 无logo版本
+				// var strAPPType = "AndroidNOLogo";
 				
-				if(mui.os.android)
-				{
-					console.log("0000000---==== android")
-				}
-				if (mui.os.ios) {
-					console.log("1111111==== ios")
-				}
-				
-				
+				$('#downLoadID').on('tap',function(){
+					
+				})
 				
 			    function IOSForXianjian(){
 			    	location.href = 'https://itunes.apple.com/cn/app/%E6%9C%BA%E7%94%B5%E5%8D%AB%E5%A3%AB/id1404806698?mt=8';
