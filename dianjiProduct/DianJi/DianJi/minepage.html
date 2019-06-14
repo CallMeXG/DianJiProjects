@@ -170,11 +170,13 @@
 				})
 			})
 			
+			console.log("0000000====" + localStorage.getItem("sms_notice"))
+			
 			//初始化,短信是否勾选
 			if (localStorage.getItem("sms_notice") == 'Y') {
-				$('#messageID').checked = true;
+				document.getElementById('messageID').checked = true;
 			} else{
-				$('#messageID').checked = false;
+				document.getElementById('messageID').checked = false;
 			}
 
 			mui.plusReady(function() {

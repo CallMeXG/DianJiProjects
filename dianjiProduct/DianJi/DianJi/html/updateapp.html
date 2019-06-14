@@ -28,6 +28,7 @@
 				<p style="font-size: 16px;color: #524598;">您已是最新版本，无须更新。</p>
 				<p style="font-size: 16px;color: #524598;">最新版本2.0</p>
 				<p style="font-size: 16px;color: #524598;">新版本更新提示：</p>
+				<div id="model_html"></div>
 			</div>
 			<div style="margin-left: 10%;">
 				<p style="color: #524598;float: left;">更新方式：</p>
@@ -36,6 +37,7 @@
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/jquery.min.js"></script>
+		<script src="../js/url_all.js"></script>
 		<script type="text/javascript">
 			mui.init()
 			
@@ -52,6 +54,27 @@
 				// var strAPPType = "AndroidZhongCai";
 				//Android 无logo版本
 				// var strAPPType = "AndroidNOLogo";
+				
+				var strVersionCodeLocal = "1980";
+				
+				console.log("===")
+				
+				$.ajax({
+					type: "get",
+					url: commen_gain_last_version_Interface,
+					async: true,
+					data: {
+						version_type: strAPPType
+					},
+					dataType: "json",
+					success: function(respData) {
+						if(respData.status == "SUCCESS") {
+							if(typeof(respData.data) != "undefined") {
+								document.getElementById("model_html").innerHTML = respData.data.version_content;
+							}
+						} 
+					}
+				});
 				
 				$('#downLoadID').on('tap',function(){
 					
