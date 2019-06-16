@@ -147,3 +147,5 @@ var new_commen_gain_trend_chart_install_long_Interface = url + '/draw/commen_gai
 
 //修改短信通知勾选
 var new_commen_updata_sms_notice_Interface = url + '/user/commen_updata_sms_notice'
+//获取软件使用说明
+var new_commen_gain_instructions_Interface = url + 'app/commen_gain_instructions'

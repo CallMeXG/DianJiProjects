@@ -190,6 +190,9 @@ mui.plusReady(function() {
 		if (cardJihuostute == 8) {
 			strJiHuoStatus = "待解绑";
 		}
+		if (cardJihuostute == 9) {
+			strJiHuoStatus = "配置待同步";
+		}
 
 		if (workStute == undefined) {
 			strWorkStuts = "----";

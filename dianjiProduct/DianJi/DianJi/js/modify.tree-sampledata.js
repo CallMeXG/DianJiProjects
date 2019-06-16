@@ -795,6 +795,9 @@ function simState(statue, work_statues) {
 	if (sta_1 == 8) {
 		strStute = "待解绑";
 	}
+	if (sta_1 == 9) {
+		strStute = "配置待同步";
+	}
 	return strStute;
 
 }

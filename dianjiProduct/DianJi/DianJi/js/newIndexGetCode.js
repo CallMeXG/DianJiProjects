@@ -87,6 +87,8 @@ mui.plusReady(function() {
 		});
 		dtask.start();
 	}
+	
+	
 
 	function dealWithiOS(strProName) {
 		if(strProName == "嘉轩卫士") {

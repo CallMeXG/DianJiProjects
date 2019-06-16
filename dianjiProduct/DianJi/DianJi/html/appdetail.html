@@ -6,6 +6,15 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.css" rel="stylesheet" />
+		<style>
+			#appcontent{
+				background-color: white;
+				margin: 10px;
+				min-height: 200px;
+				border-radius: 5px;
+				padding: 10px;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -13,9 +22,34 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
 			<h1 class="mui-title" style="color: white;">功能介绍</h1>
 		</header>
+		<div class="mui-content">
+			<div id="appcontent">敬请期待</div>
+		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/url_all.js"></script>
 		<script type="text/javascript">
 			mui.init()
+			$.ajax({
+				type: "get",
+				url: new_commen_gain_instructions_Interface,
+				async: true,
+				dataType: "json",
+				success: function(respData) {
+					console.log("--------" + JSON.stringify(respData))
+					if(respData.status == "SUCCESS") {
+						if (respData.data != undefined) {
+							var objResp = respData.data;
+						    document.getElementById("appcontent").innerHTML = objResp.content;
+						}
+						
+					} else {
+						document.getElementById("appcontent").innerHTML = '敬请期待！'
+						
+					}
+					
+				}
+			});
 		</script>
 	</body>
 
