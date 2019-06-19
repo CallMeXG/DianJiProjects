@@ -305,36 +305,49 @@ function sensorData(emeId, i) {
 					}
 
 				}
-
+				
+				
 				// sensorStr += '<div class="modifyCom"><span class="name">电池电量：</span><span class="val"> ' + "----" +'</span></div>';
-				if (typeof(data.dump_percentage) != "undefined") {
-					if (data.dump_percentage > 84 || data.dump_percentage == 84) {
+				if (data.supply_type == 0 || data.supply_type == undefined) {
+					
+					console.log("=======dainchidianliang====" + data.supply_type);
+					
+					sensorStr += '<div class="modifyCom" style="height:20px;"><span class="name">供电模式：</span><span style="padding-top:2px;">电池供电</span></div>';
+					
+					if (typeof(data.dump_percentage) != "undefined") {
+						if (data.dump_percentage > 84 || data.dump_percentage == 84) {
+							sensorStr +=
+								'<div class="modifyCom" style="height:20px;"><span class="name">电池电量：&nbsp &nbsp</span><img src="img/dianchi100.jpg" height="10px" style="margin-top:5px;"/></div>';
+						}
+						if ((data.dump_percentage > 67 || data.dump_percentage == 67) && data.dump_percentage < 84) {
+							sensorStr +=
+								'<div class="modifyCom" style="height:20px;"><span class="name">电池电量：&nbsp &nbsp</span><img src="img/dianchi84.jpg" height="10px" style="margin-top:5px;"/></div>';
+						}
+						if ((data.dump_percentage > 50 || data.dump_percentage == 50) && data.dump_percentage < 67) {
+							sensorStr +=
+								'<div class="modifyCom" style="height:20px;"><span class="name">电池电量：&nbsp &nbsp</span><img src="img/dianchi50.jpg" height="10px" style="margin-top:5px;"/></div>';
+						}
+						if ((data.dump_percentage > 34 || data.dump_percentage == 34) && data.dump_percentage < 50) {
+							sensorStr +=
+								'<div class="modifyCom" style="height:20px;"><span class="name">电池电量：&nbsp &nbsp</span><img src="img/dianchi34.jpg" height="10px" style="margin-top:5px;"/></div>';
+						}
+						if ((data.dump_percentage > 16 || data.dump_percentage == 16) && data.dump_percentage < 34) {
+							sensorStr +=
+								'<div class="modifyCom" style="height:20px;"><span class="name">电池电量：&nbsp &nbsp</span><img src="img/dianchi16.jpg" height="10px" style="margin-top:5px;"/></div>';
+						}
+						if ((data.dump_percentage > 0 || data.dump_percentage == 0) && data.dump_percentage < 16) {
+							sensorStr +=
+								'<div class="modifyCom" style="height:20px;"><span class="name">电池电量：&nbsp &nbsp</span><img src="img/dianchi00.jpg" height="10px" style="margin-top:5px;"/></div>';
+						}
+
+					} else {
 						sensorStr +=
-							'<div class="modifyCom" style="height:20px;"><span class="name">电池电量：&nbsp &nbsp</span><img src="img/dianchi84.jpg" height="10px" style="margin-top:5px;"/></div>';
-					}
-					if ((data.dump_percentage > 67 || data.dump_percentage == 67) && data.dump_percentage < 84) {
-						sensorStr +=
-							'<div class="modifyCom" style="height:20px;"><span class="name">电池电量：&nbsp &nbsp</span><img src="img/dianchi80.jpg" height="10px" style="margin-top:5px;"/></div>';
-					}
-					if ((data.dump_percentage > 50 || data.dump_percentage == 50) && data.dump_percentage < 67) {
-						sensorStr +=
-							'<div class="modifyCom" style="height:20px;"><span class="name">电池电量：&nbsp &nbsp</span><img src="img/dianchi50.jpg" height="10px" style="margin-top:5px;"/></div>';
-					}
-					if ((data.dump_percentage > 34 || data.dump_percentage == 34) && data.dump_percentage < 50) {
-						sensorStr +=
-							'<div class="modifyCom" style="height:20px;"><span class="name">电池电量：&nbsp &nbsp</span><img src="img/dianchi34.jpg" height="10px" style="margin-top:5px;"/></div>';
-					}
-					if ((data.dump_percentage > 16 || data.dump_percentage == 16) && data.dump_percentage < 34) {
-						sensorStr +=
-							'<div class="modifyCom" style="height:20px;"><span class="name">电池电量：&nbsp &nbsp</span><img src="img/dianchi16.jpg" height="10px" style="margin-top:5px;"/></div>';
-					}
-					if ((data.dump_percentage > 0 || data.dump_percentage == 0) && data.dump_percentage < 16) {
-						sensorStr +=
-							'<div class="modifyCom" style="height:20px;"><span class="name">电池电量：&nbsp &nbsp</span><img src="img/dianchi00.jpg" height="10px" style="margin-top:5px;"/></div>';
+							'<div class="modifyCom" style="height:20px;"><span class="name">电池电量：&nbsp &nbsp</span>----</div>';
 					}
 
-				} else {
-					sensorStr += '<div class="modifyCom" style="height:20px;"><span class="name">电池电量：&nbsp &nbsp</span>----</div>';
+				}
+				else if(data.supply_type == 1){
+					sensorStr += '<div class="modifyCom" style="height:20px;"><span class="name">供电模式：</span><span style="padding-top:2px;">外接电源</span></div>';
 				}
 
 
@@ -1266,7 +1279,7 @@ function getDefData() {
 				sim_list = data.sim_list;
 				CPXCount = sim_list.length;
 				buildSensorData(sim_list);
-			} 
+			}
 			if (typeof(data.install_list) != "undefined") {
 
 				for (var i = 0; i < data.install_list.length; i++) {
@@ -1283,29 +1296,29 @@ function getDefData() {
 				}
 			}
 			var list = msg.data.list;
-						
+
 			strDeviceType = data.devices_type
-			
+
 			//L 电动机车
-			if(data.devices_type == 'L'){
+			if (data.devices_type == 'L') {
 				var objJCDD = document.getElementsByClassName('classDDJC')
 				for (var i = 0; i < objJCDD.length; i++) {
 					objJCDD[i].style.display = 'block'
 				}
-				
+
 				var objDianji = document.getElementsByClassName('classDJ')
 				for (var i = 0; i < objDianji.length; i++) {
 					objDianji[i].style.display = 'none'
 				}
 			}
 			//E电机
-			if(data.devices_type == 'E'){
-				
+			if (data.devices_type == 'E') {
+
 				var objJCDD = document.getElementsByClassName('classDDJC')
 				for (var i = 0; i < objJCDD.length; i++) {
 					objJCDD[i].style.display = 'none'
 				}
-				
+
 				var objDianji = document.getElementsByClassName('classDJ')
 				for (var i = 0; i < objDianji.length; i++) {
 					objDianji[i].style.display = 'block'
@@ -1318,18 +1331,18 @@ function getDefData() {
 			$('#devices_company').val(isUndefined(data, 'company_name'));
 			//分厂
 			$('#devices_region').val(isUndefined(data, 'region_name'));
-			
+
 			$('#devices_out_time').val(data.devices_out_time);
-			
+
 			$('#devices_model').val(isUndefined(data, 'devices_model'));
-			
+
 			$('#devices_power').val(isUndefined(data, 'devices_power'));
 			$('#install_way').val(isUndefined(data, 'install_way'));
-			
+
 			if (data.work_voltage != undefined) {
 				$('#work_voltage').val(isUndefined(data, 'work_voltage'));
 			}
-			
+
 			$('#devices_produce').val(isUndefined(data, 'devices_produce'));
 			$('#power_factor').val(isUndefined(data, 'power_factor'));
 			$('#protection').val(isUndefined(data, 'protection'));
@@ -1485,8 +1498,7 @@ function finshBtnClickReturnData() {
 
 	if (boldjedzs == false || boldjcjds == false || bolclxcls == false || bolclxcdb == false) {
 		return false;
-	} 
-	else {
+	} else {
 		///*
 		var deviceId = $('#devices_no').html();
 
@@ -1508,11 +1520,11 @@ function finshBtnClickReturnData() {
 			mui.toast('分厂不能为空');
 			return false;
 		}
-		
+
 		//设备出厂时间
 		var devices_out_time = $('#devices_out_time').val();
 		var cancle = $('.cancle');
-		
+
 		var paramData = new Object();
 		paramData.strLoginId = localStorage.getItem("strLoginId");
 		paramData.strLoginToken = localStorage.getItem("strLoginToken");
@@ -1523,56 +1535,56 @@ function finshBtnClickReturnData() {
 		if (regionID != undefined) {
 			paramData.region_id = regionID;
 		}
-		
-		
+
+
 		//设备名称
 		paramData.devices_name = devices_name;
 		//出厂时间
 		paramData.devices_out_time = devices_out_time;
-		
-		
+
+
 		//电动机车
-		if(strDeviceType == 'L'){
+		if (strDeviceType == 'L') {
 			//设备配备电机功率
 			var devices_KW = $('#dojckW').val();
 			//配备电机台数
 			var devices_Count = $('#ddjcCount').val();
-			
+
 			paramData.allocate_power = devices_KW;
 			paramData.electric_num = devices_Count;
 		}
-		
+
 		console.log("type===" + JSON.stringify(paramData))
-		
+
 		//电机
-		if(strDeviceType == 'E'){
+		if (strDeviceType == 'E') {
 			//设备型号
 			var devices_model = $('#devices_model').val();
-			
+
 			//功率
 			var devices_power = $('#devices_power').val();
-			
+
 			//安装方式
 			var install_way = $('#install_way').val();
-			
+
 			//工作电压
 			var work_voltage = parseInt($('#work_voltage').val());
-			
+
 			//设备生产厂商
 			var devices_produce = $('#devices_produce').val();
-			
+
 			//功率因数
 			var power_factor = $('#power_factor').val();
-			
+
 			//防护等级
 			var protection = $('#protection').val();
-			
+
 			//绝缘等级
 			var insulation = $('#insulation').val();
-			
+
 			//设置内置轴承型号
 			var bearing_model = $('#bearing_model').val();
-			
+
 			//生产线
 			var pro_line = $('#pro_line').val();
 			if (pro_line == '' || pro_line == undefined) {
@@ -1585,9 +1597,9 @@ function finshBtnClickReturnData() {
 				mui.toast('应用场景不能为空');
 				return false;
 			}
-			
+
 			paramData.devices_model = devices_model;
-			
+
 			paramData.devices_power = devices_power;
 			paramData.install_way = install_way;
 			paramData.work_voltage = work_voltage;
@@ -1602,11 +1614,11 @@ function finshBtnClickReturnData() {
 			paramData.coupling_type = obj_djlaqlx;
 			paramData.gearbox_gear_pair = bolclxcls;
 			paramData.gearbox_transmission_ratio = bolclxcdb;
-			
+
 			paramData.pro_line = pro_line;
 			paramData.use_scenes = use_scenes;
 		}
-		
+
 
 		if (cancle.length == 0) {
 			return paramData;
@@ -1726,19 +1738,19 @@ function finshBtnClickReturnData() {
 				var chuannumstr = ".chuanNameNumber" + i;
 				var chuannum = $(chuannumstr);
 				for (var j = 0; j < chuannum.length; j++) {
-					
+
 					var sensorObj = new Object();
-					
+
 					//振动传感器时，修改采样量程，采样点数，传感器系数等
 					if (sim_sensorList[i].sensorList[j].sensorType == 'V') {
-						
+
 						var bolxishu = checkXishu(i, j);
 						if (bolxishu == false) {
 							return false;
 						} else {
 							sensorObj.calibration_coefficient = bolxishu;
 						}
-						
+
 						//采样信号模式
 						var str_j_model = "#caiyangmodel" + i + j;
 						var obj_j_model = $(str_j_model).val();
@@ -1754,9 +1766,9 @@ function finshBtnClickReturnData() {
 						//采样量程/精度
 						var str_j_jingdu = "#caiyangjingdu" + i + j;
 						var obj_j_jingdu = $(str_j_jingdu).val();
-						
-						
-						
+
+
+
 						if (obj_j_model.length > 0) {
 							sensorObj.sampling_model = obj_j_model;
 						}
@@ -1772,7 +1784,7 @@ function finshBtnClickReturnData() {
 						if (obj_j_liangcheng.length > 0) {
 							sensorObj.range_data = obj_j_liangcheng;
 						}
-						
+
 					}
 
 
@@ -1784,11 +1796,11 @@ function finshBtnClickReturnData() {
 					//传感器编号
 					var str_j_chuan = "#chuanID" + i + j;
 					var obj_j_chaun = $(str_j_chuan).val();
-					
+
 					sensorObj.serial_no = obj_j_card;
 					sensorObj.sensor_no = obj_j_chaun;
 
-					
+
 
 					//安装位置
 					var str_j_anzhuang = "anzhuang" + i + j;
@@ -1920,14 +1932,13 @@ function postData(data) {
 
 				window.location.replace("./DeviceDetail.html")
 			}
-			if(respData.status == 'ILLEGAL')
-			{
+			if (respData.status == 'ILLEGAL') {
 				mui.alert('您的账户登录过期，请退出重新登录！')
 			}
-// 			
-// 			 else {
-// 				mui.toast(respData.message);
-// 			}
+			// 			
+			// 			 else {
+			// 				mui.toast(respData.message);
+			// 			}
 		},
 		error: function(err) {}
 	});

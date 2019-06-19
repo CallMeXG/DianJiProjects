@@ -291,14 +291,19 @@ mui.plusReady(function() {
 			sensorStr +=
 				'<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span><img src="img/xinhaoNO.png" width="30px" height="20px" style="margin-top:-10px;" /></li>';
 		}
-		if (typeof(simData.dump_percentage) != "undefined") {
+		
+		if (simData.supply_type == 0 || simData.supply_type == undefined) {
+			if (typeof(simData.dump_percentage) != "undefined") {
+			
 			if (simData.dump_percentage > 84 || simData.dump_percentage == 84) {
+				
 				sensorStr +=
-					'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi84.jpg" height="15px"/></li>';
+					'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi100.jpg" height="15px"/></li>';
 			}
 			if ((simData.dump_percentage > 67 || simData.dump_percentage == 67) && simData.dump_percentage < 84) {
+				console.log("dianchidianliang=-=======" + simData.dump_percentage)
 				sensorStr +=
-					'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi80.jpg" height="15px"/></li>';
+					'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi84.jpg" height="15px"/></li>';
 			}
 			if ((simData.dump_percentage > 50 || simData.dump_percentage == 50) && simData.dump_percentage < 67) {
 				sensorStr +=
@@ -322,6 +327,9 @@ mui.plusReady(function() {
 				'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：----</span></li>';
 		}
 
+		}
+		
+		
 		sensorStr += '<li class="mui-table-view-cell">数据流量：----</li>';
 		sensorStr += '<li class="mui-table-view-cell">固件版本：' + isUndefined(simData, 'software_version') + '</li>';
 		sensorStr += '<li class="mui-table-view-cell">激活状态：' + strJiHuoStatus + '</li>';
