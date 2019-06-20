@@ -4,20 +4,6 @@ mui.plusReady(function() {
 	getVersionCode();
 
 	function getVersionCode() {
-<<<<<<< HEAD
-		var strProject = "嘉轩卫士";
-		localStorage.setItem("localVersionCode", 1980);
-
-		var strPhoneOSType;
-		if(mui.os.ios) {
-			strPhoneOSType = "iOS";
-		}
-		if(mui.os.android) {
-			strPhoneOSType = "Android";
-		}
-
-=======
-		
 		
 		//先见 Android
 		var strAPPType = "AndroidPrefoco";
@@ -34,7 +20,6 @@ mui.plusReady(function() {
 		
 		var strVersionCodeLocal = strLocalVersionCode;
 		
->>>>>>> master
 		$.ajax({
 			type: "get",
 			url: commen_gain_last_version_Interface,
