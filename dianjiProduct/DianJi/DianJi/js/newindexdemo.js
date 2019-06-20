@@ -115,6 +115,7 @@ $(function() {
 						localStorage.setItem("strUserName", dataTemp.username);
 						localStorage.setItem("strUserPhone", dataTemp.phone);
 						localStorage.setItem('is_manage',dataTemp.is_manage);
+						localStorage.setItem("sms_notice",dataTemp.sms_notice);
 						var tanchuForm = new Vue({
 							el: '#tanchuForm',
 							data: {

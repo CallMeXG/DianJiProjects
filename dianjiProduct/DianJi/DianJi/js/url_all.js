@@ -1,15 +1,18 @@
 //、、--------- 测试GitHub master
 
 //服务器地址
-// var url = 'http://192.168.18.9:8080/server_appapi/';
+var url = 'http://192.168.18.9:8080/server_appapi/';
 //本地测试服务器地址
 //var url = 'http://192.168.2.246:8080/server_appapi/';
 //测试服务器地址
 // var url = 'http://39.106.180.14:1111/';
 //生产服务器地址
-var url = 'http://47.94.166.103:1111/';
+// var url = 'http://47.94.166.103:1111/';
 
 //var fileUrlHeader = "http://47.94.166.103:3000/group1/";
+
+var strLocalVersion = '2.0.0.0';
+var strLocalVersionCode = 1800;
              
 //登录接口
 var login_Interface= url + 'user/commen_login';
@@ -143,3 +146,8 @@ var new_commen_gain_device_install_activate_Interface = url + '/device/commen_ga
 var new_commen_gain_trend_chart_Interface = url + '/draw/commen_gain_trend_chart'
 //趋势图,根据测点获取趋势图数据 -- 长连接模式
 var new_commen_gain_trend_chart_install_long_Interface = url + '/draw/commen_gain_trend_chart_install_long'
+
+//修改短信通知勾选
+var new_commen_updata_sms_notice_Interface = url + '/user/commen_updata_sms_notice'
+//获取软件使用说明
+var new_commen_gain_instructions_Interface = url + 'app/commen_gain_instructions'

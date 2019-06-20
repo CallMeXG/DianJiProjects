@@ -187,7 +187,7 @@ $('#addDevice').click(function() {
 	};
 
 	console.log(JSON.stringify(data));
-
+///*
 	$.ajax({
 		type: "get",
 		url: commen_add_device_Interface,
@@ -209,6 +209,8 @@ $('#addDevice').click(function() {
 			}
 		}
 	});
+	
+	//*/
 
 })
 //*/

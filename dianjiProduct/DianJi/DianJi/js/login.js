@@ -45,6 +45,7 @@ $("#login_btn").click(function() {
 					localStorage.setItem("strLoginToken", dataTemp.strLoginToken);
 					localStorage.setItem("strUserName", dataTemp.username);
 					localStorage.setItem("strUserPhone", dataTemp.phone);
+					localStorage.setItem("sms_notice",dataTemp.sms_notice);
 					if(dataTemp.c_id == undefined) {
 						localStorage.setItem("company_id", "");
 						localStorage.setItem('c_id',"");
@@ -79,23 +80,9 @@ $("#login_btn").click(function() {
 						url: 'headerindex.html',
 						id: 'headerindex.html'
 					})
-					//					mui.openWindow('mainIndex.html')
-
-					//					mui.preload({
-					//						url:'mainIndex.html'});
-					//					window.location.replace('firstIndex.html');
-					//					window.location.replace('newIndex.html');
-					//					showHome(0, 1);
-					//					window.location.replace('headerindex.html');
-					//					window.location.replace('newIndex.html');
+	
 					//保存用户类型
 					localStorage.setItem("userType", respData.data.types);
-					//					mui.preload({url:'newMainMy.html'});
-					//					window.parent.frames[1].location.reload();
-					//					console.log("refucesfdsafs ==== "+ window.parent.frames[1])
-
-					//					mui.back();
-					//mui.back()
 
 				} else {
 					mui.toast("账号或密码有误，请重新输入");
@@ -152,6 +139,7 @@ mui.plusReady(function() {
 					localStorage.setItem("strLoginToken", dataTemp.strLoginToken);
 					localStorage.setItem("strUserName", dataTemp.username);
 					localStorage.setItem("strUserPhone", dataTemp.phone);
+					localStorage.setItem("sms_notice",dataTemp.sms_notice);
 					if(dataTemp.c_id == undefined) {
 						localStorage.setItem("company_id", "");
 						localStorage.setItem('c_id',"");

@@ -27,7 +27,7 @@
 	<body bgcolor="white">
 
 		<header class="mui-bar mui-bar-nav" id="header">
-			<a style="color: white;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a style="color: white;" onclick="backAndCancelActive()" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title ">卡激活等待页</h1>
 		</header>
 		<div class="mui-bar mui-bar-footer" id="footer">
@@ -78,7 +78,7 @@
 							<ul class="mui-table-view" id="id_sensorList" style="display: none;">
 								<li class="mui-table-view-cell" v-for="(sensorMsg,index) in sensorListMsg" style="color: gray;">
 									<p><span>传感器序列编号： {{sensorMsg.sensor_no}}</span></p>
-									
+
 								</li>
 
 							</ul>
@@ -106,6 +106,13 @@
 		<script src="js/vue.js"></script>
 
 		<script>
+			var strBackStatus = false
+			mui.init({
+				beforeback: function(){					
+					return strBackStatus;
+				}
+			})
+
 			//设备信息
 			var obj_device = JSON.parse(localStorage.getItem('ActiveMZDevice'));
 			var addDevice = new Vue({
@@ -225,6 +232,7 @@
 						success: function(resqMsg) {
 							if (resqMsg.status == "SUCCESS") {
 								mui.toast(resqMsg.message);
+								strBackStatus = true;
 								mui.back();
 							} else {
 								mui.toast("中断激活失败，请重试");
@@ -236,13 +244,15 @@
 					});
 
 				}
-
 			}
 			//取消激活按钮点击事件
 			$("#CancelBtn").click(function() {
 				mui.confirm("你确定要中断激活吗？", "系统提示", ["否", "是"], cancelJihuo);
 			});
-
+			//取消激活按钮点击事件
+			function backAndCancelActive() {
+				mui.confirm("你确定要中断激活吗？", "系统提示", ["否", "是"], cancelJihuo);
+			};
 
 			var regionData = null;
 
@@ -412,8 +422,8 @@
 									work_status: '0',
 									commen_json: JSON.stringify(json_commen)
 								}
-								
-								
+
+
 								console.log('=======================' + JSON.stringify(commenParam))
 								///*
 								$.ajax({
@@ -430,8 +440,8 @@
 												devices_no: localStorage.DeveciId,
 												serial_no: localStorage.simID
 											};
-											
-											
+
+
 											$.ajax({
 												type: "get",
 												url: commen_appAddSim_Interface,
@@ -455,7 +465,7 @@
 													mui.toast('激活失败，请重试！');
 												}
 											});
-											
+
 										} else {
 
 										}
@@ -464,7 +474,7 @@
 										plus.nativeUI.closeWaiting();
 									}
 								});
-//*/
+								//*/
 							}
 
 						} else {
@@ -475,6 +485,11 @@
 					}
 
 				});
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> master
 			})
 		</script>
 
