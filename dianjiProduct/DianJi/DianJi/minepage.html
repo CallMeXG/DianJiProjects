@@ -19,18 +19,11 @@
 		<div class="mui-content">
 			<ul class="mui-table-view mui-table-view-chevron">
 				<li class="mui-table-view-cell mui-media">
-<<<<<<< HEAD
-					<a class="mui-navigate-right">
-						<img class="mui-media-object mui-pull-left head-img" src="img/72x72.png">
-=======
-					<!-- <a class="mui-navigate-right"> -->
-						<img class="mui-media-object mui-pull-left head-img" src="img/logo5.png">
->>>>>>> master
-						<div class="mui-media-body">
-							嘉轩卫士
-							<p class='mui-ellipsis'>账号:<span id="username">138****8888</span></p>
-						</div>
-					<!-- </a> -->
+					<img class="mui-media-object mui-pull-left head-img" src="img/72x72.png">
+					<div class="mui-media-body">
+						嘉轩卫士
+						<p class='mui-ellipsis'>账号:<span id="username">138****8888</span></p>
+					</div>
 				</li>
 			</ul>
 			<br />
@@ -62,10 +55,12 @@
 				</li>
 			</ul>
 			<br />
+
 			<ul class="mui-table-view mui-table-view-chevron">
 				<li class="mui-table-view-cell">
 					<a style="float: left;">短信提醒</a>
-					<input id="messageID" type="checkbox" style="float: right;font-size: 24px;width: 20px;height: 20px;margin-right: -50px;" onclick="checkCheckBox(this)"/>
+					<input id="messageID" type="checkbox" style="float: right;font-size: 24px;width: 20px;height: 20px;margin-right: -50px;"
+					 onclick="checkCheckBox(this)" />
 				</li>
 				<li class="mui-table-view-cell">
 					<a id="appDetail" class="mui-navigate-right">使用说明</a>
@@ -87,7 +82,7 @@
 		<script src="js/url_all.js"></script>
 		<script>
 			document.getElementById("localVersion").innerHTML = strLocalVersion;
-			
+
 			//判断权限，是否显示新增设备项
 			var strUserType = localStorage.getItem("userType");
 			if (strUserType < 10) {
@@ -100,27 +95,27 @@
 				$("#newAddDevice").show();
 			}
 			//短信提醒,点击选择事件
-			function checkCheckBox(checkbox){
-				console.log("---" + checkbox.checked) 
+			function checkCheckBox(checkbox) {
+				console.log("---" + checkbox.checked)
 				console.log("+++++===" + localStorage.getItem("strLoginId"))
 				var params = {};
-				if(checkbox.checked == true){
+				if (checkbox.checked == true) {
 					params = {
-					id: localStorage.getItem("strLoginId"),
-					strLoginId: localStorage.getItem("strLoginId"),
-					strLoginToken: localStorage.getItem("strLoginToken"),
-					sms_notice: 'Y'
-				  }
-				
+						id: localStorage.getItem("strLoginId"),
+						strLoginId: localStorage.getItem("strLoginId"),
+						strLoginToken: localStorage.getItem("strLoginToken"),
+						sms_notice: 'Y'
+					}
+
 				}
-				if(checkbox.checked == false){
+				if (checkbox.checked == false) {
 					params = {
-					id: localStorage.getItem("strLoginId"),
-					strLoginId: localStorage.getItem("strLoginId"),
-					strLoginToken: localStorage.getItem("strLoginToken"),
-					sms_notice: 'N'
-				  }
-				
+						id: localStorage.getItem("strLoginId"),
+						strLoginId: localStorage.getItem("strLoginId"),
+						strLoginToken: localStorage.getItem("strLoginToken"),
+						sms_notice: 'N'
+					}
+
 				}
 				$.ajax({
 					type: 'get',
@@ -129,22 +124,29 @@
 					url: new_commen_updata_sms_notice_Interface,
 					dataType: 'json',
 					success: function(response) {
-						console.log("shortMessage ==== "+ JSON.stringify(response))
+						console.log("shortMessage ==== " + JSON.stringify(response))
 					}
 				})
 			}
 			//软件使用说明
-			$("#appDetail").on("tap",function(){
-				mui.openWindow({
-					url: "./html/appdetail.html"
-				})
-			})
-			$("#updataAPP").on("tap",function(){
+			// $("#appDetail").on("tap", function() {
+			// 	mui.openWindow({
+			// 		url: "./html/appdetail.html"
+			// 	})
+			// })
+			$("#updataAPP").on("tap", function() {
 				mui.openWindow({
 					url: "./html/updateapp.html"
 				})
 			})
 			
+			mui.plusReady(function () {
+				$("#appDetail").on("tap", function() {
+					plus.runtime.openURL('http://www.baidu.com');  
+				})
+			    
+			})
+
 
 
 			$("#addDeviceNew").on("tap", function() {
@@ -176,13 +178,13 @@
 					url: "updateList.html"
 				})
 			})
-			
+
 			console.log("0000000====" + localStorage.getItem("sms_notice"))
-			
+
 			//初始化,短信是否勾选
 			if (localStorage.getItem("sms_notice") == 'Y') {
 				document.getElementById('messageID').checked = true;
-			} else{
+			} else {
 				document.getElementById('messageID').checked = false;
 			}
 

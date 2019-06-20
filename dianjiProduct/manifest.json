@@ -159,11 +159,9 @@
                         "spotlight" : "unpackage/res/icons/40x40.png",
                         "spotlight@2x" : "unpackage/res/icons/80x80.png"
                     },
-<<<<<<< HEAD
-                    "appstore" : "C:/Users/Administrator/Desktop/1024.png"
-=======
+                    // "appstore" : "C:/Users/Administrator/Desktop/1024.png"
                     "appstore" : "DianJi/DianJi/img/11111.png"
->>>>>>> master
+
                 },
                 "android" : {
                     /*iPad iOS7程序图标，分辨率：76x76*//*iPad iOS7高分屏程序图标，分辨率：152x152*/
