@@ -29,9 +29,7 @@ mui.plusReady(function() {
 			},
 			dataType: "json",
 			success: function(respData) {
-				console.log('9090909090909090909090909090==' + JSON.stringify(respData));
 				if(respData.status == "SUCCESS") {
-					
 					if(typeof(respData.data) != "undefined") {
 						//返回的版本号
 						var strCode = respData.data.version_code;

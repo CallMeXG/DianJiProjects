@@ -22,7 +22,11 @@
 
 		<p id="version" style="font-size: 16px;color: #524598;margin-top: 50px;margin-left: 10%;"></p>
 
-		<p id="isNewAPP" style="margin-left: 10%;font-size: 16px;color: #524598;">您已是最新版本，无须更新。</p>
+		<p id="isNewAPP" style="margin-left: 10%;font-size: 16px;color: #524598;margin-right: 10%;">
+			<span>您已是最新版本，无须更新。<span>
+			<br>
+			<span>如何下载：打开手机 App Store，搜索"机电卫士"</span>
+		</p>
 
 		<div id="needUpdate" style="margin-left: 10%;display: none;">
 			<p id="newCode" style="font-size: 16px;color: #524598;">最新版本2.0</p>
@@ -31,11 +35,11 @@
 			<p style="color: #524598;float: left;margin-top: 20px;">更新方式：</p>
 			<button id="downLoadID" class="xianjianButton">点此安装</button>
 		</div>
-		<div style="clear: both;"></div>
+		<!-- <div style="clear: both;"></div>
 		<div id="APPScanDiv" style="text-align: center;margin-top: 30px;display: none;">
 			<p>扫面下面的二维码，推荐好友安装APP</p>
 			<img id="APPScan" width="80%" height="80%" />
-		</div>
+		</div> -->
 		<br />
 
 		<script src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
@@ -95,9 +99,9 @@
 								strDownLoadURL = objResp.version_url;
 							}
 							if (objResp.version_img != undefined) {
-								document.getElementById("APPScanDiv").style.display = 'block'
+								// document.getElementById("APPScanDiv").style.display = 'block'
 								document.getElementById("model_html").innerHTML = respData.data.version_content;
-								document.getElementById("APPScan").src = objResp.version_img
+								// document.getElementById("APPScan").src = objResp.version_img
 							}
 
 						}
