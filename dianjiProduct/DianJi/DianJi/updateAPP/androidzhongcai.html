@@ -105,9 +105,18 @@
 				}
 			});
 
-			$('#downLoadID').on('tap', function() {
-				location.href = strDownLoadURL;
-			})
+			function plusReady() {
+				// 在这里调用plus api  
+				$('#downLoadID').on('tap', function() {
+					plus.runtime.openURL(strDownLoadURL);
+				})
+			}
+			if (window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener('plusready', plusReady, false);
+			}
+			
 		</script>
 
 
