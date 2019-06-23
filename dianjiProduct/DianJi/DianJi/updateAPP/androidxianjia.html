@@ -25,11 +25,12 @@
 		<p id="isNewAPP" style="margin-left: 10%;font-size: 16px;color: #524598;">您已是最新版本，无须更新。</p>
 
 		<div id="needUpdate" style="margin-left: 10%;display: none;">
-			<p id="newCode" style="font-size: 16px;color: #524598;">最新版本2.0</p>
+			<p id="newCode" style="font-size: 16px;color: #524598;"></p>
 			<p style="font-size: 16px;color: #524598;">新版本更新提示：</p>
 			<div id="model_html" style="margin-left: 10px;"></div>
 			<p style="color: #524598;float: left;margin-top: 20px;">更新方式：</p>
 			<button id="downLoadID" class="xianjianButton">点此安装</button>
+			<p style="clear: both;">更多安装方式： 请在 应用宝、OPPO应用市场、华为应用市场 搜索 ‘机电卫士’ 进行安装</p>
 		</div>
 		<!-- <div style="clear: both;"></div>
 		<div id="APPScanDiv" style="text-align: center;margin-top: 30px;display: none;">
@@ -43,11 +44,11 @@
 
 		<script type="text/javascript">
 			mui.init()
-			
+			console.log("pppppppp")
 			//本地版本号,版本code,版本类型,
 			//升级的时候,只需要修改以下三个变量
-			var strLocalVersion = "1.9";
-			var strLocalVersionCode = 1800;
+			var strLocalVersion = "1.10";
+			var strLocalVersionCode = 1990;
 			//先见 Android
 			var strAPPType = "AndroidPrefoco";
 			//先见 iOS
@@ -60,7 +61,7 @@
 			// var strAPPType = "AndroidZhongCai";
 			//Android 无logo版本
 			// var strAPPType = "AndroidNOLogo";
-			
+
 			document.getElementById("version").innerHTML = '当前版本：V' + strLocalVersion;
 
 			var strVersionCodeLocal = strLocalVersionCode;
@@ -68,8 +69,10 @@
 
 			//app下载地址
 			var strDownLoadURL = '';
+
+			// var strBaseURl = "http://39.106.180.14:1111/";
+			var strBaseURl = "http://47.94.166.103:1111/";
 			
-			var strBaseURl = "http://39.106.180.14:1111/";
 			var strBaseInterface = "app/commen_gain_last_version";
 
 			$.ajax({
@@ -94,9 +97,9 @@
 								strDownLoadURL = objResp.version_url;
 							}
 							if (objResp.version_img != undefined) {
-								document.getElementById("APPScanDiv").style.display = 'block'
+								// document.getElementById("APPScanDiv").style.display = 'block'
 								document.getElementById("model_html").innerHTML = respData.data.version_content;
-								document.getElementById("APPScan").src = objResp.version_img
+								// document.getElementById("APPScan").src = objResp.version_img
 							}
 
 						}
@@ -104,10 +107,20 @@
 					}
 				}
 			});
-
-			$('#downLoadID').on('tap', function() {
-				location.href = strDownLoadURL;
-			})
+			function plusReady() {
+				// 在这里调用plus api  
+				$('#downLoadID').on('tap', function() {
+					plus.runtime.openURL('http://a.app.qq.com/o/simple.jsp?pkgname=io.dcloud.dianjiForPro');
+				})
+			}
+			if (window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener('plusready', plusReady, false);
+			}
+			
+			
+			
 		</script>
 
 
