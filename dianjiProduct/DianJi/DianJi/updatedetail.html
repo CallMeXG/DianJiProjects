@@ -27,6 +27,9 @@
 			<h1 class="mui-title" style="color: white;">功能介绍</h1>
 		</header>
 		<div class="mui-content">
+			<div id="code1_10" style="display: none;">
+				<p>1、优化UI页面，提升用户体验</p>
+			</div>
 			<div id="code1_9" style="display: none;">
 				<p>1、新增CPX省电和长连接工作模式</p>
 				<p>2、新增温度传感器</p>
@@ -83,6 +86,9 @@
 	</body>
 	<script type="text/javascript">
 		var strCode = localStorage.getItem('updateNum');
+		if (strCode == '1.10') {
+			$('#code1_10').css('display','block');
+		}
 		if (strCode == '1.9') {
 			$('#code1_9').css('display','block');
 		}

@@ -5,8 +5,8 @@
     "name" : "中国建材",
     /*应用名称，程序桌面图标名称*/
     "version" : {
-        "name" : "1.9", /*应用版本名称*/
-        "code" : "1980"
+        "name" : "1.10", /*应用版本名称*/
+        "code" : "1990"
     },
     "description" : "",
     /*应用描述信息*/
@@ -149,8 +149,18 @@
                         /*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
                         "settings-normal" : "",
                         /*iPad设置页面程序图标，分辨率：29x29*/
-                        "settings-retina" : ""
-                    }
+                        "settings-retina" : "",
+                        "app" : "unpackage/res/icons/76x76.png",
+                        "app@2x" : "unpackage/res/icons/152x152.png",
+                        "notification" : "unpackage/res/icons/20x20.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "proapp@2x" : "unpackage/res/icons/167x167.png",
+                        "settings" : "unpackage/res/icons/29x29.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "spotlight" : "unpackage/res/icons/40x40.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png"
+                    },
+                    "appstore" : "DianJi/DianJi/img/11111.png"
                 },
                 "android" : {
                     /*iPad iOS7程序图标，分辨率：76x76*//*iPad iOS7高分屏程序图标，分辨率：152x152*/
@@ -167,6 +177,7 @@
                     "spotlight@2x" : "unpackage/res/icons/80x80.png",
                     "notification" : "unpackage/res/icons/20x20.png",
                     "notification@2x" : "unpackage/res/icons/40x40.png",
+
                     "mdpi" : "C:/Users/Administrator/Desktop/电机项目/中高新版本/icon48.png",
                     "ldpi" : "C:/Users/Administrator/Desktop/电机项目/中高新版本/icon48-2.png",
                     "hdpi" : "C:/Users/Administrator/Desktop/电机项目/中高新版本/icon72.png",

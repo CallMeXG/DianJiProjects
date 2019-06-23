@@ -26,6 +26,7 @@
 					localStorage.setItem("strUserName", dataTemp.username);
 					localStorage.setItem("strUserPhone", dataTemp.phone);
 					localStorage.setItem('is_manage',dataTemp.is_manage);
+					localStorage.setItem("sms_notice",dataTemp.sms_notice);
 					if(dataTemp.c_id == undefined) {
 						localStorage.setItem("company_id", "");
 					} else {
