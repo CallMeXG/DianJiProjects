@@ -1,19 +1,21 @@
 //、、--------- 测试GitHub master
 
 //服务器地址
-// var url = 'http://192.168.18.9:8080/server_appapi/';
+// var url = 'http://192.168.4.240:8080/server_appapi/';
 //本地测试服务器地址
 // var url = 'http://192.168.3.244:8080/server_appapi/';
 //测试服务器地址
-   var url = 'http://39.106.180.14:1111/';
+   // var url = 'http://39.106.180.14:1111/';
 //生产服务器地址
-// var url = 'http://47.94.166.103:1111/';
+var url = 'http://47.94.166.103:1111/';
+
 
 
 //var fileUrlHeader = "http://47.94.166.103:3000/group1/";
 
-var strLocalVersion = '1.9.10';
-var strLocalVersionCode = 1800;
+
+var strLocalVersion = '1.10';
+var strLocalVersionCode = 1990;
              
 //登录接口
 var login_Interface= url + 'user/commen_login';
