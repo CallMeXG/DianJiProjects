@@ -659,18 +659,18 @@ function sensorData(emeId, i) {
 
 							}
 
-							if (senData[j].calibration_coefficient != undefined) {
-								sensorStr +=
-									'<div class="modifyCom"><span class="modifyFont">传感器频率校准系数：</span><input style="width:100px" id="jiaoxishu' +
-									i + '' + j + '" type="text" class="sensorLocation" value=' + senData[j].calibration_coefficient +
-									' /></div>';
-
-							} else {
-								sensorStr +=
-									'<div class="modifyCom"><span class="modifyFont">传感器频率校准系数：</span><input  style="width:100px" id="jiaoxishu' +
-									i + '' + j + '" type="text " class="sensorLocation " /></div>';
-
-							}
+// 							if (senData[j].calibration_coefficient != undefined) {
+// 								sensorStr +=
+// 									'<div class="modifyCom"><span class="modifyFont">传感器频率校准系数：</span><input style="width:100px" id="jiaoxishu' +
+// 									i + '' + j + '" type="text" class="sensorLocation" value=' + senData[j].calibration_coefficient +
+// 									' /></div>';
+// 
+// 							} else {
+// 								sensorStr +=
+// 									'<div class="modifyCom"><span class="modifyFont">传感器频率校准系数：</span><input  style="width:100px" id="jiaoxishu' +
+// 									i + '' + j + '" type="text " class="sensorLocation " /></div>';
+// 
+// 							}
 							sensorStr += '</div>'
 						}
 

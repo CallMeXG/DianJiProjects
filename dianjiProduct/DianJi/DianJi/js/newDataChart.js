@@ -23,6 +23,7 @@ $.ajax({
 					if(typeof(respData.data.probeDrawVO) != "undefined") {
 						if(typeof(respData.data.probeDrawVO.devices_name) != "undefined") {
 							$("#titleText").html(respData.data.probeDrawVO.devices_name);
+							// $("#titleText").html('长连接模式，长连接模式，长连接模式');
 							localStorage.setItem("deviceName", respData.data.probeDrawVO.devices_name)
 						}
 					}
@@ -180,3 +181,21 @@ if(strUserType < 10) {
 if(strUserType > 10) {
 	$("#DisplayChangeDevice").show();
 }
+
+//=========****************************  趋势图，波形图，特征值三个页面切换
+//*********************** 在趋势图页面时，显示header上的 刷新和 长短连接模式 选择按钮
+
+$('#qushiChart').on('tap',function(){
+	$('#qushiRefresh').show();
+	$('#queryClicked').show();
+})
+
+$('#boxingChart').on('tap',function(){
+	$('#qushiRefresh').hide();
+	$('#queryClicked').hide();
+})
+
+$('#tezhengChart').on('tap',function(){
+	$('#qushiRefresh').hide();
+	$('#queryClicked').hide();
+})

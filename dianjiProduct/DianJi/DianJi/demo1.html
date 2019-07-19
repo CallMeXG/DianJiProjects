@@ -8,141 +8,71 @@
 		<script src="js/echarts.common.min.js"></script>
 		<script src="js/mui.min.js"></script>
 		<script src="js/jquery.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet"/>
+		<link href="css/dragDown.css" rel="stylesheet"/>
 	</head>
 
 	<body>
-		<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-		<div id="main" style="width: 600px;height:400px;"></div>
-
-		<div id="second" style="width: 600px;height:400px;"></div>
-		<script type="text/javascript">
-			var chartCelljiaxuan = echarts.init(document.getElementById('main'));
-			var optionChartsCelljiaxuan = {
-				legend: {
-					orient: 'horizontal',
-
-					data: ['正常', '预警', '报警', '严重', '未知']
-				},
-				series: [{
-					name: '设备状态',
-					type: 'pie',
-					animation: true,
-					data: [{
-							value: 5,
-							name: '正常' + '(5)',
-							label: {
-								show: 'true',
-								position: 'inner'
-							},
-							itemStyle: {
-								color: '#00CD00'
-							}
-						},
-						{
-							value: 4,
-							name: '预警' + '(4)',
-							label: {
-								show: 'true',
-								position: 'inner'
-							},
-							itemStyle: {
-								color: '#EEEE00'
-							}
-						},
-						{
-							value: 3,
-							name: '报警' + '(3)',
-							label: {
-								show: 'true',
-								position: 'inner'
-							},
-							itemStyle: {
-								color: 'orange'
-							}
-						},
-						{
-							value: 2,
-							name: '严重' + '(2)',
-							label: {
-								show: 'true',
-								position: 'inner'
-							},
-							itemStyle: {
-								color: 'red'
-							}
-						},
-						{
-							value: 1,
-							name: '未知' + '(1)',
-							label: {
-								show: 'true',
-								position: 'inner'
-							},
-							itemStyle: {
-								color: '#C2C2C2'
-							}
-						}
-					]
-				}]
-			};
-			var opt = optionChartsCelljiaxuan.series[0];
-			lineHide(opt);
-			//数据为零时隐藏线段
-			function lineHide(opt) {
-				jQuery.each(opt.data, function(i, item) {
-					if(item.value == 0) {
-						//								item.itemStyle.normal.labelLine.show = false;
-						item.label.show = false;
-					}
-				});
-			}
-
-			chartCelljiaxuan.setOption(optionChartsCelljiaxuan);
-
-			chartCelljiaxuan.on('click', function(params) {
-				console.log("=========" + JSON.stringify(params.data))
+		<header class="mui-bar mui-bar-nav">
+			<a id="icon-menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-left"></a>
+			<a class="mui-action-back mui-btn mui-btn-link mui-pull-right">关闭</a>
+			<h1 class="mui-title">div模式下拉菜单</h1>
+		</header>
+		<div class="mui-content">
+			<button id="menu-btn" type="button" class="mui-btn mui-btn-primary mui-btn-block">显示下拉菜单</button>
+		</div>
+		<div id="menu-wrapper" class="menu-wrapper hidden">
+			<div id="menu" class="menu">
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+			</div>
+		</div>
+		<div id="menu-backdrop" class="menu-backdrop"></div>
+		<script>
+			mui.init({
+				swipeBack:true
 			})
-
-			///*
-			// 基于准备好的dom，初始化echarts实例
-			var myChart = echarts.init(document.getElementById('second'));
-
-			// 指定图表的配置项和数据
-			var option = {
-				title: {
-					text: 'ECharts 入门示例'
-				},
-				tooltip: {
-					trigger: 'axis',
-					triggerOn: 'mousemove|click',
-					formatter: function(params) {
-						console.log(params);
-						return 'loading';
-					}
-				},
-				legend: {
-					data: ['销量']
-				},
-				xAxis: {
-					data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
-				},
-				yAxis: {},
-				series: [{
-					name: '销量',
-					type: 'line',
-					data: [5, 20, 36, 10, 10, 20]
-				}]
-			};
-
-			// 使用刚指定的配置项和数据显示图表。
-			myChart.setOption(option, true);
-			//			myChart.click(function(param){
-			//				console.log(param); //重要的参数都在这里！
-			//			})
-			//					myChart.on('click', function(param) {
-			//						console.log(param); //重要的参数都在这里！
-			//					});
-			//*/
+			var menuWrapper = document.getElementById('menu-wrapper');
+			var menu = document.getElementById('menu');
+			var menuWrapperClassList = menuWrapper.classList;
+			document.getElementById('menu-btn').addEventListener('tap',toggleMenu);
+			var busying = false;
+				var backdrop = document.getElementById("menu-backdrop");
+				backdrop.addEventListener('tap', toggleMenu);
+			function toggleMenu(){
+				if(busying){
+					return ;
+					
+				}
+				busying = true;
+				if (menuWrapperClassList.contains('mui-active')) {
+					document.body.classList.remove('menu-open');
+					menuWrapper.className = 'menu-wrapper fade-out-up animated';
+					menu.className = 'menu bounce-out-up animated';
+					setTimeout(function() {
+						backdrop.style.opacity = 0;
+						menuWrapper.classList.add('hidden');
+					}, 500);
+				} else {
+					document.body.classList.add('menu-open');
+					menuWrapper.className = 'menu-wrapper fade-in-down animated mui-active';
+					menu.className = 'menu bounce-in-down animated';
+					backdrop.style.opacity = 1;
+				}
+				setTimeout(function() {
+					busying = false;
+				}, 500);
+			}
 		</script>
 	</body>
 

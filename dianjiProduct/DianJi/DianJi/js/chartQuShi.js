@@ -5,6 +5,10 @@ var selectObject = new Object()
 getDeviceInstallActiveList()
 var strShowType = 0
 var strSensorType = ''
+
+//初始化筛选时间
+var strQueryTime = ''
+
 //2019-05-08
 function getDeviceInstallActiveList() {
 	$.ajax({
@@ -593,9 +597,11 @@ function setEleForLongModel(valueData) {
 					// if (simWorkModeLongVO.threshold_early_x != undefined && simWorkModeLongVO.threshold_alarm_x != undefined &&
 					// simWorkModeLongVO.threshold_danger_x != undefined) {
 
+
+
 					var strNumber =
-						"<div style='margin-top:15px;'>\
-					<p style='margin-top:-10px'>\
+						"<div style='margin-top:15px;background-color:white;'>\
+					<p style='padding-top:5px'>\
 					<span></span>\
 					<span style='color:#88d807'>预警值:" +
 						strYJ +
@@ -611,7 +617,7 @@ function setEleForLongModel(valueData) {
 
 				}
 
-				var strChart = '<div class="chart_qushiClass" id="chartLong_' + keyItem + '"';
+				var strChart = '<div style="margin-top:-10px" class="chart_qushiClass" id="chartLong_' + keyItem + '"';
 				strChart += '></div>';
 				$("#qiushitu").append(strChart);
 
@@ -640,8 +646,8 @@ function setEleForLongModel(valueData) {
 					// if (simWorkModeLongVO.threshold_early_y != undefined && simWorkModeLongVO.threshold_alarm_y != undefined &&
 					// simWorkModeLongVO.threshold_danger_y != undefined) {
 					var strNumber =
-						"<div style='margin-top:15px;'>\
-					<p style='margin-top:-10px'>\
+						"<div style='margin-top:15px;background-color:white;'>\
+					<p style='padding-top:5px'>\
 					<span></span>\
 					<span style='color:#88d807'>预警值:" +
 						strYJ +
@@ -657,7 +663,7 @@ function setEleForLongModel(valueData) {
 
 				}
 
-				var strChart = '<div class="chart_qushiClass" id="chartLong_' + keyItem + '"';
+				var strChart = '<div style="margin-top:-10px" class="chart_qushiClass" id="chartLong_' + keyItem + '"';
 				strChart += '></div>';
 				$("#qiushitu").append(strChart);
 
@@ -686,8 +692,8 @@ function setEleForLongModel(valueData) {
 					// if (simWorkModeLongVO.threshold_early_z != undefined && simWorkModeLongVO.threshold_alarm_z != undefined &&
 					// simWorkModeLongVO.threshold_danger_z != undefined) {
 					var strNumber =
-						"<div style='margin-top:15px;'>\
-					<p style='margin-top:-10px'>\
+						"<div style='margin-top:15px;background-color:white;'>\
+					<p style='padding-top:5px'>\
 					<span></span>\
 					<span style='color:#88d807'>预警值:" +
 						strYJ +
@@ -704,7 +710,7 @@ function setEleForLongModel(valueData) {
 				}
 
 
-				var strChart = '<div class="chart_qushiClass" id="chartLong_' + keyItem + '"';
+				var strChart = '<div style="margin-top:-10px" class="chart_qushiClass" id="chartLong_' + keyItem + '"';
 				strChart += '></div>';
 				$("#qiushitu").append(strChart);
 
@@ -740,8 +746,8 @@ function setEleForLongModel(valueData) {
 				// undefined &&
 				// simWorkModeLongVO.threshold_temperature_danger != undefined) {
 				var strNumber =
-					"<div style='margin-top:15px;'>\
-					<p style='margin-top:-10px'>\
+					"<div style='margin-top:15px;background-color:white;'>\
+					<p style='padding-top:5px'>\
 					<span></span>\
 					<span style='color:#88d807'>预警值:" +
 					strYJ +
@@ -757,7 +763,7 @@ function setEleForLongModel(valueData) {
 
 			}
 
-			var strChart = '<div class="chart_qushiClass" id="chartLong_' + keyItem + '"';
+			var strChart = '<div style="margin-top:-10px" class="chart_qushiClass" id="chartLong_' + keyItem + '"';
 			strChart += '></div>';
 			$("#qiushitu").append(strChart);
 
@@ -778,8 +784,8 @@ function setChartLong(strLongChartID, strTitle, dataXHeng, dataYZong, YName, mar
 		title: {
 			text: strTitle,
 			left: 'center',
-
 		},
+		backgroundColor: 'white',
 		tooltip: {
 			trigger: 'axis',
 			position: function(pos, params, dom, rect, size) {
@@ -865,9 +871,34 @@ function setChartLong(strLongChartID, strTitle, dataXHeng, dataYZong, YName, mar
 	longCharts.setOption(option_long)
 }
 
+$('#realTime').on('tap', function() {
+	$('#realTime').removeClass('unselectButton');
+	$('#realTime').addClass('selectButton');
+
+	$('#selHour').removeClass('selectButton');
+	$('#selHour').addClass('unselectButton');
+
+	$('#selDay').removeClass('selectButton');
+	$('#selDay').addClass('unselectButton');
+
+	$('#selMonth').removeClass('selectButton');
+	$('#selMonth').addClass('unselectButton');
+
+	$('#selYear').removeClass('selectButton');
+	$('#selYear').addClass('unselectButton');
+	strShowType = 4
+
+	$('#selTimeIDs').hide();
+
+	// longChartsGetData(strShowType)
+})
+
 $('#selHour').on('tap', function() {
 	$('#selHour').removeClass('unselectButton');
 	$('#selHour').addClass('selectButton');
+
+	$('#realTime').removeClass('selectButton');
+	$('#realTime').addClass('unselectButton');
 
 	$('#selDay').removeClass('selectButton');
 	$('#selDay').addClass('unselectButton');
@@ -878,11 +909,16 @@ $('#selHour').on('tap', function() {
 	$('#selYear').removeClass('selectButton');
 	$('#selYear').addClass('unselectButton');
 	strShowType = 0
-	longChartsGetData(strShowType)
+	$('#selTimeIDs').show();
+	document.getElementById('selectTimes').innerHTML = "请选择查询时间";
+	// longChartsGetData(strShowType)
 })
 $('#selDay').on('tap', function() {
 	$('#selHour').removeClass('selectButton');
 	$('#selHour').addClass('unselectButton');
+
+	$('#realTime').removeClass('selectButton');
+	$('#realTime').addClass('unselectButton');
 
 	$('#selDay').removeClass('unselectButton');
 	$('#selDay').addClass('selectButton');
@@ -893,11 +929,16 @@ $('#selDay').on('tap', function() {
 	$('#selYear').removeClass('selectButton');
 	$('#selYear').addClass('unselectButton');
 	strShowType = 1
-	longChartsGetData(strShowType)
+	$('#selTimeIDs').show();
+	document.getElementById('selectTimes').innerHTML = "请选择查询时间";
+	// longChartsGetData(strShowType)
 })
 $('#selMonth').on('tap', function() {
 	$('#selHour').removeClass('selectButton');
 	$('#selHour').addClass('unselectButton');
+
+	$('#realTime').removeClass('selectButton');
+	$('#realTime').addClass('unselectButton');
 
 	$('#selDay').removeClass('selectButton');
 	$('#selDay').addClass('unselectButton');
@@ -908,7 +949,9 @@ $('#selMonth').on('tap', function() {
 	$('#selYear').removeClass('selectButton');
 	$('#selYear').addClass('unselectButton');
 	strShowType = 2
-	longChartsGetData(strShowType)
+	$('#selTimeIDs').show();
+	document.getElementById('selectTimes').innerHTML = "请选择查询时间";
+	// longChartsGetData(strShowType)
 })
 $('#selYear').on('tap', function() {
 	$('#selHour').removeClass('selectButton');
@@ -923,9 +966,63 @@ $('#selYear').on('tap', function() {
 	$('#selYear').removeClass('unselectButton');
 	$('#selYear').addClass('selectButton');
 	strShowType = 3
-	longChartsGetData(strShowType)
+	$('#selTimeIDs').show();
+	document.getElementById('selectTimes').innerHTML = "请选择查询时间";
+	// longChartsGetData(strShowType)
 })
 
+
+
+//选择时间
+$('#selectTimes').on('tap', function() {
+	
+	//单位，小时
+	if (strShowType == 0) {
+
+		var dtpicker = new mui.DtPicker({
+			type: 'hour'
+		});
+		dtpicker.show(function(items) {
+			console.log("===============times====" + JSON.stringify(items))
+			strQueryTime = items.text
+			document.getElementById('selectTimes').innerHTML = items.y.text + '年' + items.m.text + '月' + items.d.text + '日' + items.h.text + '时';
+		})
+	}
+	//单位，天
+	else if (strShowType == 1) {
+		var dtpicker = new mui.DtPicker({
+			type: 'date'
+		});
+		dtpicker.show(function(items) {
+			console.log("===============times====" + JSON.stringify(items))
+			strQueryTime = items.text
+			document.getElementById('selectTimes').innerHTML = items.y.text + '年' + items.m.text + '月' + items.d.text + '日';
+		})
+	}
+	//单位，月
+	else if (strShowType == 2) {
+		var dtpicker = new mui.DtPicker({
+			type: 'month'
+		});
+		dtpicker.show(function(items) {
+			console.log("===============times====" + JSON.stringify(items))
+			strQueryTime = items.text
+			document.getElementById('selectTimes').innerHTML = items.y.text + '年' + items.m.text + '月';
+		})
+	}
+	//单位，年
+	else if (strShowType == 3) {
+		var dtpicker = new mui.DtPicker({
+			type: 'hour'
+		});
+		dtpicker.show(function(items) {
+			console.log("===============times====" + JSON.stringify(items))
+			strQueryTime = items.text
+			document.getElementById('selectTimes').innerHTML = items.y.text + '年' + items.m.text + '月' + items.d.text + '日' + items.h.text + '时';;
+		})
+	}
+	
+})
 
 function refreshQushiCharts() {
 	if (selectObject.connect_model == 0) {
@@ -934,4 +1031,80 @@ function refreshQushiCharts() {
 	if (selectObject.connect_model == 1) {
 		longChartsGetData(strShowType)
 	}
+}
+
+
+//********************* 长连接、省电模式选择，点击取消，隐藏弹出菜单
+$('#cancelshortOrLongSheet').on('tap', function() {
+	mui('#shortOrLongSheet').popover('toggle');
+})
+//长连接模式
+$('#shortOrLongLong').on('tap', function() {
+	mui('#shortOrLongSheet').popover('toggle');
+
+	document.getElementById("qushiModel").innerHTML = '长连接模式';
+})
+//省电模式
+$('#shortOrLongShort').on('tap', function() {
+	mui('#shortOrLongSheet').popover('toggle');
+	document.getElementById("qushiModel").innerHTML = '省电模式';
+})
+
+//********************* 选择速度有效值或加速度有效值，算法类型，点击取消，隐藏弹出菜单
+$('#cancelalgorithm').on('tap', function() {
+	mui('#algorithmType').popover('toggle');
+})
+//加速度有效值
+$('#algorithm1').on('tap', function() {
+	mui('#algorithmType').popover('toggle');
+	document.getElementById("selDeepType").innerHTML = '加速度有效值';
+})
+//速度有效值
+$('#algorithm2').on('tap', function() {
+	mui('#algorithmType').popover('toggle');
+	document.getElementById("selDeepType").innerHTML = '速度有效值';
+})
+
+/*
+var menuWrapper = document.getElementById('menu-wrapper');
+var menu = document.getElementById('menu');
+var menuWrapperClassList = menuWrapper.classList;
+document.getElementById('queryClicked').addEventListener('tap', toggleMenu);
+var busying = false;
+var backdrop = document.getElementById("menu-backdrop");
+backdrop.addEventListener('tap', toggleMenu);
+
+function toggleMenu() {
+	if (busying) {
+		return;
+	}
+	busying = true;
+	if (menuWrapperClassList.contains('mui-active')) {
+		document.body.classList.remove('menu-open');
+		menuWrapper.className = 'menu-wrapper fade-out-up animated';
+		menu.className = 'menu bounce-out-up animated';
+		setTimeout(function() {
+			backdrop.style.opacity = 0;
+			menuWrapper.classList.add('hidden');
+		}, 500);
+	} else {
+		document.body.classList.add('menu-open');
+		menuWrapper.className = 'menu-wrapper fade-in-down animated mui-active';
+		menu.className = 'menu bounce-in-down animated';
+		backdrop.style.opacity = 1;
+	}
+	setTimeout(function() {
+		busying = false;
+	}, 500);
+}
+
+
+document.getElementById('screenCancel').addEventListener('tap', toggleMenu);
+document.getElementById('screenOK').addEventListener('tap', beginQueryClicked);
+//*/
+document.getElementById('screenOK').addEventListener('tap', beginQueryClicked);
+
+function beginQueryClicked (){
+	console.log("开始查询数据====")
+	// toggleMenu();
 }
