@@ -22,11 +22,7 @@ var login_Interface= url + 'user/commen_login';
 
 //获取验证码接口
 var getCode_Interface= url + 'Login/commen_get_Verify_Code';//过期
-//注册接口
-var register_Interface= url + 'APP/commen_register';//过期
 
-//修改密码、忘记密码接口
-var resetpwd_Interface= url + 'APP/appForget';//过期
 
 //搜索接口
 var commen_search_device_Interface= url + 'device/commen_search_device_new';
@@ -47,8 +43,7 @@ var appGetSim_Interface= url + 'Sensor/commen_appGetSim';
 
 //commen_update_sim接口
 var commen_update_sim_Interface= url + 'Sensor/commen_update_sim';
-//appUpdateDevices接口
-var appUpdateDevices_Interface= url + 'APP/appUpdateDevices';//未使用
+
 
 //绑定接口
 var commen_appAddSim_Interface= url + 'Sensor/commen_appAddSim';
@@ -62,11 +57,6 @@ var commen_gain_sim_Interface= url + 'Sensor/commen_gain_sim';
 var commen_cancel_relation_Interface= url + 'Sensor/commen_cancel_relation_new';
 //commen_update_device接口
 var commen_update_device_Interface= url + 'device/commen_update_device';
-//commen_gain_detect_data接口
-var commen_gain_detect_data_Interface= url + 'APP/commen_gain_detect_data';//未使用
-//appReadAgreement接口
-var appReadAgreement_Interface= url + 'APP/appReadAgreement';//未使用
-
 
 //commen_gain_model_list接口
 var commen_gain_model_list_Interface= url + 'model/commen_gain_model_list';
@@ -140,8 +130,7 @@ var new_commen_update_device_install_Interface = url + 'device/commen_update_dev
 
 //长连接模式下的趋势图数据
 var new_commen_gain_trend_chart_long_Interface = url + '/draw/commen_gain_trend_chart_long'
-//修改告警配置接口
-var new_commen_update_config_Interface = url + '/APP/commen_update_config'
+
 
 //趋势图页面获取测点列表
 var new_commen_gain_device_install_activate_Interface = url + '/device/commen_gain_device_install_activate'

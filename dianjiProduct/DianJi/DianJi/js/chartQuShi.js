@@ -599,25 +599,35 @@ function setEleForLongModel(valueData) {
 
 
 
+					// var strNumber =
+					// 	"<div style='margin-top:15px;background-color:white;'>\
+					// <p style='padding-top:5px'>\
+					// <span></span>\
+					// <span style='color:#88d807'>预警值:" +
+					// 	strYJ +
+					// 	" (mm/s)</span>\
+					// <span style='margin-left:3px;color:#d89e07'>告警值:" + strGJ +
+					// 	" (mm/s)</span>\
+					// <span style='margin-left:3px;color:#d83b53'>危险值:" + strDanger +
+					// 	" (mm/s)</span>\
+					// </p></div>";
+					// $('#qiushitu').append(strNumber)
+					
+					
 					var strNumber =
-						"<div style='margin-top:15px;background-color:white;'>\
-					<p style='padding-top:5px'>\
-					<span></span>\
-					<span style='color:#88d807'>预警值:" +
-						strYJ +
-						" (mm/s)</span>\
-					<span style='margin-left:3px;color:#d89e07'>告警值:" + strGJ +
-						" (mm/s)</span>\
-					<span style='margin-left:3px;color:#d83b53'>危险值:" + strDanger +
-						" (mm/s)</span>\
-					</p></div>";
-					$('#qiushitu').append(strNumber)
+						"<div style='margin-top:15px;padding-top:5px;background-color:white;height:50px;width:100%;'>\
+					<table style='width:100%;'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
+					<tr><td>"+strYJ+"(mm/s)</td>\
+					<td>"+strGJ+"(mm/s)</td>\
+					<td>"+strDanger+"(mm/s)</td></tr>\
+					</table></div>";
+					$('#qiushitu').append(strNumber);
 
 					// }
 
 				}
 
-				var strChart = '<div style="margin-top:-10px" class="chart_qushiClass" id="chartLong_' + keyItem + '"';
+				var strChart = '<div class="chart_qushiClass" id="chartLong_' + keyItem + '"';
 				strChart += '></div>';
 				$("#qiushitu").append(strChart);
 
@@ -645,25 +655,34 @@ function setEleForLongModel(valueData) {
 					}
 					// if (simWorkModeLongVO.threshold_early_y != undefined && simWorkModeLongVO.threshold_alarm_y != undefined &&
 					// simWorkModeLongVO.threshold_danger_y != undefined) {
+					// var strNumber =
+					// 	"<div style='margin-top:15px;background-color:white;'>\
+					// <p style='padding-top:5px'>\
+					// <span></span>\
+					// <span style='color:#88d807'>预警值:" +
+					// 	strYJ +
+					// 	" (mm/s)</span>\
+					// <span style='margin-left:3px;color:#d89e07'>告警值:" + strGJ +
+					// 	" (mm/s)</span>\
+					// <span style='margin-left:3px;color:#d83b53'>危险值:" + strDanger +
+					// 	" (mm/s)</span>\
+					// </p></div>";
+					// $('#qiushitu').append(strNumber)
+					
 					var strNumber =
-						"<div style='margin-top:15px;background-color:white;'>\
-					<p style='padding-top:5px'>\
-					<span></span>\
-					<span style='color:#88d807'>预警值:" +
-						strYJ +
-						" (mm/s)</span>\
-					<span style='margin-left:3px;color:#d89e07'>告警值:" + strGJ +
-						" (mm/s)</span>\
-					<span style='margin-left:3px;color:#d83b53'>危险值:" + strDanger +
-						" (mm/s)</span>\
-					</p></div>";
-					$('#qiushitu').append(strNumber)
+						"<div style='margin-top:15px;padding-top:5px;background-color:white;height:50px;width:100%;'>\
+					<table style='width:100%'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
+					<tr><td>"+strYJ+"(mm/s)</td>\
+					<td>"+strGJ+"(mm/s)</td>\
+					<td>"+strDanger+"(mm/s)</td></tr>\
+					</table></div>";
+					$('#qiushitu').append(strNumber);
 
 					// }
 
 				}
 
-				var strChart = '<div style="margin-top:-10px" class="chart_qushiClass" id="chartLong_' + keyItem + '"';
+				var strChart = '<div class="chart_qushiClass" id="chartLong_' + keyItem + '"';
 				strChart += '></div>';
 				$("#qiushitu").append(strChart);
 
@@ -691,26 +710,35 @@ function setEleForLongModel(valueData) {
 					}
 					// if (simWorkModeLongVO.threshold_early_z != undefined && simWorkModeLongVO.threshold_alarm_z != undefined &&
 					// simWorkModeLongVO.threshold_danger_z != undefined) {
+					// var strNumber =
+					// 	"<div style='margin-top:15px;background-color:white;'>\
+					// <p style='padding-top:5px'>\
+					// <span></span>\
+					// <span style='color:#88d807'>预警值:" +
+					// 	strYJ +
+					// 	" (mm/s)</span>\
+					// <span style='margin-left:3px;color:#d89e07'>告警值:" + strGJ +
+					// 	" (mm/s)</span>\
+					// <span style='margin-left:3px;color:#d83b53'>危险值:" + strDanger +
+					// 	" (mm/s)</span>\
+					// </p></div>";
+					// $('#qiushitu').append(strNumber)
+					
 					var strNumber =
-						"<div style='margin-top:15px;background-color:white;'>\
-					<p style='padding-top:5px'>\
-					<span></span>\
-					<span style='color:#88d807'>预警值:" +
-						strYJ +
-						" (mm/s)</span>\
-					<span style='margin-left:3px;color:#d89e07'>告警值:" + strGJ +
-						" (mm/s)</span>\
-					<span style='margin-left:3px;color:#d83b53'>危险值:" + strDanger +
-						" (mm/s)</span>\
-					</p></div>";
-					$('#qiushitu').append(strNumber)
+						"<div style='margin-top:15px;padding-top:5px;background-color:white;height:50px;width:100%;'>\
+					<table style='width:100%'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
+					<tr><td>"+strYJ+"(mm/s)</td>\
+					<td>"+strGJ+"(mm/s)</td>\
+					<td>"+strDanger+"(mm/s)</td></tr>\
+					</table></div>";
+					$('#qiushitu').append(strNumber);
 
 					// }
 
 				}
 
 
-				var strChart = '<div style="margin-top:-10px" class="chart_qushiClass" id="chartLong_' + keyItem + '"';
+				var strChart = '<div class="chart_qushiClass" id="chartLong_' + keyItem + '"';
 				strChart += '></div>';
 				$("#qiushitu").append(strChart);
 
@@ -745,25 +773,34 @@ function setEleForLongModel(valueData) {
 				// if (simWorkModeLongVO.threshold_temperature_early != undefined && simWorkModeLongVO.threshold_temperature !=
 				// undefined &&
 				// simWorkModeLongVO.threshold_temperature_danger != undefined) {
+				// var strNumber =
+				// 	"<div style='margin-top:15px;background-color:white;'>\
+				// 	<p style='padding-top:5px'>\
+				// 	<span></span>\
+				// 	<span style='color:#88d807'>预警值:" +
+				// 	strYJ +
+				// 	" (℃)</span>\
+				// 	<span style='margin-left:3px;color:#d89e07'>告警值:" + strGJ +
+				// 	" (℃)</span>\
+				// 	<span style='margin-left:3px;color:#d83b53'>危险值:" + strDanger +
+				// 	" (℃)</span>\
+				// 	</p></div>";
+				// $('#qiushitu').append(strNumber)
+				
 				var strNumber =
-					"<div style='margin-top:15px;background-color:white;'>\
-					<p style='padding-top:5px'>\
-					<span></span>\
-					<span style='color:#88d807'>预警值:" +
-					strYJ +
-					" (℃)</span>\
-					<span style='margin-left:3px;color:#d89e07'>告警值:" + strGJ +
-					" (℃)</span>\
-					<span style='margin-left:3px;color:#d83b53'>危险值:" + strDanger +
-					" (℃)</span>\
-					</p></div>";
-				$('#qiushitu').append(strNumber)
+					"<div style='margin-top:15px;padding-top:5px;background-color:white;height:50px;width:100%;'>\
+				<table style='width:100%'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
+				<tr><td>"+strYJ+" (℃)</td>\
+				<td>"+strGJ+" (℃)</td>\
+				<td>"+strDanger+" (℃)</td></tr>\
+				</table></div>";
+				$('#qiushitu').append(strNumber);
 
 				// }
 
 			}
 
-			var strChart = '<div style="margin-top:-10px" class="chart_qushiClass" id="chartLong_' + keyItem + '"';
+			var strChart = '<div class="chart_qushiClass" id="chartLong_' + keyItem + '"';
 			strChart += '></div>';
 			$("#qiushitu").append(strChart);
 
