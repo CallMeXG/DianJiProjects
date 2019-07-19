@@ -19,16 +19,14 @@
 		<div class="mui-content">
 			<ul class="mui-table-view mui-table-view-chevron">
 				<li class="mui-table-view-cell mui-media">
-					<!-- <a class="mui-navigate-right"> -->
-						<p class='mui-ellipsis'>账号:<span id="username">138****8888</span></p>
-					<!-- </a> -->
+					<p class='mui-ellipsis'>账号:<span id="username">138****8888</span></p>
 				</li>
 			</ul>
 			<br />
 			<ul class="mui-table-view mui-table-view-chevron">
 				<li class="mui-table-view-cell">
 					<a id="codeUpdate" class="mui-navigate-right">
-						<span>版本信息</span><span style="float: right;">1.9</span>
+						<span>版本信息</span><span id="localVersion" style="float: right;"></span>
 					</a>
 				</li>
 				<!-- <li class="mui-table-view-cell ">
@@ -53,15 +51,32 @@
 				</li>
 			</ul>
 			<br />
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<a style="float: left;">短信提醒</a>
+					<input id="messageID" type="checkbox" style="float: right;font-size: 24px;width: 20px;height: 20px;margin-right: -50px;" onclick="checkCheckBox(this)"/>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="appDetail" class="mui-navigate-right">使用说明</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="updataAPP" class="mui-navigate-right">软件更新</a>
+				</li>
+			</ul>
+			<br />
 			<ul class="mui-table-view ">
 				<li class="mui-table-view-cell" style="text-align: center;">
 					<a id="logoutButton" style="text-align: center;">退出登录</a>
 				</li>
 			</ul>
+			<br />
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script src="js/jquery.min.js"></script>
+		<script src="js/url_all.js"></script>
 		<script>
+			document.getElementById("localVersion").innerHTML = strLocalVersion;
+			
 			//判断权限，是否显示新增设备项
 			var strUserType = localStorage.getItem("userType");
 			if (strUserType < 10) {
@@ -73,17 +88,55 @@
 			if (strUserType > 10) {
 				$("#newAddDevice").show();
 			}
+			//短信提醒,点击选择事件
+			function checkCheckBox(checkbox){
+				console.log("---" + checkbox.checked) 
+				console.log("+++++===" + localStorage.getItem("strLoginId"))
+				var params = {};
+				if(checkbox.checked == true){
+					params = {
+					id: localStorage.getItem("strLoginId"),
+					strLoginId: localStorage.getItem("strLoginId"),
+					strLoginToken: localStorage.getItem("strLoginToken"),
+					sms_notice: 'Y'
+				  }
+				
+				}
+				if(checkbox.checked == false){
+					params = {
+					id: localStorage.getItem("strLoginId"),
+					strLoginId: localStorage.getItem("strLoginId"),
+					strLoginToken: localStorage.getItem("strLoginToken"),
+					sms_notice: 'N'
+				  }
+				
+				}
+				$.ajax({
+					type: 'get',
+					data: params,
+					async: true,
+					url: new_commen_updata_sms_notice_Interface,
+					dataType: 'json',
+					success: function(response) {
+						console.log("shortMessage ==== "+ JSON.stringify(response))
+					}
+				})
+			}
+			//软件使用说明
+			$("#appDetail").on("tap",function(){
+				mui.openWindow({
+					url: "./html/appdetail.html"
+				})
+			})
+			$("#updataAPP").on("tap",function(){
+				mui.openWindow({
+					url: "./html/updateapp.html"
+				})
+			})
+			
+
 
 			$("#addDeviceNew").on("tap", function() {
-				//				mui.openWindow({
-				//					url: "uploadpicture.html"
-				//				})
-				//				mui.openWindow({
-				//					url: "insertdevice.html"
-				//				})
-				// 				mui.openWindow({
-				// 					url: "AddDevice.html"
-				// 				})
 				//2019-05-08
 				mui.openWindow({
 					url: "adddevicetype.html"
@@ -112,6 +165,14 @@
 					url: "updateList.html"
 				})
 			})
+			
+			
+			//初始化,短信是否勾选
+			if (localStorage.getItem("sms_notice") == 'Y') {
+				document.getElementById('messageID').checked = true;
+			} else{
+				document.getElementById('messageID').checked = false;
+			}
 
 			mui.plusReady(function() {
 				function ConfirmCallBack(e) {
@@ -121,7 +182,6 @@
 						localStorage.removeItem("userPwd");
 						localStorage.removeItem('strRegion');
 						localStorage.clear();
-
 
 						console.log('333333333' + JSON.stringify(plus.webview.currentWebview().opener()));
 						//退出登录时，先获取进入APP页面ID，然后根据ID，调用判断是否登录的方法，最后关闭该页面
@@ -136,8 +196,13 @@
 					mui.confirm("退出登录？", "", ["否", "是"], ConfirmCallBack)
 				})
 			})
-
-			$("#username").html(localStorage.getItem("userName"));
+			
+			var strName = localStorage.getItem("userName");
+			var strNameStart = strName.substr(0,3)
+			var strNameEnd = strName.substr(7,4)
+			$("#mineusername").html(strNameStart + '****' + strNameEnd);
+			// $("#mineusername").html(localStorage.getItem("userName"));
+			
 		</script>
 	</body>
 
