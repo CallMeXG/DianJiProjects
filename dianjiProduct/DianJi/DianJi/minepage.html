@@ -19,7 +19,13 @@
 		<div class="mui-content">
 			<ul class="mui-table-view mui-table-view-chevron">
 				<li class="mui-table-view-cell mui-media">
-					<p class='mui-ellipsis'>账号:<span id="username">138****8888</span></p>
+					<!-- <a class="mui-navigate-right"> -->
+						<!-- <img class="mui-media-object mui-pull-left head-img" src="img/logo5.png">
+						<div class="mui-media-body">
+							机电卫士 -->
+							<p class='mui-ellipsis'>账号:<span id="mineusername">138****8888</span></p>
+						<!-- </div> -->
+					<!-- </a> -->
 				</li>
 			</ul>
 			<br />
@@ -29,9 +35,9 @@
 						<span>版本信息</span><span id="localVersion" style="float: right;"></span>
 					</a>
 				</li>
-				<!-- <li class="mui-table-view-cell ">
+				<li class="mui-table-view-cell ">
 					<a class="mui-navigate-right " id="aboutUs">关于我们</a>
-				</li> -->
+				</li>
 			</ul>
 
 			<br />
@@ -197,11 +203,11 @@
 				})
 			})
 			
-			var strName = localStorage.getItem("userName");
-			var strNameStart = strName.substr(0,3)
-			var strNameEnd = strName.substr(7,4)
-			$("#mineusername").html(strNameStart + '****' + strNameEnd);
-			// $("#mineusername").html(localStorage.getItem("userName"));
+			// var strName = localStorage.getItem("userName");
+			// var strNameStart = strName.substr(0,3)
+			// var strNameEnd = strName.substr(7,4)
+			// $("#mineusername").html(strNameStart + '****' + strNameEnd);
+			$("#mineusername").html(localStorage.getItem("userName"));
 			
 		</script>
 	</body>

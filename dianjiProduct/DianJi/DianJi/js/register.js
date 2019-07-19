@@ -109,9 +109,10 @@ function register() {
 // 		else if(!(telTest.test(tel))) {
 // 			mui.toast("手机号格式不正确")
 // 		} 
-		else if(!$('#agreement').is(':checked')) {
-			mui.toast("请选择条款协议")
-		} else {
+		// else if(!$('#agreement').is(':checked')) {
+		// 	mui.toast("请选择条款协议")
+		// } 
+		else {
 			var paramData = {
 				username:username,
 				password:pwd1,
