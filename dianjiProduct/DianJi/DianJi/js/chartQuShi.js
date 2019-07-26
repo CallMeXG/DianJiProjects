@@ -60,24 +60,31 @@ $("#qushiChartSelected").on('tap', function() {
 	var userPicker = new mui.PopPicker();
 	var newUserPickerData = new Array()
 	for (var i = 0; i < installArrayList.length; i++) {
-		var objPickerData = {
-			value: installArrayList[i].id,
-			text: installArrayList[i].install_xy,
-			connect_model: installArrayList[i].connect_model,
-			alias_x: installArrayList[i].alias_x,
-			alias_y: installArrayList[i].alias_y,
-			alias_z: installArrayList[i].alias_z,
-			sensorType: installArrayList[i].sensorType,
+
+		//*************  判断该测点是否正在使用，如果正在使用，给它做个特殊标记， install_xy： 测点的实际名称，方便后面使用
+		var objPickerData = new Object()
+		objPickerData['value'] = installArrayList[i].id;
+		if (installArrayList[i].connect_model == '0') {
+			objPickerData['text'] = installArrayList[i].install_xy + '  ▲';
+		} else{
+			objPickerData['text'] = installArrayList[i].install_xy ;
 		}
+		objPickerData['install_xy'] = installArrayList[i].install_xy;
+		objPickerData['connect_model'] = installArrayList[i].connect_model;
+		objPickerData['alias_x'] = installArrayList[i].alias_x;
+		objPickerData['alias_y'] = installArrayList[i].alias_y;
+		objPickerData['alias_z'] = installArrayList[i].alias_z;
+		objPickerData['sensorType'] = installArrayList[i].sensorType;
+		
 		newUserPickerData.push(objPickerData)
 	}
 	userPicker.setData(newUserPickerData);
 	userPicker.show(function(items) {
 		$("#qushiChartSelected").html(items[0].text);
-
+		
 		selectObject = {
 			id: items[0].value,
-			install_xy: items[0].text,
+			install_xy: items[0].install_xy,
 			connect_model: items[0].connect_model,
 			alias_x: items[0].alias_x,
 			alias_y: items[0].alias_y,

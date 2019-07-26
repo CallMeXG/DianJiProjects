@@ -12,7 +12,10 @@ function hiddenOrDisplay(obj) {
 }
 
 mui.plusReady(function() {
-
+	
+	//超限告警--------
+	var strCJGXAlarm = 'N';
+	
 	var dataArraySim = new Array()
 	document.addEventListener('activeBack', function() {
 		$('#tree1 div').remove();
@@ -85,10 +88,19 @@ mui.plusReady(function() {
 		}
 
 		if (strUserType > 10 || localStorage.getItem('is_manage') == '1') {
+			var strthreshold_on_off = false;
+			if (strCJGXAlarm == 'N') {
+				strthreshold_on_off = false;
+			} else if (strCJGXAlarm == 'Y'){
+				strthreshold_on_off = true;
+			}
+			
+			
 			var webDetail = plus.webview.create('updateCpxAlarm.html', 'updateCpxAlarm.html', {}, {
 				strDeviceName: $("#idOFdeviceName").val(),
 				strDeviceID: $("#idOFdeviceNUM").val(),
-				arrPushData: dataArraySim
+				arrPushData: dataArraySim,
+				threshold_on_off: strthreshold_on_off
 			});
 			webDetail.show();
 			mui('.mui-popover').popover("hide");
@@ -162,7 +174,7 @@ mui.plusReady(function() {
 		$.ajax({
 			type: 'get',
 			url: commen_gain_sim_Interface,
-			async: false,
+			async: true,
 			data: {
 				serial_no: emeId
 			},
@@ -170,6 +182,7 @@ mui.plusReady(function() {
 			success: function(msg) {
 				if (msg.status == "SUCCESS") {
 					if (typeof(msg.data) != "undefined") {
+						
 						setUIForCPX(msg.data, index);
 					}
 				}
@@ -478,8 +491,6 @@ mui.plusReady(function() {
 
 				}
 
-				console.log("sensor =====" + sensorData.sensorType)
-
 				if (sensorData.sensorType != undefined && sensorData.sensorType == 'V') {
 					sensorStr += '<li class="mui-table-view-cell">信号采样模式：' + isUndefined(sensorData, 'sampling_model') + '</li>';
 					sensorStr += '<li class="mui-table-view-cell">量程：' + isUndefined(sensorData, 'range_data') + '</li>';
@@ -596,16 +607,15 @@ mui.plusReady(function() {
 		$('#tree1 div').remove();
 		plus.nativeUI.showWaiting('正在加载数据...');
 		$.ajax({
-
-			type: "GET",
-			async: false,
+			type: "get",
+			async: true,
 			data: {
 				str_devices_no: localStorage.DeveciId
 			},
 			url: commen_gain_device_detail_Interface,
 			dataType: 'json',
-
 			success: function(msg) {
+				console.log("8888888888888888888")
 				plus.nativeUI.closeWaiting();
 				if (msg.status == "SUCCESS") {
 					var sim = "";
@@ -613,6 +623,7 @@ mui.plusReady(function() {
 						sim = msg.data.sim_list;
 						for (var i = 0; i < sim.length; i++) {
 							var key = sim[i]['serial_no'];
+							
 							sensorData_whx(key, i);
 						}
 					}
@@ -636,8 +647,9 @@ mui.plusReady(function() {
 	function getDataFromSever() {
 		plus.nativeUI.showWaiting('正在加载数据...');
 		$.ajax({
-			type: "GET",
-			async: false,
+			
+			type: "get",
+			async: true,
 			data: {
 				str_devices_no: localStorage.DeveciId
 			},
@@ -676,6 +688,12 @@ mui.plusReady(function() {
 					}
 
 					var info = msg.data;
+					
+					if (info != undefined) {
+						if (info.threshold_on_off != undefined) {
+							strCJGXAlarm = info.threshold_on_off;
+						}
+					}
 					//设备编号
 					$("#deviceId").html("设备编号: " + isUndefined(info, 'devices_no'));
 					$("#device_no").val(isUndefined(info, 'devices_no'));
@@ -731,9 +749,6 @@ mui.plusReady(function() {
 						$("#idOFchangjing").val(isUndefined(info, 'use_scenes'));
 
 					}
-
-
-
 
 					var sim = "";
 					if (msg.data.hasOwnProperty("sim_list")) {

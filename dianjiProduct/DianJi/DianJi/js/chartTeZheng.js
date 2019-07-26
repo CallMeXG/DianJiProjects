@@ -48,6 +48,23 @@ function dealWithData_tezheng(respData,installList) {
 		$('#tezhengzhi_tem_result').html("--");
 
 	}
+	//X轴速度有效值
+	if(respData.result_speed_x != undefined) {
+		$("#X_zhisudu").show();
+		$("#X_zhisudu .spanCenter").html(respData.result_speed_x);
+		$("#X_zhisudu .spanRight").html(respData.result_speed_x_warn);
+	} else {
+		$("#X_zhisudu").hide();
+	}
+	//X轴加速度有效值
+	if(respData.result_rms != undefined) {
+		$("#X_zhijiasudu").show();
+		$("#X_zhijiasudu .spanCenter").html(respData.result_rms);
+		$("#X_zhijiasudu .spanRight").html(respData.result_rms_warn);
+	} else {
+		$("#X_zhijiasudu").hide();
+	}
+	
 	if(respData.result_kurt_x != undefined) {
 		$("#X_zhi1").show();
 		$("#X_zhi1 .spanCenter").html(respData.result_kurt_x);
@@ -115,6 +132,22 @@ function dealWithData_tezheng(respData,installList) {
 	}
 
 	//Y----------------------------------------------------------
+	//X轴速度有效值
+	if(respData.result_speed_y != undefined) {
+		$("#Y_zhisudu").show();
+		$("#Y_zhisudu .spanCenter").html(respData.result_speed_y);
+		$("#Y_zhisudu .spanRight").html(respData.result_speed_y_warn);
+	} else {
+		$("#Y_zhisudu").hide();
+	}
+	//X轴加速度有效值
+	if(respData.result_rms2 != undefined) {
+		$("#Y_zhijiasudu").show();
+		$("#Y_zhijiasudu .spanCenter").html(respData.result_rms2);
+		$("#Y_zhijiasudu .spanRight").html(respData.result_rms2_warn);
+	} else {
+		$("#Y_zhijiasudu").hide();
+	}
 	//Y -1 
 	if(respData.result_kurt_y != undefined) {
 		$("#Y_zhi1").show();
@@ -183,6 +216,22 @@ function dealWithData_tezheng(respData,installList) {
 	}
 
 	//Z----------------------------------------------------------
+	//Z轴速度有效值
+	if(respData.result_speed_z != undefined) {
+		$("#Z_zhisudu").show();
+		$("#Z_zhisudu .spanCenter").html(respData.result_speed_z);
+		$("#Z_zhisudu .spanRight").html(respData.result_speed_z_warn);
+	} else {
+		$("#Z_zhisudu").hide();
+	}
+	//Z轴加速度有效值
+	if(respData.result_rms3 != undefined) {
+		$("#Z_zhijiasudu").show();
+		$("#Z_zhijiasudu .spanCenter").html(respData.result_rms3);
+		$("#Z_zhijiasudu .spanRight").html(respData.result_rms3_warn);
+	} else {
+		$("#Z_zhijiasudu").hide();
+	}
 	//Z -1 
 	if(respData.result_kurt_z != undefined) {
 		$("#Z_zhi1").show();

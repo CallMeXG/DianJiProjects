@@ -5,17 +5,16 @@
 //本地测试服务器地址
 // var url = 'http://192.168.3.244:8080/server_appapi/';
 //测试服务器地址
-   // var url = 'http://39.106.180.14:1111/';
+   var url = 'http://39.106.180.14:1111/';
 //生产服务器地址
-var url = 'http://47.94.166.103:1111/';
-
+// var url = 'http://47.94.166.103:1111/';
 
 
 //var fileUrlHeader = "http://47.94.166.103:3000/group1/";
 
 
-var strLocalVersion = '1.11';
-var strLocalVersionCode = 1991;
+var strLocalVersion = '1.11.2.0';
+var strLocalVersionCode = 1992;
              
 //登录接口
 var login_Interface= url + 'user/commen_login';
@@ -143,3 +142,8 @@ var new_commen_gain_trend_chart_install_long_Interface = url + '/draw/commen_gai
 var new_commen_updata_sms_notice_Interface = url + '/user/commen_updata_sms_notice'
 //获取软件使用说明
 var new_commen_gain_instructions_Interface = url + 'app/commen_gain_instructions'
+
+//2019-07-24  最新的趋势图接口
+var new_commen_gain_trend_chart_install_arrange_Interface = url + 'draw/commen_gain_trend_chart_install_arrange'
+// 修改设备配置页
+var new_commen_update_config_Interface = url + 'device/commen_update_config'

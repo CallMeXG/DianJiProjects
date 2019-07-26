@@ -41,9 +41,7 @@
 		<header class="mui-bar mui-bar-nav mui_header">
 			<a style="color: white;" id="backIDs" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 id="titleText" class="mui-title mui_header_title"></h1>
-			<a class="mui-pull-right classRightHeaderTitle" style="padding: 0 5px;" onclick="refreshQushiCharts()" id="qushiRefresh">刷新</a>
-			<!-- <a class="mui-pull-right classRightHeaderTitle" id="qushiModel" href="#shortOrLongSheet">长连接模式</a> -->
-			<!-- <a class="mui-pull-right classRightHeaderTitle" id="queryClicked">查询</a> -->
+			<a class="mui-pull-right classRightHeaderTitle" style="padding: 0 5px;" id="qushiRefresh">刷新</a>
 		</header>
 
 		<div id="menu-wrapper" class="menu-wrapper hidden">
@@ -116,7 +114,7 @@
 
 				<div style="width: 100%;min-height: 600px;text-align: center;color: darkgray;margin-top: -20px;">
 					<div class="chartQuShiSelect">
-						<p style="margin: 5px;text-align: left;font-size: 11px;color: coral;">提示：根据以下条件进行筛选，点击 “查询” 按钮，进行数据查询</p>
+						<!-- <p style="margin: 5px;text-align: left;font-size: 11px;color: coral;">提示：根据以下条件进行筛选，点击 “查询” 按钮，进行数据查询</p> -->
 						<button class="mui-btn" style="margin: 10px 5px;height: 35px;width: calc(100% - 10px);">
 							<span class="selCEDIAN">选择测点:</span>
 							<a id="qushiChartSelected">选择测点</a>
@@ -125,11 +123,11 @@
 						<div>
 							<button class="mui-btn  mui-btn-outlined" style="width: 45%;float: left;margin-left: 5px;">
 								<span style="float: left;">工作模式:</span>
-								<a id="qushiModel" href="#shortOrLongSheet" style="float: left;">长连接模式</a>
+								<a id="qushiModel" href="#shortOrLongSheet" style="float: left;"></a>
 							</button>
 							<button style="width: 45%;float: right;margin-right: 5px;">
 								<span style="float: left;">算法:</span>
-								<a href="#algorithmType" id="selDeepType" style="float: left;">加速度有效值</a>
+								<a href="#algorithmType" id="selDeepType" style="float: left;"></a>
 							</button>
 						</div>
 						<!-- <p>
@@ -144,7 +142,7 @@
 						</p> -->
 					
 						<div style="clear: both;"></div>
-						<div id="showSeletedType" style="display: none;margin-top: 10px;">
+						<div id="showSeletedType" style="margin-top: 10px;">
 					
 							<span style="line-height: 30px;margin-left: 5px;">时长：</span>
 							<button id="realTime" class="selectButton">实时</button>
@@ -155,13 +153,14 @@
 						</div>
 						<div id="selTimeIDs" style="text-align: center;margin-top: 10px;display: none;">
 							<span style="float: left;margin-left: 15px;line-height: 30px;">时间：</span>
-							<button id="selectTimes" style="width: calc(100% - 100px);">年</button>
+							<button id="selectTimes" style="width: calc(100% - 100px);"></button>
 						</div>
+						<br />
 					
-						<div class="btnClass">
+						<!-- <div class="btnClass"> -->
 							<!-- <button id="screenCancel" class="mui-btn-danger" >关闭</button> -->
-							<button id="screenOK" class="mui-btn-success">查询</button>
-						</div>
+							<!-- <button id="screenOK" class="mui-btn-success">查询</button> -->
+						<!-- </div> -->
 					
 					</div>
 					
@@ -438,10 +437,12 @@
 
 	</body>
 
-	<script src="js/chartQuShi.js"></script>
+	<!-- <script src="js/chartQuShi.js"></script> -->
 	<script src="js/chartBoXing.js"></script>
 	<script src="js/chartTeZheng.js"></script>
 	<script src="js/newDataChart.js"></script>
 	<script src="js/common.js"></script>
+	
+	<script src="js/chartQuShiNew.js"></script>
 
 </html>

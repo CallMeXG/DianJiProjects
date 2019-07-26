@@ -1,6 +1,10 @@
 //title
 //var titleName = localStorage.getItem("deviceName");
 //document.getElementById("titleText").innerHTML = titleName;
+
+
+
+
 mui.toast("正在获取数据，请稍后...");
 var caiyangData = new Array();
 var ceDianArray = new Array();
