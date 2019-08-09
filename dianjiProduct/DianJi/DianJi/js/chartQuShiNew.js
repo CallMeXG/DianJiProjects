@@ -142,7 +142,6 @@ mui.plusReady(function() {
 				if (response.status == 'SUCCESS') {
 					if (Object.keys(response.data).length != 0) {
 
-
 						//进入数据整理方法
 						dealWithChartData(response.data.store_rms_x, response.data.store_rms_y, response.data.store_rms_z,
 							response.data.store_rms_t, response.data.simWorkModeLongVO)
@@ -168,8 +167,7 @@ mui.plusReady(function() {
 			var strXalarm = '--';
 			var strXdanger = '--';
 
-			if (simWorkModeLongVO != undefined && simWorkModeLongVO.alarm_on_off != undefined && simWorkModeLongVO.alarm_on_off ==
-				1) {
+			if (simWorkModeLongVO != undefined ) {
 
 				if (simWorkModeLongVO.threshold_early_x != undefined) {
 					strXearly = simWorkModeLongVO.threshold_early_x;
@@ -192,7 +190,7 @@ mui.plusReady(function() {
 				$('#qiushitu').append(strNumber);
 			}
 
-			var strChartX = '<div class="chart_qushiClass" id="chartX"></div>';
+			var strChartX = '<div class="chart_qushiClass" id="chartX"></div><br>';
 			$("#qiushitu").append(strChartX);
 
 			var chartTitleX = "X轴振动趋势图"
@@ -232,8 +230,7 @@ mui.plusReady(function() {
 			var strYearly = '--';
 			var strYalarm = '--';
 			var strYdanger = '--';
-			if (simWorkModeLongVO != undefined && simWorkModeLongVO.alarm_on_off != undefined && simWorkModeLongVO.alarm_on_off ==
-				1) {
+			if (simWorkModeLongVO != undefined ) {
 
 				if (simWorkModeLongVO.threshold_early_y != undefined) {
 					strYearly = simWorkModeLongVO.threshold_early_y;
@@ -245,7 +242,7 @@ mui.plusReady(function() {
 					strYdanger = simWorkModeLongVO.threshold_danger_y;
 				}
 				var strNumber =
-					"<div style='margin-top:15px;padding-top:5px;background-color:white;height:50px;width:100%;'>\
+					"<div style='padding-top:5px;background-color:white;height:50px;width:100%;'>\
 				<table style='width:100%;'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
 				<tr><td>" +
 					strYearly + "(mm/s)</td>\
@@ -256,7 +253,7 @@ mui.plusReady(function() {
 				$('#qiushitu').append(strNumber);
 			}
 
-			var strChartY = '<div class="chart_qushiClass" id="chartY"></div>';
+			var strChartY = '<div class="chart_qushiClass" id="chartY"></div><br>';
 			$("#qiushitu").append(strChartY);
 
 			var chartTitleY = "Y轴振动趋势图"
@@ -293,8 +290,7 @@ mui.plusReady(function() {
 			var strZearly = '--';
 			var strZalarm = '--';
 			var strZdanger = '--';
-			if (simWorkModeLongVO != undefined && simWorkModeLongVO.alarm_on_off != undefined && simWorkModeLongVO.alarm_on_off ==
-				1) {
+			if (simWorkModeLongVO != undefined) {
 
 				if (simWorkModeLongVO.threshold_early_z != undefined) {
 					strZearly = simWorkModeLongVO.threshold_early_z;
@@ -306,7 +302,7 @@ mui.plusReady(function() {
 					strZdanger = simWorkModeLongVO.threshold_danger_z;
 				}
 				var strNumber =
-					"<div style='margin-top:15px;padding-top:5px;background-color:white;height:50px;width:100%;'>\
+					"<div style='padding-top:5px;background-color:white;height:50px;width:100%;'>\
 				<table style='width:100%;'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
 				<tr><td>" +
 					strZearly + "(mm/s)</td>\
@@ -316,7 +312,7 @@ mui.plusReady(function() {
 				</table></div>";
 				$('#qiushitu').append(strNumber);
 			}
-			var strChartZ = '<div class="chart_qushiClass" id="chartZ"></div>';
+			var strChartZ = '<div class="chart_qushiClass" id="chartZ"></div><br>';
 			$("#qiushitu").append(strChartZ);
 
 			var chartTitleZ = "Z轴振动趋势图"
@@ -358,8 +354,7 @@ mui.plusReady(function() {
 			var strTalarm = '--';
 			var strTdanger = '--';
 			//********************温度趋势图
-			if (simWorkModeLongVO != undefined && simWorkModeLongVO.alarm_on_off != undefined && simWorkModeLongVO.alarm_on_off ==
-				1) {
+			if (simWorkModeLongVO != undefined) {
 
 				if (simWorkModeLongVO.threshold_temperature_early != undefined) {
 					strTearly = simWorkModeLongVO.threshold_temperature_early;
@@ -371,17 +366,17 @@ mui.plusReady(function() {
 					strTdanger = simWorkModeLongVO.threshold_temperature_danger;
 				}
 				var strNumber =
-					"<div style='margin-top:15px;padding-top:5px;background-color:white;height:50px;width:100%;'>\
+					"<div style='padding-top:5px;background-color:white;height:50px;width:100%;'>\
 		<table style='width:100%;'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
 		<tr><td>" +
-					strTearly + "(mm/s)</td>\
-		<td>" + strTalarm + "(mm/s)</td>\
+					strTearly + " ℃</td>\
+		<td>" + strTalarm + " ℃</td>\
 		<td>" + strTdanger +
-					"(mm/s)</td></tr>\
+					" ℃</td></tr>\
 		</table></div>";
 				$('#qiushitu').append(strNumber);
 			}
-			var strChartT = '<div class="chart_qushiClass" id="chartT"></div>';
+			var strChartT = '<div class="chart_qushiClass" id="chartT"></div><br>';
 			$("#qiushitu").append(strChartT);
 
 			var chartTitleT = "温度趋势图"
@@ -394,9 +389,10 @@ mui.plusReady(function() {
 			var strValueDataT = new Array();
 
 			if (store_rms_t != undefined) {
+				console.log('----' + store_rms_t.list_x)
 				chartTarray_x = store_rms_t.list_x
 				chartTarray_y = store_rms_t.list_y
-				for (var i = 0; i < chartYarray_x.length; i++) {
+				for (var i = 0; i < chartTarray_x.length; i++) {
 					var strFloaty = parseFloat(chartTarray_y[i])
 					var floatTwo = strFloaty.toFixed(2)
 					var objValue = {
@@ -406,7 +402,7 @@ mui.plusReady(function() {
 				}
 			}
 
-			drawQuShiChartWithData('chartT', chartTitleT, chartTarray_x, strValueDataT, '温度：℃', strTearly, strTalarm,
+			drawQuShiChartWithData('chartT', chartTitleT, chartTarray_x, strValueDataT, ' ℃', strTearly, strTalarm,
 				strTdanger)
 		}
 
@@ -429,7 +425,7 @@ mui.plusReady(function() {
 				formatter: function(params) {
 					params = params[0];
 					var date = new Date(params.name);
-					return params.value[0] + ' : ' + params.value[1] + '  ' + strDanWei;
+					return params.value[0] + ' ---- ' + params.value[1] + '  ' + strDanWei;
 				},
 				position: function(pos, params, dom, rect, size) {
 					// 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
@@ -564,6 +560,7 @@ mui.plusReady(function() {
 			if (selectObject.time_year != undefined) {
 				yearList = selectObject.time_year;
 			}
+			strRefreshCedian = selectObject.id;
 
 			setTimesFunction();
 
@@ -678,8 +675,8 @@ mui.plusReady(function() {
 		if (selectObject.show_type == 1) {
 			strRefreshtimelong = 1;
 			if (hourList.length > 0) {
-				strRefreshtimes = hourList[hourList.length - 1];
-				document.getElementById('selectTimes').innerHTML = hourList[hourList.length - 1];
+				strRefreshtimes = hourList[0];
+				document.getElementById('selectTimes').innerHTML = hourList[0];
 			} else {
 				strRefreshtimes = '';
 				document.getElementById('selectTimes').innerHTML = '过去30天没有监测数据';
@@ -775,8 +772,8 @@ mui.plusReady(function() {
 		strShowType = 0
 		$('#selTimeIDs').show();
 		if (hourList.length > 0) {
-			document.getElementById('selectTimes').innerHTML = hourList[hourList.length - 1];
-			strRefreshtimes = hourList[hourList.length - 1];
+			document.getElementById('selectTimes').innerHTML = hourList[0];
+			strRefreshtimes = hourList[0];
 		} else {
 			document.getElementById('selectTimes').innerHTML = '过去30天没有监测数据';
 			strRefreshtimes = '';
@@ -1021,6 +1018,7 @@ mui.plusReady(function() {
 		document.getElementById("selDeepType").innerHTML = '加速度有效值';
 		selectObject.math_type = '0002';
 		strRefreshmythtype = '0002';
+		console.log("加速度有效值 ===" + strRefreshmythtype)
 		gainChartDataWithInstallXY(strRefreshCedian, strRefreshworkmodel, strRefreshmythtype, strRefreshtimelong,
 			strRefreshtimes);
 	})
@@ -1030,6 +1028,7 @@ mui.plusReady(function() {
 		document.getElementById("selDeepType").innerHTML = '速度有效值';
 		selectObject.math_type = '0200';
 		strRefreshmythtype = '0200';
+		console.log("速度有效值 ===" + strRefreshmythtype)
 		gainChartDataWithInstallXY(strRefreshCedian, strRefreshworkmodel, strRefreshmythtype, strRefreshtimelong,
 			strRefreshtimes);
 	})

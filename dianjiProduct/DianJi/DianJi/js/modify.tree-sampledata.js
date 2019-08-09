@@ -1744,12 +1744,12 @@ function finshBtnClickReturnData() {
 					//振动传感器时，修改采样量程，采样点数，传感器系数等
 					if (sim_sensorList[i].sensorList[j].sensorType == 'V') {
 
-						var bolxishu = checkXishu(i, j);
-						if (bolxishu == false) {
-							return false;
-						} else {
-							sensorObj.calibration_coefficient = bolxishu;
-						}
+						// var bolxishu = checkXishu(i, j);
+						// if (bolxishu == false) {
+						// 	return false;
+						// } else {
+						// 	sensorObj.calibration_coefficient = bolxishu;
+						// }
 
 						//采样信号模式
 						var str_j_model = "#caiyangmodel" + i + j;

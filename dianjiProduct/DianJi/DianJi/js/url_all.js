@@ -13,7 +13,7 @@
 //var fileUrlHeader = "http://47.94.166.103:3000/group1/";
 
 
-var strLocalVersion = '1.11.2.0';
+var strLocalVersion = '1.11.5.0';
 var strLocalVersionCode = 1992;
              
 //登录接口

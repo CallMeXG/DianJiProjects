@@ -51,7 +51,7 @@ function dealWithData_tezheng(respData,installList) {
 	//X轴速度有效值
 	if(respData.result_speed_x != undefined) {
 		$("#X_zhisudu").show();
-		$("#X_zhisudu .spanCenter").html(respData.result_speed_x);
+		$("#X_zhisudu .spanCenter").html(respData.result_speed_x + ' ( mm/s )');
 		$("#X_zhisudu .spanRight").html(respData.result_speed_x_warn);
 	} else {
 		$("#X_zhisudu").hide();
@@ -59,7 +59,7 @@ function dealWithData_tezheng(respData,installList) {
 	//X轴加速度有效值
 	if(respData.result_rms != undefined) {
 		$("#X_zhijiasudu").show();
-		$("#X_zhijiasudu .spanCenter").html(respData.result_rms);
+		$("#X_zhijiasudu .spanCenter").html(respData.result_rms + ' ( m/s² )');
 		$("#X_zhijiasudu .spanRight").html(respData.result_rms_warn);
 	} else {
 		$("#X_zhijiasudu").hide();
@@ -76,7 +76,7 @@ function dealWithData_tezheng(respData,installList) {
 	//x -2
 	if(respData.result_peak2peak_x != undefined) {
 		$("#X_zhi2").show();
-		$("#X_zhi2 .spanCenter").html(respData.result_peak2peak_x + " ( m/s^2 )");
+		$("#X_zhi2 .spanCenter").html(respData.result_peak2peak_x + " ( m/s² )");
 		$("#X_zhi2 .spanRight").html(respData.result_peak2peak_x_warn);
 	} else {
 		$("#X_zhi2").hide();
@@ -85,7 +85,7 @@ function dealWithData_tezheng(respData,installList) {
 	//x -3
 	if(respData.result_peak_x != undefined) {
 		$("#X_zhi3").show();
-		$("#X_zhi3 .spanCenter").html(respData.result_peak_x + " ( m/s^2 )");
+		$("#X_zhi3 .spanCenter").html(respData.result_peak_x + " ( m/s² )");
 		$("#X_zhi3 .spanRight").html(respData.result_peak_x_warn);
 	} else {
 		$("#X_zhi3").hide();
@@ -132,18 +132,18 @@ function dealWithData_tezheng(respData,installList) {
 	}
 
 	//Y----------------------------------------------------------
-	//X轴速度有效值
+	//y轴速度有效值
 	if(respData.result_speed_y != undefined) {
 		$("#Y_zhisudu").show();
-		$("#Y_zhisudu .spanCenter").html(respData.result_speed_y);
+		$("#Y_zhisudu .spanCenter").html(respData.result_speed_y + ' ( mm/s )');
 		$("#Y_zhisudu .spanRight").html(respData.result_speed_y_warn);
 	} else {
 		$("#Y_zhisudu").hide();
 	}
-	//X轴加速度有效值
+	//y轴加速度有效值
 	if(respData.result_rms2 != undefined) {
 		$("#Y_zhijiasudu").show();
-		$("#Y_zhijiasudu .spanCenter").html(respData.result_rms2);
+		$("#Y_zhijiasudu .spanCenter").html(respData.result_rms2 + ' ( m/s² )');
 		$("#Y_zhijiasudu .spanRight").html(respData.result_rms2_warn);
 	} else {
 		$("#Y_zhijiasudu").hide();
@@ -160,7 +160,7 @@ function dealWithData_tezheng(respData,installList) {
 	//Y -2
 	if(respData.result_peak2peak_y != undefined) {
 		$("#Y_zhi2").show();
-		$("#Y_zhi2 .spanCenter").html(respData.result_peak2peak_y + " ( m/s^2 )");
+		$("#Y_zhi2 .spanCenter").html(respData.result_peak2peak_y + " ( m/s² )");
 		$("#Y_zhi2 .spanRight").html(respData.result_peak2peak_y_warn);
 	} else {
 		$("#Y_zhi2").hide();
@@ -169,7 +169,7 @@ function dealWithData_tezheng(respData,installList) {
 	//Y -3
 	if(respData.result_peak_y != undefined) {
 		$("#Y_zhi3").show();
-		$("#Y_zhi3 .spanCenter").html(respData.result_peak_y + " ( m/s^2 )");
+		$("#Y_zhi3 .spanCenter").html(respData.result_peak_y + " ( m/s² )");
 		$("#Y_zhi3 .spanRight").html(respData.result_peak_y_warn);
 	} else {
 		$("#Y_zhi3").hide();
@@ -219,7 +219,7 @@ function dealWithData_tezheng(respData,installList) {
 	//Z轴速度有效值
 	if(respData.result_speed_z != undefined) {
 		$("#Z_zhisudu").show();
-		$("#Z_zhisudu .spanCenter").html(respData.result_speed_z);
+		$("#Z_zhisudu .spanCenter").html(respData.result_speed_z + ' ( mm/s )');
 		$("#Z_zhisudu .spanRight").html(respData.result_speed_z_warn);
 	} else {
 		$("#Z_zhisudu").hide();
@@ -227,7 +227,7 @@ function dealWithData_tezheng(respData,installList) {
 	//Z轴加速度有效值
 	if(respData.result_rms3 != undefined) {
 		$("#Z_zhijiasudu").show();
-		$("#Z_zhijiasudu .spanCenter").html(respData.result_rms3);
+		$("#Z_zhijiasudu .spanCenter").html(respData.result_rms3 + ' ( m/s² )');
 		$("#Z_zhijiasudu .spanRight").html(respData.result_rms3_warn);
 	} else {
 		$("#Z_zhijiasudu").hide();
@@ -244,7 +244,7 @@ function dealWithData_tezheng(respData,installList) {
 	//Z -2
 	if(respData.result_peak2peak_z != undefined) {
 		$("#Z_zhi2").show();
-		$("#Z_zhi2 .spanCenter").html(respData.result_peak2peak_z + " ( m/s^2 )");
+		$("#Z_zhi2 .spanCenter").html(respData.result_peak2peak_z + " ( m/s² )");
 		$("#Z_zhi2 .spanRight").html(respData.result_peak2peak_z_warn);
 	} else {
 		$("#Z_zhi2").hide();
@@ -253,7 +253,7 @@ function dealWithData_tezheng(respData,installList) {
 	//Z -3
 	if(respData.result_peak_z != undefined) {
 		$("#Z_zhi3").show();
-		$("#Z_zhi3 .spanCenter").html(respData.result_peak_z + " ( m/s^2 )");
+		$("#Z_zhi3 .spanCenter").html(respData.result_peak_z + " ( m/s² )");
 		$("#Z_zhi3 .spanRight").html(respData.result_peak_z_warn);
 	} else {
 		$("#Z_zhi3").hide();
