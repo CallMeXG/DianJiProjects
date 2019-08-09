@@ -99,7 +99,7 @@
 					//如果是从设备列表页过来，则不能激活
 					//如果是从设备修改页过来，则在有权限的情况下，可以进行激活
 					var strGranFather = localStorage.getItem('fatherID');
-					if(strGranFather == 'updateDevice') {
+					if(strGranFather == 'updateDevice' || strGranFather == 'DeviceDetail') {
 						$("#footerActiveID").show();
 					} else {
 						$("#footerActiveID").hide();
