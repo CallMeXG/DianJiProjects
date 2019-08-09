@@ -19,7 +19,7 @@ $.ajax({
 	},
 	dataType: 'json',
 	success: function(res) {
-
+		console.log("7777777777")
 		if(res.status == "SUCCESS") { //有正确的返回
 			//对于缩略图的处理
 			var length = 0;
