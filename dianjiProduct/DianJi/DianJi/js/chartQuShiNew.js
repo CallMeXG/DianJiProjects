@@ -568,6 +568,7 @@ mui.plusReady(function() {
 				yearList = selectObject.time_year;
 			}
 			strRefreshCedian = selectObject.id;
+			strRefreshworkmodel = selectObject.connect_model
 
 			setTimesFunction();
 
