@@ -140,7 +140,9 @@ mui.plusReady(function() {
 
 				plus.nativeUI.closeWaiting()
 				if (response.status == 'SUCCESS') {
+					
 					if (Object.keys(response.data).length != 0) {
+						
 
 						//进入数据整理方法
 						dealWithChartData(response.data.store_rms_x, response.data.store_rms_y, response.data.store_rms_z,
@@ -161,13 +163,17 @@ mui.plusReady(function() {
 
 	//根据获取到的趋势图数据，首先进行数据的整理
 	function dealWithChartData(store_rms_x, store_rms_y, store_rms_z, store_rms_t, simWorkModeLongVO) {
+		
+		console.log("=====connect-model===" + strRefreshworkmodel)
 		//********************X轴趋势图
 		if (selectObject.sensorType == 'V') {
 			var strXearly = '--';
 			var strXalarm = '--';
 			var strXdanger = '--';
+			
+			
 
-			if (simWorkModeLongVO != undefined ) {
+			if (simWorkModeLongVO != undefined && strRefreshworkmodel == '1') {
 
 				if (simWorkModeLongVO.threshold_early_x != undefined) {
 					strXearly = simWorkModeLongVO.threshold_early_x;
@@ -230,7 +236,7 @@ mui.plusReady(function() {
 			var strYearly = '--';
 			var strYalarm = '--';
 			var strYdanger = '--';
-			if (simWorkModeLongVO != undefined ) {
+			if (simWorkModeLongVO != undefined && strRefreshworkmodel == '1') {
 
 				if (simWorkModeLongVO.threshold_early_y != undefined) {
 					strYearly = simWorkModeLongVO.threshold_early_y;
@@ -290,7 +296,7 @@ mui.plusReady(function() {
 			var strZearly = '--';
 			var strZalarm = '--';
 			var strZdanger = '--';
-			if (simWorkModeLongVO != undefined) {
+			if (simWorkModeLongVO != undefined && strRefreshworkmodel == '1') {
 
 				if (simWorkModeLongVO.threshold_early_z != undefined) {
 					strZearly = simWorkModeLongVO.threshold_early_z;
@@ -354,7 +360,7 @@ mui.plusReady(function() {
 			var strTalarm = '--';
 			var strTdanger = '--';
 			//********************温度趋势图
-			if (simWorkModeLongVO != undefined) {
+			if (simWorkModeLongVO != undefined && strRefreshworkmodel == '1') {
 
 				if (simWorkModeLongVO.threshold_temperature_early != undefined) {
 					strTearly = simWorkModeLongVO.threshold_temperature_early;
@@ -416,6 +422,7 @@ mui.plusReady(function() {
 
 		var options = {
 			title: {
+				top:'5',
 				text: chartTitle,
 				left: 'center',
 			},
@@ -685,8 +692,8 @@ mui.plusReady(function() {
 		if (selectObject.show_type == 2) {
 			strRefreshtimelong = 2;
 			if (dayList.length > 0) {
-				strRefreshtimes = dayList[dayList.length - 1];
-				document.getElementById('selectTimes').innerHTML = dayList[dayList.length - 1];
+				strRefreshtimes = dayList[0];
+				document.getElementById('selectTimes').innerHTML = dayList[0];
 			} else {
 				strRefreshtimes = '';
 				document.getElementById('selectTimes').innerHTML = '过去30天没有监测数据';
@@ -695,8 +702,8 @@ mui.plusReady(function() {
 		if (selectObject.show_type == 3) {
 			strRefreshtimelong = 3;
 			if (montList.length > 0) {
-				strRefreshtimes = montList[montList.length - 1];
-				document.getElementById('selectTimes').innerHTML = montList[montList.length - 1];
+				strRefreshtimes = montList[0];
+				document.getElementById('selectTimes').innerHTML = montList[0];
 			} else {
 				strRefreshtimes = '';
 				document.getElementById('selectTimes').innerHTML = '暂无可选数据';
@@ -705,8 +712,8 @@ mui.plusReady(function() {
 		if (selectObject.show_type == 4) {
 			strRefreshtimelong = 4;
 			if (yearList.length > 0) {
-				strRefreshtimes = yearList[yearList.length - 1];
-				document.getElementById('selectTimes').innerHTML = yearList[yearList.length - 1];
+				strRefreshtimes = yearList[0];
+				document.getElementById('selectTimes').innerHTML = yearList[0];
 			} else {
 				strRefreshtimes = '';
 				document.getElementById('selectTimes').innerHTML = '暂无可选数据';
@@ -800,8 +807,8 @@ mui.plusReady(function() {
 		strShowType = 1
 		$('#selTimeIDs').show();
 		if (dayList.length > 0) {
-			document.getElementById('selectTimes').innerHTML = dayList[dayList.length - 1];
-			strRefreshtimes = dayList[dayList.length - 1];
+			document.getElementById('selectTimes').innerHTML = dayList[0];
+			strRefreshtimes = dayList[0];
 		} else {
 			document.getElementById('selectTimes').innerHTML = '过去30天没有监测数据';
 			strRefreshtimes = '';
@@ -829,8 +836,8 @@ mui.plusReady(function() {
 		strShowType = 2
 		$('#selTimeIDs').show();
 		if (montList.length > 0) {
-			document.getElementById('selectTimes').innerHTML = montList[montList.length - 1];
-			strRefreshtimes = montList[montList.length - 1];
+			document.getElementById('selectTimes').innerHTML = montList[0];
+			strRefreshtimes = montList[0];
 		} else {
 			document.getElementById('selectTimes').innerHTML = '暂无可选数据';
 			strRefreshtimes = '';
@@ -858,8 +865,8 @@ mui.plusReady(function() {
 		strShowType = 3
 		$('#selTimeIDs').show();
 		if (yearList.length > 0) {
-			document.getElementById('selectTimes').innerHTML = yearList[yearList.length - 1];
-			strRefreshtimes = yearList[yearList.length - 1];
+			document.getElementById('selectTimes').innerHTML = yearList[0];
+			strRefreshtimes = yearList[0];
 		} else {
 			document.getElementById('selectTimes').innerHTML = '暂无可选数据';
 			strRefreshtimes = '';

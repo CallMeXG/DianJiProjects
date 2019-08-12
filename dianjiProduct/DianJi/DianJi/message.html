@@ -20,7 +20,9 @@
 		<div class="mui-content">
 			<ul class="mui-table-view" id="messageListID" style="display: none;">
 				<li class="mui-table-view-cell" v-for="msgItem in mesList">
-					<p>{{msgItem.create_time.substr(0,19)}}</p>
+					<template v-if="msgItem.create_time !== undefined">
+						<p>{{msgItem.create_time.substr(0,19)}}</p>
+					</template>
 					<p style="margin-top: 5px;">{{msgItem.event_info}}</p>
 				</li>
 
