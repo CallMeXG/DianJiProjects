@@ -164,8 +164,6 @@ mui.plusReady(function() {
 	//根据获取到的趋势图数据，首先进行数据的整理
 	function dealWithChartData(store_rms_x, store_rms_y, store_rms_z, store_rms_t, simWorkModeLongVO) {
 		
-		console.log("=====maty-type===" + strRefreshmythtype)
-		
 		//********************X轴趋势图
 		if (selectObject.sensorType == 'V') {
 			var strXearly = '--';
