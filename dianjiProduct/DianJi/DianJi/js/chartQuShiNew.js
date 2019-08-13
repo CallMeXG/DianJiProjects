@@ -164,7 +164,8 @@ mui.plusReady(function() {
 	//根据获取到的趋势图数据，首先进行数据的整理
 	function dealWithChartData(store_rms_x, store_rms_y, store_rms_z, store_rms_t, simWorkModeLongVO) {
 		
-		console.log("=====connect-model===" + strRefreshworkmodel)
+		console.log("=====maty-type===" + strRefreshmythtype)
+			
 		//********************X轴趋势图
 		if (selectObject.sensorType == 'V') {
 			var strXearly = '--';
@@ -173,7 +174,7 @@ mui.plusReady(function() {
 			
 			
 
-			if (simWorkModeLongVO != undefined && strRefreshworkmodel == '1') {
+			if (simWorkModeLongVO != undefined && strRefreshmythtype == '0200') {
 
 				if (simWorkModeLongVO.threshold_early_x != undefined) {
 					strXearly = simWorkModeLongVO.threshold_early_x;
@@ -236,7 +237,7 @@ mui.plusReady(function() {
 			var strYearly = '--';
 			var strYalarm = '--';
 			var strYdanger = '--';
-			if (simWorkModeLongVO != undefined && strRefreshworkmodel == '1') {
+			if (simWorkModeLongVO != undefined && strRefreshmythtype == '0200') {
 
 				if (simWorkModeLongVO.threshold_early_y != undefined) {
 					strYearly = simWorkModeLongVO.threshold_early_y;
@@ -296,7 +297,7 @@ mui.plusReady(function() {
 			var strZearly = '--';
 			var strZalarm = '--';
 			var strZdanger = '--';
-			if (simWorkModeLongVO != undefined && strRefreshworkmodel == '1') {
+			if (simWorkModeLongVO != undefined && strRefreshmythtype == '0200') {
 
 				if (simWorkModeLongVO.threshold_early_z != undefined) {
 					strZearly = simWorkModeLongVO.threshold_early_z;
@@ -360,7 +361,7 @@ mui.plusReady(function() {
 			var strTalarm = '--';
 			var strTdanger = '--';
 			//********************温度趋势图
-			if (simWorkModeLongVO != undefined && strRefreshworkmodel == '1') {
+			if (simWorkModeLongVO != undefined && strRefreshmythtype == '0200') {
 
 				if (simWorkModeLongVO.threshold_temperature_early != undefined) {
 					strTearly = simWorkModeLongVO.threshold_temperature_early;
@@ -395,7 +396,7 @@ mui.plusReady(function() {
 			var strValueDataT = new Array();
 
 			if (store_rms_t != undefined) {
-				console.log('----' + store_rms_t.list_x)
+				// console.log('----' + store_rms_t.list_x)
 				chartTarray_x = store_rms_t.list_x
 				chartTarray_y = store_rms_t.list_y
 				for (var i = 0; i < chartTarray_x.length; i++) {
