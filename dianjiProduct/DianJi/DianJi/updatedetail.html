@@ -27,6 +27,9 @@
 			<h1 class="mui-title" style="color: white;">功能介绍</h1>
 		</header>
 		<div class="mui-content">
+			<div id="code1_12" style="display: none;">
+				<p>1、优化趋势图页面显示</p>
+			</div>
 			<div id="code1_11" style="display: none;">
 				<p>1、改版趋势图页面显示</p>
 				<p>2、新增超限告警功能</p>
@@ -91,7 +94,9 @@
 	</body>
 	<script type="text/javascript">
 		var strCode = localStorage.getItem('updateNum');
-
+		if (strCode == '1.12') {
+			$('#code1_12').css('display','block');
+		}
 		if (strCode == '1.11') {
 			$('#code1_11').css('display','block');
 		}
