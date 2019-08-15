@@ -5,8 +5,7 @@
 //本地测试服务器地址
 //var url = 'http://192.168.2.246:8080/server_appapi/';
 //测试服务器地址
-
-// var url = 'http://39.106.180.14:1111/';
+   // var url = 'http://39.106.180.14:1111/';
 
 //生产服务器地址
 var url = 'http://47.94.166.103:1111/';
@@ -14,7 +13,7 @@ var url = 'http://47.94.166.103:1111/';
 //var fileUrlHeader = "http://47.94.166.103:3000/group1/";
 
 
-var strLocalVersion = '1.12';
+var strLocalVersion = '1.13';
 var strLocalVersionCode = 1994;
              
 //登录接口
