@@ -1,5 +1,4 @@
 
-
 mui.plusReady(function() {
 	getVersionCode();
 
@@ -11,6 +10,7 @@ mui.plusReady(function() {
 		// var strAPPType = "iOSPrefoco";
 		//嘉轩Android
 		var strAPPType = "AndroidJiaXuan";
+		// var strAPPType = "AndroidPrefoco";
 		//嘉轩iOS
 		// var strAPPType = "iOSJiaXuan";
 		//Android 中材高新

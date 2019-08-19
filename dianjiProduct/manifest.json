@@ -5,8 +5,8 @@
     "name" : "嘉轩卫士",
     /*应用名称，程序桌面图标名称*/
     "version" : {
-        "name" : "1.12", /*应用版本名称*/
-        "code" : "1994"
+        "name" : "1.13", /*应用版本名称*/
+        "code" : 1995
     },
     "description" : "",
     /*应用描述信息*/
@@ -161,7 +161,6 @@
                     },
                     // "appstore" : "C:/Users/Administrator/Desktop/1024.png"
                     "appstore" : "DianJi/DianJi/img/11111.png"
-
                 },
                 "android" : {
                     /*iPad iOS7程序图标，分辨率：76x76*//*iPad iOS7高分屏程序图标，分辨率：152x152*/
@@ -218,9 +217,7 @@
                     }
                 }
             },
-            "plugins" : {
-               
-            }
+            "plugins" : {}
         }
     },
     "adid" : "124588210706"
