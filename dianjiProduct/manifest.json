@@ -5,8 +5,7 @@
     "name" : "机电卫士",
     /*应用名称，程序桌面图标名称*/
     "version" : {
-
-        "name" : "1.12", /*应用版本名称*/
+        "name" : "1.13", /*应用版本名称*/
         "code" : "1994"
     },
     "description" : "",
@@ -184,7 +183,6 @@
                     "xhdpi" : "",
                     "xxhdpi" : "",
                     "xxxhdpi" : ""
-
                 },
                 "appstore" : "unpackage/res/icons/1024x1024.png"
             },
