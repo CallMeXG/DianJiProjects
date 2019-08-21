@@ -5,7 +5,7 @@ mui.plusReady(function() {
 	function getVersionCode() {
 		
 		//先见 Android
-		var strAPPType = "AndroidPrefoco";
+		// var strAPPType = "AndroidPrefoco";
 		//先见 iOS
 		// var strAPPType = "iOSPrefoco";
 		//嘉轩Android
