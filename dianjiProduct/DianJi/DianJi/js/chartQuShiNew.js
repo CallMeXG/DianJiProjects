@@ -552,6 +552,11 @@ mui.plusReady(function() {
 			setTimeLong();
 
 			strSensorType = items[0].sensorType
+			
+			hourList = []
+			dayList = []
+			montList = []
+			yearList = []
 
 			//以下四个list ，为 不同时长的时间列表
 			if (selectObject.time_hour != undefined) {

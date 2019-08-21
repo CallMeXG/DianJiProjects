@@ -44,7 +44,7 @@
 
 		<script type="text/javascript">
 			mui.init()
-
+			
 			function getQueryVariable(variable) {
 				var query = window.location.search.substring(1);
 				var vars = query.split("&");
@@ -56,17 +56,14 @@
 				}
 				return (false);
 			}
-			
-			
-			//本地版本号,版本code,版本类型,
-			//升级的时候,只需要修改以下三个变量
-			var strLocalVersion = "1.13";
 			var strLocalVersionCode = 1994;
 			if(getQueryVariable('strVersion') != false){
 				strLocalVersionCode = getQueryVariable('strVersion')
 			}
+			//本地版本号,版本code,版本类型,
+			//升级的时候,只需要修改以下三个变量
+			var strLocalVersion = "1.13";
 			
-			// var strLocalVersionCode = 1993;
 			//先见 Android
 			// var strAPPType = "AndroidPrefoco";
 			//先见 iOS
