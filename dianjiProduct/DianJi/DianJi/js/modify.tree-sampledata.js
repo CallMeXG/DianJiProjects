@@ -659,18 +659,18 @@ function sensorData(emeId, i) {
 
 							}
 
-							if (senData[j].calibration_coefficient != undefined) {
-								sensorStr +=
-									'<div class="modifyCom"><span class="modifyFont">传感器频率校准系数：</span><input style="width:100px" id="jiaoxishu' +
-									i + '' + j + '" type="text" class="sensorLocation" value=' + senData[j].calibration_coefficient +
-									' /></div>';
-
-							} else {
-								sensorStr +=
-									'<div class="modifyCom"><span class="modifyFont">传感器频率校准系数：</span><input  style="width:100px" id="jiaoxishu' +
-									i + '' + j + '" type="text " class="sensorLocation " /></div>';
-
-							}
+// 							if (senData[j].calibration_coefficient != undefined) {
+// 								sensorStr +=
+// 									'<div class="modifyCom"><span class="modifyFont">传感器频率校准系数：</span><input style="width:100px" id="jiaoxishu' +
+// 									i + '' + j + '" type="text" class="sensorLocation" value=' + senData[j].calibration_coefficient +
+// 									' /></div>';
+// 
+// 							} else {
+// 								sensorStr +=
+// 									'<div class="modifyCom"><span class="modifyFont">传感器频率校准系数：</span><input  style="width:100px" id="jiaoxishu' +
+// 									i + '' + j + '" type="text " class="sensorLocation " /></div>';
+// 
+// 							}
 							sensorStr += '</div>'
 						}
 
@@ -1744,12 +1744,12 @@ function finshBtnClickReturnData() {
 					//振动传感器时，修改采样量程，采样点数，传感器系数等
 					if (sim_sensorList[i].sensorList[j].sensorType == 'V') {
 
-						var bolxishu = checkXishu(i, j);
-						if (bolxishu == false) {
-							return false;
-						} else {
-							sensorObj.calibration_coefficient = bolxishu;
-						}
+						// var bolxishu = checkXishu(i, j);
+						// if (bolxishu == false) {
+						// 	return false;
+						// } else {
+						// 	sensorObj.calibration_coefficient = bolxishu;
+						// }
 
 						//采样信号模式
 						var str_j_model = "#caiyangmodel" + i + j;

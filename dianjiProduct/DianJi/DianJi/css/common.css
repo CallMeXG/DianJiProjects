@@ -5,6 +5,7 @@
 
 body #head {
   background-color: #524598;
+  touch-action: none;
 }
 body #head .mui-title,
 body #head a {

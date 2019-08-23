@@ -26,68 +26,13 @@
 		<link rel="stylesheet" href="css/ace.min.css">
 
 		<link rel="stylesheet" type="text/css" href="css/DeviceDetail.css" /><br />
-
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+		<script src="js/mui.picker.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
 		</script>
-		<style>
-			#popover {
-				width: 150px;
-			}
-			
-			#popover a {
-				text-align: center;
-				font-size: 16px;
-			}
-			.chartQuShiSelect{
-				position: fixed;
-				width: 100%;
-				height: 100px;
-				top: 45px;
-				margin: -5px;
-				text-align: center;
-				z-index: 9;
-				background-color: #EBEBF1;
-			}
-			.chartQuShiSelect #qushiChartSelected{
-				margin-top: 10px;
-				float: left;
-				width: 40%;
-				margin-left: 5px;
-			}
-			.chartQuShiSelect .selCEDIAN{
-				float: left;
-				line-height: 50px;
-				padding-top: 5px;
-				padding-left: 10px;
-				font-size: 18px;
-			}
-			.chartQuShiSelect .refreshPage{
-				float: right;
-				font-size: 18px;
-				margin-right: 15px;
-				
-				border: 1px solid lightgray;
-				width: 50px;
-			}
-			.chartQuShiSelect .selectButton{
-				width: 50px;
-				border: 1px solid grey;
-				margin-left: 10px;
-				height: 30px;
-				background-color: #524598;
-				color: white;
-			}
-			
-			.chartQuShiSelect .unselectButton{
-				width: 50px;
-				border: 1px solid grey;
-				margin-left: 10px;
-				height: 30px;
-			}
-			
-			
-		</style>
+		<link href="css/dragDown.css" rel="stylesheet" />
+		<link href="css/newDataCharts.css" rel="stylesheet" />
 
 	</head>
 
@@ -96,7 +41,47 @@
 		<header class="mui-bar mui-bar-nav mui_header">
 			<a style="color: white;" id="backIDs" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 id="titleText" class="mui-title mui_header_title"></h1>
+			<a class="mui-pull-right classRightHeaderTitle" style="padding: 0 5px;" id="qushiRefresh">刷新</a>
 		</header>
+
+		<div id="menu-wrapper" class="menu-wrapper hidden">
+			<div id="menu" class="menu">
+				
+			</div>
+		</div>
+		<div id="menu-backdrop" class="menu-backdrop"></div>
+
+		<div id="shortOrLongSheet" class="mui-popover mui-popover-bottom mui-popover-action">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a id="shortOrLongLong">长连接模式</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="shortOrLongShort">省电模式</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a id="cancelshortOrLongSheet" style="color: red;"><b>取消</b></a>
+				</li>
+			</ul>
+		</div>
+
+		<div id="algorithmType" class="mui-popover mui-popover-bottom mui-popover-action">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a id="algorithm1">加速度有效值</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="algorithm2">速度有效值</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a id="cancelalgorithm" style="color: red;"><b>取消</b></a>
+				</li>
+			</ul>
+		</div>
 
 		<nav class="mui-bar mui-bar-tab">
 
@@ -116,37 +101,95 @@
 
 		</nav>
 		<div id="preview">
-			<div class="swiper-container">
+			<div class="swiper-container" style="background-color: #EFEFF4;">
 				<div class="swiper-wrapper">
 				</div>
 				<div class="swiper-pagination"></div>
-
 			</div>
-
 		</div>
 
 		<div class="mui-content" style="width: 100%;">
 			<!--趋势图-->
 			<div id="id_qushi" class="mui-control-content mui-active">
 
-				<div  style="width: 100%;min-height: 600px;text-align: center;color: darkgray;margin-top: -20px;">
+				<div style="width: 100%;min-height: 600px;text-align: center;color: darkgray;margin-top: -20px;">
 					<div class="chartQuShiSelect">
+						<!-- <p style="margin: 5px;text-align: left;font-size: 11px;color: coral;">提示：根据以下条件进行筛选，点击 “查询” 按钮，进行数据查询</p> -->
+						<button class="mui-btn" style="margin: 10px 5px;height: 35px;width: calc(100% - 10px);">
+							<span class="selCEDIAN">选择测点:</span>
+							<a id="qushiChartSelected">选择测点</a>
+						</button>
+						<div style="clear: both;"></div>
+						<div>
+							<button class="mui-btn  mui-btn-outlined" style="width: 45%;float: left;margin-left: 5px;">
+								<span style="float: left;">工作模式:</span>
+								<a id="qushiModel" href="#shortOrLongSheet" style="float: left;"></a>
+							</button>
+							<button style="width: 45%;float: right;margin-right: 5px;">
+								<span style="float: left;">算法:</span>
+								<a href="#algorithmType" id="selDeepType" style="float: left;"></a>
+							</button>
+						</div>
+						<!-- <p>
+							<div class="modelTwo" style="width: 55%;">
+								<span style="float: left;line-height: 35px;margin-left: 10px;color: gray;">工作模式:</span>
+								<button style="float: left;" id="selDeep"><a href="#algorithmType" id="selDeepType">加速度有效值</a></button>
+							</div>
+							<div class="modelTwo" style="float: right;width: 43%;">
+								<button style="float: right;margin-right: 10px;"><a id="qushiModel" href="#shortOrLongSheet">长连接模式</a></button>
+								<span style="float: right;line-height: 35px;color: gray;">算法：</span>
+							</div>
+						</p> -->
+					
+						<div style="clear: both;"></div>
+						<div id="showSeletedType" style="margin-top: 10px;">
+					
+							<span style="line-height: 30px;margin-left: 5px;">时长：</span>
+							<button id="realTime" class="selectButton">实时</button>
+							<button id="selHour" class="unselectButton">小时</button>
+							<button id="selDay" class="unselectButton">天</button>
+							<button id="selMonth" class="unselectButton">月</button>
+							<button id="selYear" class="unselectButton">年</button>
+						</div>
+						<div id="selTimeIDs" style="text-align: center;margin-top: 10px;display: none;">
+							<span style="float: left;margin-left: 15px;line-height: 30px;">时间：</span>
+							<button id="selectTimes" style="width: calc(100% - 100px);"></button>
+						</div>
+						<br />
+					
+						<!-- <div class="btnClass"> -->
+							<!-- <button id="screenCancel" class="mui-btn-danger" >关闭</button> -->
+							<!-- <button id="screenOK" class="mui-btn-success">查询</button> -->
+						<!-- </div> -->
+					
+					</div>
+					
+					<!-- <div class="chartQuShiSelect">
 						<p>
 							<span class="selCEDIAN">选择测点</span>
 							<button id="qushiChartSelected">选择测点</button>
-							<p class="refreshPage" onclick="refreshQushiCharts()">刷新</p>
+							<button id="selDeep" ><a href="#algorithmType" id="selDeepType">加速度有效值</a></button>
 						</p>
-						
+
 						<div style="clear: both;"></div>
 						<p id="showSeletedType" style="display: none;">
-							<button id="selHour" class="selectButton">小时</button>
+
+							<span style="line-height: 30px;margin-left: 5px;">时长：</span>
+							<button id="realTime" class="selectButton">实时</button>
+							<button id="selHour" class="unselectButton">小时</button>
 							<button id="selDay" class="unselectButton">天</button>
 							<button id="selMonth" class="unselectButton">月</button>
 							<button id="selYear" class="unselectButton">年</button>
 						</p>
+						<p style="text-align: center;">
+							<span style="float: left;margin-left: 35px;line-height: 30px;">时间：</span>
+							<button id="selectTimes" style="width: 60%;">年</button>
+						</p>
 
-					</div>
-					<div id="qiushitu" style="margin-top: 100px;"></div>
+					</div> -->
+
+					<!-- <div id="qiushitu" style="margin-top: 140px;"></div> -->
+					<div id="qiushitu"></div>
 
 				</div>
 
@@ -174,10 +217,20 @@
 						<span id="tezhengzhi_temperNum" class="spanCenter"></span>
 						<span id="tezhengzhi_tem_result" class="spanRight" style="margin-right: 10px;"></span>
 					</p>
-					<p id="XTZText" style="margin-left: 10px;">X轴特征值</p>
+					<p id="XTZText" style="margin-left: 10px;background-color: transparent;">X轴特征值</p>
 				</p>
 				<div class="divTable" id="X_TeZhengZhi">
 					<ul class="mui-table-view">
+						<li id="X_zhisudu" class="mui-table-view-cell">
+							<span class="spanLeft">速度有效值</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="X_zhijiasudu" class="mui-table-view-cell">
+							<span class="spanLeft">加速度有效值</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
 						<li id="X_zhi2" class="mui-table-view-cell">
 							<span class="spanLeft">峰峰值</span>
 							<span class="spanCenter"></span>
@@ -225,7 +278,16 @@
 				<p id="YTZText" style="margin-left: 10px;margin-top: 10px;">Y轴特征值</p>
 				<div class="divTable" id="Y_TeZhengZhi">
 					<ul class="mui-table-view">
-
+						<li id="Y_zhisudu" class="mui-table-view-cell">
+							<span class="spanLeft">速度有效值</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="Y_zhijiasudu" class="mui-table-view-cell">
+							<span class="spanLeft">加速度有效值</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
 						<li id="Y_zhi2" class="mui-table-view-cell">
 							<span class="spanLeft">峰峰值</span>
 							<span class="spanCenter"></span>
@@ -273,7 +335,16 @@
 				<p id="ZTZText" style="margin-left: 10px;margin-top: 10px;">Z轴特征值</p>
 				<div class="divTable" id="Z_TeZhengZhi">
 					<ul class="mui-table-view">
-
+						<li id="Z_zhisudu" class="mui-table-view-cell">
+							<span class="spanLeft">速度有效值</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
+						<li id="Z_zhijiasudu" class="mui-table-view-cell">
+							<span class="spanLeft">加速度有效值</span>
+							<span class="spanCenter"></span>
+							<span class="spanRight"></span>
+						</li>
 						<li id="Z_zhi2" class="mui-table-view-cell">
 							<span class="spanLeft">峰峰值</span>
 							<span class="spanCenter"></span>
@@ -363,13 +434,15 @@
 
 			</div>
 		</div>
-		
+
 	</body>
 
-	<script src="js/chartQuShi.js"></script>
+	<!-- <script src="js/chartQuShi.js"></script> -->
 	<script src="js/chartBoXing.js"></script>
 	<script src="js/chartTeZheng.js"></script>
 	<script src="js/newDataChart.js"></script>
 	<script src="js/common.js"></script>
+	
+	<script src="js/chartQuShiNew.js"></script>
 
 </html>

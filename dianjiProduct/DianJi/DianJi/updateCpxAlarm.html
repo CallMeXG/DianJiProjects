@@ -13,8 +13,7 @@
 				padding: 5px 20px;
 				color: #00C1AA;
 			}
-			.textP {
-			}
+			
 			.textP span{
 				float: left;
 				line-height: 20px;
@@ -47,7 +46,16 @@
 				<div class="mui-card-content">
 					<p class="deviceText">设备名称 : {{device_name}}</p>
 					<p class="deviceText" style="margin-top: -10px;">设备编号 : {{device_id}}</p>
-
+					<p class="deviceText" style="margin-top: -10px;color: #007AFF;">
+						<span style="float: left;">超限告警：</span>
+						<!-- <template v-if="threshold_on_off == 'N'">
+							<input type="checkbox" style="zoom: 160%;" value="threshold_on_off"/>
+						</template> -->
+						<!-- <template v-if="threshold_on_off == 'Y'"> -->
+							<input type="checkbox" style="zoom: 160%;" v-model="threshold_on_off" />
+						<!-- </template> -->
+						
+					</p>
 				</div>
 			</div>
 			<div class="mui-card">
@@ -81,7 +89,8 @@
 											<div style="clear: both;"></div>
 											<p v-if="sensorItem.install_xy != undefined">安装位置：{{sensorItem.install_xy}}</p>
 											<p v-if="sensorItem.install_xy == undefined">安装位置：----</p>
-											<div v-show="item.alarm_on_off == '1'">
+											<!-- <div v-show="item.alarm_on_off == '1'"> -->
+											<div>
 												<div v-show="sensorItem.sensorType === 'V'">
 													<p class="textP" style="margin-top: 5px;">
 														<span>X轴预警值:</span>
@@ -194,7 +203,8 @@
 							device_name: plus.webview.currentWebview().strDeviceName,
 							device_id: plus.webview.currentWebview().strDeviceID,
 							dataSimList: new Array(),
-							showText: false
+							showText: false,
+							threshold_on_off: plus.webview.currentWebview().threshold_on_off
 						}
 					},
 					mounted() {
@@ -341,15 +351,26 @@
 								}
 								newObjPostParam.push(objNewSubSim)
 							}
+							
+							var strCXGJ = 'N';
+							if (this.threshold_on_off == false) {
+								strCXGJ = 'N';
+							} else{
+								strCXGJ = 'Y';
+							}
+							
 
-							var data = {
+							var dataParams = {
+								strLoginId: localStorage.getItem("strLoginId"),
+								devices_no:  plus.webview.currentWebview().strDeviceID,
+								threshold_on_off: strCXGJ,
 								simJson: JSON.stringify(newObjPostParam)
 							};
 							///*
 							$.ajax({
 								type: "post",
 								async: true,
-								data: data,
+								data: dataParams,
 								url: new_commen_update_config_Interface,
 								dataType: 'json',
 								success: function(msg) {

@@ -169,7 +169,6 @@
 				})
 			})
 			
-			console.log("0000000====" + localStorage.getItem("sms_notice"))
 			
 			//初始化,短信是否勾选
 			if (localStorage.getItem("sms_notice") == 'Y') {
@@ -187,7 +186,6 @@
 						localStorage.removeItem('strRegion');
 						localStorage.clear();
 
-
 						console.log('333333333' + JSON.stringify(plus.webview.currentWebview().opener()));
 						//退出登录时，先获取进入APP页面ID，然后根据ID，调用判断是否登录的方法，最后关闭该页面
 						//						var objLogin = plus.webview.getWebviewById('HBuilder');
@@ -201,8 +199,13 @@
 					mui.confirm("退出登录？", "", ["否", "是"], ConfirmCallBack)
 				})
 			})
-
-			$("#username").html(localStorage.getItem("userName"));
+			
+			var strName = localStorage.getItem("userName");
+			var strNameStart = strName.substr(0,3)
+			var strNameEnd = strName.substr(7,4)
+			$("#mineusername").html(strNameStart + '****' + strNameEnd);
+			// $("#mineusername").html(localStorage.getItem("userName"));
+			
 		</script>
 	</body>
 

@@ -12,7 +12,10 @@ function hiddenOrDisplay(obj) {
 }
 
 mui.plusReady(function() {
-
+	
+	//超限告警--------
+	var strCJGXAlarm = 'N';
+	
 	var dataArraySim = new Array()
 	document.addEventListener('activeBack', function() {
 		$('#tree1 div').remove();
@@ -38,7 +41,7 @@ mui.plusReady(function() {
 							sensorData_whx(key, i);
 						}
 					}
-				} 
+				}
 				if (msg.status == 'ILLEGAL') {
 					plus.nativeUI.closeWaiting();
 					mui.alert('您的账户登录过期，请退出重新登录！')
@@ -85,10 +88,19 @@ mui.plusReady(function() {
 		}
 
 		if (strUserType > 10 || localStorage.getItem('is_manage') == '1') {
+			var strthreshold_on_off = false;
+			if (strCJGXAlarm == 'N') {
+				strthreshold_on_off = false;
+			} else if (strCJGXAlarm == 'Y'){
+				strthreshold_on_off = true;
+			}
+			
+			
 			var webDetail = plus.webview.create('updateCpxAlarm.html', 'updateCpxAlarm.html', {}, {
 				strDeviceName: $("#idOFdeviceName").val(),
 				strDeviceID: $("#idOFdeviceNUM").val(),
-				arrPushData: dataArraySim
+				arrPushData: dataArraySim,
+				threshold_on_off: strthreshold_on_off
 			});
 			webDetail.show();
 			mui('.mui-popover').popover("hide");
@@ -126,6 +138,22 @@ mui.plusReady(function() {
 		}
 
 	})
+	//激活cpx
+	$('#addCPXNew').on('tap', function() {
+		//判断权限，是否显示修改信息
+		var strUserType = localStorage.getItem("userType");
+		if (strUserType < 10 && localStorage.getItem('is_manage') != '1') {
+			mui.alert('您没有权限进行设备信息修改，请先去申请相关权限！', '无访问权限', '我知道了');
+		}
+		if (strUserType > 10 || localStorage.getItem('is_manage') == '1') {
+			localStorage.setItem('fatherID', 'DeviceDetail');
+			mui('.mui-popover').popover("hide");
+			mui.openWindow({
+				url: 'barcodescanupdate.html',
+				id: 'barcodescanupdate.html'
+			})
+		}
+	})
 
 	function isUndefined(list, key) {
 		if (list == undefined || list == null || list[key] == null || list[key] == undefined) {
@@ -146,7 +174,7 @@ mui.plusReady(function() {
 		$.ajax({
 			type: 'get',
 			url: commen_gain_sim_Interface,
-			async: false,
+			async: true,
 			data: {
 				serial_no: emeId
 			},
@@ -154,10 +182,11 @@ mui.plusReady(function() {
 			success: function(msg) {
 				if (msg.status == "SUCCESS") {
 					if (typeof(msg.data) != "undefined") {
+						
 						setUIForCPX(msg.data, index);
 					}
 				}
-				 if (msg.status == 'ILLEGAL') {
+				if (msg.status == 'ILLEGAL') {
 					plus.nativeUI.closeWaiting();
 					mui.alert('您的账户登录过期，请退出重新登录！')
 				}
@@ -291,45 +320,45 @@ mui.plusReady(function() {
 			sensorStr +=
 				'<li class="mui-table-view-cell" style="height:40px;margin-top:5px"><span style="float:left;"> 信号强度：&nbsp &nbsp</span><img src="img/xinhaoNO.png" width="30px" height="20px" style="margin-top:-10px;" /></li>';
 		}
-		
+
 		if (simData.supply_type == 0 || simData.supply_type == undefined) {
 			if (typeof(simData.dump_percentage) != "undefined") {
-			
-			if (simData.dump_percentage > 84 || simData.dump_percentage == 84) {
-				
+
+				if (simData.dump_percentage > 84 || simData.dump_percentage == 84) {
+
+					sensorStr +=
+						'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi100.jpg" height="15px"/></li>';
+				}
+				if ((simData.dump_percentage > 67 || simData.dump_percentage == 67) && simData.dump_percentage < 84) {
+					console.log("dianchidianliang=-=======" + simData.dump_percentage)
+					sensorStr +=
+						'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi84.jpg" height="15px"/></li>';
+				}
+				if ((simData.dump_percentage > 50 || simData.dump_percentage == 50) && simData.dump_percentage < 67) {
+					sensorStr +=
+						'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi50.jpg" height="15px"/></li>';
+				}
+				if ((simData.dump_percentage > 34 || simData.dump_percentage == 34) && simData.dump_percentage < 50) {
+					sensorStr +=
+						'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi34.jpg" height="15px"/></li>';
+				}
+				if ((simData.dump_percentage > 16 || simData.dump_percentage == 16) && simData.dump_percentage < 34) {
+					sensorStr +=
+						'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi16.jpg" height="15px"/></li>';
+				}
+				if ((simData.dump_percentage > 0 || simData.dump_percentage == 0) && simData.dump_percentage < 16) {
+					sensorStr +=
+						'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi00.jpg" height="15px"/></li>';
+				}
+
+			} else {
 				sensorStr +=
-					'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi100.jpg" height="15px"/></li>';
-			}
-			if ((simData.dump_percentage > 67 || simData.dump_percentage == 67) && simData.dump_percentage < 84) {
-				console.log("dianchidianliang=-=======" + simData.dump_percentage)
-				sensorStr +=
-					'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi84.jpg" height="15px"/></li>';
-			}
-			if ((simData.dump_percentage > 50 || simData.dump_percentage == 50) && simData.dump_percentage < 67) {
-				sensorStr +=
-					'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi50.jpg" height="15px"/></li>';
-			}
-			if ((simData.dump_percentage > 34 || simData.dump_percentage == 34) && simData.dump_percentage < 50) {
-				sensorStr +=
-					'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi34.jpg" height="15px"/></li>';
-			}
-			if ((simData.dump_percentage > 16 || simData.dump_percentage == 16) && simData.dump_percentage < 34) {
-				sensorStr +=
-					'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi16.jpg" height="15px"/></li>';
-			}
-			if ((simData.dump_percentage > 0 || simData.dump_percentage == 0) && simData.dump_percentage < 16) {
-				sensorStr +=
-					'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi00.jpg" height="15px"/></li>';
+					'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：----</span></li>';
 			}
 
-		} else {
-			sensorStr +=
-				'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：----</span></li>';
 		}
 
-		}
-		
-		
+
 		sensorStr += '<li class="mui-table-view-cell">数据流量：----</li>';
 		sensorStr += '<li class="mui-table-view-cell">固件版本：' + isUndefined(simData, 'software_version') + '</li>';
 		sensorStr += '<li class="mui-table-view-cell">激活状态：' + strJiHuoStatus + '</li>';
@@ -462,8 +491,6 @@ mui.plusReady(function() {
 
 				}
 
-				console.log("sensor =====" + sensorData.sensorType)
-
 				if (sensorData.sensorType != undefined && sensorData.sensorType == 'V') {
 					sensorStr += '<li class="mui-table-view-cell">信号采样模式：' + isUndefined(sensorData, 'sampling_model') + '</li>';
 					sensorStr += '<li class="mui-table-view-cell">量程：' + isUndefined(sensorData, 'range_data') + '</li>';
@@ -580,16 +607,15 @@ mui.plusReady(function() {
 		$('#tree1 div').remove();
 		plus.nativeUI.showWaiting('正在加载数据...');
 		$.ajax({
-
-			type: "GET",
-			async: false,
+			type: "get",
+			async: true,
 			data: {
 				str_devices_no: localStorage.DeveciId
 			},
 			url: commen_gain_device_detail_Interface,
 			dataType: 'json',
-
 			success: function(msg) {
+				console.log("8888888888888888888")
 				plus.nativeUI.closeWaiting();
 				if (msg.status == "SUCCESS") {
 					var sim = "";
@@ -597,10 +623,11 @@ mui.plusReady(function() {
 						sim = msg.data.sim_list;
 						for (var i = 0; i < sim.length; i++) {
 							var key = sim[i]['serial_no'];
+							
 							sensorData_whx(key, i);
 						}
 					}
-				} 
+				}
 				if (msg.status == 'ILLEGAL') {
 					plus.nativeUI.closeWaiting();
 					mui.alert('您的账户登录过期，请退出重新登录！')
@@ -620,8 +647,9 @@ mui.plusReady(function() {
 	function getDataFromSever() {
 		plus.nativeUI.showWaiting('正在加载数据...');
 		$.ajax({
-			type: "GET",
-			async: false,
+			
+			type: "get",
+			async: true,
 			data: {
 				str_devices_no: localStorage.DeveciId
 			},
@@ -660,6 +688,12 @@ mui.plusReady(function() {
 					}
 
 					var info = msg.data;
+					
+					if (info != undefined) {
+						if (info.threshold_on_off != undefined) {
+							strCJGXAlarm = info.threshold_on_off;
+						}
+					}
 					//设备编号
 					$("#deviceId").html("设备编号: " + isUndefined(info, 'devices_no'));
 					$("#device_no").val(isUndefined(info, 'devices_no'));
@@ -715,9 +749,6 @@ mui.plusReady(function() {
 						$("#idOFchangjing").val(isUndefined(info, 'use_scenes'));
 
 					}
-
-
-
 
 					var sim = "";
 					if (msg.data.hasOwnProperty("sim_list")) {
