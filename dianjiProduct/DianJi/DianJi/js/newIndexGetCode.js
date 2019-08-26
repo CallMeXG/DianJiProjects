@@ -8,13 +8,13 @@ mui.plusReady(function() {
 		//先见 Android
 		// var strAPPType = "AndroidPrefoco";
 		//先见 iOS
-		var strAPPType = "iOSPrefoco";
+		// var strAPPType = "iOSPrefoco";
 		//嘉轩Android
 		// var strAPPType = "AndroidJiaXuan";
 		//嘉轩iOS
 		// var strAPPType = "iOSJiaXuan";
 		//Android 中材高新
-		// var strAPPType = "AndroidZhongCai";
+		var strAPPType = "AndroidZhongCai";
 		//Android 无logo版本
 		// var strAPPType = "AndroidNOLogo";
 		
