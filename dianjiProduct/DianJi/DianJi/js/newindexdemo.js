@@ -181,6 +181,7 @@ $(function() {
 									var strIDS = RegionArray_new[i];
 									document.getElementById(strIDS).checked = true;
 									newReginListID.push(parseInt(strIDS));
+									console.log('111111111')
 									searchDevice(strKeyWord, 0, 2, newReginListID.toString(), 1);
 
 								}
@@ -296,9 +297,29 @@ $(function() {
 		//搜索设备接口
 		function searchDevice(keyWord, pageNum, keyType, strPostRegion, thisIndex, strDeviceStatus) {
 			var wa = plus.nativeUI.showWaiting('数据加载中...');
+			console.log('start tese interface==' + commen_search_device_Interface)
+			
+			// $.ajax({
+			// 	url: login_Interface,
+			// 	async: true,
+			// 	data: {
+			// 		phone: localStorage.getItem("userName"),
+			// 		password: localStorage.getItem("userPwd")
+			// 	},
+			// 	dataType: 'json',
+			// 	success: function(respData) {
+			// 		console.log('测试登录成功====')
+			// 	},
+			// 	error: function(error) {
+			// 		mui.toast("测试登录====登录失败，请检查网络连接");
+			// 	}
+			
+			// });
+			
+			/*
 
 			$.ajax({
-				type: "get",
+				type: 'get',
 				url: commen_search_device_Interface,
 				async: true,
 				data: {
@@ -311,6 +332,35 @@ $(function() {
 					startRecords: pageNum,
 					pageSize: 10,
 					device_status: strDeviceStatus
+				},
+				dataType: 'json',
+				success: function(res) {
+					console.log('IOS  测试，成功')
+				},
+				error: function(error) {
+					console.log('IOS  测试，失败')
+				}
+			})
+
+
+//*/
+
+
+			///*
+			$.ajax({
+				type: "GET",
+				url: commen_search_device_Interface,
+				async: false,
+				data: {
+					strLoginId: localStorage.getItem("strLoginId"),
+					strLoginToken: localStorage.getItem("strLoginToken"),
+					// devices_name: keyWord,
+					int_sort_type: keyType,
+					company_id: localStorage.getItem("company_id"),
+					// region_id_list: strPostRegion,
+					startRecords: pageNum,
+					pageSize: 10,
+					// device_status: strDeviceStatus
 				},
 				dataType: 'json',
 				success: function(res) {
@@ -340,13 +390,15 @@ $(function() {
 				error: function(error) {
 					console.log("===1111")
 					wa.close();
-					UIForNullData("net");
+					// UIForNullData("net");
 					$("#content").hide();
 					setFenyefunction(0, thisIndex);
 				}
 			});
-
+//*/
 		}
+
+
 
 		function setFenyefunction(totalCount, thisIndex) {
 
