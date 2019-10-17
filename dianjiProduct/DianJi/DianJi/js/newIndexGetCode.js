@@ -7,7 +7,7 @@ mui.plusReady(function() {
 		//先见 Android
 		// var strAPPType = "AndroidPrefoco";
 		//先见 iOS
-		// var strAPPType = "iOSPrefoco";
+		var strAPPType = "iOSPrefoco";
 		//嘉轩Android
 		var strAPPType = "AndroidJiaXuan";
 
