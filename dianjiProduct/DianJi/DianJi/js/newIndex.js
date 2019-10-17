@@ -232,8 +232,9 @@ function createPopverList() {
 }
 //当没有搜索到数据时的页面显示内容
 function UIForNullData(nullType) {
+	console.log('00000000000000000000')
 	if(nullType == "net") {
-		mui.alert("搜索失败，请检查网络");
+		mui.alert("搜索失败，请检查网络===");
 	} else if(nullType == "nullData") {
 		mui.toast("没有符合搜索条件的数据");
 	}

@@ -275,7 +275,7 @@ $(function() {
 		//当没有搜索到数据时的页面显示内容
 		function UIForNullData(nullType) {
 			if (nullType == "net") {
-				mui.alert("搜索失败，请检查网络");
+				mui.alert("搜索失败，请检查网络---");
 			} else if (nullType == "nullData") {
 				mui.toast("没有符合搜索条件的数据");
 			}
@@ -313,6 +313,7 @@ $(function() {
 				},
 				dataType: 'json',
 				success: function(res) {
+					console.log('iOS 测试是否成功')
 					wa.close();
 					if (res.status == "SUCCESS") {
 						if (res.data.search_list.length > 0) {
@@ -324,6 +325,7 @@ $(function() {
 							setFenyefunction(Math.ceil(pagecount), thisIndex);
 						} else {
 							setFenyefunction(0, thisIndex);
+							
 							UIForNullData("nullData");
 							$("#content").hide();
 						}
@@ -337,7 +339,7 @@ $(function() {
 
 				},
 				error: function(error) {
-					console.log("===1111")
+					console.log("===111100000")
 					wa.close();
 					UIForNullData("net");
 					$("#content").hide();
