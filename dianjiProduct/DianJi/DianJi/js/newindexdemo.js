@@ -316,7 +316,7 @@ $(function() {
 			
 			// });
 			
-			/*
+			///*
 
 			$.ajax({
 				type: 'get',
@@ -336,9 +336,11 @@ $(function() {
 				dataType: 'json',
 				success: function(res) {
 					console.log('IOS  测试，成功')
+					alert('IOS  测试，成功')
 				},
 				error: function(error) {
 					console.log('IOS  测试，失败')
+					alert('IOS  测试，失败')
 				}
 			})
 
@@ -346,7 +348,7 @@ $(function() {
 //*/
 
 
-			///*
+			/*
 			$.ajax({
 				type: "GET",
 				url: commen_search_device_Interface,
