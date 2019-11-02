@@ -181,6 +181,7 @@ $(function() {
 									var strIDS = RegionArray_new[i];
 									document.getElementById(strIDS).checked = true;
 									newReginListID.push(parseInt(strIDS));
+									console.log('111111111')
 									searchDevice(strKeyWord, 0, 2, newReginListID.toString(), 1);
 
 								}
@@ -297,9 +298,9 @@ $(function() {
 			var wa = plus.nativeUI.showWaiting('数据加载中...');
 
 			$.ajax({
-				type: "get",
+				type: "GET",
 				url: commen_search_device_Interface,
-				async: true,
+				async: false,
 				data: {
 					strLoginId: localStorage.getItem("strLoginId"),
 					strLoginToken: localStorage.getItem("strLoginToken"),
@@ -339,15 +340,15 @@ $(function() {
 
 				},
 				error: function(error) {
-					console.log("===111100000")
 					wa.close();
 					UIForNullData("net");
 					$("#content").hide();
 					setFenyefunction(0, thisIndex);
 				}
 			});
-
 		}
+
+
 
 		function setFenyefunction(totalCount, thisIndex) {
 
