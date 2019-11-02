@@ -636,6 +636,7 @@ mui.plusReady(function() {
 			},
 			error: function(error) {
 				plus.nativeUI.closeWaiting();
+				console.log('===')
 			}
 
 		});
