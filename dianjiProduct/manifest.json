@@ -2,10 +2,11 @@
     "@platforms" : [ "android", "iPhone", "iPad" ],
     "id" : "H5BF4D615",
     /*应用的标识，创建应用时自动生成，勿手动修改*/
-    "name" : "嘉轩卫士",
+    "name" : "嘉轩卫士(测服)",
     /*应用名称，程序桌面图标名称*/
     "version" : {
-        "name" : "1.13", /*应用版本名称*/
+        "name" : "1.13",
+        /*应用版本名称*/
         "code" : 1997
     },
     "description" : "",
@@ -54,10 +55,40 @@
     },
     "plus" : {
         "splashscreen" : {
-            "autoclose" : true,
-            /*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
-            "waiting" : true,
-            "delay" : "500"
+            "android" : {
+                "xhdpi" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/jiaxuanqidong2.png",
+                "xxhdpi" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/jiaxuanqidong3.png"
+            },
+            "ios" : {
+                "iphone" : {
+                    "retina35" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/嘉轩iOS图片/640x960.png",
+                    "retina40" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/嘉轩iOS图片/640x1136.png",
+                    "retina40l" : "",
+                    "retina47" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/嘉轩iOS图片/750x1334.png",
+                    "retina55" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/嘉轩iOS图片/1242x2208.png",
+                    "iphonex" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/嘉轩iOS图片/1125x2436.png",
+                    "portrait-896h@2x" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/嘉轩iOS图片/828x1792.png",
+                    "portrait-896h@3x" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/嘉轩iOS图片/1242x2688.png"
+                },
+                "ios" : {
+                    "iphone" : {
+                        "retina35" : "",
+                        "retina40" : "",
+                        "retina40l" : "",
+                        "retina47" : "",
+                        "retina55" : "",
+                        "iphonex" : "",
+                        "portrait-896h@2x" : "",
+                        "portrait-896h@3x" : ""
+                    }
+                }
+            },
+            "plugins" : {
+                "speech" : {
+                    "ifly" : {}
+                }
+            },
+            "ad" : {}
         },
         "popGesture" : "close",
         /*设置应用默认侧滑返回关闭Webview窗口，"none"为无侧滑返回功能，"hide"为侧滑隐藏Webview窗口。参考http://ask.dcloud.net.cn/article/102*/
@@ -163,69 +194,59 @@
                         "spotlight@2x" : "unpackage/res/icons/80x80.png"
                     },
                     // "appstore" : "C:/Users/Administrator/Desktop/1024.png"
-                    "appstore" : "C:/Users/Administrator/Desktop/机电项目/电机项目/1024.png"
-                },
+                    "appstore" : "unpackage/res/icons/1024x1024.png"
+                }, // 
+                "appstore" : "",
                 "android" : {
-                    /*iPad iOS7程序图标，分辨率：76x76*//*iPad iOS7高分屏程序图标，分辨率：152x152*/
-                    "spotlight-normal" : "",
-                    /*iPad Spotlight搜索程序图标，分辨率：50x50*/
-                    "spotlight-retina" : "",
-                    /*iPad高分屏Spotlight搜索程序图标，分辨率：100x100*//*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*//*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*//*iPad设置页面程序图标，分辨率：29x29*/
-                    "app" : "unpackage/res/icons/76x76.png",
-                    "app@2x" : "unpackage/res/icons/152x152.png",
-                    "settings" : "unpackage/res/icons/29x29.png",
-                    "spotlight" : "unpackage/res/icons/40x40.png",
-                    "proapp@2x" : "unpackage/res/icons/167x167.png",
-                    "settings@2x" : "unpackage/res/icons/58x58.png",
-                    "spotlight@2x" : "unpackage/res/icons/80x80.png",
-                    "notification" : "unpackage/res/icons/20x20.png",
-                    "notification@2x" : "unpackage/res/icons/40x40.png",
-                    "mdpi" : "unpackage/res/icons/48x48.png",
-                    "ldpi" : "unpackage/res/icons/48x48.png",
                     "hdpi" : "unpackage/res/icons/72x72.png",
                     "xhdpi" : "unpackage/res/icons/96x96.png",
                     "xxhdpi" : "unpackage/res/icons/144x144.png",
                     "xxxhdpi" : "unpackage/res/icons/192x192.png"
-                },
-                "appstore" : "unpackage/res/icons/1024x1024.png"
+                }
             },
+            //"appstore": "DianJi/DianJi/img/11111.png"
             "android" : {
+                /*iPad iOS7程序图标，分辨率：76x76*//*iPad iOS7高分屏程序图标，分辨率：152x152*/
+                "spotlight-normal" : "",
+                /*iPad Spotlight搜索程序图标，分辨率：50x50*/
+                "spotlight-retina" : "",
+                /*iPad高分屏Spotlight搜索程序图标，分辨率：100x100*//*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*//*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*//*iPad设置页面程序图标，分辨率：29x29*/
+                "app" : "unpackage/res/icons/76x76.png",
+                "app@2x" : "unpackage/res/icons/152x152.png",
+                "settings" : "unpackage/res/icons/29x29.png",
+                "spotlight" : "unpackage/res/icons/40x40.png",
+                "proapp@2x" : "unpackage/res/icons/167x167.png",
+                "settings@2x" : "unpackage/res/icons/58x58.png",
+                "spotlight@2x" : "unpackage/res/icons/80x80.png",
+                "notification" : "unpackage/res/icons/20x20.png",
+                "notification@2x" : "unpackage/res/icons/40x40.png",
                 "mdpi" : "unpackage/res/icons/48x48.png",
-                /*普通屏程序图标，分辨率：48x48*/
                 "ldpi" : "unpackage/res/icons/48x48.png",
-                /*大屏程序图标，分辨率：48x48*/
                 "hdpi" : "unpackage/res/icons/72x72.png",
-                /*高分屏程序图标，分辨率：72x72*/
                 "xhdpi" : "unpackage/res/icons/96x96.png",
-                /*720P高分屏程序图标，分辨率：96x96*/
                 "xxhdpi" : "unpackage/res/icons/144x144.png",
                 "xxxhdpi" : "unpackage/res/icons/192x192.png"
             },
-            "splashscreen" : {
-                "android" : {
-                    "hdpi" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/jiaxuanqidong1.png",
-                    "xhdpi" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/jiaxuanqidong2.png",
-                    "xxhdpi" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/jiaxuanqidong3.png"
-                },
-                "ios" : {
-                    "iphone" : {
-                        "retina35" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/嘉轩iOS图片/640x960.png",
-                        "retina40" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/嘉轩iOS图片/640x1136.png",
-                        "retina40l" : "",
-                        "retina47" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/嘉轩iOS图片/750x1334.png",
-                        "retina55" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/嘉轩iOS图片/1242x2208.png",
-                        "iphonex" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/嘉轩iOS图片/1125x2436.png",
-                        "portrait-896h@2x" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/嘉轩iOS图片/828x1792.png",
-                        "portrait-896h@3x" : "C:/Users/Administrator/Desktop/机电项目/电机项目图片/嘉轩iOS图片/1242x2688.png"
-                    }
-                }
-            },
+            "appstore" : "unpackage/res/icons/1024x1024.png",
             "plugins" : {
-                "speech" : {
-                    "ifly" : {}
-                }
+                "ad" : {}
             }
+        },
+        "android" : {
+            "mdpi" : "unpackage/res/icons/48x48.png",
+            /*普通屏程序图标，分辨率：48x48*/
+            "ldpi" : "unpackage/res/icons/48x48.png",
+            /*大屏程序图标，分辨率：48x48*/
+            "hdpi" : "unpackage/res/icons/72x72.png",
+            /*高分屏程序图标，分辨率：72x72*/
+            "xhdpi" : "unpackage/res/icons/96x96.png",
+            /*720P高分屏程序图标，分辨率：96x96*/
+            "xxhdpi" : "unpackage/res/icons/144x144.png",
+            "xxxhdpi" : "unpackage/res/icons/192x192.png"
         }
-    },
-    "adid" : "124588210706"
+    }
 }
+// "appstore" : "C:/Users/Administrator/Desktop/1024.png"
+//"appstore": "DianJi/DianJi/img/11111.png"
+/*iPad iOS7程序图标，分辨率：76x76*//*iPad iOS7高分屏程序图标，分辨率：152x152*//*iPad Spotlight搜索程序图标，分辨率：50x50*//*iPad高分屏Spotlight搜索程序图标，分辨率：100x100*//*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*//*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*//*iPad设置页面程序图标，分辨率：29x29*//*普通屏程序图标，分辨率：48x48*//*大屏程序图标，分辨率：48x48*//*高分屏程序图标，分辨率：72x72*//*720P高分屏程序图标，分辨率：96x96*/
+
