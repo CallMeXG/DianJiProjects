@@ -52,7 +52,6 @@ function getInitCompany() {
 		async: true,
 		dataType: "json",
 		success: function(respData) {
-			console.log(JSON.stringify(respData))
 			var dataArray = respData.data;
 			for (var i = 0; i < dataArray.length; i++) {
 				var subRegionArray = dataArray[i].region_list;
@@ -310,7 +309,6 @@ function sensorData(emeId, i) {
 				// sensorStr += '<div class="modifyCom"><span class="name">电池电量：</span><span class="val"> ' + "----" +'</span></div>';
 				if (data.supply_type == 0 || data.supply_type == undefined) {
 					
-					console.log("=======dainchidianliang====" + data.supply_type);
 					
 					sensorStr += '<div class="modifyCom" style="height:20px;"><span class="name">供电模式：</span><span style="padding-top:2px;">电池供电</span></div>';
 					
@@ -689,7 +687,6 @@ function sensorData(emeId, i) {
 				var itemKey = '[name=item_' + i + ']:checkbox';
 				$(itemKey).each(function(index) {
 					var arrTimeCount = JSON.parse(data.work_point_json).sample_time_point;
-					//				console.log("===" + arrTimeCount);
 					var idType = arrTimeCount[index];
 					var bolCheck = false;
 					if (idType == 1) {
@@ -729,7 +726,6 @@ function sensorData(emeId, i) {
 						objDivForTypeCLJ[k].style.display = 'block'
 					}
 				} else { //省电模式
-					console.log("***********************")
 					for (var k = 0; k < objDivForTypeSD.length; k++) {
 						objDivForTypeSD[k].style.display = 'block'
 					}
@@ -752,7 +748,6 @@ function sensorData(emeId, i) {
 function gaojingClicked(index) {
 	var index_id = 'ifGaoJing' + index
 	var objCheckbox = document.getElementById(index_id)
-	console.log(objCheckbox)
 	var objSensorGaoJing = document.getElementsByClassName('sensorGaoJing' + index)
 	if (objCheckbox.checked == true) {
 		for (var i = 0; i < objSensorGaoJing.length; i++) {
@@ -843,7 +838,6 @@ function getDataTime(index) {
 
 function timeLangth(index) {
 	var ids = "#timeLangth" + index;
-	//	console.log(ids)
 	$.jeDate(ids, {
 		format: "hh:mm:ss",
 		language: {
@@ -861,7 +855,6 @@ function timeLangth(index) {
 
 function uploadTime(index) {
 	var ids = "#uploadTime" + index;
-	//	console.log(ids)
 	$.jeDate(ids, {
 		format: "hh:mm:ss",
 		language: {
@@ -878,7 +871,7 @@ function uploadTime(index) {
 //上传周期
 function uploadZhouqifun(index) {
 	var ids = "#uploadZhouqi" + index;
-	//	console.log(ids)
+
 	$.jeDate(ids, {
 		format: "hh:mm:ss",
 		language: {
@@ -1082,7 +1075,6 @@ function getCaiModelData() {
 			}
 		},
 		error: function(error) {
-			console.log('===');
 		}
 	});
 
@@ -1153,6 +1145,9 @@ function cedianSelected(index_1, index_2) {
 			new_setdataArray.push(setdataArray[j]);
 		}
 	}
+	
+	console.log('bbbbb===',JSON.stringify(new_setdataArray))
+	
 	userPicker.setData(new_setdataArray);
 	var strid = "anzhuang" + index_1 + index_2;
 	var userResult = document.getElementById(strid);
@@ -1280,6 +1275,7 @@ function getDefData() {
 				CPXCount = sim_list.length;
 				buildSensorData(sim_list);
 			}
+			console.log('aaaaa===',JSON.stringify(data.install_list))
 			if (typeof(data.install_list) != "undefined") {
 
 				for (var i = 0; i < data.install_list.length; i++) {
@@ -1554,7 +1550,6 @@ function finshBtnClickReturnData() {
 			paramData.electric_num = devices_Count;
 		}
 
-		console.log("type===" + JSON.stringify(paramData))
 
 		//电机
 		if (strDeviceType == 'E') {
@@ -1643,7 +1638,6 @@ function finshBtnClickReturnData() {
 				var strModelType = ''
 
 				if (objCPXType == "省电模式") {
-					console.log('=====省电模式')
 					strModelType = '0'
 
 					//数据采集模式
@@ -1708,7 +1702,6 @@ function finshBtnClickReturnData() {
 
 				if (objCPXType == "长连接模式") {
 
-					console.log('=====长连接模式')
 					strModelType = "1"
 
 					//采样间隔时间
@@ -1804,7 +1797,6 @@ function finshBtnClickReturnData() {
 
 					//安装位置
 					var str_j_anzhuang = "anzhuang" + i + j;
-					console.log('安装位置==== ' + JSON.stringify(selInsObj))
 					var objSelIns = selInsObj[str_j_anzhuang];
 
 					if (objSelIns.new_installId != '') {
@@ -1828,7 +1820,6 @@ function finshBtnClickReturnData() {
 
 
 		}
-		console.log('data ==== ' + JSON.stringify(common_jsonArray));
 
 
 		paramData.commen_json = JSON.stringify(common_jsonArray);

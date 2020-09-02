@@ -5,6 +5,26 @@
 
 $("#login_btn").click(function() {
 	
+	// $.ajax({
+	// 	type: "get",
+	// 	url: commen_search_device_Interface + '?strLoginId=10000018&strLoginToken=ff9ab5a22ac1ed152372f948f2b36ca4',
+	// 	// url: 'http://47.94.166.103:1111/device/commen_search_device_new?strLoginId=10000018&strLoginToken=ff9ab5a22ac1ed152372f948f2b36ca4'
+	// 	async: true,
+	// 	// data: params,
+	// 	dataType: 'json',
+	// 	success: function(respData) {
+	
+	// 		console.log("====== success");
+	
+	// 	},
+	// 	error: function(error) {
+	// 		console.log('error' + JSON.stringify(error))
+	
+	// 	}
+	// });
+	
+	///*
+	
 	var phone = $("#login_phone").val();
 	var pwd = $("#login_pwd").val();
 	var phoneTest = /^1[34578]\d{9}$/;
@@ -56,19 +76,22 @@ $("#login_btn").click(function() {
 					
 					var regionidArray = new Array();
 					var regionArray = new Array();
-					for(var i = 0; i < dataTemp.company_list.length; i++) {
-						var temparray = dataTemp.company_list[i];
-						for(var j = 0; j < temparray.region_list.length; j++) {
-							var strRegionid = temparray.region_list[j].id;
-							regionidArray.push(strRegionid);
-							var strName = temparray.region_list[j].region_name;
-							var obj_region = {
-								reginID: strRegionid,
-								reginName: strName
-							};
-							regionArray.push(obj_region);
+					if(dataTemp.company_list !== undefined){
+						for(var i = 0; i < dataTemp.company_list.length; i++) {
+							var temparray = dataTemp.company_list[i];
+							for(var j = 0; j < temparray.region_list.length; j++) {
+								var strRegionid = temparray.region_list[j].id;
+								regionidArray.push(strRegionid);
+								var strName = temparray.region_list[j].region_name;
+								var obj_region = {
+									reginID: strRegionid,
+									reginName: strName
+								};
+								regionArray.push(obj_region);
+							}
 						}
 					}
+					
 
 					console.log("-=-=-=-=" + JSON.stringify(regionArray));
 					var strRegionId = regionidArray.toString();
@@ -90,6 +113,7 @@ $("#login_btn").click(function() {
 			}
 		});
 	}
+	//*/
 })
 //新用户注册点击事件
 $("#newUser").on("tap", function() {

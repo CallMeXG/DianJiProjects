@@ -2,7 +2,7 @@
     "@platforms" : [ "android", "iPhone", "iPad" ],
     "id" : "H5BF4D615",
     /*应用的标识，创建应用时自动生成，勿手动修改*/
-    "name" : "机电卫士",
+    "name" : "机电卫士(测服)",
     /*应用名称，程序桌面图标名称*/
     "version" : {
         "name" : "1.13", /*应用版本名称*/
@@ -200,23 +200,27 @@
             },
             "splashscreen" : {
                 "android" : {
-                    "hdpi" : "C:/Users/Administrator/Desktop/电机项目图片/qidong1.png",
-                    "xhdpi" : "C:/Users/Administrator/Desktop/电机项目图片/qidong2.png",
-                    "xxhdpi" : "C:/Users/Administrator/Desktop/电机项目图片/qidong3.png"
+                    "hdpi" : "",
+                    "xhdpi" : "",
+                    "xxhdpi" : ""
                 },
                 "ios" : {
                     "iphone" : {
-                        "retina35" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/640_960.png",
-                        "retina40" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/640_1136.png",
-                        "retina47" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/750_1334.png",
-                        "retina55" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/1242_2208.png",
-                        "iphonex" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/1125_2436.png",
-                        "portrait-896h@2x" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/828_1792.png",
-                        "portrait-896h@3x" : "C:/Users/Administrator/Desktop/机电iOS/dianjiimg/1242_2688.png"
+                        "retina35" : "",
+                        "retina40" : "",
+                        "retina47" : "",
+                        "retina55" : "",
+                        "iphonex" : "",
+                        "portrait-896h@2x" : "",
+                        "portrait-896h@3x" : ""
                     }
                 }
+            },
+            "plugins" : {
+                "ad" : {}
             }
         }
     },
-    "adid" : "124588210706"
+    "adid" : "124588210706",
+    "screenOrientation" : [ "portrait-primary" ]
 }

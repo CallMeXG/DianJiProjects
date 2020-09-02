@@ -297,6 +297,79 @@ $(function() {
 		//搜索设备接口
 		function searchDevice(keyWord, pageNum, keyType, strPostRegion, thisIndex, strDeviceStatus) {
 			var wa = plus.nativeUI.showWaiting('数据加载中...');
+			console.log('start tese interface==' + commen_search_device_Interface)
+
+
+			// $.ajax({
+			// 	type: "get",
+			// 	url: login_Interface,
+			// 	async: true,
+			// 	data: {
+			// 		phone: '15601090990',
+			// 		password: '123456a'
+			// 	},
+			// 	dataType: 'json',
+			// 	success: function(respData) {
+
+			// 		console.log("====== success");
+
+			// 	},
+			// 	error: function(error) {
+			// 		console.log('error' + error)
+
+			// 	}
+			// });
+
+
+			// $.ajax({
+			// 	type: 'get',
+			// 	url: "http://192.168.18.9:8080/server_appapi/device/commen_search_device_new",
+			// 	async: true,
+			// 	data: {
+			// 		strLoginId: localStorage.getItem("strLoginId"),
+			// 		strLoginToken: localStorage.getItem("strLoginToken")
+			// 	},
+			// 	dataType: 'json',
+			// 	success: function(respData) {
+			// 		console.log('测试登录成功====')
+			// 	},
+			// 	error: function(error) {
+			// 		console.log('==' + JSON.stringify(error))
+			// 		mui.toast("测试登录====登录失败，请检查网络连接 ====" + JSON.stringify(error));
+			// 	}
+
+			// });
+
+			
+			
+
+			var params = {
+				strLoginId: localStorage.getItem("strLoginId"),
+				strLoginToken: localStorage.getItem("strLoginToken"),
+				// devices_name: keyWord,
+				// int_sort_type: keyType,
+				// company_id: localStorage.getItem("company_id"),
+				// region_id_list: strPostRegion,
+				// startRecords: pageNum,
+				// pageSize: 10,
+				// device_status: strDeviceStatus
+			}
+			$("#nullDataPage").show();
+			$("#content").hide();
+
+		}
+
+		//搜索点击事件
+		$('#search').on('search', function() {
+			$('#search').blur();
+			strKeyWord = $('#search').val();
+			var strRegionID = newReginListID.toString();
+			searchDevice(strKeyWord, 0, strKeyType, strRegionID, 1);
+		});
+
+		//搜索设备接口
+		function searchDevice(keyWord, pageNum, keyType, strPostRegion, thisIndex, strDeviceStatus) {
+			var wa = plus.nativeUI.showWaiting('数据加载中...');
 
 			$.ajax({
 				type: "GET",
@@ -345,7 +418,7 @@ $(function() {
 					setFenyefunction(0, thisIndex);
 				}
 			});
-		}
+		};
 
 
 
@@ -510,4 +583,273 @@ $(function() {
 		//*/
 	})
 
-});
+			
+			// $.ajax({
+			// 	type: "get",
+			// 	url: commen_search_device_Interface + '?strLoginId=10000018&strLoginToken=ff9ab5a22ac1ed152372f948f2b36ca4',
+			// 	// url: 'http://47.94.166.103:1111/device/commen_search_device_new?strLoginId=10000018&strLoginToken=ff9ab5a22ac1ed152372f948f2b36ca4'
+			// 	async: true,
+			// 	// data: params,
+			// 	dataType: 'json',
+			// 	success: function(respData) {
+			
+			// 		console.log("====== success");
+			
+			// 	},
+			// 	error: function(error) {
+			// 		console.log('error' + JSON.stringify(error))
+			
+			// 	}
+			// });
+			
+			
+			// console.log('000==' + JSON.stringify(params))
+			
+			/*
+			
+			$.ajax({
+				type: 'get',
+				url: commen_search_device_Interface,
+				async: false,
+				data: {
+					strLoginId: localStorage.getItem("strLoginId"),
+					strLoginToken: localStorage.getItem("strLoginToken"),
+					devices_name: keyWord,
+					int_sort_type: keyType,
+					company_id: localStorage.getItem("company_id"),
+					region_id_list: strPostRegion,
+					startRecords: pageNum,
+					pageSize: 10,
+					device_status: strDeviceStatus
+				},
+				dataType: 'JSON',
+				success: function(res) {
+					console.log('IOS  测试，成功')
+				},
+				error: function(error) {
+					console.log('IOS  测试，失败')
+				}
+			})
+
+
+			//*/
+
+
+			/*
+			$.ajax({
+				type: "get",
+				url: commen_search_device_Interface,
+				async: true,
+				data: {
+					strLoginId: localStorage.getItem("strLoginId"),
+					strLoginToken: localStorage.getItem("strLoginToken"),
+					devices_name: keyWord,
+					int_sort_type: keyType,
+					company_id: localStorage.getItem("company_id"),
+					region_id_list: strPostRegion,
+					startRecords: pageNum,
+					pageSize: 10,
+					device_status: strDeviceStatus
+				},
+				dataType: 'json',
+				success: function(res) {
+					console.log('success');
+					wa.close();
+					if (res.status == "SUCCESS") {
+						if (res.data.search_list.length > 0) {
+							content.message = res.data.search_list;
+							$('#content').css('display', 'block');
+							$("#nullDataPage").hide();
+							$("#content").show();
+							var pagecount = res.data.total_records / 10;
+							setFenyefunction(Math.ceil(pagecount), thisIndex);
+						} else {
+							setFenyefunction(0, thisIndex);
+							UIForNullData("nullData");
+							$("#content").hide();
+						}
+					}
+					if (res.status == 'ILLEGAL') {
+						UIForNullData("nullData");
+						$("#content").hide();
+						setFenyefunction(0, thisIndex);
+						mui.alert('您的账户登录过期，请退出重新登录！')
+					}
+
+				},
+				error: function(error) {
+					console.log('error === 111');
+					// console.log("===1111")
+					wa.close();
+					// UIForNullData("net");
+					$("#content").hide();
+					setFenyefunction(0, thisIndex);
+				}
+			});
+//*/
+		// }
+
+
+
+		function setFenyefunction(totalCount, thisIndex) {
+
+			searchePageCount = totalCount;
+
+			$('#pagination_9').whjPaging({
+				css: 'css-user',
+				totalPage: totalCount,
+				isShowTotalSize: false,
+				isShowTotalPage: true,
+				isShowRefresh: false,
+				isShowSkip: false,
+				isShowPageSizeOpt: false,
+				isShowFL: false,
+				callBack: function(currPage, pageSize) {
+					console.log('currPage:' + currPage + '     pageSize:' + pageSize);
+					var indexPage = currPage;
+					var strRegionID = newReginListID.toString();
+					if (indexPage == 1) {
+						searchDevice(strKeyWord, 0, strKeyType, strRegionID, indexPage);
+					} else {
+
+						var startIndex = (indexPage - 1) * 10;
+						searchDevice(strKeyWord, startIndex, strKeyType, strRegionID, indexPage);
+					}
+				}
+			});
+
+			$("#pagination_9").whjPaging("setPage", {
+				currPage: thisIndex,
+				totalPage: totalCount,
+				totalSize: 90
+			});
+		};
+
+		document.addEventListener('enterPage_deviceList_refresh', function() {
+
+			newReginListID.push(parseInt(localStorage.getItem('tongji_regionId')));
+			localStorage.removeItem('strRegion');
+			newReginListID.splice(0, newReginListID.length - 1);
+			var arrRegion = JSON.parse(localStorage.getItem("reginArray"));
+			for (var i = 0; i < arrRegion.length; i++) {
+				var strregion = arrRegion[i].reginID;
+				document.getElementById(strregion).checked = false;
+			}
+			localStorage.setItem('strRegion', localStorage.getItem('tongji_regionId'));
+			document.getElementById(localStorage.getItem('tongji_regionId')).checked = true;
+
+
+			// searchDevice('', 0, 2, localStorage.getItem('tongji_regionId'), 0, localStorage.getItem('tongji_type'));
+
+			var wa = plus.nativeUI.showWaiting('数据加载中...');
+
+			$.ajax({
+				type: "get",
+				url: commen_search_device_Interface,
+				async: true,
+				data: {
+					strLoginId: localStorage.getItem("strLoginId"),
+					strLoginToken: localStorage.getItem("strLoginToken"),
+					devices_name: "",
+					int_sort_type: 2,
+					company_id: localStorage.getItem("company_id"),
+					region_id_list: localStorage.getItem('tongji_regionId'),
+					startRecords: 0,
+					pageSize: 1000,
+					device_status: localStorage.getItem('tongji_type')
+				},
+				dataType: 'json',
+				success: function(res) {
+					wa.close();
+					if (res.status == "SUCCESS") {
+						if (res.data.search_list.length > 0) {
+							content.message = res.data.search_list;
+							$('#content').css('display', 'block');
+							$("#nullDataPage").hide();
+							$("#content").show();
+							var pagecount = res.data.total_records / 1000;
+							setFenyefunction(Math.ceil(pagecount), 0);
+						} else {
+							setFenyefunction(0, 0);
+							UIForNullData("nullData");
+							$("#content").hide();
+						}
+					}
+					if (res.status == 'ILLEGAL') {
+						UIForNullData("nullData");
+						$("#content").hide();
+						setFenyefunction(0, 0);
+						mui.alert('您的账户登录过期，请退出重新登录！')
+					}
+				},
+				error: function(error) {
+					console.log("===1111")
+					wa.close();
+					UIForNullData("net");
+					$("#content").hide();
+					setFenyefunction(0, 0);
+				}
+			});
+
+
+			//			var strRegion_new = localStorage.getItem('tongji_regionId');
+			//			if(typeof(strRegion_new) != "undefined" && strRegion_new != null) {
+			//				if(strRegion_new.length > 0) {
+			//					var RegionArray_new = strRegion_new.split(',');
+			//					for(var i = 0; i < RegionArray_new.length; i++) {
+			//						var strIDS = RegionArray_new[i];
+			//						console.log('00000000=='+strIDS)
+			//						document.getElementById(strIDS).checked = true;
+			//						newReginListID.push(parseInt(strIDS));
+			//					}
+			//				}
+			//			}
+
+		});
+
+		//获取用户类型，根据权限隐藏某些显示内容
+		function hiddenUIWithUserType() {
+			var strUserType = localStorage.getItem("userType");
+			//		console.log(strUserType);
+			if (strUserType < 10) {
+				$("#newAddDevice").hide();
+				if (localStorage.getItem('is_manage') == '1') {
+					$("#newAddDevice").show();
+				}
+			}
+			if (strUserType > 10) {
+				$("#newAddDevice").show();
+			}
+		}
+
+		//设备型号 iPhone 8 、iPhone X，等
+		var strModel = plus.device.model;
+		//系统类型 Android 、 iOS
+		var strOSName = plus.os.name;
+		//系统版本 iOS 11.4.1、Android 6.0 等
+		var strOSVersion = plus.os.version;
+
+		if (localStorage.getItem("userName") != undefined) {
+			$.ajax({
+				type: "get",
+				url: new_commen_user_collect_Interface,
+				async: true,
+				data: {
+					user_id: localStorage.getItem("strLoginId"),
+					phone: localStorage.getItem("userName"),
+					mobile_model: strModel,
+					system_model: strOSName,
+					system_version: strOSVersion
+				},
+				dataType: 'json',
+				success: function(respData) {},
+				error: function(error) {
+
+				}
+
+			});
+		}
+		//*/
+	})
+
+// );
