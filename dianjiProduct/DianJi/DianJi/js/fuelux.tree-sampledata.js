@@ -86,7 +86,7 @@ var app = new Vue({
 				battery_direction: this.listDru[this.currenindex].value,
 				battery_id: this.powerType.id.toString()
 			}
-			console.log('para====',JSON.stringify(powerParam))
+			
 			$.ajax({
 				url: commen_replace_battery_Interface,
 				methods: 'get',
