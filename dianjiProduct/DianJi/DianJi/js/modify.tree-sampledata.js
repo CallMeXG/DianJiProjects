@@ -1146,7 +1146,6 @@ function cedianSelected(index_1, index_2) {
 		}
 	}
 	
-	console.log('bbbbb===',JSON.stringify(new_setdataArray))
 	
 	userPicker.setData(new_setdataArray);
 	var strid = "anzhuang" + index_1 + index_2;
@@ -1275,7 +1274,7 @@ function getDefData() {
 				CPXCount = sim_list.length;
 				buildSensorData(sim_list);
 			}
-			console.log('aaaaa===',JSON.stringify(data.install_list))
+			// console.log('aaaaa===',JSON.stringify(data.install_list))
 			if (typeof(data.install_list) != "undefined") {
 
 				for (var i = 0; i < data.install_list.length; i++) {
@@ -1910,6 +1909,10 @@ function checkCheckBox(i, j) {
 }
 
 function postData(data) {
+	
+	
+	
+	console.log('data======',JSON.stringify(data))
 
 	$.ajax({
 		type: "post",
@@ -1923,15 +1926,20 @@ function postData(data) {
 
 				window.location.replace("./DeviceDetail.html")
 			}
-			if (respData.status == 'ILLEGAL') {
+			else if (respData.status == 'ILLEGAL') {
 				mui.alert('您的账户登录过期，请退出重新登录！')
+			}
+			else{
+				mui.toast("提交失败：",respData.message)
 			}
 			// 			
 			// 			 else {
 			// 				mui.toast(respData.message);
 			// 			}
 		},
-		error: function(err) {}
+		error: function(err) {
+			mui.toast("error：",err)
+		}
 	});
 
 }

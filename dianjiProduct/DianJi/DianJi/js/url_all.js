@@ -1,21 +1,22 @@
 //、、--------- 测试GitHub master
 
 //服务器地址
-// var url = 'http://192.168.4.240:8080/server_appapi/';
+// var url = 'http://192.168.4.29:8080/server_appapi/';
 //本地测试服务器地址
 // var url = 'http://192.168.4.182:8080/server_appapi/';
 
 //测试服务器地址
-   // var url = 'http://39.106.180.14:1111/';
+   var url = 'http://39.106.180.14:1111/';
 //生产服务器地址
-var url = 'http://47.94.166.103:1111/';
-
+// var url = 'http://47.94.166.103:1111/';
+// 
 
 //var fileUrlHeader = "http://47.94.166.103:3000/group1/";
 
 
-var strLocalVersion = '1.13';
-var strLocalVersionCode = 1995;
+
+var strLocalVersion = '1.14';
+var strLocalVersionCode = 1996;
              
 //登录接口
 var login_Interface= url + 'user/commen_login';
@@ -148,3 +149,12 @@ var new_commen_gain_instructions_Interface = url + 'app/commen_gain_instructions
 var new_commen_gain_trend_chart_install_arrange_Interface = url + 'draw/commen_gain_trend_chart_install_arrange'
 // 修改设备配置页
 var new_commen_update_config_Interface = url + 'device/commen_update_config'
+
+//获取电池型号信息列表
+var gainBatteryInfoList_Interface = url + 'device/gainBatteryInfoList'
+//更换电源操作
+var commen_replace_battery_Interface = url + 'Sensor/commen_replace_battery'
+//维保记录
+var commen_gain_repairlistbydevice_Interface = url + 'check/commen_gain_repairlistbydevice'
+//消息列表中的更换电源或维保记录
+var commenGainRepairListByType_Interface = url + 'check/commenGainRepairListByType'

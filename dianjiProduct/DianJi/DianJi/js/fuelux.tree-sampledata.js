@@ -1,4 +1,5 @@
 function hiddenOrDisplay(obj) {
+	console.log('aaaaaa====', obj)
 	var header = $(obj).parent().parent();
 
 	var className = $(obj).prop('class');
@@ -11,11 +12,156 @@ function hiddenOrDisplay(obj) {
 	}
 }
 
+let pwChangeId = ''
+
+
+var app = new Vue({
+	el: '#app-power',
+	data() {
+		return {
+
+			powerType: {
+				text: '点此选择',
+				battery_type: '--',
+				battery_total: '--',
+				battery_company: '--'
+			}, //电池型号选择
+			powerRemarks: '', //备注
+			listDru: [{ //电池方向
+					text: '电源平放',
+					value: '0.85',
+				},
+				{ //电池方向
+					text: '电源正向上',
+					value: '1',
+				},
+				{ //电池方向
+					text: '电源正向下',
+					value: '0.75',
+				}
+			],
+			currenindex: null,
+			powerTypeArray: [], //电池型号列表
+		}
+	},
+	methods: {
+		//选择电源型号
+		changePowerType() {
+
+			var picker = new mui.PopPicker();
+			picker.setData(this.powerTypeArray);
+			const that = this;
+			picker.show(function(selectItems) {
+				that.powerType = selectItems[0]
+			})
+
+		},
+		//选择电源安装方向
+		changePowerdirection(index) {
+			this.currenindex = index
+		},
+		//提交
+		submitPowerChange() {
+
+			if (this.powerType.id == undefined) {
+				mui.alert("请选择电源型号")
+				return;
+			}
+			if (this.currenindex == null) {
+				mui.alert("请选择电源安装方向")
+				return;
+			}
+			if (this.powerRemarks.length == 0) {
+				mui.alert("请输入备注")
+				return;
+			}
+			plus.nativeUI.showWaiting('正在提交')
+
+			let powerParam = {
+				serial_no: pwChangeId,
+				devices_no: localStorage.getItem('DeveciId'),
+				action_type: '1',
+				content: this.powerRemarks,
+				userId: localStorage.getItem('strLoginId'),
+				battery_direction: this.listDru[this.currenindex].value,
+				battery_id: this.powerType.id.toString()
+			}
+			console.log('para====',JSON.stringify(powerParam))
+			$.ajax({
+				url: commen_replace_battery_Interface,
+				methods: 'get',
+				dataType: 'json',
+				data: powerParam,
+				success: function(res) {
+					plus.nativeUI.closeWaiting()
+					if (res.status == 'SUCCESS') {
+						mui.toast("电源更换成功！")
+					} else {
+						mui.toast(res.message)
+					}
+					$('#app-power').hide()
+				},
+				error: function(e) {
+					plus.nativeUI.closeWaiting()
+					mui.toast("电源更换失败，请重试！")
+					$('#app-power').hide()
+				}
+			})
+
+			
+
+
+
+
+
+		}
+	}
+})
+
+
+
+
+function changePower(value) {
+	console.log('aaaa')
+	$('#app-power').show()
+	$('#app-pw-cpx').html(value)
+	pwChangeId = value;
+
+	app.$data.currenindex = null;
+	app.$data.powerType = {
+		text: '点此选择'
+	}
+	app.$data.powerRemarks = ''
+
+
+	$.ajax({
+		url: gainBatteryInfoList_Interface,
+		methods: 'get',
+		dataType: 'json',
+		success: function(res) {
+			if (res.status == 'SUCCESS') {
+				let tempList = res.data;
+				let tempArray = []
+				for (var i = 0; i < tempList.length; i++) {
+					let tempObj = tempList[i];
+					tempObj.text = tempList[i].battery_type;
+					tempArray.push(tempObj)
+				}
+				app.$data.powerTypeArray = tempArray
+			}
+			console.log(JSON.stringify(app.$data.powerTypeArray))
+		}
+	})
+
+}
+
+
+
 mui.plusReady(function() {
-	
+
 	//超限告警--------
 	var strCJGXAlarm = 'N';
-	
+
 	var dataArraySim = new Array()
 	document.addEventListener('activeBack', function() {
 		$('#tree1 div').remove();
@@ -91,11 +237,11 @@ mui.plusReady(function() {
 			var strthreshold_on_off = false;
 			if (strCJGXAlarm == 'N') {
 				strthreshold_on_off = false;
-			} else if (strCJGXAlarm == 'Y'){
+			} else if (strCJGXAlarm == 'Y') {
 				strthreshold_on_off = true;
 			}
-			
-			
+
+
 			var webDetail = plus.webview.create('updateCpxAlarm.html', 'updateCpxAlarm.html', {}, {
 				strDeviceName: $("#idOFdeviceName").val(),
 				strDeviceID: $("#idOFdeviceNUM").val(),
@@ -170,6 +316,8 @@ mui.plusReady(function() {
 	 */
 	function sensorData_whx(emeId, index) {
 
+		console.log('mmmmm===', emeId)
+
 		var children;
 		$.ajax({
 			type: 'get',
@@ -182,7 +330,7 @@ mui.plusReady(function() {
 			success: function(msg) {
 				if (msg.status == "SUCCESS") {
 					if (typeof(msg.data) != "undefined") {
-						
+
 						setUIForCPX(msg.data, index);
 					}
 				}
@@ -264,7 +412,8 @@ mui.plusReady(function() {
 		sensorStr += '<div class="tree-folder-header">';
 		sensorStr += '<i style="hidden:display" onclick="hiddenOrDisplay(this)" class="icon-minus"></i>';
 		sensorStr += '<div class="tree-folder-name">' + isUndefined(simData, 'sim_name') + '传感器卡： ' + simData.serial_no +
-			'</div></div>';
+			'<div style="height:20px;margin-left:10px;line-height:20px;border:1px solid #524598;width:70px;float: right;text-align:center;border-radius:3px;color: #524598;" onclick="changePower(\'' +
+			simData.serial_no + '\')">更换电池</div></div></div>';
 		sensorStr += '<div class="tree-folder-content" style="display: block;">';
 		sensorStr += '<ul class="mui-table-view" style="margin-left:-20px;">';
 		sensorStr += '<li class="mui-table-view-cell">Imie：' + isUndefined(simData, 'imei') + '</li>';
@@ -623,7 +772,7 @@ mui.plusReady(function() {
 						sim = msg.data.sim_list;
 						for (var i = 0; i < sim.length; i++) {
 							var key = sim[i]['serial_no'];
-							
+
 							sensorData_whx(key, i);
 						}
 					}
@@ -648,7 +797,7 @@ mui.plusReady(function() {
 	function getDataFromSever() {
 		plus.nativeUI.showWaiting('正在加载数据...');
 		$.ajax({
-			
+
 			type: "get",
 			async: true,
 			data: {
@@ -689,7 +838,7 @@ mui.plusReady(function() {
 					}
 
 					var info = msg.data;
-					
+
 					if (info != undefined) {
 						if (info.threshold_on_off != undefined) {
 							strCJGXAlarm = info.threshold_on_off;
@@ -773,4 +922,11 @@ mui.plusReady(function() {
 		});
 
 	}
+
+
+
+
+
+
+
 })

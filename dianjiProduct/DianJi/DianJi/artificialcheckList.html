@@ -28,6 +28,24 @@
 				overflow-y: auto;
 				_overflow-y: visible;
 			}
+
+			.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {
+				border-bottom: none !important;
+			}
+			
+			
+			.list-maintenance-index{
+				width: 100%;
+				margin-bottom: 10px;
+				padding: 10px;
+				background-color: #FFFFFF;
+			}
+			.list-maintenance-index .time{
+				float: right;
+			}
+			.list-maintenance-index .user{
+				float: left;
+			}
 		</style>
 	</head>
 
@@ -55,74 +73,139 @@
 		</header>
 		<div class="mui-content">
 
-			<div class="mui-card" id="cardContentID">
-				<div class="mui-card-header">
-					<span id="artDeviceMes"></span>
-					<button class="mui-btn mui-btn-royal" v-on:click="openCheckAtrList()">诊断报告</button>
+
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item" href="#item1mobile">
+						告警记录
+					</a>
+					<a class="mui-control-item" href="#item2mobile">
+						维保记录
+					</a>
 				</div>
-				<div class="mui-card-content">
-					<ul class="mui-table-view">
-						<li class="mui-table-view-cell" v-for="mesItem in message">
-							<div v-on:click="openArtifiDetail(mesItem)">
-
-								<div v-if="mesItem.apply_status == '0'">
-									<p>
-										<span style="float: right;text-align: center;padding-top: 3px;color: #9ACD32;">正在诊断...</span>
-									</p>
-								</div>
-								<div v-if="mesItem.apply_status == '1'">
-									<p>
-										<div v-if="mesItem.ck_result == '1'">
-											<span style="float: right;background-color: #00CD00;width: 40px;color: white;text-align: center;padding-top: 3px;">正常</span>
-										</div>
-										<div v-if="mesItem.ck_result == '2'">
-											<span style="float: right;background-color: #EEEE00;width: 40px;color: gray;text-align: center;padding-top: 3px;">预警</span>
-										</div>
-										<div v-if="mesItem.ck_result == '3'">
-											<span style="float: right;background-color: orange;width: 40px;color: white;text-align: center;padding-top: 3px;">报警</span>
-										</div>
-										<div v-if="mesItem.ck_result == '4'">
-											<span style="float: right;background-color: red;width: 40px;color: white;text-align: center;padding-top: 3px;">严重</span>
-										</div>
-									</p>
-								</div>
-
-								<p>申请人员：{{mesItem.apply_user_phone}}</p>
-
-								<p style="margin-top: 10px;">申请时间：{{mesItem.apply_time.substring(0,19)}}
-									<div v-if="typeof(mesItem.file_path) != 'undefined'">
-										<a class="iconfont icon-baogao" style="float: right;color: gray;font-size: 24px;margin-right: 10px;margin-top: -20px;"></a>
-									</div>
-								</p>
-								<a class="mui-navigate-right" style="float: right;margin-top: 15px;">
-								</a>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div class="mui-card" id="cardContentID">
+							<div class="mui-card-header">
+								<span id="artDeviceMes"></span>
+								<button class="mui-btn mui-btn-royal" v-on:click="openCheckAtrList()">诊断报告</button>
 							</div>
-						</li>
+							<div class="mui-card-content">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell" v-for="mesItem in message">
+										<div v-on:click="openArtifiDetail(mesItem)">
 
-					</ul>
+											<div v-if="mesItem.apply_status == '0'">
+												<p>
+													<span style="float: right;text-align: center;padding-top: 3px;color: #9ACD32;">正在诊断...</span>
+												</p>
+											</div>
+											<div v-if="mesItem.apply_status == '1'">
+												<p>
+													<div v-if="mesItem.ck_result == '1'">
+														<span style="float: right;background-color: #00CD00;width: 40px;color: white;text-align: center;padding-top: 3px;">正常</span>
+													</div>
+													<div v-if="mesItem.ck_result == '2'">
+														<span style="float: right;background-color: #EEEE00;width: 40px;color: gray;text-align: center;padding-top: 3px;">预警</span>
+													</div>
+													<div v-if="mesItem.ck_result == '3'">
+														<span style="float: right;background-color: orange;width: 40px;color: white;text-align: center;padding-top: 3px;">报警</span>
+													</div>
+													<div v-if="mesItem.ck_result == '4'">
+														<span style="float: right;background-color: red;width: 40px;color: white;text-align: center;padding-top: 3px;">严重</span>
+													</div>
+												</p>
+											</div>
 
-				</div>
-			</div>
-			<div class="mui-card">
-				<div class="mui-card-content">
-					<div style="color: gray;text-align: center;margin-top: 50px;">本平台为您提供远程诊断服务</div>
-					<div style="text-align: center;margin-top: 20px;color: gray;font-size: 18px;">如需紧急申请诊断，请联系电话
-						<p style="margin-top:10px;">
-							<a style="font-size: 18px;" href="tel:010-64722397">010-64722397</a>
-						</p>
-						<p style="margin-top: 10px;font-size: 18px;">邮箱</p>
-						<p style="margin-top: 10px;font-size: 18px;">support@prefoco.com</p>
+											<p>申请人员：{{mesItem.apply_user_phone}}</p>
+
+											<p style="margin-top: 10px;">申请时间：{{mesItem.apply_time.substring(0,19)}}
+												<div v-if="typeof(mesItem.file_path) != 'undefined'">
+													<a class="iconfont icon-baogao" style="float: right;color: gray;font-size: 24px;margin-right: 10px;margin-top: -20px;"></a>
+												</div>
+											</p>
+											<a class="mui-navigate-right" style="float: right;margin-top: 15px;">
+											</a>
+										</div>
+									</li>
+
+								</ul>
+
+							</div>
+						</div>
+						<div class="mui-card">
+							<div class="mui-card-content">
+								<div style="color: gray;text-align: center;margin-top: 50px;">本平台为您提供远程诊断服务</div>
+								<div style="text-align: center;margin-top: 20px;color: gray;font-size: 18px;">如需紧急申请诊断，请联系电话
+									<p style="margin-top:10px;">
+										<a style="font-size: 18px;" href="tel:010-64722397">010-64722397</a>
+									</p>
+									<p style="margin-top: 10px;font-size: 18px;">邮箱</p>
+									<p style="margin-top: 10px;font-size: 18px;">support@prefoco.com</p>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<template v-for="(item, index) in maintenanceList">
+							<div class="list-maintenance-index">
+								<div class="content">{{item.content}}</div>
+								<div style="margin-top: 10px;color: #747578;">
+									<div class="user">{{item.userPhone}}</div>
+									<div class="time">{{item.create_time}}</div>
+								</div>
+								
+								<div style="width: 100%;height: 1px;clear: both;"></div>
+							</div>
+							
+						</template>
+
 					</div>
 
 				</div>
 			</div>
 
+
 		</div>
 		<script src="js/url_all.js"></script>
 		<script src="js/mui.min.js"></script>
 		<script src="js/jquery.min.js"></script>
+		<script src="js/vue.min.js"></script>
 		<script>
 			mui.plusReady(function() {
+				
+				
+				
+				var vueApp = new Vue({
+					el: '#item2mobile',
+					data(){
+						return{
+							maintenanceList:[]
+						}
+					},
+					methods:{
+						
+					}
+				})
+				
+				$.ajax({
+					url: commen_gain_repairlistbydevice_Interface,
+					methods: 'get',
+					dataType: 'json',
+					data:{
+						devices_no: localStorage.DeveciId
+					},
+					success:function(res){
+						if(res.status == 'SUCCESS'){
+							vueApp.$data.maintenanceList = res.data
+						}
+					}
+				})
+				
+				
 
 				var dataList = [];
 
@@ -133,7 +216,7 @@
 				})
 
 				$('.mui-btn-success').on('tap', function() {
-					
+
 					mui('#popover').popover('toggle');
 					if (dataList.length > 0) {
 						var ifArray = new Array();
