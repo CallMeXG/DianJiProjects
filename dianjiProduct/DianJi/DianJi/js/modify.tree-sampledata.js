@@ -180,10 +180,20 @@ function sensorData(emeId, i) {
 			if (typeof(data) != "undefined") {
 
 				var sensorStr = '<div class="tree-folder" >';
-				sensorStr +=
-					'<div class="tree-folder-header"> <i style="hidden:display" onclick="hiddenOrDisplay(this)" class="icon-minus"></i><div class="tree-folder-name">' +
-					isUndefined(data, 'sim_name') + ' ' + data.serial_no +
-					'</div><div onclick="cancleCard(this)" class="cancle">取消关联</div></div>'
+
+				var strUserType = localStorage.getItem("userType");
+				if (strUserType > 10) {
+					sensorStr +=
+						'<div class="tree-folder-header"> <i style="hidden:display" onclick="hiddenOrDisplay(this)" class="icon-minus"></i><div class="tree-folder-name">' +
+						isUndefined(data, 'sim_name') + ' ' + data.serial_no +
+						'</div><div onclick="cancleCard(this)" class="cancle">取消关联</div><div onclick="cancleCardForce(this)" class="cancle" style="margin-right:10px;">强制取消关联</div></div>';
+				} else {
+					sensorStr +=
+						'<div class="tree-folder-header"> <i style="hidden:display" onclick="hiddenOrDisplay(this)" class="icon-minus"></i><div class="tree-folder-name">' +
+						isUndefined(data, 'sim_name') + ' ' + data.serial_no +
+						'</div><div onclick="cancleCard(this)" class="cancle">取消关联</div></div>';
+				}
+
 				sensorStr += '<div class="tree-folder-content" style="display: block;">';
 				sensorStr +=
 					'<div hidden="hidden" class="modifyCom"><span class="name">传感器卡编号：</span><input type="button" class="sensor_num" id="CPXID' +
@@ -304,14 +314,15 @@ function sensorData(emeId, i) {
 					}
 
 				}
-				
-				
+
+
 				// sensorStr += '<div class="modifyCom"><span class="name">电池电量：</span><span class="val"> ' + "----" +'</span></div>';
 				if (data.supply_type == 0 || data.supply_type == undefined) {
-					
-					
-					sensorStr += '<div class="modifyCom" style="height:20px;"><span class="name">供电模式：</span><span style="padding-top:2px;">电池供电</span></div>';
-					
+
+
+					sensorStr +=
+						'<div class="modifyCom" style="height:20px;"><span class="name">供电模式：</span><span style="padding-top:2px;">电池供电</span></div>';
+
 					if (typeof(data.dump_percentage) != "undefined") {
 						if (data.dump_percentage > 84 || data.dump_percentage == 84) {
 							sensorStr +=
@@ -343,9 +354,9 @@ function sensorData(emeId, i) {
 							'<div class="modifyCom" style="height:20px;"><span class="name">电池电量：&nbsp &nbsp</span>----</div>';
 					}
 
-				}
-				else if(data.supply_type == 1){
-					sensorStr += '<div class="modifyCom" style="height:20px;"><span class="name">供电模式：</span><span style="padding-top:2px;">外接电源</span></div>';
+				} else if (data.supply_type == 1) {
+					sensorStr +=
+						'<div class="modifyCom" style="height:20px;"><span class="name">供电模式：</span><span style="padding-top:2px;">外接电源</span></div>';
 				}
 
 
@@ -657,18 +668,18 @@ function sensorData(emeId, i) {
 
 							}
 
-// 							if (senData[j].calibration_coefficient != undefined) {
-// 								sensorStr +=
-// 									'<div class="modifyCom"><span class="modifyFont">传感器频率校准系数：</span><input style="width:100px" id="jiaoxishu' +
-// 									i + '' + j + '" type="text" class="sensorLocation" value=' + senData[j].calibration_coefficient +
-// 									' /></div>';
-// 
-// 							} else {
-// 								sensorStr +=
-// 									'<div class="modifyCom"><span class="modifyFont">传感器频率校准系数：</span><input  style="width:100px" id="jiaoxishu' +
-// 									i + '' + j + '" type="text " class="sensorLocation " /></div>';
-// 
-// 							}
+							// 							if (senData[j].calibration_coefficient != undefined) {
+							// 								sensorStr +=
+							// 									'<div class="modifyCom"><span class="modifyFont">传感器频率校准系数：</span><input style="width:100px" id="jiaoxishu' +
+							// 									i + '' + j + '" type="text" class="sensorLocation" value=' + senData[j].calibration_coefficient +
+							// 									' /></div>';
+							// 
+							// 							} else {
+							// 								sensorStr +=
+							// 									'<div class="modifyCom"><span class="modifyFont">传感器频率校准系数：</span><input  style="width:100px" id="jiaoxishu' +
+							// 									i + '' + j + '" type="text " class="sensorLocation " /></div>';
+							// 
+							// 							}
 							sensorStr += '</div>'
 						}
 
@@ -1074,8 +1085,7 @@ function getCaiModelData() {
 				mui.toast(respMsg.message);
 			}
 		},
-		error: function(error) {
-		}
+		error: function(error) {}
 	});
 
 }
@@ -1145,8 +1155,8 @@ function cedianSelected(index_1, index_2) {
 			new_setdataArray.push(setdataArray[j]);
 		}
 	}
-	
-	
+
+
 	userPicker.setData(new_setdataArray);
 	var strid = "anzhuang" + index_1 + index_2;
 	var userResult = document.getElementById(strid);
@@ -1381,6 +1391,42 @@ function hiddenOrDisplay(obj) {
 		$(obj).prop('class', 'icon-plus');
 		$(header).find('.tree-folder-content').css('display', 'none');
 	}
+}
+
+//管理员强制取消关联 2020-12-29
+function cancleCardForce(obj) {
+	mui.confirm("强制取消关联可能会造成数据丢失，请慎重", "您确定要强制取消关联吗?", ['不了', '确定'], function(e) {
+		if (e.index == 1) {
+			var devices_no = $('#devices_no').html();
+			var treeFolder = $(obj).parent().parent();
+			var serial_no = $(treeFolder).find('.sensor_num').val();
+			console.log('强制取消关联====' + devices_no + '-' + serial_no)
+			$.ajax({
+				url: commen_force_cancel_relation_Interface,
+				type: 'get',
+				dataType: 'json',
+				async: true,
+				data: {
+					serial_no: serial_no,
+					// devices_no: devices_no
+				},
+				success: function(e) {
+					console.log('-------------', JSON.stringify(e))
+					if (e.status == 'SUCCESS') {
+						mui.toast("设备强制解绑成功！");
+						window.location.reload();
+						var fatherWeb = plus.webview.currentWebview().opener();
+						mui.fire(fatherWeb, 'activeBack');
+					}else{
+						mui.toast(e.message);
+					}
+
+				}
+
+			})
+		}
+	})
+
 }
 
 /**
@@ -1909,10 +1955,10 @@ function checkCheckBox(i, j) {
 }
 
 function postData(data) {
-	
-	
-	
-	console.log('data======',JSON.stringify(data))
+
+
+
+	console.log('data======', JSON.stringify(data))
 
 	$.ajax({
 		type: "post",
@@ -1925,12 +1971,10 @@ function postData(data) {
 				mui.toast(respData.message);
 
 				window.location.replace("./DeviceDetail.html")
-			}
-			else if (respData.status == 'ILLEGAL') {
+			} else if (respData.status == 'ILLEGAL') {
 				mui.alert('您的账户登录过期，请退出重新登录！')
-			}
-			else{
-				mui.toast("提交失败：",respData.message)
+			} else {
+				mui.toast("提交失败：", respData.message)
 			}
 			// 			
 			// 			 else {
@@ -1938,7 +1982,7 @@ function postData(data) {
 			// 			}
 		},
 		error: function(err) {
-			mui.toast("error：",err)
+			mui.toast("error：", err)
 		}
 	});
 

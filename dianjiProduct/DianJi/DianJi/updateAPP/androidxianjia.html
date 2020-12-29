@@ -41,6 +41,7 @@
 
 		<script src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
 		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+		<script src="../js/url_all.js"></script>
 
 		<script type="text/javascript">
 			mui.init()
@@ -55,7 +56,7 @@
 				}
 				return (false);
 			}
-			var strLocalVersionCode = 1994;
+			var strLocalVersionCode = strLocalVersionCode;
 			if(getQueryVariable('strVersion') != false){
 				strLocalVersionCode = getQueryVariable('strVersion')
 			}

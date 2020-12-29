@@ -71,10 +71,7 @@ var app = new Vue({
 				mui.alert("请选择电源安装方向")
 				return;
 			}
-			if (this.powerRemarks.length == 0) {
-				mui.alert("请输入备注")
-				return;
-			}
+
 			plus.nativeUI.showWaiting('正在提交')
 
 			let powerParam = {
@@ -86,7 +83,7 @@ var app = new Vue({
 				battery_direction: this.listDru[this.currenindex].value,
 				battery_id: this.powerType.id.toString()
 			}
-			
+
 			$.ajax({
 				url: commen_replace_battery_Interface,
 				methods: 'get',
@@ -108,15 +105,11 @@ var app = new Vue({
 				}
 			})
 
-			
-
-
-
-
-
 		}
 	}
 })
+
+
 
 
 
@@ -159,6 +152,117 @@ function changePower(value) {
 
 mui.plusReady(function() {
 
+
+	var deMainVue = new Vue({
+		el: "#deviceMainPoper",
+		data() {
+			return {
+				cpxList: [],
+				deviceNumber: localStorage.DeveciId,
+				devNameCus: '',
+				selCpx: {
+					text: '请选择'
+				},
+				mainType: [],
+				typeValue: {
+					text: '请选择'
+				},
+				inputValue: '',
+				segType: 'D', //被测设备 D ；  采集设备 C
+			}
+		},
+		watch: {
+			inputValue: function(n) {
+				if (n.length > 20) {
+					this.inputValue = n.substring(0, 20)
+					mui.alert('最多输入20个字')
+				}
+
+			}
+		},
+		methods: {
+			changeCpx() {
+				var picker = new mui.PopPicker();
+				picker.setData(this.cpxList);
+				const that = this;
+				picker.show(function(selectItems) {
+					that.selCpx = selectItems[0]
+				})
+			},
+			selectedMainType() {
+				var picker = new mui.PopPicker();
+				picker.setData(this.mainType);
+				const that = this;
+				picker.show(function(selectItems) {
+					that.typeValue = selectItems[0]
+				})
+			},
+			segControl(type) {
+				this.segType = type;
+				this.inputValue = '';
+			},
+			submitMainData() {
+
+				let postParams = {}
+				if (this.segType == 'D') {
+					postParams = {
+						devices_no: localStorage.getItem('DeveciId'),
+						action_type: '2',
+						content: this.inputValue,
+						userId: localStorage.getItem('strLoginId'),
+					}
+				}
+				if (this.segType == 'C') {
+					if (this.selCpx.serial_no == undefined) {
+						mui.alert('请选择维保设备')
+						return;
+					}
+					if (this.typeValue.id == undefined) {
+						mui.alert('请选择维保类型')
+						return;
+					}
+					postParams = {
+						devices_no: localStorage.getItem('DeveciId'),
+						serial_no: this.selCpx.serial_no,
+						action_type: '2',
+						content: this.inputValue,
+						userId: localStorage.getItem('strLoginId'),
+						change_type_id: this.typeValue.id.toString()
+					}
+				}
+
+				$.ajax({
+					url: commonDevicesChange_Interface,
+					methods: 'get',
+					dataType: 'json',
+					data: postParams,
+					// {
+					// 	devices_no: localStorage.getItem('DeveciId'),
+					// 	serial_no: this.selCpx.serial_no,
+					// 	action_type: '2',
+					// 	content: this.inputValue,
+					// 	userId: localStorage.getItem('strLoginId'),
+					// 	change_type_id: this.typeValue.id.toString()
+					// },
+					success: function(res) {
+
+						if (res.status == 'SUCCESS') {
+							mui.alert('设备维保提交成功!')
+							setTimeout(function(e) {
+								$('#deviceMainPoper').hide()
+							}, 500)
+						} else {
+							mui.alert(res.message)
+						}
+					},
+					error: function(err) {
+						console.log('err===', JSON.stringify(err))
+					}
+				})
+			}
+		}
+	})
+
 	//超限告警--------
 	var strCJGXAlarm = 'N';
 
@@ -167,7 +271,6 @@ mui.plusReady(function() {
 		$('#tree1 div').remove();
 		plus.nativeUI.showWaiting('正在加载数据...');
 		$.ajax({
-
 			type: "GET",
 			async: false,
 			data: {
@@ -175,16 +278,23 @@ mui.plusReady(function() {
 			},
 			url: commen_gain_device_detail_Interface,
 			dataType: 'json',
-
 			success: function(msg) {
+
 				plus.nativeUI.closeWaiting();
 				if (msg.status == "SUCCESS") {
+					let info = msg.data;
+					deMainVue.$data.devNameCus = isUndefined(info, 'devices_name') + ' ( ' + isUndefined(info, 'devices_no') +
+						' ) ';
+					deMainVue.$data.cpxList = []
 					var sim = "";
 					if (msg.data.hasOwnProperty("sim_list")) {
 						sim = msg.data.sim_list;
 						for (var i = 0; i < sim.length; i++) {
 							var key = sim[i]['serial_no'];
 							sensorData_whx(key, i);
+							let objTemp = sim[i];
+							objTemp.text = '采集器编号:' + sim[i]['serial_no'];
+							deMainVue.$data.cpxList.push(objTemp)
 						}
 					}
 				}
@@ -204,12 +314,15 @@ mui.plusReady(function() {
 	var strUserType = localStorage.getItem("userType");
 	if (strUserType < 10) {
 		$("#xiugai").hide();
+		$("#deviceMaintenance").css('color', '#d9d9da')
 		if (localStorage.getItem('is_manage') == '1') {
 			$("#xiugai").show();
+			$("#deviceMaintenance").css('color', '#8f8f94')
 		}
 	}
 	if (strUserType > 10) {
 		$("#xiugai").show();
+		$("#deviceMaintenance").css('color', '#8f8f94')
 	}
 
 	$("#xiugai").on("tap", function() {
@@ -301,6 +414,40 @@ mui.plusReady(function() {
 		}
 	})
 
+	//设备维保
+	$('#deviceMaintenance').on('tap', function() {
+		console.log('11111')
+		//判断权限，是否显示修改信息
+		var strUserType = localStorage.getItem("userType");
+		if (strUserType < 10 && localStorage.getItem('is_manage') != '1') {
+			mui.alert('您没有权限进行设备信息修改，请先去申请相关权限！', '无访问权限', '我知道了');
+		}
+		if (strUserType > 10 || localStorage.getItem('is_manage') == '1') {
+			mui('.mui-popover').popover("hide");
+			$('#deviceMainPoper').show()
+
+			deMainVue.$data.mainType = []
+			$.ajax({
+				url: gainChangeTypeList_Interface,
+				methods: 'get',
+				dataType: 'json',
+				success: function(res) {
+					console.log('aaa===', JSON.stringify(res))
+					if (res.status == 'SUCCESS') {
+						for (var i = 0; i < res.data.length; i++) {
+							let tempObj = res.data[i]
+							tempObj.text = res.data[i]['change_type']
+							deMainVue.$data.mainType.push(tempObj)
+						}
+
+
+					}
+				}
+			})
+
+		}
+	})
+
 	function isUndefined(list, key) {
 		if (list == undefined || list == null || list[key] == null || list[key] == undefined) {
 			val = '----';
@@ -315,9 +462,6 @@ mui.plusReady(function() {
 	 * @param  emeId 传感器卡卡号
 	 */
 	function sensorData_whx(emeId, index) {
-
-		console.log('mmmmm===', emeId)
-
 		var children;
 		$.ajax({
 			type: 'get',
@@ -764,16 +908,21 @@ mui.plusReady(function() {
 			url: commen_gain_device_detail_Interface,
 			dataType: 'json',
 			success: function(msg) {
-				console.log("8888888888888888888")
 				plus.nativeUI.closeWaiting();
 				if (msg.status == "SUCCESS") {
+					let info = msg.data;
+					deMainVue.$data.devNameCus = isUndefined(info, 'devices_name') + ' ( ' + isUndefined(info, 'devices_no') +
+						' ) ';
+					deMainVue.$data.cpxList = []
 					var sim = "";
 					if (msg.data.hasOwnProperty("sim_list")) {
 						sim = msg.data.sim_list;
 						for (var i = 0; i < sim.length; i++) {
 							var key = sim[i]['serial_no'];
-
 							sensorData_whx(key, i);
+							let objTemp = sim[i];
+							objTemp.text = '采集器编号:' + sim[i]['serial_no'];
+							deMainVue.$data.cpxList.push(objTemp)
 						}
 					}
 				}
@@ -796,8 +945,8 @@ mui.plusReady(function() {
 
 	function getDataFromSever() {
 		plus.nativeUI.showWaiting('正在加载数据...');
-		$.ajax({
 
+		$.ajax({
 			type: "get",
 			async: true,
 			data: {
@@ -805,7 +954,6 @@ mui.plusReady(function() {
 			},
 			url: commen_gain_device_detail_Interface,
 			dataType: 'json',
-
 			success: function(msg) {
 				plus.nativeUI.closeWaiting();
 				if (msg.status == "SUCCESS") {
@@ -899,13 +1047,19 @@ mui.plusReady(function() {
 						$("#idOFchangjing").val(isUndefined(info, 'use_scenes'));
 
 					}
-
+					deMainVue.$data.devNameCus = isUndefined(info, 'devices_name') + ' ( ' + isUndefined(info, 'devices_no') +
+						' ) '
+					deMainVue.$data.cpxList = []
 					var sim = "";
 					if (msg.data.hasOwnProperty("sim_list")) {
 						sim = msg.data.sim_list;
 						for (var i = 0; i < sim.length; i++) {
 							var key = sim[i]['serial_no'];
 							sensorData_whx(key, i);
+
+							let objTemp = sim[i];
+							objTemp.text = '采集器编号:' + sim[i]['serial_no'];
+							deMainVue.$data.cpxList.push(objTemp)
 						}
 					}
 

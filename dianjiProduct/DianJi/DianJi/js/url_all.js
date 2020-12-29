@@ -1,7 +1,9 @@
 //、、--------- 测试GitHub master
 
 //服务器地址
-var url = 'http://192.168.4.29:8080/server_appapi/';
+// var url = 'http://192.168.4.29:8080/server_appapi/';
+var url = 'http://192.168.18.203:8080/server_appapi/';
+
 
 //本地测试服务器地址
 // var url = 'http://192.168.4.182:8080/server_appapi/';
@@ -15,9 +17,8 @@ var url = 'http://192.168.4.29:8080/server_appapi/';
 //var fileUrlHeader = "http://47.94.166.103:3000/group1/";
 
 
-
-var strLocalVersion = '1.14';
-var strLocalVersionCode = 1996;
+var strLocalVersion = '1.14.2';
+var strLocalVersionCode = 1998;
              
 //登录接口
 var login_Interface= url + 'user/commen_login';
@@ -159,3 +160,9 @@ var commen_replace_battery_Interface = url + 'Sensor/commen_replace_battery'
 var commen_gain_repairlistbydevice_Interface = url + 'check/commen_gain_repairlistbydevice'
 //消息列表中的更换电源或维保记录
 var commenGainRepairListByType_Interface = url + 'check/commenGainRepairListByType'
+//获取维保类型
+var gainChangeTypeList_Interface = url + 'device/gainChangeTypeList'
+//设备维保提交接口
+var commonDevicesChange_Interface = url + 'device/commonDevicesChange'
+//cpx强制解绑
+var commen_force_cancel_relation_Interface = url + 'Sensor/commen_force_cancel_relation'

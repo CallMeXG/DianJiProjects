@@ -23,7 +23,7 @@
 		<script src="js/mui.poppicker.js"></script>
 		<link href="css/mui.picker.css" rel="stylesheet" />
 		<link href="css/mui.poppicker.css" rel="stylesheet" />
-		
+
 
 		<style>
 			.tabbarClass {
@@ -140,6 +140,58 @@
 				font-size: 14px;
 				border-radius: 5px;
 			}
+			
+			.device-main{
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0,0,0,0.8);
+				z-index: 99;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+			}
+			.device-main .content{
+				width: 90%;
+				/* height: 80%; */
+				background-color: #FFFFFF;
+				border-radius: 10px;
+			}
+			.de-main-title{
+				width: 100%;
+				height: 50px;
+				text-align: center;
+				line-height: 50px;
+				background-color: #e4e5eb;
+				color: black;
+				font-size: 16px;
+				border-top-left-radius: 10px;
+				border-top-right-radius: 10px;
+			}
+			.de-main-device-name{
+				padding: 10px;
+			}
+			.de-main-selcpx{
+				height: 40px;
+				margin: 10px;
+				padding: 0 10px;
+				line-height: 40px;
+				border-bottom: 1px solid #d2dce0;
+			}
+			.de-main-selcpx .sel-value{
+				float: right;
+			}
+			
+			.right-top-close-btn{
+				float: right;
+				margin-right: -10px;
+				margin-top: -10px;
+			}
+			.right-top-close-btn img{
+				width: 40px;
+				height: 40px;
+			}
 		
 		</style>
 	</head>
@@ -147,6 +199,7 @@
 	<body>
 		<div id="app-power" style="display: none;">
 			<div class="change-power-content">
+				<div class="right-top-close-btn" onclick="$('#app-power').hide()"><img src="img/close.png"></div>
 				<div class="title">更换电源<label style="margin-left: 5px;" id="app-pw-cpx"></label></div>
 				<div class="power-type" @click="changePowerType">
 					<div class="left-title">选择电源型号（必选）</div>
@@ -163,14 +216,43 @@
 						<div class="power-dru-item" @click="changePowerdirection(index)" :class="{'power-dru-active': index == currenindex}">{{item.text}}</div>
 					</template>
 					<div style="clear: both;"></div>
-					<p style="color: gray;margin-top: 15px;font-size: 14px;">备注：（必填）</p>
+					<p style="color: gray;margin-top: 15px;font-size: 14px;">备注</p>
 					<div class="mui-input-row" style="margin: 10px 5px;">
 						<textarea id="textarea" v-model="powerRemarks" rows="5" placeholder="请输入备注信息"></textarea>
 					</div>
 				</div>
 				<div class="change-power-submit" @click="submitPowerChange">提交</div>
 			</div>
-			<div class="close-button" onclick="$('#app-power').hide()">关闭</div>
+		</div>
+
+		<div id="deviceMainPoper" class="device-main" style="display: none;">
+			<div class="content">
+				<div class="right-top-close-btn" onclick="$('#deviceMainPoper').hide()"><img src="img/close.png"></div>
+				<p class="de-main-title">设备维保</p>
+				<div class="de-main-device-name">当前设备：{{devNameCus}}</div>
+				<div style="padding: 10px 10px;">
+					<div id="segmentedControl" class="mui-segmented-control">
+						<a class="mui-control-item mui-active" @click="segControl('D')">被测设备</a>
+						<a class="mui-control-item" @click="segControl('C')">采集器设备</a>
+					</div>
+				</div>
+				<div v-show="segType == 'C'" id="item2">
+					<div class="de-main-selcpx" @click="changeCpx">选择维保设备:
+						<div class="sel-value">{{selCpx.text}} ></div>
+					</div>
+					<div class="de-main-selcpx" @click="selectedMainType">选择维保类型:
+						<div class="sel-value">{{typeValue.text}} ></div>
+					</div>
+				</div>
+
+
+
+				<div style="clear: both;"></div>
+				<p style="margin-left: 10px;margin-top: 20px;">请输入备注：(字数： {{inputValue.length}} / 20 )</p>
+				<textarea v-model="inputValue" placeholder="请在此输入备注" style="margin: -5px 10px 10px 10px;width: calc(100% - 20px);"></textarea>
+				<div class="change-power-submit" style="margin-top: 20px;" @click="submitMainData">提交</div>
+			</div>
+			<!-- <div class="close-button" >关闭</div> -->
 		</div>
 
 		<div id="popover" class="mui-popover">
@@ -237,7 +319,7 @@
 								<span class="Contentspan">设备类型：</span>
 								<input style="width: 70%;" id="idDeviceTypes" readonly="readonly" />
 							</div>
-							
+
 							<div class="typeDJ">
 								<span class="Contentspan">设备型号：</span>
 								<input style="width: 70%;" id="idOFdeviceType" readonly="readonly" />
@@ -277,7 +359,7 @@
 								<span class="Contentspan">应用场景：</span>
 								<input style="width: 70%;" id="idOFchangjing" readonly="readonly" />
 							</div>
-							
+
 							<div class="typeJC">
 								<span class="Contentspan">配备电机功率（kW）：</span>
 								<input style="width: 50%;" id="idDeviceKM" readonly="readonly" />
@@ -304,11 +386,11 @@
 	</body>
 	<script src="js/swiper.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/bootstrap.min.js"></script>
-	
-	
-	
-	
-	
+
+
+
+
+
 	<script src="js/fuelux.tree-sampledata.js"></script>
 	<script src="js/ace-elements.min.js"></script>
 	<script src="js/ace.min.js"></script>

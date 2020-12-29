@@ -27,6 +27,11 @@
 			<h1 class="mui-title" style="color: white;">功能介绍</h1>
 		</header>
 		<div class="mui-content">
+			<div id="code1_14_1" style="display: none;">
+				<p>1、设备详情页面，增加更换电池功能</p>
+				<p>2、远程诊断修增加维保记录</p>
+				<p>3、消息页面增加更换电池和维保记录选项</p>
+			</div>
 			<div id="code1_12" style="display: none;">
 				<p>1、优化趋势图页面显示</p>
 			</div>
@@ -94,6 +99,9 @@
 	</body>
 	<script type="text/javascript">
 		var strCode = localStorage.getItem('updateNum');
+		if (strCode == '1.14.1') {
+			$('#code1_14_1').css('display','block');
+		}
 		if (strCode == '1.12') {
 			$('#code1_12').css('display','block');
 		}
