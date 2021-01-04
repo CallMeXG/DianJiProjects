@@ -89,7 +89,8 @@
 					data: {
 						strLoginId: localStorage.getItem("strLoginId"),
 						strLoginToken: localStorage.getItem("strLoginToken"),
-						devices_no: localStorage.DeveciId
+						devices_no: localStorage.DeveciId,
+						company_id: localStorage.getItem('company_id'),
 					},
 					dataType: "json",
 					success: function(respData) {
@@ -174,7 +175,8 @@
 										install_xy: strUpdateText,
 										alias_x: strInputX,
 										alias_y: strInputY,
-										alias_z: strInputZ
+										alias_z: strInputZ,
+										company_id: localStorage.getItem('company_id'),
 									},
 									dataType: "json",
 									success: function(respData) {

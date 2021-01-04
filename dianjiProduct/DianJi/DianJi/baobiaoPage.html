@@ -12,6 +12,9 @@
 		<link rel="stylesheet" type="text/css" href="css/pagination.css" />
 		<script src="js/vue.min.js"></script>
 		<style>
+			html{
+				touch-action: none;
+			}
 			.mui-control-content {
 				/*background-color: white;*/
 				min-height: calc(100vh - 80px);
@@ -28,7 +31,7 @@
 				color: white;
 				text-align: center;
 				padding-top: 3px;
-				margin-right: 20px;
+				margin-right: 0px;
 				border-radius: 5px;
 			}
 		</style>
@@ -104,8 +107,8 @@
 												{{baogaoMsg.apply_devices_no}}</span>
 										</p>
 
-										<p style="clear: both;width: 100%;height: 10px;margin-top: 10px;"></p>
-										<p style="margin-top: 5px;width: 100%;height: 20px;">
+										<p style="clear: both;width: 100%;height: 10px;margin-top: 0px;"></p>
+										<p style="margin-top: 0px;width: 100%;height: 20px;">
 											<span v-if="typeof(baogaoMsg.ck_content) == 'undefined'" style="float: left;margin-left: 20px;">##无报告描述##</span>
 											<span v-if="typeof(baogaoMsg.ck_content) != 'undefined' && baogaoMsg.ck_content.length > 15" style="float: left;margin-left: 20px;">{{baogaoMsg.ck_content.substr(0,15)}}...</span>
 											<span v-if="typeof(baogaoMsg.ck_content) != 'undefined' && (baogaoMsg.ck_content.length < 15 || baogaoMsg.ck_content.length == 15)"

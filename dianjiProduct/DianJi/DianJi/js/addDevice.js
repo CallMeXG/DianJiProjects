@@ -92,6 +92,7 @@ $("#add_gangdu").click(function() {
 
 ///*
 $('#addDevice').click(function() {
+	
 
 	var company_id = companyID;
 	var region_id = regionID;
@@ -198,10 +199,6 @@ $('#addDevice').click(function() {
 			console.log(msg);
 			if(msg.status == "SUCCESS") {
 				mui.toast(msg.message);
-				//获得主页面的webview
-//				var main = plus.webview.getWebviewById('headerindex.html');
-//				//触发主页面的gohome事件
-//				mui.fire(main, 'backhome');
 				mui.back();
 			} 
 			if (msg.status == 'ILLEGAL') {

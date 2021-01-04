@@ -52,6 +52,9 @@ function getInitCompany() {
 		async: true,
 		dataType: "json",
 		success: function(respData) {
+			
+			console.log('bbbbbbbbbb====',JSON.stringify(respData))
+			
 			var dataArray = respData.data;
 			for (var i = 0; i < dataArray.length; i++) {
 				var subRegionArray = dataArray[i].region_list;
@@ -1266,6 +1269,8 @@ function caiyangjingduClick(index_1, index_2) {
 }
 getDefData();
 
+var strCompany_name = '';
+
 function getDefData() {
 	$.ajax({
 		type: "get",
@@ -1276,6 +1281,9 @@ function getDefData() {
 		url: commen_gain_device_detail_Interface,
 		dataType: 'json',
 		success: function(msg) {
+			
+			console.log('aaaaa===',JSON.stringify(msg))
+			
 			localStorage.setItem('ActiveMZDevice', JSON.stringify(msg.data));
 			var data = msg.data;
 			var sim_list = null;
@@ -1284,7 +1292,7 @@ function getDefData() {
 				CPXCount = sim_list.length;
 				buildSensorData(sim_list);
 			}
-			// console.log('aaaaa===',JSON.stringify(data.install_list))
+			
 			if (typeof(data.install_list) != "undefined") {
 
 				for (var i = 0; i < data.install_list.length; i++) {
@@ -1334,6 +1342,7 @@ function getDefData() {
 			$('#devices_no').html(isUndefined(data, 'devices_no'));
 			//企业名称
 			$('#devices_company').val(isUndefined(data, 'company_name'));
+			strCompany_name = isUndefined(data, 'company_name');
 			//分厂
 			$('#devices_region').val(isUndefined(data, 'region_name'));
 
@@ -1400,7 +1409,12 @@ function cancleCardForce(obj) {
 			var devices_no = $('#devices_no').html();
 			var treeFolder = $(obj).parent().parent();
 			var serial_no = $(treeFolder).find('.sensor_num').val();
-			console.log('强制取消关联====' + devices_no + '-' + serial_no)
+			// console.log('强制取消关联====' + devices_no + '-' + serial_no)
+			// mui.toast("设备强制解绑成功！");
+			// window.location.reload();
+			// var fatherWeb = plus.webview.currentWebview().opener();
+			// mui.fire(fatherWeb, 'activeBack');
+			///*
 			$.ajax({
 				url: commen_force_cancel_relation_Interface,
 				type: 'get',
@@ -1424,6 +1438,7 @@ function cancleCardForce(obj) {
 				}
 
 			})
+			//*/
 		}
 	})
 
@@ -1572,6 +1587,17 @@ function finshBtnClickReturnData() {
 		paramData.devices_no = deviceId;
 		if (companyID != undefined) {
 			paramData.company_id = companyID;
+		}
+		else{
+			let tempCom_id = ''
+			for (var i = 0; i < companyArray.length; i++) {
+				if(strCompany_name == companyArray[i].text){
+					tempCom_id = companyArray[i].value;
+					break;
+				} 
+			}
+			
+			paramData.company_id = tempCom_id;
 		}
 		if (regionID != undefined) {
 			paramData.region_id = regionID;
@@ -1778,9 +1804,9 @@ function finshBtnClickReturnData() {
 				for (var j = 0; j < chuannum.length; j++) {
 
 					var sensorObj = new Object();
-
+					
 					//振动传感器时，修改采样量程，采样点数，传感器系数等
-					if (sim_sensorList[i].sensorList[j].sensorType == 'V') {
+					if ( sim_sensorList[i].sensorList !== undefined && sim_sensorList[i].sensorList[j].sensorType == 'V') {
 
 						// var bolxishu = checkXishu(i, j);
 						// if (bolxishu == false) {
@@ -1956,10 +1982,8 @@ function checkCheckBox(i, j) {
 
 function postData(data) {
 
-
-
 	console.log('data======', JSON.stringify(data))
-
+///*
 	$.ajax({
 		type: "post",
 		url: commen_update_device_Interface,
@@ -1986,4 +2010,5 @@ function postData(data) {
 		}
 	});
 
+//*/
 }

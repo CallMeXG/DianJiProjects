@@ -105,6 +105,9 @@
 					$.ajax({
 						type: "get",
 						url: commen_gain_company_map_Interface,
+						// data:{
+						// 	company_id: localStorage.getItem('company_id'),
+						// },
 						async: true,
 						dataType: "json",
 						success: function(respData) {

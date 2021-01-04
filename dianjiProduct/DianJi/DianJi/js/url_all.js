@@ -2,8 +2,7 @@
 
 //服务器地址
 // var url = 'http://192.168.4.29:8080/server_appapi/';
-var url = 'http://192.168.18.203:8080/server_appapi/';
-
+// var url = 'http://192.168.18.203:8080/server_appapi/';
 
 //本地测试服务器地址
 // var url = 'http://192.168.4.182:8080/server_appapi/';
@@ -11,14 +10,14 @@ var url = 'http://192.168.18.203:8080/server_appapi/';
 //测试服务器地址
    // var url = 'http://39.106.180.14:1111/';
 //生产服务器地址
-// var url = 'http://47.94.166.103:1111/';
+var url = 'http://47.94.166.103:1111/';
 // 
 
 //var fileUrlHeader = "http://47.94.166.103:3000/group1/";
 
 
-var strLocalVersion = '1.14.2';
-var strLocalVersionCode = 1998;
+var strLocalVersion = '1.14.3';
+var strLocalVersionCode = 1999;
              
 //登录接口
 var login_Interface= url + 'user/commen_login';
@@ -136,14 +135,14 @@ var new_commen_gain_trend_chart_long_Interface = url + '/draw/commen_gain_trend_
 
 
 //趋势图页面获取测点列表
-var new_commen_gain_device_install_activate_Interface = url + '/device/commen_gain_device_install_activate'
+var new_commen_gain_device_install_activate_Interface = url + 'device/commen_gain_device_install_activate'
 //趋势图,根据测点获取趋势图数据 -- 省电模式
-var new_commen_gain_trend_chart_Interface = url + '/draw/commen_gain_trend_chart'
+var new_commen_gain_trend_chart_Interface = url + 'draw/commen_gain_trend_chart'
 //趋势图,根据测点获取趋势图数据 -- 长连接模式
-var new_commen_gain_trend_chart_install_long_Interface = url + '/draw/commen_gain_trend_chart_install_long'
+var new_commen_gain_trend_chart_install_long_Interface = url + 'draw/commen_gain_trend_chart_install_long'
 
 //修改短信通知勾选
-var new_commen_updata_sms_notice_Interface = url + '/user/commen_updata_sms_notice'
+var new_commen_updata_sms_notice_Interface = url + 'user/commen_updata_sms_notice'
 //获取软件使用说明
 var new_commen_gain_instructions_Interface = url + 'app/commen_gain_instructions'
 
@@ -151,6 +150,7 @@ var new_commen_gain_instructions_Interface = url + 'app/commen_gain_instructions
 var new_commen_gain_trend_chart_install_arrange_Interface = url + 'draw/commen_gain_trend_chart_install_arrange'
 // 修改设备配置页
 var new_commen_update_config_Interface = url + 'device/commen_update_config'
+// var new_commen_update_config_Interface = url + 'APP/commen_update_config'
 
 //获取电池型号信息列表
 var gainBatteryInfoList_Interface = url + 'device/gainBatteryInfoList'

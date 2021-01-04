@@ -37,10 +37,14 @@ mui.plusReady(function() {
 			data: {
 				strLoginId: localStorage.getItem('strLoginId'),
 				strLoginToken: localStorage.getItem('strLoginToken'),
-				devices_no: localStorage.DeveciId
+				devices_no: localStorage.DeveciId,
+				// region_id_list: localStorage.getItem('region_id_list'),
+				company_id: localStorage.getItem('company_id'),
 			},
 			dataType: 'json',
 			success: function(response) {
+				
+				console.log('response===',JSON.stringify(localStorage.getItem('company_id')))
 
 				plus.nativeUI.closeWaiting()
 

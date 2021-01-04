@@ -22,7 +22,7 @@ function getDeviceInstallActiveList() {
 		},
 		dataType: 'json',
 		success: function(response) {
-
+			console.log('response ====',JSON.stringify(response))
 			if (response.status == "SUCCESS") {
 				installArrayList = response.data;
 				if (installArrayList.length > 0) {

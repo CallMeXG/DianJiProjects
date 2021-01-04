@@ -46,7 +46,8 @@ $("#login_btn").click(function() {
 			async: true,
 			data: {
 				phone: phone,
-				password: pwd
+				password: pwd,
+				// company_id: ''
 			},
 			dataType: 'json',
 			success: function(respData) {

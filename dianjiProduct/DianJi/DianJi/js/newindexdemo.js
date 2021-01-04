@@ -3,7 +3,7 @@ $(function() {
 	mui.plusReady(function() {
 
 		document.addEventListener('activeBack', function() {
-			console.log('8888888888888888888888888888=== ')
+
 		});
 
 		///*
@@ -155,8 +155,9 @@ $(function() {
 								};
 								regionArray.push(obj_region);
 								//2018-8-15
-								companyArray_id.push(temparray.region_list[j].company_id);
+								// companyArray_id.push(temparray.region_list[j].company_id);
 							}
+							companyArray_id.push(temparray.id);
 						}
 						//2018-8-15
 						localStorage.setItem("company_id", companyArray_id.toString());
@@ -257,21 +258,13 @@ $(function() {
 
 		//左上角扫描点击事件
 		$("#scanCodeClicked").on('tap', function() {
-			console.log("扫码扫码扫码扫码扫码扫码扫码扫码扫码扫码")
 			localStorage.removeItem('DeveciId');
 			localStorage.setItem('fatherID', 'deviceList');
 			mui.openWindow({
 				url: 'barcodeScan.html',
 				id: 'barcodeScan.html'
-				//				url: 'ScanCode.html'
 			})
-			//			var webViewScan = plus.webview.create('devicelisttoscancode.html', 'devicelisttoscancode.html');
-			//			webViewScan.show();
-			// 			mui.openWindow({
-			// 				url: 'devicelisttoscancode.html',
-			// 				id: 'devicelisttoscancode.html'
-			// 				//				url: 'ScanCode.html'
-			// 			})
+
 		})
 
 		//当没有搜索到数据时的页面显示内容
@@ -297,52 +290,6 @@ $(function() {
 		//搜索设备接口
 		function searchDevice(keyWord, pageNum, keyType, strPostRegion, thisIndex, strDeviceStatus) {
 			var wa = plus.nativeUI.showWaiting('数据加载中...');
-			console.log('start tese interface==' + commen_search_device_Interface)
-
-
-			// $.ajax({
-			// 	type: "get",
-			// 	url: login_Interface,
-			// 	async: true,
-			// 	data: {
-			// 		phone: '15601090990',
-			// 		password: '123456a'
-			// 	},
-			// 	dataType: 'json',
-			// 	success: function(respData) {
-
-			// 		console.log("====== success");
-
-			// 	},
-			// 	error: function(error) {
-			// 		console.log('error' + error)
-
-			// 	}
-			// });
-
-
-			// $.ajax({
-			// 	type: 'get',
-			// 	url: "http://192.168.18.9:8080/server_appapi/device/commen_search_device_new",
-			// 	async: true,
-			// 	data: {
-			// 		strLoginId: localStorage.getItem("strLoginId"),
-			// 		strLoginToken: localStorage.getItem("strLoginToken")
-			// 	},
-			// 	dataType: 'json',
-			// 	success: function(respData) {
-			// 		console.log('测试登录成功====')
-			// 	},
-			// 	error: function(error) {
-			// 		console.log('==' + JSON.stringify(error))
-			// 		mui.toast("测试登录====登录失败，请检查网络连接 ====" + JSON.stringify(error));
-			// 	}
-
-			// });
-
-			
-			
-
 			var params = {
 				strLoginId: localStorage.getItem("strLoginId"),
 				strLoginToken: localStorage.getItem("strLoginToken"),
@@ -470,8 +417,6 @@ $(function() {
 			document.getElementById(localStorage.getItem('tongji_regionId')).checked = true;
 
 
-			// searchDevice('', 0, 2, localStorage.getItem('tongji_regionId'), 0, localStorage.getItem('tongji_type'));
-
 			var wa = plus.nativeUI.showWaiting('数据加载中...');
 
 			$.ajax({
@@ -522,20 +467,6 @@ $(function() {
 				}
 			});
 
-
-			//			var strRegion_new = localStorage.getItem('tongji_regionId');
-			//			if(typeof(strRegion_new) != "undefined" && strRegion_new != null) {
-			//				if(strRegion_new.length > 0) {
-			//					var RegionArray_new = strRegion_new.split(',');
-			//					for(var i = 0; i < RegionArray_new.length; i++) {
-			//						var strIDS = RegionArray_new[i];
-			//						console.log('00000000=='+strIDS)
-			//						document.getElementById(strIDS).checked = true;
-			//						newReginListID.push(parseInt(strIDS));
-			//					}
-			//				}
-			//			}
-
 		});
 
 		//获取用户类型，根据权限隐藏某些显示内容
@@ -580,114 +511,6 @@ $(function() {
 
 			});
 		}
-		//*/
-	})
-
-			
-			// $.ajax({
-			// 	type: "get",
-			// 	url: commen_search_device_Interface + '?strLoginId=10000018&strLoginToken=ff9ab5a22ac1ed152372f948f2b36ca4',
-			// 	// url: 'http://47.94.166.103:1111/device/commen_search_device_new?strLoginId=10000018&strLoginToken=ff9ab5a22ac1ed152372f948f2b36ca4'
-			// 	async: true,
-			// 	// data: params,
-			// 	dataType: 'json',
-			// 	success: function(respData) {
-			
-			// 		console.log("====== success");
-			
-			// 	},
-			// 	error: function(error) {
-			// 		console.log('error' + JSON.stringify(error))
-			
-			// 	}
-			// });
-			
-			
-			// console.log('000==' + JSON.stringify(params))
-			
-			/*
-			
-			$.ajax({
-				type: 'get',
-				url: commen_search_device_Interface,
-				async: false,
-				data: {
-					strLoginId: localStorage.getItem("strLoginId"),
-					strLoginToken: localStorage.getItem("strLoginToken"),
-					devices_name: keyWord,
-					int_sort_type: keyType,
-					company_id: localStorage.getItem("company_id"),
-					region_id_list: strPostRegion,
-					startRecords: pageNum,
-					pageSize: 10,
-					device_status: strDeviceStatus
-				},
-				dataType: 'JSON',
-				success: function(res) {
-					console.log('IOS  测试，成功')
-				},
-				error: function(error) {
-					console.log('IOS  测试，失败')
-				}
-			})
-
-
-			//*/
-
-
-			/*
-			$.ajax({
-				type: "get",
-				url: commen_search_device_Interface,
-				async: true,
-				data: {
-					strLoginId: localStorage.getItem("strLoginId"),
-					strLoginToken: localStorage.getItem("strLoginToken"),
-					devices_name: keyWord,
-					int_sort_type: keyType,
-					company_id: localStorage.getItem("company_id"),
-					region_id_list: strPostRegion,
-					startRecords: pageNum,
-					pageSize: 10,
-					device_status: strDeviceStatus
-				},
-				dataType: 'json',
-				success: function(res) {
-					console.log('success');
-					wa.close();
-					if (res.status == "SUCCESS") {
-						if (res.data.search_list.length > 0) {
-							content.message = res.data.search_list;
-							$('#content').css('display', 'block');
-							$("#nullDataPage").hide();
-							$("#content").show();
-							var pagecount = res.data.total_records / 10;
-							setFenyefunction(Math.ceil(pagecount), thisIndex);
-						} else {
-							setFenyefunction(0, thisIndex);
-							UIForNullData("nullData");
-							$("#content").hide();
-						}
-					}
-					if (res.status == 'ILLEGAL') {
-						UIForNullData("nullData");
-						$("#content").hide();
-						setFenyefunction(0, thisIndex);
-						mui.alert('您的账户登录过期，请退出重新登录！')
-					}
-
-				},
-				error: function(error) {
-					console.log('error === 111');
-					// console.log("===1111")
-					wa.close();
-					// UIForNullData("net");
-					$("#content").hide();
-					setFenyefunction(0, thisIndex);
-				}
-			});
-//*/
-		// }
 
 
 
@@ -737,10 +560,6 @@ $(function() {
 			}
 			localStorage.setItem('strRegion', localStorage.getItem('tongji_regionId'));
 			document.getElementById(localStorage.getItem('tongji_regionId')).checked = true;
-
-
-			// searchDevice('', 0, 2, localStorage.getItem('tongji_regionId'), 0, localStorage.getItem('tongji_type'));
-
 			var wa = plus.nativeUI.showWaiting('数据加载中...');
 
 			$.ajax({
@@ -791,20 +610,6 @@ $(function() {
 				}
 			});
 
-
-			//			var strRegion_new = localStorage.getItem('tongji_regionId');
-			//			if(typeof(strRegion_new) != "undefined" && strRegion_new != null) {
-			//				if(strRegion_new.length > 0) {
-			//					var RegionArray_new = strRegion_new.split(',');
-			//					for(var i = 0; i < RegionArray_new.length; i++) {
-			//						var strIDS = RegionArray_new[i];
-			//						console.log('00000000=='+strIDS)
-			//						document.getElementById(strIDS).checked = true;
-			//						newReginListID.push(parseInt(strIDS));
-			//					}
-			//				}
-			//			}
-
 		});
 
 		//获取用户类型，根据权限隐藏某些显示内容
@@ -849,7 +654,7 @@ $(function() {
 
 			});
 		}
-		//*/
 	})
 
-// );
+
+})

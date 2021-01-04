@@ -279,6 +279,8 @@ mui.plusReady(function() {
 			url: commen_gain_device_detail_Interface,
 			dataType: 'json',
 			success: function(msg) {
+				
+				console.log('刷新===')
 
 				plus.nativeUI.closeWaiting();
 				if (msg.status == "SUCCESS") {

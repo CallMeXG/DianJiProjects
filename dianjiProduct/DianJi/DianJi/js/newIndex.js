@@ -107,8 +107,9 @@ function autoLogin() {
 						};
 						regionArray.push(obj_region);
 						//2018-8-15
-						companyArray_id.push(temparray.region_list[j].company_id);
+						// companyArray_id.push(temparray.region_list[j].company_id);
 					}
+					companyArray_id.push(temparray.id);
 				}
 				//2018-8-15
 				localStorage.setItem("company_id", companyArray_id.toString());
