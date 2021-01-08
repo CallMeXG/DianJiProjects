@@ -38,8 +38,6 @@ $("#login_btn").click(function() {
 // 	} 
 	else {
 
-		console.log(login_Interface);
-
 		$.ajax({
 			type: "get",
 			url: login_Interface,
@@ -52,7 +50,6 @@ $("#login_btn").click(function() {
 			dataType: 'json',
 			success: function(respData) {
 
-				console.log("======" + JSON.stringify(respData));
 
 				if(respData.status == "SUCCESS") {
 
@@ -94,7 +91,6 @@ $("#login_btn").click(function() {
 					}
 					
 
-					console.log("-=-=-=-=" + JSON.stringify(regionArray));
 					var strRegionId = regionidArray.toString();
 					localStorage.setItem("region_id_list", strRegionId);
 					localStorage.setItem("reginArray", JSON.stringify(regionArray));
@@ -188,7 +184,6 @@ mui.plusReady(function() {
 						}
 					}
 
-					console.log("-=-=-=-=" + JSON.stringify(regionArray));
 					var strRegionId = regionidArray.toString();
 					localStorage.setItem("region_id_list", strRegionId);
 					localStorage.setItem("reginArray", JSON.stringify(regionArray));

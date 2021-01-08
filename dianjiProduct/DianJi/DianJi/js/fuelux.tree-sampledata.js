@@ -1,5 +1,4 @@
 function hiddenOrDisplay(obj) {
-	console.log('aaaaaa====', obj)
 	var header = $(obj).parent().parent();
 
 	var className = $(obj).prop('class');
@@ -12,7 +11,8 @@ function hiddenOrDisplay(obj) {
 	}
 }
 
-let pwChangeId = ''
+let pwChangeId = '';
+var deviceCompanyID = '';
 
 
 var app = new Vue({
@@ -115,7 +115,6 @@ var app = new Vue({
 
 
 function changePower(value) {
-	console.log('aaaa')
 	$('#app-power').show()
 	$('#app-pw-cpx').html(value)
 	pwChangeId = value;
@@ -142,7 +141,6 @@ function changePower(value) {
 				}
 				app.$data.powerTypeArray = tempArray
 			}
-			console.log(JSON.stringify(app.$data.powerTypeArray))
 		}
 	})
 
@@ -280,11 +278,10 @@ mui.plusReady(function() {
 			dataType: 'json',
 			success: function(msg) {
 				
-				console.log('刷新===')
-
 				plus.nativeUI.closeWaiting();
 				if (msg.status == "SUCCESS") {
 					let info = msg.data;
+					deviceCompanyID = msg.data.company_id;
 					deMainVue.$data.devNameCus = isUndefined(info, 'devices_name') + ' ( ' + isUndefined(info, 'devices_no') +
 						' ) ';
 					deMainVue.$data.cpxList = []
@@ -361,7 +358,8 @@ mui.plusReady(function() {
 				strDeviceName: $("#idOFdeviceName").val(),
 				strDeviceID: $("#idOFdeviceNUM").val(),
 				arrPushData: dataArraySim,
-				threshold_on_off: strthreshold_on_off
+				threshold_on_off: strthreshold_on_off,
+				company_id: deviceCompanyID
 			});
 			webDetail.show();
 			mui('.mui-popover').popover("hide");
@@ -418,7 +416,6 @@ mui.plusReady(function() {
 
 	//设备维保
 	$('#deviceMaintenance').on('tap', function() {
-		console.log('11111')
 		//判断权限，是否显示修改信息
 		var strUserType = localStorage.getItem("userType");
 		if (strUserType < 10 && localStorage.getItem('is_manage') != '1') {
@@ -434,7 +431,6 @@ mui.plusReady(function() {
 				methods: 'get',
 				dataType: 'json',
 				success: function(res) {
-					console.log('aaa===', JSON.stringify(res))
 					if (res.status == 'SUCCESS') {
 						for (var i = 0; i < res.data.length; i++) {
 							let tempObj = res.data[i]
@@ -474,9 +470,9 @@ mui.plusReady(function() {
 			},
 			dataType: 'json',
 			success: function(msg) {
+				
 				if (msg.status == "SUCCESS") {
 					if (typeof(msg.data) != "undefined") {
-
 						setUIForCPX(msg.data, index);
 					}
 				}
@@ -625,7 +621,6 @@ mui.plusReady(function() {
 						'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi100.jpg" height="15px"/></li>';
 				}
 				if ((simData.dump_percentage > 67 || simData.dump_percentage == 67) && simData.dump_percentage < 84) {
-					console.log("dianchidianliang=-=======" + simData.dump_percentage)
 					sensorStr +=
 						'<li class="mui-table-view-cell" style="heigth:30px;margin-top:-10px;"><span style="float:left;">电池电量：</span><img style="float:left;margin-left:8px;" src="img/dianchi84.jpg" height="15px"/></li>';
 				}
@@ -913,6 +908,7 @@ mui.plusReady(function() {
 				plus.nativeUI.closeWaiting();
 				if (msg.status == "SUCCESS") {
 					let info = msg.data;
+					deviceCompanyID = info.company_id;
 					deMainVue.$data.devNameCus = isUndefined(info, 'devices_name') + ' ( ' + isUndefined(info, 'devices_no') +
 						' ) ';
 					deMainVue.$data.cpxList = []
@@ -936,7 +932,6 @@ mui.plusReady(function() {
 			},
 			error: function(error) {
 				plus.nativeUI.closeWaiting();
-				console.log('===')
 			}
 
 		});
@@ -960,6 +955,7 @@ mui.plusReady(function() {
 				plus.nativeUI.closeWaiting();
 				if (msg.status == "SUCCESS") {
 					var length = 0;
+					deviceCompanyID = msg.data.company_id;
 					if (msg.data.photo_list != null) {
 						length = msg.data.photo_list.length;
 						for (var i = 0; i < length; i++) {

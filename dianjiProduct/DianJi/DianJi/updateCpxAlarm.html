@@ -116,9 +116,8 @@
 											<!-- <div v-show="item.alarm_on_off == '1'"> -->
 											<div class="top-btn-tabbar">
 												<template v-for="(tabItem, tabIndex) in ['温度阈值','加速度阈值','速度阈值']">
-													<div class="tabbar-item" @click="selectedTabbarItem(index,sensorIndex,tabIndex)" 
-													:class="{'tabbar-item-active': selTabIndex[index][sensorIndex][tabIndex] == currenindex[index][sensorIndex][0] }">{{tabItem}}</div>
-													
+													<div class="tabbar-item" @click="selectedTabbarItem(index,sensorIndex,tabIndex)" :class="{'tabbar-item-active': selTabIndex[index][sensorIndex][tabIndex] == currenindex[index][sensorIndex][0] }">{{tabItem}}</div>
+
 												</template>
 											</div>
 											<div class="tab-item-content" v-show="currenindex[index][sensorIndex][0] == selTabIndex[index][sensorIndex][0]">
@@ -141,63 +140,65 @@
 												</p>
 												<div style="clear: both;"></div>
 											</div>
+											<!-- 加速度 -->
 											<div class="tab-item-content" v-show="currenindex[index][sensorIndex][0] == selTabIndex[index][sensorIndex][1]">
 												<div v-show="sensorItem.sensorType === 'V'">
-														<p class="textP" style="margin-top: 5px;">
-															<span>X轴预警值:</span>
-															<input type="tel" v-model="sensorItem.threshold_early_x" />
-															<span>m/s^2</span>
-														</p>
-														<div style="clear: both;"></div>
-														<p class="textP">
-															<span>X告警轴值:</span>
-															<input type="tel" v-model="sensorItem.threshold_alarm_x" />
-															<span>m/s^2</span>
-														</p>
-														<div style="clear: both;"></div>
-														<p class="textP">
-															<span>X轴危险值:</span>
-															<input type="tel" v-model="sensorItem.threshold_danger_x" />
-															<span>m/s^2</span>
-														</p>
-														<div style="clear: both;"></div>
-														<p class="textP">
-															<span>Y轴预警值:</span>
-															<input type="tel" v-model="sensorItem.threshold_early_y" />
-															<span>m/s^2</span>
-														</p>
-														<div style="clear: both;"></div>
-														<p class="textP">
-															<span>Y轴告警值:</span>
-															<input type="tel" v-model="sensorItem.threshold_alarm_y" />
-															<span>m/s^2</span>
-														</p>
-														<div style="clear: both;"></div>
-														<p class="textP">
-															<span>Y轴危险值:</span>
-															<input type="tel" v-model="sensorItem.threshold_danger_y" />
-															<span>m/s^2</span>
-														</p>
-														<div style="clear: both;"></div>
-														<p class="textP">
-															<span>Z轴预警值:</span>
-															<input type="tel" v-model="sensorItem.threshold_early_z" />
-															<span>m/s^2</span>
-														</p>
-														<div style="clear: both;"></div>
-														<p class="textP">
-															<span>Z轴告警值:</span>
-															<input type="tel" v-model="sensorItem.threshold_alarm_z" />
-															<span>m/s^2</span>
-														</p>
-														<div style="clear: both;"></div>
-														<p class="textP">
-															<span>Z轴危险值:</span>
-															<input type="tel" v-model="sensorItem.threshold_danger_z" />
-															<span>m/s^2</span>
-														</p>
-													</div>
+													<p class="textP" style="margin-top: 5px;">
+														<span>X轴预警值:</span>
+														<input type="tel" v-model="sensorItem.threshold_acceleration_x_early" />
+														<span>m/s^2</span>
+													</p>
+													<div style="clear: both;"></div>
+													<p class="textP">
+														<span>X告警轴值:</span>
+														<input type="tel" v-model="sensorItem.threshold_acceleration_x_alarm" />
+														<span>m/s^2</span>
+													</p>
+													<div style="clear: both;"></div>
+													<p class="textP">
+														<span>X轴危险值:</span>
+														<input type="tel" v-model="sensorItem.threshold_acceleration_x_danger" />
+														<span>m/s^2</span>
+													</p>
+													<div style="clear: both;"></div>
+													<p class="textP">
+														<span>Y轴预警值:</span>
+														<input type="tel" v-model="sensorItem.threshold_acceleration_y_early" />
+														<span>m/s^2</span>
+													</p>
+													<div style="clear: both;"></div>
+													<p class="textP">
+														<span>Y轴告警值:</span>
+														<input type="tel" v-model="sensorItem.threshold_acceleration_y_alarm" />
+														<span>m/s^2</span>
+													</p>
+													<div style="clear: both;"></div>
+													<p class="textP">
+														<span>Y轴危险值:</span>
+														<input type="tel" v-model="sensorItem.threshold_acceleration_y_danger" />
+														<span>m/s^2</span>
+													</p>
+													<div style="clear: both;"></div>
+													<p class="textP">
+														<span>Z轴预警值:</span>
+														<input type="tel" v-model="sensorItem.threshold_acceleration_z_early" />
+														<span>m/s^2</span>
+													</p>
+													<div style="clear: both;"></div>
+													<p class="textP">
+														<span>Z轴告警值:</span>
+														<input type="tel" v-model="sensorItem.threshold_acceleration_z_alarm" />
+														<span>m/s^2</span>
+													</p>
+													<div style="clear: both;"></div>
+													<p class="textP">
+														<span>Z轴危险值:</span>
+														<input type="tel" v-model="sensorItem.threshold_acceleration_z_danger" />
+														<span>m/s^2</span>
+													</p>
+												</div>
 											</div>
+											<!-- 速度 -->
 											<div class="tab-item-content" v-show="currenindex[index][sensorIndex][0] == selTabIndex[index][sensorIndex][2]">
 												<div v-show="sensorItem.sensorType === 'V'">
 													<p class="textP" style="margin-top: 5px;">
@@ -255,9 +256,9 @@
 													</p>
 												</div>
 											</div>
-											
+
 											<div style="clear: both;"></div>
-											
+
 
 											<div style="margin-top: 20px;display: none;">
 												<div v-show="sensorItem.sensorType === 'V'">
@@ -373,13 +374,14 @@
 							device_id: plus.webview.currentWebview().strDeviceID,
 							dataSimList: new Array(),
 							showText: false,
+							company_id: plus.webview.currentWebview().company_id,
 							threshold_on_off: plus.webview.currentWebview().threshold_on_off,
 							selTabIndex: [], //选中的温度、速度、加速度告警
 							currenindex: [], //选中的温度、速度、加速度告警
 						}
 					},
+		
 					mounted() {
-
 						var simListData = plus.webview.currentWebview().arrPushData
 						for (var i = 0; i < simListData.length; i++) {
 
@@ -429,6 +431,17 @@
 										newObjSensor.threshold_early_z = objSensor.threshold_early_z;
 										newObjSensor.threshold_alarm_z = objSensor.threshold_alarm_z;
 										newObjSensor.threshold_danger_z = objSensor.threshold_danger_z;
+										
+										
+										newObjSensor.threshold_acceleration_x_early = objSensor.threshold_acceleration_x_early; //X轴加速度预警门限
+										newObjSensor.threshold_acceleration_y_early = objSensor.threshold_acceleration_y_early; //Y轴加速度预警门限
+										newObjSensor.threshold_acceleration_z_early = objSensor.threshold_acceleration_z_early; //Z轴加速度预警门限
+										newObjSensor.threshold_acceleration_x_alarm = objSensor.threshold_acceleration_x_alarm; //X轴加速度告警门限
+										newObjSensor.threshold_acceleration_y_alarm = objSensor.threshold_acceleration_y_alarm; //Y轴加速度告警门限
+										newObjSensor.threshold_acceleration_z_alarm = objSensor.threshold_acceleration_z_alarm; //Z轴加速度告警门限
+										newObjSensor.threshold_acceleration_x_danger = objSensor.threshold_acceleration_x_danger; //X轴加速度危险门限
+										newObjSensor.threshold_acceleration_y_danger = objSensor.threshold_acceleration_y_danger; //Y轴加速度危险门限
+										newObjSensor.threshold_acceleration_z_danger = objSensor.threshold_acceleration_z_danger; //Z轴加速度危险门限
 									}
 
 									newObjSensor.threshold_temperature_early = objSensor.threshold_temperature_early;
@@ -508,12 +521,12 @@
 								}
 
 								var arrSensorObj = new Array()
-								if(objSubSim.sensorList != undefined){
+								if (objSubSim.sensorList != undefined) {
 									for (var j = 0; j < objSubSim.sensorList.length; j++) {
 										var objSubSensor = objSubSim.sensorList[j]
-									
+
 										var objNewSubSensor = objSubSensor
-									
+
 										if (objSubSensor.alarm_judge == false) {
 											objNewSubSensor.alarm_judge = '0'
 										}
@@ -526,12 +539,12 @@
 										if (objSubSensor.control_notice == true) {
 											objNewSubSensor.control_notice = '1'
 										}
-									
+
 										arrSensorObj.push(objNewSubSensor)
-									
+
 									}
 								}
-								
+
 								newObjPostParam.push(objNewSubSim)
 							}
 
@@ -548,9 +561,11 @@
 								devices_no: plus.webview.currentWebview().strDeviceID,
 								threshold_on_off: strCXGJ,
 								simJson: JSON.stringify(newObjPostParam),
-								company_id: localStorage.getItem('company_id'),
+								company_id: this.company_id,
+								
+						
 							};
-							console.log('params===',JSON.stringify(dataParams))
+							console.log('params===', JSON.stringify(dataParams))
 							///*
 							$.ajax({
 								type: "post",
@@ -559,7 +574,7 @@
 								url: new_commen_update_config_Interface,
 								dataType: 'json',
 								success: function(msg) {
-									console.log('res===',JSON.stringify(msg))
+									console.log('res===', JSON.stringify(msg))
 									if (msg.status == 'SUCCESS') {
 										mui.toast('告警配置修改成功')
 										var old_back = mui.back;
@@ -570,16 +585,15 @@
 											old_back();
 										}
 										mui.back()
-									}
-									else if (msg.status == 'ILLEGAL') {
+									} else if (msg.status == 'ILLEGAL') {
 										mui.alert('您的账户登录过期，请退出重新登录！')
-									}
-									else{
+									} else {
 										mui.alert(msg.message)
 									}
 
 								},
 								error: function(error) {
+									console.log('err==',JSON.stringify(error))
 									mui.toast('修改失败，请检查后重试')
 								}
 							})
@@ -611,7 +625,7 @@
 
 					}
 				})
-				
+
 			})
 		</script>
 	</body>
