@@ -555,15 +555,12 @@
 								strCXGJ = 'Y';
 							}
 
-
 							var dataParams = {
 								strLoginId: localStorage.getItem("strLoginId"),
 								devices_no: plus.webview.currentWebview().strDeviceID,
 								threshold_on_off: strCXGJ,
 								simJson: JSON.stringify(newObjPostParam),
 								company_id: this.company_id,
-								
-						
 							};
 							console.log('params===', JSON.stringify(dataParams))
 							///*
