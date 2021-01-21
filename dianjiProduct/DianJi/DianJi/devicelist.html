@@ -165,8 +165,35 @@
 
 									<div style="clear: both;"></div>
 									<div class="mui-ellipsis" style="margin-top: 10px;">
-										<p style="float: left;">设备状态：</p>
+										<p style="float: left;" @click.stop="console.log(mesItem.ck_result_manual)">设备状态：</p>
 										<div v-if="typeof(mesItem.ck_result_manual) != 'undefined'">
+											<div v-if="mesItem.ck_result_manual == '0'">
+												<p style="float: left;color: gray;">未监测</p>
+											</div>
+											<div v-if="mesItem.ck_result_manual == '1'">
+												<p style="background-color: #00CD00;color: white;float: left;text-align: center;padding: 2px 5px;border-radius: 5px;">正常</p>
+											</div>
+											<div v-if="mesItem.ck_result_manual == '2'">
+												<p style="background-color: #EEEE00;color: gray;float: left;text-align: center;padding: 2px 5px;border-radius: 5px;">
+													{{mesItem.lableString}}
+												</p>
+											</div>
+											<div v-if="mesItem.ck_result_manual == '3'">
+												<p style="background-color: orange;color: white;float: left;text-align: center;padding: 2px 5px;border-radius: 5px;">
+													{{mesItem.lableString}}
+												</p>
+											</div>
+											<div v-if="mesItem.ck_result_manual == '4'">
+												<p style="background-color: red;color: white;float: left;text-align: center;padding: 2px 5px;border-radius: 5px;">
+													{{mesItem.lableString}}
+												</p>
+											</div>
+										</div>
+										<div v-if="typeof(mesItem.ck_result_manual) == 'undefined'">
+											<p style="color: gray;float: left;">未监测</p>
+										</div>
+										
+										<!-- <div v-if="typeof(mesItem.ck_result_manual) != 'undefined'">
 											<div v-if="mesItem.ck_result_manual == '0'">
 												<p style="float: left;color: gray;">未监测</p>
 											</div>
@@ -185,9 +212,9 @@
 										</div>
 										<div v-if="typeof(mesItem.ck_result_manual) == 'undefined'">
 											<p style="color: gray;float: left;">未监测</p>
-										</div>
+										</div> -->
 
-										<template v-if="typeof(mesItem.threshold_on_off) != 'undefined' && mesItem.threshold_on_off == 'Y' ">
+										<!-- <template v-if="typeof(mesItem.threshold_on_off) != 'undefined' && mesItem.threshold_on_off == 'Y' ">
 											<template v-if="typeof(mesItem.threshold_status) != 'undefined' ">
 												<template v-if="mesItem.threshold_status.substr(0,1) === 'T' ">
 													<template v-if="mesItem.threshold_status.substr(2,1) === '2' ">
@@ -213,7 +240,7 @@
 												</template>
 												
 											</template>
-										</template>
+										</template> -->
 
 									</div>
 									<div class="mui-ellipsis" style="margin-top: 10px;">

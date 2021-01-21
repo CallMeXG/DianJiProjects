@@ -52,6 +52,18 @@
 			.list-maintenance-index .user {
 				float: left;
 			}
+			
+			.item-button{
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+			}
+			.item-line{
+				margin: 0 10px;
+				height: 1px;
+				background-color: #d6d9d9;
+			}
 		</style>
 	</head>
 
@@ -74,9 +86,20 @@
 		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
 			<a style="color: white;" class="mui-icon mui-icon-left-nav mui-action-back mui-pull-left"></a>
 			<h1 class="mui-title" style="color: white;">诊断历史</h1>
+			<a  style="margin-top: -5px;" href="#tanchucaidan"  class="mui-pull-right">
+				<span class="mui-icon mui-icon-more" style="color: #FFFFFF;"></span>
+			</a>
+			
 			<!--<a href="#popover" id="openPopover" class="mui-btn mui-btn-primary mui-btn-block">打开弹出菜单</a>-->
-			<a id="header_applyArt" href="#popover" style="margin-top: -3px;font-size: 16px;" class="mui-pull-right mui-btn mui-btn-outlined mui-btn-warning">申请诊断</a>
+			<!-- <a id="header_applyArt" href="#popover" style="margin-top: -3px;font-size: 16px;" class="mui-pull-right mui-btn mui-btn-outlined mui-btn-warning">申请诊断</a> -->
 		</header>
+		<div id="tanchucaidan" class="mui-popover" style="width: 200px;">
+			<div class="item-button">申请诊断</div>
+			<div class="item-line"></div>
+			<div class="item-button">设备状态诊断</div>
+			<div class="item-line"></div>
+			<div class="item-button">阈值状态诊断</div>
+		</div>
 		<div class="mui-content">
 
 

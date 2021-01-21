@@ -53,7 +53,7 @@ function getInitCompany() {
 		dataType: "json",
 		success: function(respData) {
 			
-			console.log('bbbbbbbbbb====',JSON.stringify(respData))
+			// console.log('bbbbbbbbbb====',JSON.stringify(respData))
 			
 			var dataArray = respData.data;
 			for (var i = 0; i < dataArray.length; i++) {
@@ -179,6 +179,7 @@ function sensorData(emeId, i) {
 		dataType: 'json',
 		success: function(msg) {
 			var data = msg.data;
+			console.log('data====',JSON.stringify(data))
 			sim_sensorList.push(msg.data)
 			if (typeof(data) != "undefined") {
 
@@ -492,6 +493,8 @@ function sensorData(emeId, i) {
 				if (typeof(data.sensorList) != 'undefined') {
 
 					senData = data.sensorList;
+					
+					console.log('senData=====',JSON.stringify(senData))
 
 					for (var j = 0; j < senData.length; j++) {
 
@@ -1282,7 +1285,7 @@ function getDefData() {
 		dataType: 'json',
 		success: function(msg) {
 			
-			console.log('aaaaa===',JSON.stringify(msg))
+			// console.log('aaaaa===',JSON.stringify(msg))
 			
 			localStorage.setItem('ActiveMZDevice', JSON.stringify(msg.data));
 			var data = msg.data;
@@ -1725,6 +1728,8 @@ function finshBtnClickReturnData() {
 					//数据上传周期
 					var struploadzhouqi = "#uploadZhouqi" + i;
 					var obj_caiji_uploadzhouqi = $(struploadzhouqi).val();
+					
+					console.log('省电模式====',objCPXID)
 
 					sim_dic.serial_no = objCPXID;
 					sim_dic.connect_model = '0';
@@ -1790,6 +1795,7 @@ function finshBtnClickReturnData() {
 						mui.toast("采样时间间隔、上传时间间隔、心跳时间间隔必须全部填写！");
 						return false;
 					} else {
+						console.log('长连接模式====',objCPXID)
 						sim_dic.serial_no = objCPXID;
 						sim_dic.sampling_interval = objSD_caiyangjiange;
 						sim_dic.upload_duration = objSD_shangchuanjiange;
@@ -1863,6 +1869,8 @@ function finshBtnClickReturnData() {
 
 					sensorObj.serial_no = obj_j_card;
 					sensorObj.sensor_no = obj_j_chaun;
+					
+					console.log('0-0-0-0-0-=====',sensorObj.serial_no)
 
 
 
@@ -1894,6 +1902,8 @@ function finshBtnClickReturnData() {
 
 
 		paramData.commen_json = JSON.stringify(common_jsonArray);
+		
+		console.log('===============',paramData.commen_json)
 
 		return paramData;
 
@@ -1991,6 +2001,7 @@ function postData(data) {
 		data: data,
 		dataType: 'json',
 		success: function(respData) {
+			console.log('resp------',JSON.stringify(respData))
 			if (respData.status == 'SUCCESS') {
 				mui.toast(respData.message);
 

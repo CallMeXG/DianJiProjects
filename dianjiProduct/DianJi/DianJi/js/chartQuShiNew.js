@@ -141,7 +141,7 @@ mui.plusReady(function() {
 			data: objParams,
 			dataType: 'json',
 			success: function(response) {
-
+				
 				plus.nativeUI.closeWaiting()
 				if (response.status == 'SUCCESS') {
 					
@@ -197,6 +197,28 @@ mui.plusReady(function() {
 				<td>" + strXalarm + "(mm/s)</td>\
 				<td>" + strXdanger +
 					"(mm/s)</td></tr>\
+				</table></div>";
+				$('#qiushitu').append(strNumber);
+			}
+			if (simWorkModeLongVO != undefined && strRefreshmythtype == '0002') {
+			
+				if (simWorkModeLongVO.threshold_acceleration_x_early != undefined) {
+					strXearly = simWorkModeLongVO.threshold_acceleration_x_early;
+				}
+				if (simWorkModeLongVO.threshold_acceleration_x_alarm != undefined) {
+					strXalarm = simWorkModeLongVO.threshold_acceleration_x_alarm;
+				}
+				if (simWorkModeLongVO.threshold_acceleration_x_danger != undefined) {
+					strXdanger = simWorkModeLongVO.threshold_acceleration_x_danger;
+				}
+				var strNumber =
+					"<div style='margin-top:15px;padding-top:5px;background-color:white;height:50px;width:100%;'>\
+				<table style='width:100%;'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
+				<tr><td>" +
+					strXearly + "(m/s²)</td>\
+				<td>" + strXalarm + "(m/s²)</td>\
+				<td>" + strXdanger +
+					"(m/s²)</td></tr>\
 				</table></div>";
 				$('#qiushitu').append(strNumber);
 			}
@@ -263,6 +285,28 @@ mui.plusReady(function() {
 				</table></div>";
 				$('#qiushitu').append(strNumber);
 			}
+			if (simWorkModeLongVO != undefined && strRefreshmythtype == '0002') {
+			
+				if (simWorkModeLongVO.threshold_acceleration_y_early != undefined) {
+					strYearly = simWorkModeLongVO.threshold_acceleration_y_early;
+				}
+				if (simWorkModeLongVO.threshold_acceleration_y_alarm != undefined) {
+					strYalarm = simWorkModeLongVO.threshold_acceleration_y_alarm;
+				}
+				if (simWorkModeLongVO.threshold_acceleration_y_danger != undefined) {
+					strYdanger = simWorkModeLongVO.threshold_acceleration_y_danger;
+				}
+				var strNumber =
+					"<div style='margin-top:15px;padding-top:5px;background-color:white;height:50px;width:100%;'>\
+				<table style='width:100%;'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
+				<tr><td>" +
+					strYearly + "(m/s²)</td>\
+				<td>" + strYalarm + "(m/s²)</td>\
+				<td>" + strYdanger +
+					"(m/s²)</td></tr>\
+				</table></div>";
+				$('#qiushitu').append(strNumber);
+			}
 
 			var strChartY = '<div class="chart_qushiClass" id="chartY"></div><br>';
 			$("#qiushitu").append(strChartY);
@@ -320,6 +364,28 @@ mui.plusReady(function() {
 				<td>" + strZalarm + "(mm/s)</td>\
 				<td>" + strZdanger +
 					"(mm/s)</td></tr>\
+				</table></div>";
+				$('#qiushitu').append(strNumber);
+			}
+			if (simWorkModeLongVO != undefined && strRefreshmythtype == '0002') {
+			
+				if (simWorkModeLongVO.threshold_acceleration_z_early != undefined) {
+					strZearly = simWorkModeLongVO.threshold_acceleration_z_early;
+				}
+				if (simWorkModeLongVO.threshold_acceleration_z_alarm != undefined) {
+					strZalarm = simWorkModeLongVO.threshold_acceleration_z_alarm;
+				}
+				if (simWorkModeLongVO.threshold_acceleration_z_danger != undefined) {
+					strZdanger = simWorkModeLongVO.threshold_acceleration_z_danger;
+				}
+				var strNumber =
+					"<div style='margin-top:15px;padding-top:5px;background-color:white;height:50px;width:100%;'>\
+				<table style='width:100%;'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
+				<tr><td>" +
+					strZearly + "(m/s²)</td>\
+				<td>" + strZalarm + "(m/s²)</td>\
+				<td>" + strZdanger +
+					"(m/s²)</td></tr>\
 				</table></div>";
 				$('#qiushitu').append(strNumber);
 			}
