@@ -64,6 +64,67 @@
 				height: 1px;
 				background-color: #d6d9d9;
 			}
+			
+			.popover-device-status-back{
+				width: 100%;
+				height: 100%;
+				z-index: 99;
+				background-color: rgba(0,0,0,0.7);
+				position: fixed;
+				
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			.popover-device-status-back .content{
+				width: 80%;
+				height: 320px;
+				border-radius: 10px;
+				background-color: #FFFFFF;
+			}
+			
+			.popover-device-status-back .content .title{
+				text-align: center;
+				height: 40px;
+				line-height: 40px;
+				border-top-left-radius: 10px;
+				border-top-right-radius: 10px;
+				background-color: #e3e6ef;
+				color: black;
+			}
+			
+			.device-number{
+				padding-left: 20px;
+			}
+			.popover-device-status-back .content textarea{
+				width: calc(100% - 40px);
+				margin-left: 20px;
+				padding: 10px;
+				font-size: 14px;
+			}
+			
+			.popover-device-status-back .content .submit-button{
+				width: calc(100% - 40px);
+				margin-left: 20px;
+				background-color: #524598;
+				color: #FFFFFF;
+				border-radius: 20px;
+			}
+			
+			.device-state{
+				width: calc(100% - 100px);
+				border: 1px solid #d6d9d9;
+				line-height: 25px;
+				text-align: center;
+				display: inline-block;
+				height: 25px;
+				border-radius: 5px;
+			}
+			.textarea-number{
+				text-align: right;
+			}
+			
 		</style>
 	</head>
 
@@ -83,6 +144,29 @@
 				<p style="height: 20px;width: 100%;"></p>
 			</div>
 		</div>
+		
+		<div id="popover-ds" class="popover-device-status-back" style="display: none;">
+			<div class="content">
+				<p class="title">设备状态诊断</p>
+				<p class="device-number">
+					<span>设备名称：</span>
+					<span>{{deviceName}}</span>
+				</p>
+				<p class="device-number">
+					<span>设备编号：</span>
+					<span>{{deviceNumber}}</span>
+				</p>
+				<p class="device-number">
+					<span>设备状态：</span>
+					<span class="device-state" @click="deviceStatusChange">{{deviceState.text}} ▼</span>
+				</p>
+				<!-- <p class="device-number">备注信息：</p> -->
+				<textarea rows="4" placeholder="请输入备注信息"></textarea>
+				<p class="textarea-number"></p>
+				<button class="submit-button" onclick="deviceStatusSubmit()">提交</button>
+			</div>
+		</div>
+		
 		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
 			<a style="color: white;" class="mui-icon mui-icon-left-nav mui-action-back mui-pull-left"></a>
 			<h1 class="mui-title" style="color: white;">诊断历史</h1>
@@ -94,9 +178,9 @@
 			<!-- <a id="header_applyArt" href="#popover" style="margin-top: -3px;font-size: 16px;" class="mui-pull-right mui-btn mui-btn-outlined mui-btn-warning">申请诊断</a> -->
 		</header>
 		<div id="tanchucaidan" class="mui-popover" style="width: 200px;">
-			<div class="item-button">申请诊断</div>
+			<div class="item-button" onclick="applyZDFun()">申请诊断</div>
 			<div class="item-line"></div>
-			<div class="item-button">设备状态诊断</div>
+			<div class="item-button" onclick="deviceStatusUpdate()">设备状态诊断</div>
 			<div class="item-line"></div>
 			<div class="item-button">阈值状态诊断</div>
 		</div>
@@ -210,9 +294,73 @@
 		<script src="js/mui.min.js"></script>
 		<script src="js/jquery.min.js"></script>
 		<script src="js/vue.min.js"></script>
+		<script src="js/mui.picker.min.js"></script>
+		<link href="css/mui.picker.css" rel="stylesheet" />
+		<link href="css/mui.poppicker.css" rel="stylesheet" />
+		<script src="js/mui.picker.js"></script>
+		<script src="js/mui.poppicker.js"></script>
 		<script>
+			//点击申请诊断--弹出申请诊断页面
+			function applyZDFun(){
+				mui('#popover').popover('show')
+				
+				let screenWidth = $(window).width()				
+				let screenHeight = $(window).height()				
+				let popWidth = $("#popover").width()				
+				let popHeight = $("#popover").height()				
+				$('#popover').css('margin-left',(screenWidth - popWidth) / 2 + 'px')
+				$('#popover').css('margin-top',(screenHeight - popHeight) / 2 + 'px')
+			}
+			//点击设备状态诊断 --- 弹出设备状态诊断页面
+			function deviceStatusUpdate(){
+				$('#popover-ds').show()
+				mui('#tanchucaidan').popover('hide')
+			}
+			//设备状态诊断提交 --- 隐藏诊断页面
+			function deviceStatusSubmit(){
+				$('#popover-ds').hide()
+			}
+			
+			
+			
 			mui.plusReady(function() {
-
+				
+				var deviceStatusApp = new Vue({
+					el: '#popover-ds',
+					data(){
+						return{
+							deviceName: localStorage.DeveciName,
+							deviceNumber: localStorage.DeveciId,
+							deviceState: {
+								text: '正常',
+								value: '0'
+							}
+						}
+					},
+					methods:{
+						deviceStatusChange(){
+							console.log('mmmmm')
+							var userPicker = new mui.PopPicker();
+							var setdataArray = new Array();
+							userPicker.setData([
+								{
+									text: '正常',
+									value: '0'
+								},
+								{
+									text: '预警',
+									value: '1'
+								}
+							]);
+							const that = this;
+							userPicker.show(function(items) {
+								that.deviceState = items[0]
+								// userResult.value = items[0].text;
+								console.log('nnnnnn===',items[0].text)
+							});
+						}
+					}
+				})
 
 
 				var vueApp = new Vue({

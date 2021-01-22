@@ -335,6 +335,7 @@ $(function() {
 				},
 				dataType: 'json',
 				success: function(res) {
+					console.log('data-list==',JSON.stringify(res))
 					wa.close();
 					if (res.status == "SUCCESS") {
 						if (res.data.search_list.length > 0) {

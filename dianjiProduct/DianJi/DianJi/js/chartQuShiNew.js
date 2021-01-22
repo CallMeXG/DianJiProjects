@@ -44,8 +44,6 @@ mui.plusReady(function() {
 			dataType: 'json',
 			success: function(response) {
 				
-				console.log('response===',JSON.stringify(localStorage.getItem('company_id')))
-
 				plus.nativeUI.closeWaiting()
 
 				if (response.status == "SUCCESS") {
@@ -358,13 +356,13 @@ mui.plusReady(function() {
 				}
 				var strNumber =
 					"<div style='padding-top:5px;background-color:white;height:50px;width:100%;'>\
-				<table style='width:100%;'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
-				<tr><td>" +
+				    <table style='width:100%;'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
+				    <tr><td>" +
 					strZearly + "(mm/s)</td>\
-				<td>" + strZalarm + "(mm/s)</td>\
-				<td>" + strZdanger +
+				    <td>" + strZalarm + "(mm/s)</td>\
+				    <td>" + strZdanger +
 					"(mm/s)</td></tr>\
-				</table></div>";
+				    </table></div>";
 				$('#qiushitu').append(strNumber);
 			}
 			if (simWorkModeLongVO != undefined && strRefreshmythtype == '0002') {
@@ -380,13 +378,13 @@ mui.plusReady(function() {
 				}
 				var strNumber =
 					"<div style='margin-top:15px;padding-top:5px;background-color:white;height:50px;width:100%;'>\
-				<table style='width:100%;'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
-				<tr><td>" +
+				    <table style='width:100%;'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
+				    <tr><td>" +
 					strZearly + "(m/s²)</td>\
-				<td>" + strZalarm + "(m/s²)</td>\
-				<td>" + strZdanger +
+				    <td>" + strZalarm + "(m/s²)</td>\
+				    <td>" + strZdanger +
 					"(m/s²)</td></tr>\
-				</table></div>";
+				    </table></div>";
 				$('#qiushitu').append(strNumber);
 			}
 			var strChartZ = '<div class="chart_qushiClass" id="chartZ"></div><br>';
@@ -444,15 +442,37 @@ mui.plusReady(function() {
 				}
 				var strNumber =
 					"<div style='padding-top:5px;background-color:white;height:50px;width:100%;'>\
-		<table style='width:100%;'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
-		<tr><td>" +
+		            <table style='width:100%;'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
+		            <tr><td>" +
 					strTearly + " ℃</td>\
-		<td>" + strTalarm + " ℃</td>\
-		<td>" + strTdanger +
+		            <td>" + strTalarm + " ℃</td>\
+		            <td>" + strTdanger +
 					" ℃</td></tr>\
-		</table></div>";
+		            </table></div>";
 				$('#qiushitu').append(strNumber);
 			}
+			if (simWorkModeLongVO != undefined && strRefreshmythtype == '0002') {
+			
+					if (simWorkModeLongVO.threshold_temperature_early != undefined) {
+						strTearly = simWorkModeLongVO.threshold_temperature_early;
+					}
+					if (simWorkModeLongVO.threshold_temperature != undefined) {
+						strTalarm = simWorkModeLongVO.threshold_temperature;
+					}
+					if (simWorkModeLongVO.threshold_temperature_danger != undefined) {
+						strTdanger = simWorkModeLongVO.threshold_temperature_danger;
+					}
+					var strNumber =
+						"<div style='padding-top:5px;background-color:white;height:50px;width:100%;'>\
+			            <table style='width:100%;'><tr><td>预警值</td><td>告警值</td><td>危险值</td></tr>\
+			            <tr><td>" +
+						strTearly + " ℃</td>\
+			            <td>" + strTalarm + " ℃</td>\
+			            <td>" + strTdanger +
+						" ℃</td></tr>\
+			            </table></div>";
+					$('#qiushitu').append(strNumber);
+				}
 			var strChartT = '<div class="chart_qushiClass" id="chartT"></div><br>';
 			$("#qiushitu").append(strChartT);
 
