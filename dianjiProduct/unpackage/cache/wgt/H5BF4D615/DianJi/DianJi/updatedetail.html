@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>功能介绍</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<style>
+			p {
+				margin-top: 10px;
+				margin-left: 10px;
+				margin-right: 10px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
+			<h1 class="mui-title" style="color: white;">功能介绍</h1>
+		</header>
+		<div class="mui-content">
+			<div id="code1_14_1" style="display: none;">
+				<p>1、设备详情页面，增加更换电池功能</p>
+				<p>2、远程诊断修增加维保记录</p>
+				<p>3、消息页面增加更换电池和维保记录选项</p>
+			</div>
+			<div id="code1_12" style="display: none;">
+				<p>1、优化趋势图页面显示</p>
+			</div>
+			<div id="code1_11" style="display: none;">
+				<p>1、改版趋势图页面显示</p>
+				<p>2、新增超限告警功能</p>
+			</div>
+			<div id="code1_10" style="display: none;">
+				<p>1、优化UI页面，提升用户体验</p>
+			</div>
+			<div id="code1_9" style="display: none;">
+				<p>1、新增CPX省电和长连接工作模式</p>
+				<p>2、新增温度传感器</p>
+				<p>3、趋势图根据CPX工作模式进行区分绘图</p>
+				<p>4、新增阈值配置功能</p>
+			</div>
+			<div id="code1_8" style="display: none;">
+				<p>1、处理普通用户拥有部分操作权限问题</p>
+			</div>
+			<div id="code1_7" style="display: none;">
+				<p>1、修改登录注册时手机号验证方式</p>
+			</div>
+			<div id="code1_6" style="display: none;">
+				<p>修改扫描结果页显示内容</p>
+			</div>
+			<div id="code1_5" style="display: none;">
+				<p>1、新增数据统计功能：统计各厂区被检测设备状态</p>
+				<p>2、新增报告管理功能</p>
+				<p>3、优化CPX激活流程</p>
+				<p>4、新增消息显示功能</p>
+				<p>5、优化设备状态显示功能</p>
+				<p>6、优化APP UI页面显示，提升用户使用体验</p>
+			</div>
+			<div id="code1_4" style="display: none;">
+				<p>1、优化点检功能</p>
+				<p>2、新优化远程诊断功能</p>
+				<p>3、优化趋势图显示</p>
+				<p>4、取消用户单点登录功能，一个账号可以在多个设备上进行登录</p>
+			</div>
+			<div id="code1_3" style="display: none;">
+				<p>1、提供APP版本说明</p>
+				<p>2、“首页”，点击设备列表中的图片，进入设备详情页</p>
+				<p>3、设备列表增加左滑功能</p>
+				<p>4、调整设备数据显示页面</p>
+				<p>5、设备列表中显示设备的阈值状态和诊断结果</p>
+				<p>6、新增点检功能</p>
+				<p>7、新增远程诊断功能</p>
+				<p>8、设备列表，图标区分设备上是否关联了CPX</p>
+				<p>9、趋势图上增加预警线和报警线</p>
+				
+			</div>
+			<div id="code1_2" style="display: none;">
+				<p>1、修改设备列表页分页栏显示</p>
+				<p>2、设备信息中，“所属公司”与“企业名称”合并为“企业名称”，“所属分厂”和“分厂”合并为“分厂”</p>
+				<p>3、APP iOS版本正式在App Store上上线</p>
+			</div>
+			<!--<div id="code1_1" style="display: none;">
+				<p>1、APP Android版本正式在OPPO市场、华为市场、应用宝上线</p>
+				<p>2、CPX采样时间由配置时间，修改为24小时整点选择</p>
+				<p>3、修改扫面二维码页面扫描框显示不正常的问题</p>
+				
+			</div>-->
+		</div>
+
+	</body>
+	<script type="text/javascript">
+		var strCode = localStorage.getItem('updateNum');
+		if (strCode == '1.14.1') {
+			$('#code1_14_1').css('display','block');
+		}
+		if (strCode == '1.12') {
+			$('#code1_12').css('display','block');
+		}
+		if (strCode == '1.11') {
+			$('#code1_11').css('display','block');
+		}
+		if (strCode == '1.10') {
+			$('#code1_10').css('display','block');
+		}
+		if (strCode == '1.9') {
+			$('#code1_9').css('display','block');
+		}
+		if (strCode == '1.8') {
+			$('#code1_8').css('display','block');
+		}
+		if (strCode == '1.7') {
+			$('#code1_7').css('display','block');
+		}
+		if (strCode == '1.6') {
+			$('#code1_6').css('display','block');
+		}
+		if (strCode == '1.5') {
+			$('#code1_5').css('display','block');
+		}
+		if (strCode == '1.4') {
+			$('#code1_4').css('display','block');
+		}
+		if (strCode == '1.3') {
+			$('#code1_3').css('display','block');
+		}
+		if (strCode == '1.2') {
+			$('#code1_2').css('display','block');
+		}
+//		if (strCode == '1.1') {
+//			$('#code1_1').css('display','block');
+//		}
+	</script>
+
+</html>

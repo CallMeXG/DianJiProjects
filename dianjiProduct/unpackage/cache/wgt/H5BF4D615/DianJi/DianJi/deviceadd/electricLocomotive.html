@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<script src="../js/vue.min.js"></script>
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.mui-input-row label{
+				color: #00A680;
+				font-size: 12px;
+				text-align: right;
+			}
+			.mui-input-row input{
+				text-align: left;
+				padding-top: 12px;
+			}
+			#kehuName #kehuFenChang{
+				margin-top: 15px;
+				text-align: left;
+			}
+			#submitbutton{
+				margin-top: 20px;
+				width: 80%;
+				margin-left: 10%;
+				height: 40px;
+				color: white;
+				background-color: #524598;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" id="head">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">新增电动机车</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>客户名称：</label>
+					<input id="kehuName" type="button" value="点此选择" />
+				</div>
+				<div class="mui-input-row">
+					<label>分厂：</label>
+					<input id="kehuFenChang" type="button" value="点此选择" />
+				</div>
+				<div class="mui-input-row">
+					<label>设备名称：</label>
+					<input id="subDeviceName" type="text" placeholder="请输入设备名称" />
+				</div>
+				<div class="mui-input-row">
+					<label>设备编号：</label>
+					<input id="subDeviceID" type="text" placeholder="请输入设备编号" />
+				</div>
+				<div class="mui-input-row">
+					<label>出厂时间：</label>
+					<input id="subDeviceTime" type="date" value="2000-01-01" />
+				</div>
+				<div class="mui-input-row">
+					<label>配备电机功率(kW)：</label>
+					<input id="subDeviceKW" type="text" placeholder="请输入配备电机功率" />
+				</div>
+				<div class="mui-input-row">
+					<label>配备电机台数<br />(标准6台)：</label>
+					<input id="subDeviceCount" type="text" placeholder="请输入配备电机台数" />
+				</div>
+			</form>
+			<button id="submitbutton">提交</button>
+		</div>
+		<script src="../js/mui.js"></script>
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/url_all.js"></script>
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function() {
+				var timer = null;
+				$('input').on('focus', function() {
+					clearInterval(timer);
+					var index = 0;
+					timer = setInterval(function() {
+						if (index > 5) {
+							$('body').scrollTop(10000);
+							clearInterval(timer);
+						}
+						index++;
+					}, 50)
+				})
+
+				var companyArray = new Array();
+				var reginArray = new Array();
+				var companyID = null;
+				var regionID = null;
+
+				getInitCompany();
+
+				function getInitCompany() {
+					$.ajax({
+						type: "get",
+						url: commen_gain_company_map_Interface,
+						// data:{
+						// 	company_id: localStorage.getItem('company_id'),
+						// },
+						async: true,
+						dataType: "json",
+						success: function(respData) {
+							var dataArray = respData.data;
+							for (var i = 0; i < dataArray.length; i++) {
+								var subRegionArray = dataArray[i].region_list;
+								var company_region = new Array();
+								for (var j = 0; j < subRegionArray.length; j++) {
+									var obj_subRegion = {
+										value: subRegionArray[j].id,
+										text: subRegionArray[j].region_name
+									}
+									company_region.push(obj_subRegion);
+								}
+
+								var obj_company = {
+									value: dataArray[i].id,
+									text: dataArray[i].company_name,
+									children: company_region
+								};
+								companyArray.push(obj_company)
+							}
+						}
+					});
+				}
+
+				$('#kehuName').on('tap', function() {
+					console.log("++++++++++++")
+					var userPicker = new mui.PopPicker();
+					var setdataArray = new Array();
+					userPicker.setData(companyArray);
+					var strid = "kehuName";
+					var userResult = document.getElementById(strid);
+					userPicker.show(function(items) {
+						userResult.value = items[0].text;
+						companyID = items[0].value;
+						regionID = null;
+						reginArray = items[0].children;
+						$("#kehuFenChang").val("");
+					});
+
+				})
+
+				//选择分厂
+				$("#kehuFenChang").click(function() {
+					var userPicker = new mui.PopPicker();
+					userPicker.setData(reginArray);
+					var strid = "kehuFenChang";
+					var userResult = document.getElementById(strid);
+					userPicker.show(function(items) {
+						userResult.value = items[0].text;
+						regionID = items[0].value;
+					});
+				})
+
+				$('#submitbutton').on('tap', function() {
+					console.log("=====" + regionID + '==' + companyID)
+
+					var strkehuName = $('#kehuName').val()
+					var strfenchangName = $('#kehuFenChang').val()
+					var strdeviceName = $('#subDeviceName').val()
+					var strdeviceID = $('#subDeviceID').val()
+					var strdeviceTime = $('#subDeviceTime').val()
+					var strdeviceKW = $('#subDeviceKW').val()
+					var strdeviceCount = $('#subDeviceCount').val()
+
+					if (strkehuName == '点此选择' || strkehuName == '') {
+						mui.alert('请选择客户名称')
+					} else if (strfenchangName == '点此选择' || strfenchangName == '') {
+						mui.alert('请选择分厂')
+					} else if (strdeviceName == '') {
+						mui.alert('请填写设备名称')
+					} else if (strdeviceID == '') {
+						mui.alert('请填写设备编号')
+					} else if (strdeviceTime == '') {
+						mui.alert('请填写设备出厂时间')
+					} else if (strdeviceKW == '') {
+						mui.alert('请填写配备电机功率')
+					} else if (strdeviceCount == '') {
+						mui.alert('请填写配备电机台数')
+					} else {
+						var params = {
+							company_id: companyID,
+							region_id: regionID,
+							devices_name: strdeviceName,
+							devices_no: strdeviceID,
+							devices_out_time: strdeviceTime,
+							allocate_power: strdeviceKW,
+							electric_num: strdeviceCount,
+							devices_type: 'L',
+							strLoginId: localStorage.getItem("strLoginId"),
+							strLoginToken: localStorage.getItem("strLoginToken"),
+						}
+						$.ajax({
+							type: "get",
+							url: commen_add_device_Interface,
+							async: true,
+							dataType: 'json',
+							data: params,
+							success: function(msg) {
+								console.log(JSON.stringify(msg));
+								if (msg.status == "SUCCESS") {
+									mui.toast(msg.message);
+									mui.back();
+								}
+								if (msg.status == 'ILLEGAL') {
+									mui.alert('您的账户登录过期，请退出重新登录！')
+								}
+							}
+						});
+
+					}
+
+
+				})
+
+
+			})
+		</script>
+	</body>
+
+</html>

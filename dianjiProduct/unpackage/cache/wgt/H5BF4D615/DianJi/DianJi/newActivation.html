@@ -1,0 +1,495 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/mui.picker.css" />
+		<link rel="stylesheet" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+
+		<link href="css/newActivation.css" rel="stylesheet" />
+		<style>
+			#deviceAddID p {
+				color: green;
+				margin-left: 10px;
+				margin-top: -10px;
+			}
+			
+			.cpxClass {
+				margin-top: 5px;
+			}
+		</style>
+	</head>
+
+	<body bgcolor="white">
+
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a style="color: white;" onclick="backAndCancelActive()" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title ">卡激活等待页</h1>
+		</header>
+		<div class="mui-bar mui-bar-footer" id="footer">
+			<button type="button" id="FinshBth" class="mui-btn mui-btn-royal mui-btn-block">确认激活</button>
+			<button type="button" id="CancelBtn" class="mui-btn mui-btn-royal mui-btn-block">中断激活</button>
+		</div>
+
+		<div class="mui-content">
+
+			<div id="deviceAddID" class="mui-card">
+				<div class="mui-card-header">关联设备</div>
+				<div class="mui-card-content">
+					<p style="margin-top: 10px;">{{deviceMessage.devices_name}}：{{deviceMessage.devices_no}}</p>
+					<!-- <p>设备编号</p> -->
+					<p>{{deviceMessage.company_name}} ---- {{deviceMessage.region_name}}</p>
+					<!-- <p>所属分厂</p> -->
+				</div>
+
+			</div>
+
+			<div class="mui-card">
+				<div class="mui-card-header">拓扑关系</div>
+				<div class="mui-card-content">
+					<div class="center" style="color: #1E90FF;">
+						<div class="Ccenter top">
+							<div class="cpxClass">
+								<span>通信控制器:</span>
+								<span id="serialID"></span>
+							</div>
+							<div class="cpxClass">
+								<span>控制器供电模式:</span>
+								<span id="powerModel"></span>
+							</div>
+							<div class="cpxClass">
+								<span>最后连接服务器时间:</span>
+								<span id="connect_severTime"></span>
+							</div>
+
+							<div class="cpxClass">
+								<span>最后数据上传传感器编号:</span>
+								<span id="id_lastuploadTime"></span></s>
+							</div>
+							<div class="cpxClass">
+								<span>最后数据上传时间:</span>
+								<span id="lastuploadTime"></span>
+							</div>
+							<hr />
+							<ul class="mui-table-view" id="id_sensorList" style="display: none;">
+								<li class="mui-table-view-cell" v-for="(sensorMsg,index) in sensorListMsg" style="color: gray;">
+									<p><span>传感器序列编号： {{sensorMsg.sensor_no}}</span></p>
+
+								</li>
+
+							</ul>
+						</div>
+					</div>
+					<br />
+				</div>
+
+			</div>
+
+			<br />
+
+			<div class="bottomRefresh">
+				<div>
+					<button onclick="refreshButtonClick()" class="buttonButton">刷新</button>
+				</div>
+			</div>
+			<br />
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/url_all.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/mui.picker.js"></script>
+		<script src="js/mui.poppicker.js"></script>
+		<script src="js/vue.js"></script>
+
+		<script>
+			var strBackStatus = false
+			mui.init({
+				beforeback: function(){					
+					return strBackStatus;
+				}
+			})
+
+			//设备信息
+			var obj_device = JSON.parse(localStorage.getItem('ActiveMZDevice'));
+			var addDevice = new Vue({
+				el: '#deviceAddID',
+				data: {
+					deviceMessage: obj_device
+				}
+			});
+			//传感器list信息
+			var sensorVue = new Vue({
+				el: '#id_sensorList',
+				data: {
+					sensorListMsg: []
+				},
+				methods: {
+					forId: function(index) {
+						return "forid_" + index;
+					},
+					selectedInstall: function(index) {
+						var userPicker = new mui.PopPicker();
+						userPicker.setData([{
+							value: 'ywj',
+							text: '测点1'
+						}, {
+							value: 'aaa',
+							text: '测点2'
+						}, {
+							value: 'lj',
+							text: '测点3'
+						}, {
+							value: 'ymt',
+							text: '测点4'
+						}, {
+							value: 'shq',
+							text: '测点5'
+						}, {
+							value: 'zhbh',
+							text: '测点6'
+						}, {
+							value: 'zhy',
+							text: '测点7'
+						}, {
+							value: 'gyf',
+							text: '测点8'
+						}, {
+							value: 'zhz',
+							text: '测点9'
+						}, {
+							value: 'gezh',
+							text: '测点10'
+						}, {
+							value: 'ywj',
+							text: '测点11'
+						}, {
+							value: 'aaa',
+							text: '测点12'
+						}, {
+							value: 'lj',
+							text: '测点13'
+						}, {
+							value: 'ymt',
+							text: '测点14'
+						}, {
+							value: 'shq',
+							text: '测点15'
+						}, {
+							value: 'zhbh',
+							text: '测点16'
+						}, {
+							value: 'zhy',
+							text: '测点17'
+						}, {
+							value: 'gyf',
+							text: '测点18'
+						}, {
+							value: 'zhz',
+							text: '测点19'
+						}, {
+							value: 'gezh',
+							text: '测点20'
+						}]);
+
+						var userResult = document.getElementById("forid_" + index);
+						userPicker.show(function(items) {
+							console.log('[[[[]]]]===' + JSON.stringify(items[0]))
+							userResult.value = items[0].text;
+							var btnArr = ['修改', '不修改'];
+							var mesStr = "您已选中测点位置" + '"' + items[0].text + '",' + "是否修改测点位置名称？";
+							mui.prompt(mesStr, items[0].text, '测点位置', btnArr, function(e) {
+
+								if (e.index == 0) {
+									if (e.value == '') {
+										userResult.value = items[0].text;
+									} else {
+										userResult.value = e.value;
+									}
+								} else {
+									userResult.value = items[0].text;
+								}
+							})
+						});
+					}
+				}
+			});
+
+			//取消激活
+			function cancelJihuo(e) {
+				if (e.index == 1) {
+					$.ajax({
+						type: "get",
+						url: commen_confirm_unactive_Interface,
+						data: {
+							serial_no: localStorage.simID
+						},
+						async: true,
+						dataType: 'json',
+						success: function(resqMsg) {
+							if (resqMsg.status == "SUCCESS") {
+								mui.toast(resqMsg.message);
+								strBackStatus = true;
+								mui.back();
+							} else {
+								mui.toast("中断激活失败，请重试");
+							}
+						},
+						error: function() {
+							mui.toast("中断激活失败，请重试");
+						}
+					});
+
+				}
+			}
+			//取消激活按钮点击事件
+			$("#CancelBtn").click(function() {
+				mui.confirm("你确定要中断激活吗？", "系统提示", ["否", "是"], cancelJihuo);
+			});
+			//取消激活按钮点击事件
+			function backAndCancelActive() {
+				mui.confirm("你确定要中断激活吗？", "系统提示", ["否", "是"], cancelJihuo);
+			};
+
+			var regionData = null;
+
+			getDataFromSever();
+
+			function getDataFromSever() {
+				$.ajax({
+					type: "get",
+					url: commen_active_wait_Interface,
+					async: true,
+					data: {
+						serial_no: localStorage.simID
+					},
+					dataType: 'json',
+					success: function(msg) {
+						if (msg.status == "SUCCESS") {
+							setDataToHtml(msg.data);
+							regionData = msg.data;
+
+						} else {
+							mui.toast(msg.message);
+						}
+					},
+					error: function(error) {}
+				})
+			}
+
+
+
+
+			function setDataToHtml(reqMsg) {
+				if (reqMsg.serial_no != undefined) {
+					$('#serialID').html(reqMsg.serial_no);
+				} else {
+					$('#serialID').html("----");
+				}
+
+				// powerModel ---cpx供电模式
+				if (reqMsg.supply_type != undefined) {
+					if (reqMsg.supply_type == '0') {
+						$('#powerModel').html('电池供电')
+
+					}
+					if (reqMsg.supply_type == '1') {
+						$('#powerModel').html('外接电源')
+					}
+				} else {
+					$('#powerModel').html('----')
+				}
+
+				if (reqMsg.connectionVO != undefined) {
+					var timePO = reqMsg.connectionVO;
+					$('#connect_severTime').html(timePO.connection_time);
+					if (timePO.release_time != undefined) {
+						$('#close_severTime').html(timePO.release_time);
+					} else {
+						$('#close_severTime').html("----");
+					}
+
+					if (timePO.status == "Y") {
+						$('#severStatus').html("已连接");
+					} else {
+						$('#severStatus').html("未连接");
+					}
+
+				} else {
+					$('#connect_severTime').html("----");
+					$('#close_severTime').html("----");
+					$('#severStatus').html("----");
+				}
+
+				if (reqMsg.sensor_no != undefined) {
+					$('#id_lastuploadTime').html(reqMsg.sensor_no);
+				} else {
+					$('#id_lastuploadTime').html("----");
+				}
+
+				if (reqMsg.data_upload_status == "N") {
+					$('#lastuploadStatus').html("未上传");
+				} else if (reqMsg.data_upload_status == "Y") {
+					$('#lastuploadStatus').html("已上传");
+				} else {
+					$('#lastuploadStatus').html("----");
+				}
+				if (reqMsg.data_upload_time != undefined) {
+					$('#lastuploadTime').html(reqMsg.data_upload_time);
+				} else {
+					$('#lastuploadTime').html("----");
+				}
+
+				if (reqMsg.sensorList != undefined) {
+					var sensorList = reqMsg.sensorList;
+
+					sensorVue.sensorListMsg = reqMsg.sensorList;
+					$('#id_sensorList').show();
+				}
+			}
+
+
+			function refreshButtonClick() {
+				location.reload();
+			}
+
+
+			mui.plusReady(function() {
+
+				$("#FinshBth").click(function() {
+
+					plus.nativeUI.showWaiting('正在进行激活...');
+					plus.nativeUI.closeWaiting();
+
+					var nowTime = new Date().getTime();
+					var clickTime = $(this).attr("ctime");
+					if (clickTime != 'undefined' && (nowTime - clickTime < 5000)) {
+						mui.toast('您已提交激活申请，请不要频繁操作！')
+						return false;
+					} else {
+
+						if (regionData != null) {
+
+							if (typeof(regionData.sensorList) == "undefined" || regionData.sensorList.length == 0) {
+								mui.toast('必须绑定传感器才能进行激活！');
+
+							} else {
+
+								var json_commen = new Array();
+								for (var i = 0; i < regionData.sensorList.length; i++) {
+									var timePoint = ['0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0',
+										'0', '0', '0', '0', '0', '0'
+									];
+									var work_json = {
+										sample_time_point: timePoint
+									};
+									//cpx信息
+									var simWorkPO = {
+										serial_no: regionData.sensorList[i].serial_no,
+										sampling_duration: '00:00:00',
+										update_duration: '00:00:00',
+										work_point_json: JSON.stringify(work_json)
+									};
+
+									//传感器信息
+									var sensorPO = {
+										working_axis: "111",
+										calibration_coefficient: "1.000",
+										serial_no: regionData.sensorList[i].serial_no,
+										sensor_no: regionData.sensorList[i].sensor_no,
+										sampling_model: "出厂模式",
+										sampling_number: "4096",
+										sampling_frequency: "1600",
+										sampling_accuracy: "13",
+										range_data: "±16g"
+									}
+
+									json_commen.push({
+										simWorkModelPO: simWorkPO,
+										sensorMsgPO: sensorPO
+									});
+
+								}
+
+								var commenParam = {
+									strLoginId: localStorage.getItem("strLoginId"),
+									strLoginToken: localStorage.getItem("strLoginToken"),
+									devices_no: addDevice.deviceMessage.devices_no,
+									devices_name: addDevice.deviceMessage.devices_name,
+									work_status: '0',
+									commen_json: JSON.stringify(json_commen)
+								}
+
+
+								console.log('=======================' + JSON.stringify(commenParam))
+								///*
+								$.ajax({
+									type: "POST",
+									url: commen_update_device_Interface,
+									async: true,
+									data: commenParam,
+									dataType: 'json',
+									success: function(postMsg) {
+										plus.nativeUI.closeWaiting();
+										if (postMsg.status == 'SUCCESS') {
+
+											var postParam = {
+												devices_no: localStorage.DeveciId,
+												serial_no: localStorage.simID
+											};
+
+
+											$.ajax({
+												type: "get",
+												url: commen_appAddSim_Interface,
+												async: true,
+												data: postParam,
+												dataType: 'json',
+												success: function(postMsg) {
+													plus.nativeUI.closeWaiting();
+													if (postMsg.status == 'SUCCESS') {
+														mui.toast('激活成功！');
+														mui.openWindow({
+															url: 'DeviceDetail.html',
+															id: 'DeviceDetail.html'
+														});
+													} else {
+														mui.toast('激活失败，请重试！');
+													}
+												},
+												error: function() {
+													plus.nativeUI.closeWaiting();
+													mui.toast('激活失败，请重试！');
+												}
+											});
+
+										} else {
+
+										}
+									},
+									error: function() {
+										plus.nativeUI.closeWaiting();
+									}
+								});
+								//*/
+							}
+
+						} else {
+
+						}
+						$(this).attr("ctime", nowTime);
+
+					}
+
+				});
+
+
+			})
+		</script>
+
+	</body>
+
+</html>

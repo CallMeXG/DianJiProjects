@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="MobileOptimized" content="320" />
+		<title>Hello H5+</title>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript">
+			var ws = null,
+				wo = null;
+			var scan = null,
+				domready = false,
+				bCancel = false;
+			// H5 plus事件处理
+			function plusReady() {
+				if(ws || !window.plus || !domready) {
+					return;
+				}
+				// 获取窗口对象
+				ws = plus.webview.currentWebview();
+				wo = ws.opener();
+				// 开始扫描
+				ws.addEventListener('show', function() {
+					scan = new plus.barcode.Barcode('bcid', [plus.barcode.QR, plus.barcode.EAN8, plus.barcode.EAN13], {
+						frameColor: '#00FF00',
+						scanbarColor: '#00FF00'
+					});
+
+					scan.onmarked = onmarked;
+					scan.start({
+						conserve: true,
+						filename: '_doc/barcode/'
+					});
+				});
+				// 显示页面并关闭等待框
+				ws.show('pop-in');
+
+				document.addEventListener('activeBack', function() {
+					var fatherWeb = plus.webview.currentWebview().opener();
+					mui.fire(fatherWeb, 'activeBack');
+					var objWeb = plus.webview.currentWebview();
+					plus.webview.close(objWeb.id, 'none', 0.01);
+				});
+
+				//  wo.evalJS('closeWaiting()');
+			}
+			if(window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener('plusready', plusReady, false);
+			}
+			// 监听DOMContentLoaded事件
+			document.addEventListener('DOMContentLoaded', function() {
+				domready = true;
+				plusReady();
+			}, false);
+			// 二维码扫描成功
+			function onmarked(type, result, file) {
+				switch(type) {
+					case plus.barcode.QR:
+						type = 'QR';
+						break;
+					case plus.barcode.EAN13:
+						type = 'EAN13';
+						break;
+					case plus.barcode.EAN8:
+						type = 'EAN8';
+						break;
+					default:
+						type = '其它' + type;
+						break;
+				}
+
+				if(result.search('www.aiimoto.com') != -1) {
+					var scanResult;
+					if(result.search("p/") != -1) {
+						scanResult = result.split("p/");
+					}
+					if(result.search("j/") != -1) {
+						scanResult = result.split("j/");
+					}
+					localStorage.searchType = "SCAN";
+					$.ajax({
+						type: "get",
+						url: appGetSim_Interface,
+						async: true,
+						data: {
+							serial_no: scanResult[1],
+							state: 'ACTIVE'
+						},
+						dataType: 'json',
+						success: function(respData) {
+							dealWithDataFormSever(respData);
+						},
+						error: function() {
+							mui.toast("查询失败，请重试！");
+							scan.start({
+								conserve: true,
+								filename: '_doc/barcode/'
+							});
+						}
+					});
+
+				} else {
+					mui.alert("不符合本地校验规则，请扫描正确的二维码", function() {
+						scan.start({
+							conserve: true,
+							filename: '_doc/barcode/'
+						});
+					});
+				}
+
+			}
+			// 暂停 、 开始 
+			function scanSwitch() {
+				if(bCancel) {
+					scan.start({
+						conserve: true,
+						filename: '_doc/barcode/'
+					});
+					//					btCancel && (btCancel.innerText = '暂　停');
+				} else {
+					scan.cancel();
+					//					btCancel && (btCancel.innerText = '开　始');
+				}
+				bCancel = !bCancel;
+			}
+			//下页，返回该页面时，重新让扫码功能开启
+			window.addEventListener('reTest', function() {
+				scan.start({
+					conserve: true,
+					filename: '_doc/barcode/'
+				});
+			});
+
+			function dealWithDataFormSever(respData) {
+				if(respData.status == "SUCCESS") {
+					if(typeof(respData.data) != "undefined" && respData.data.length != 0) {
+						var dicSim = respData.data;
+						if(dicSim.sim.length > 0) {
+							//state 6 未激活 ，
+							if(dicSim.sim[0].state == 6) {
+								mui.openWindow({
+									url: "scancodetodetail.html",
+									id: 'scancodetodetail.html',
+									extras: {
+										simData: respData.data
+									}
+
+								});
+							} else {
+								console.log("999999")
+								// scan.cancel();
+								scan.close();
+								localStorage.DeveciId = dicSim.sim[0].devices_no;
+								localStorage.enterPage = "SCAN";
+								var webDetail = plus.webview.create('DeviceDetail.html','DeviceDetail.html');
+								webDetail.show();
+//								mui.openWindow({
+//									url: "DeviceDetail.html",
+//								});
+							}
+						}else{
+							findErrorWithMessage('未能查询到该卡，请重试！');
+						}
+
+					} else {
+						findErrorWithMessage('未能查询到该卡，请重试！');
+					}
+				} else {
+
+					findErrorWithMessage('查询失败，请重试！');
+				}
+			}
+
+			function findErrorWithMessage(message) {
+				mui.alert(message, function() {
+					scan.start({
+						conserve: true,
+						filename: '_doc/barcode/'
+					});
+				})
+			}
+		</script>
+		<link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+		<style type="text/css">
+			#bcid {
+				width: 100%;
+				position: absolute;
+				top: 20px;
+				bottom: 44px;
+				text-align: center;
+				/*margin-top: 30px;*/
+			}
+			
+			.tip {
+				color: #FFFFFF;
+				font-weight: bold;
+				text-shadow: 0px -1px #103E5C;
+			}
+			
+			footer {
+				width: 100%;
+				height: 44px;
+				position: absolute;
+				bottom: 0px;
+				line-height: 44px;
+				text-align: center;
+				color: #FFF;
+			}
+			
+			.fbt {
+				width: 50%;
+				height: 100%;
+				background-color: #FFCC33;
+				float: left;
+			}
+			
+			.fbt:active {
+				-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
+				box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
+			}
+		</style>
+		<link rel="stylesheet" href="css/mui.min.css" />
+	</head>
+
+	<body style="background-color: #000000;">
+		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
+			<h1 class="mui-title" style="color: white;">扫描</h1>
+			<a class="mui-pull-right mui-icon mui-icon-search" style="color: white;" id="scanSearch"></a>
+		</header>
+		<div class="mui-content">
+			<div id="bcid">
+				<div style="height:40%"></div>
+				<p class="tip">...载入中...</p>
+			</div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/url_all.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script>
+			$('#scanSearch').on('tap', function() {
+
+				scanSwitch();
+				mui.prompt('输入设备编号', '如：GA101101', '搜索设备', ['搜索', '取消'], function(e) {
+					// 0 搜索；1 取消
+					if(e.index == 0) {
+						$.ajax({
+							type: "get",
+							url: appGetSim_Interface,
+							async: true,
+							data: {
+								serial_no: e.value,
+								state: 'ACTIVE'
+							},
+							dataType: "json",
+							success: function(res) {
+
+								dealWithDataFormSever(res);
+
+							},
+							error: function() {
+								mui.toast("搜索失败，请重试");
+							}
+						}); //ajax结束
+
+						scanSwitch();
+					} else {
+						scanSwitch();
+					}
+				});
+			})
+		</script>
+
+	</body>
+
+</html>

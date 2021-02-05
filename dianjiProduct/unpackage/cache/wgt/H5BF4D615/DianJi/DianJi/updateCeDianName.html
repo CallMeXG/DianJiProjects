@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>修改测点名称</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link href="css/mui.picker.css" rel="stylesheet" />
+		<link href="css/mui.poppicker.css" rel="stylesheet" />
+
+
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<a style="color: white;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 style="color: white;" class="mui-title ">测点修改</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="install_list">
+					<a class="mui-navigate-right">
+						<span>选择测点</span>
+						<span id="cedianOldName" style="float: right;margin-right: 15px;"></span>
+					</a>
+				</li>
+				<input id="textID" style="float: left;margin-top: 10px;" type="text" placeholder="请在此输入修改后的测点名称" class="mui-input-clear" />
+			</ul>
+			<p style="margin: 0.3125rem;">请给X,Y,Z各轴向定义名称</p>
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>X轴：</label>
+					<input id="inputX" type="text" placeholder="在此输入X轴名称" />
+				</div>
+				<div class="mui-input-row">
+					<label>Y轴：</label>
+					<input id="inputY" type="text" placeholder="在此输入Y轴名称" />
+				</div>
+				<div class="mui-input-row">
+					<label>Z轴：</label>
+					<input id="inputZ" type="text" placeholder="在此输入Z轴名称" />
+				</div>
+			</form>
+			<button onclick="updateInstallText()" class="mui-btn mui-btn-success" style="width: 50%;margin-left: 25%;margin-top: 1.875rem;">修改</button>
+
+		</div>
+
+		<script src="js/url_all.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/mui.picker.js"></script>
+		<script src="js/mui.poppicker.js"></script>
+		<script src="js/common.js"></script>
+		<script>
+			var strID = null;
+			var strText = null;
+			strUpdateText = null;
+			var strInputX = null,
+				strInputY = null,
+				strInputZ = null;
+			var wo = null;
+			var ws = null,
+				domready = false;
+
+			function plusReady() {
+				if (ws || !window.plus || !domready) {
+					return;
+				}
+				// 获取窗口对象
+				ws = plus.webview.currentWebview();
+				wo = ws.opener();
+			}
+			if (window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener('plusready', plusReady, false);
+			}
+
+			var objInstall_list = new Array();
+			//获取设备测点列表
+			getInstallList();
+
+			function getInstallList() {
+				$.ajax({
+					type: "get",
+					url: new_commen_gain_device_install_Interface,
+					async: true,
+					data: {
+						strLoginId: localStorage.getItem("strLoginId"),
+						strLoginToken: localStorage.getItem("strLoginToken"),
+						devices_no: localStorage.DeveciId,
+						company_id: localStorage.getItem('company_id'),
+					},
+					dataType: "json",
+					success: function(respData) {
+						console.log('---------' + JSON.stringify(respData))
+						if (respData.status == 'SUCCESS') {
+							if (respData.data.length > 0) {
+								objInstall_list = respData.data;
+							} else {
+								mui.toast('测点位置列表为空！');
+							}
+						} else {
+							mui.toast('获取测点位置列表失败！');
+						}
+					}
+				});
+			};
+
+			$('#install_list').on('tap', function() {
+				console.log("-=-=-=-=-=");
+				var userPicker = new mui.PopPicker();
+				var setdataArray = new Array();
+				for (var i = 0; i < objInstall_list.length; i++) {
+					var obj_install = {
+						id: objInstall_list[i].id,
+						devices_no: objInstall_list[i].devices_no,
+						install_no: objInstall_list[i].install_no,
+						text: objInstall_list[i].install_xy,
+						install_num: objInstall_list[i].install_num,
+						status: objInstall_list[i].status,
+						alias_x: objInstall_list[i].alias_x,
+						alias_y: objInstall_list[i].alias_y,
+						alias_z: objInstall_list[i].alias_z
+					}
+					setdataArray.push(obj_install);
+					installList = [];
+					installList.push(obj_install);
+				}
+				userPicker.setData(setdataArray);
+				var userResult = document.getElementById("cedianOldName");
+				userPicker.show(function(items) {
+					userResult.innerHTML = items[0].text;
+					strText = items[0].text;
+					strID = items[0].id;
+					console.log("[[[[]]]]] ==== " + items)
+					$('#inputX').val(items[0].alias_x);
+					$('#inputY').val(items[0].alias_y);
+					$('#inputZ').val(items[0].alias_z);
+				});
+			})
+
+			//修改测点名称
+			function updateInstallText() {
+				strUpdateText = document.getElementById('textID').value;
+				strInputX = document.getElementById('inputX').value;
+				strInputY = document.getElementById('inputY').value;
+				strInputZ = document.getElementById('inputZ').value;
+				console.log("[[[[[]]]]]= === " + strUpdateText)
+				if (strUpdateText.length == 0 && strInputX.length == 0 && strInputY.length == 0 && strInputZ.length == 0) {
+					mui.alert("请输入需要修改的内容");
+				} else {
+					if (strInputX.length > 10 || strInputY.length > 10 || strInputZ.length > 10) {
+						mui.alert('X、Y、Z轴别名长度最大为10')
+					} else {
+						if (strText == null) {
+							mui.alert("请先选择测点位置！");
+						} else {
+
+							if (strUpdateText == strText) {
+								mui.alert("输入名称与原测点名称重复!");
+							} else {
+								console.log("====success")
+								///*
+								$.ajax({
+									type: "POST",
+									url: new_commen_update_device_install_Interface,
+									async: true,
+									data: {
+										strLoginId: localStorage.getItem("strLoginId"),
+										strLoginToken: localStorage.getItem("strLoginToken"),
+										devices_no: localStorage.DeveciId,
+										install_id: strID,
+										install_xy: strUpdateText,
+										alias_x: strInputX,
+										alias_y: strInputY,
+										alias_z: strInputZ,
+										company_id: localStorage.getItem('company_id'),
+									},
+									dataType: "json",
+									success: function(respData) {
+										console.log('changechange---------')
+										if (respData.status == 'SUCCESS') {
+											mui.toast('修改测点名称成功！');
+											// wo.evalJS("reloadSensor();");
+											location.reload();
+										} else {
+											mui.toast("测点名称修改失败：" + respData.message);
+										}
+									}
+								});
+								//*/
+
+							}
+
+						}
+
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

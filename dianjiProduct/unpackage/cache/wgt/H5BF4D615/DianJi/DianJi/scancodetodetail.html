@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>设备信息</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" type="text/css" />
+		<link href="css/iconfont.css" rel="stylesheet" type="text/css" />
+
+		<script src="js/mui.min.js"></script>
+		<script src="js/url_all.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/vue.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<a style="color: white;" id="backIDs" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="titleText" class="mui-title mui_header_title" style="color: white;">设备信息</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-card" style="margin-bottom: 50px;">
+				<div class="mui-card-header" id="cardHeaderID">
+					<div style="width: 100%;font-weight: 700;">
+						<p>物联网通信控制器</p>
+						<p style="height: 1px;margin-top: -15px;"></p>
+						<p>设备编号：{{simMessage.serial_no}}</p>
+						<p style="height: 1px;margin-top: -15px;"></p>
+						<p>设备型号：{{simMessage.sim_name}}</p>
+						<p style="height: 1px;margin-top: -15px;"></p>
+						<!--//0：工作，1：失联，2：关机，3：休眠，4：故障 5：已激活 6：未激活 7:待激活-->
+						<div v-if="simMessage.state == 0">
+							<p style="">设备状态：*工作</p>
+						</div>
+						<div v-if="simMessage.state == 1">
+							<p style="">设备状态：*失联</p>
+						</div>
+						<div v-if="simMessage.state == 2">
+							<p style="">设备状态：*关机</p>
+						</div>
+						<div v-if="simMessage.state == 3">
+							<p style="">设备状态：*休眠</p>
+						</div>
+						<div v-if="simMessage.state == 4">
+							<p style="">设备状态：*故障</p>
+						</div>
+						<div v-if="simMessage.state == 5">
+							<p style="">设备状态：*已激活</p>
+						</div>
+						<div v-if="simMessage.state == 6">
+							<p style="">设备状态：*未激活</p>
+						</div>
+						<div v-if="simMessage.state == 7">
+							<p style="">设备状态：*待激活</p>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="mui-card-content" id="cardContentID">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell" v-for="sensorList in sensorMes">
+							<p style="padding-left: 20px;">传感器编号：{{sensorList.sensor_no}}</p>
+							<!--<p style="padding-left: 20px;">传感器类型</p>-->
+						</li>
+
+					</ul>
+				</div>
+			</div>
+			<div id="footerActiveID" class="mui-bar mui-bar-footer" style="text-align: center;display: none;">
+				<button id="gotoActive" class="mui-btn mui-btn-royal" style="width: 100%;">去激活</button>
+			</div>
+
+		</div>
+		<script>
+			mui.plusReady(function() {
+				
+				//判断权限，是否显示激活按钮
+				var strUserType = localStorage.getItem("userType");
+				if(strUserType < 10) {
+					$("#footerActiveID").hide();
+					if(localStorage.getItem('is_manage') == '1'){
+						var strGranFather = localStorage.getItem('fatherID');
+						if(strGranFather == 'updateDevice') {
+							$("#footerActiveID").show();
+						} else {
+							$("#footerActiveID").hide();
+						}
+					}
+				}
+				if(strUserType > 10) {
+					//获取上 上一页的ID，判断是从设备列表页过来的，还是从设备信息修改页过来的
+					//如果是从设备列表页过来，则不能激活
+					//如果是从设备修改页过来，则在有权限的情况下，可以进行激活
+					var strGranFather = localStorage.getItem('fatherID');
+					if(strGranFather == 'updateDevice' || strGranFather == 'DeviceDetail') {
+						$("#footerActiveID").show();
+					} else {
+						$("#footerActiveID").hide();
+					}
+
+				}
+
+				//获取从上页，扫描页传来的数据
+				var simDatas = plus.webview.currentWebview().simData;
+
+				var cardHeaderID = new Vue({
+					el: '#cardHeaderID',
+					data: {
+						simMessage: simDatas.sim[0]
+					}
+				})
+
+				var cardContentID = new Vue({
+					el: '#cardContentID',
+					data: {
+						sensorMes: simDatas.sensor
+					}
+				})
+
+				$("#backIDs").on('tap', function() {
+					var wobj = plus.webview.getWebviewById("devicelisttoscancode.html");
+					mui.fire(wobj, 'reTest');
+					mui.back();
+				});
+				//激活后的返回
+				document.addEventListener('activeBack', function() {
+					var fatherWeb = plus.webview.currentWebview().opener();
+					mui.fire(fatherWeb, 'activeBack');
+					var objWeb = plus.webview.currentWebview();
+					plus.webview.close(objWeb.id, 'none', 0.01);
+				});
+				//监听Android手机物理返回按键，返回到扫码页面时，重新进行扫描
+				plus.key.addEventListener('backbutton', function() {
+					var wobj = plus.webview.getWebviewById("devicelisttoscancode.html");
+					mui.fire(wobj, 'reTest');
+				}, false);
+
+				$("#gotoActive").on('tap', function() {
+					$.ajax({
+						type: "get",
+						url: commen_confirm_active_Interface,
+						async: true,
+						data: {
+							serial_no: simDatas.sim[0].serial_no
+						},
+						dataType: 'json',
+						success: function(resqMsg) {
+							if(resqMsg.status == "SUCCESS") {
+								localStorage.simID = simDatas.sim[0].serial_no;
+								mui.openWindow("newActivation.html")
+								//window.location.href = 'newActivation.html';
+							} else {}
+						},
+						error: function() {
+
+						}
+					});
+
+					//					mui.openWindow("carInfo_activate.html")
+				})
+
+			})
+		</script>
+
+	</body>
+
+</html>

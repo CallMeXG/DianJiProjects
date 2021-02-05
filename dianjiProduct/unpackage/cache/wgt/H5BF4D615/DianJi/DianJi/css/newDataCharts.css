@@ -1,0 +1,111 @@
+#popover {
+	width: 150px;
+}
+
+#popover a {
+	text-align: center;
+	font-size: 16px;
+}
+
+.chartQuShiSelect {
+	/* position: fixed; */
+	width: 100%;
+	/* height: 135px; */
+	/* top: 45px; */
+	margin: -5px 0;
+	text-align: center;
+	z-index: 9;
+	/* background-color: #EBEBF1; */
+	background-color: whitesmoke;
+}
+
+#qushiChartSelected {
+	float: left;
+	margin-left: 5px;
+	text-align: center;
+	width: calc(100% - 80px);
+}
+
+.selCEDIAN {
+	float: left;
+	
+}
+
+.chartQuShiSelect .refreshPage {
+	float: right;
+	font-size: 18px;
+	margin-right: 15px;
+
+	border: 1px solid lightgray;
+	width: 50px;
+}
+
+.chartQuShiSelect .selectButton {
+	width: 50px;
+	border: 1px solid grey;
+	margin-left: 5px;
+	height: 30px;
+	background-color: #524598;
+	color: white;
+	text-align: center;
+}
+
+.chartQuShiSelect .unselectButton {
+	width: 50px;
+	border: 1px solid grey;
+	margin-left: 5px;
+	height: 30px;
+}
+
+#titleText {
+	width: 150px;
+	text-align: left;
+	line-height: 42px;
+}
+
+.classRightHeaderTitle {
+	color: white;
+	font-size: 14px;
+	margin-right: 5px;
+	/* padding-top: 14px; */
+	background-color: #C5D0DC;
+	color: #007AFF;
+	height: 35px;
+	line-height: 35px;
+	padding: 0 3px;
+	margin-top: 5px;
+	border-radius: 5px;
+}
+
+#selDeep {
+	/* margin-top: 10px; */
+	float: left;
+	/* margin-right: 5px; */
+	/* width: 40%; */
+	margin-left: 5px;
+}
+
+.btnClass{
+	margin-top: 10px;
+	width: 100%;
+	height: 50px;
+}
+
+#screenCancel{
+	float: left;
+	margin-left: 20px;
+	width: 30%;
+}
+
+#screenOK{
+	/* float: right; */
+	margin-right: 5px;
+	margin-left: 5px;
+	width: calc(100% - 10px);
+}
+
+.modelTwo{
+	margin-left: 1%;
+	width: 49%;
+	float: left;
+}

@@ -1,0 +1,19 @@
+body #mui_content .mui-card {
+  margin: 0;
+  margin-top: 10px;
+
+}
+body #mui_content .mui-card .mui-card-header {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+body #mui_content .mui-card .mui-card-content {
+  text-indent: 2em;
+}
+body #mui_content .mui-card .mui-card-header:after {
+  height: 0;
+}
+
+/*# sourceMappingURL=aboutUs.css.map */

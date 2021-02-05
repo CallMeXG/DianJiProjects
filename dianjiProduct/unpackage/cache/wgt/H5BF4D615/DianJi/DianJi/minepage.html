@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="UTF-8">
+		<title>我的</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link href="css/common.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header id="baobiaoHeader" class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<h1 class="mui-title" style="color: white;">我的</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell mui-media">
+					<!-- <a class="mui-navigate-right"> -->
+						<img class="mui-media-object mui-pull-left head-img" src="img/logo5.png">
+						<div class="mui-media-body">
+							机电卫士
+							<p class='mui-ellipsis'>账号:<span id="mineusername">138****8888</span></p>
+						</div>
+					<!-- </a> -->
+				</li>
+			</ul>
+			<br />
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<a id="codeUpdate" class="mui-navigate-right">
+						<span>版本信息</span><span id="localVersion" style="float: right;"></span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell ">
+					<a class="mui-navigate-right " id="aboutUs">关于我们</a>
+				</li>
+			</ul>
+
+			<br />
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell ">
+					<a class="mui-navigate-right" id="reset_pwd">密码修改</a>
+				</li>
+				<li class="mui-table-view-cell ">
+					<a class="mui-navigate-right " id="feedback">问题反馈</a>
+				</li>
+
+			</ul>
+			<br />
+			<ul id="newAddDevice" class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<a id="addDeviceNew" class="mui-navigate-right">新增设备</a>
+				</li>
+			</ul>
+			<br />
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<a style="float: left;">短信提醒</a>
+					<input id="messageID" type="checkbox" style="float: right;font-size: 24px;width: 20px;height: 20px;margin-right: -50px;" onclick="checkCheckBox(this)"/>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="appDetail" class="mui-navigate-right">使用说明</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="updataAPP" class="mui-navigate-right">软件更新</a>
+				</li>
+			</ul>
+			<br />
+			<ul class="mui-table-view ">
+				<li class="mui-table-view-cell" style="text-align: center;">
+					<a id="logoutButton" style="text-align: center;">退出登录</a>
+				</li>
+			</ul>
+			<br />
+		</div>
+		<script src="js/mui.min.js"></script>
+		
+		<script src="js/jquery.min.js"></script>
+		<script src="js/url_all.js"></script>
+		<script>
+			document.getElementById("localVersion").innerHTML = strLocalVersion;
+			
+			//判断权限，是否显示新增设备项
+			var strUserType = localStorage.getItem("userType");
+			if (strUserType < 10) {
+				$("#newAddDevice").hide();
+				if (localStorage.getItem('is_manage') == '1') {
+					$("#newAddDevice").show();
+				}
+			}
+			if (strUserType > 10) {
+				$("#newAddDevice").show();
+			}
+			//短信提醒,点击选择事件
+			function checkCheckBox(checkbox){
+				console.log("---" + checkbox.checked) 
+				console.log("+++++===" + localStorage.getItem("strLoginId"))
+				var params = {};
+				if(checkbox.checked == true){
+					params = {
+					id: localStorage.getItem("strLoginId"),
+					strLoginId: localStorage.getItem("strLoginId"),
+					strLoginToken: localStorage.getItem("strLoginToken"),
+					sms_notice: 'Y'
+				  }
+				
+				}
+				if(checkbox.checked == false){
+					params = {
+					id: localStorage.getItem("strLoginId"),
+					strLoginId: localStorage.getItem("strLoginId"),
+					strLoginToken: localStorage.getItem("strLoginToken"),
+					sms_notice: 'N'
+				  }
+				
+				}
+				$.ajax({
+					type: 'get',
+					data: params,
+					async: true,
+					url: new_commen_updata_sms_notice_Interface,
+					dataType: 'json',
+					success: function(response) {
+						console.log("shortMessage ==== "+ JSON.stringify(response))
+					}
+				})
+			}
+			//软件使用说明
+			$("#appDetail").on("tap",function(){
+				mui.openWindow({
+					url: "./html/appdetail.html"
+				})
+			})
+			$("#updataAPP").on("tap",function(){
+				mui.openWindow({
+					url: "./html/updateapp.html"
+				})
+			})
+			
+
+
+			$("#addDeviceNew").on("tap", function() {
+				//2019-05-08
+				mui.openWindow({
+					url: "adddevicetype.html"
+				})
+			})
+			$("#feedback").on("tap", function() {
+				mui.openWindow({
+					url: "FeedBack.html"
+				})
+			})
+			$("#aboutUs").on("tap", function() {
+				mui.openWindow({
+					url: "aboutUs.html"
+				})
+			})
+
+			$("#reset_pwd").on("tap", function() {
+				localStorage.setItem("resetType", "restpwd");
+				mui.openWindow({
+					url: "view/resetPwd.html"
+				})
+			})
+			//功能介绍
+			$("#codeUpdate").on("tap", function() {
+				mui.openWindow({
+					url: "updateList.html"
+				})
+			})
+			
+			
+			//初始化,短信是否勾选
+			if (localStorage.getItem("sms_notice") == 'Y') {
+				document.getElementById('messageID').checked = true;
+			} else{
+				document.getElementById('messageID').checked = false;
+			}
+
+			mui.plusReady(function() {
+				function ConfirmCallBack(e) {
+					if (e.index == 1) {
+						localStorage.removeItem("isLogin");
+						localStorage.removeItem("userName");
+						localStorage.removeItem("userPwd");
+						localStorage.removeItem('strRegion');
+						localStorage.clear();
+
+						//退出登录时，先获取进入APP页面ID，然后根据ID，调用判断是否登录的方法，最后关闭该页面
+						//						var objLogin = plus.webview.getWebviewById('HBuilder');
+						//						mui.fire(objLogin, 'logoutEvent');
+						plus.webview.close('headerindex.html');
+
+					}
+				}
+
+				$("#logoutButton").on('tap', function() {
+					mui.confirm("退出登录？", "", ["否", "是"], ConfirmCallBack)
+				})
+			})
+			
+			var strName = localStorage.getItem("userName");
+			var strNameStart = strName.substr(0,3)
+			var strNameEnd = strName.substr(7,4)
+			$("#mineusername").html(strNameStart + '****' + strNameEnd);
+			// $("#mineusername").html(localStorage.getItem("userName"));
+			
+		</script>
+	</body>
+
+
+</html>

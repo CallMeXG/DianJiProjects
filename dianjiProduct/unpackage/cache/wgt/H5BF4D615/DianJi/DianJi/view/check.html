@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>设备点检</title>
+		<script src="../js/jquery-1.11.3.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/rem.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<script src="../js/url_all.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/check.css" />
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+
+		<script src="../jquery.min.js"></script>
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<!--<script src="../js/mui.min.js"></script>-->
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<!-- ace styles -->
+		<link rel="stylesheet" href="../css/ace.min.css">
+		<style type="text/css">
+			.inputClass {
+				background-color: white;
+				border: none;
+				margin-top: 10px;
+				height: 18px;
+				font-size: 14px;
+				border-radius: 5px;
+				padding-left: 5px;
+			}
+			
+			.spanclass {
+				margin-left: 15px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="main_box">
+			<header id="header" class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">设备点检</h1>
+			</header>
+			<div class="mui-bar mui-bar-tab " id="tijiao ">
+				<button type="button " onclick="submitbtnClick()" id="submit_btn " class="mui-btn mui-btn-royal mui-btn-block ">提交</button>
+			</div>
+			<div class="mui-content">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="widget-box">
+
+							<div>
+								<span class="spanclass">设备名称：</span>
+								<input class="inputClass" id="idOFdeviceName" disabled="disabled" />
+							</div>
+							<div>
+								<span class="spanclass">设备编号：</span>
+								<input class="inputClass" id="idOFdeviceNUM" disabled="disabled" />
+							</div>
+							<div>
+								<span class="spanclass">设备型号：</span>
+								<input class="inputClass" id="idOFdeviceType" disabled="disabled" />
+							</div>
+							<div>
+								<span class="spanclass">企业名称：</span>
+								<input class="inputClass" id="idOFqiName" disabled="disabled" />
+							</div>
+							<div>
+								<span class="spanclass">出厂时间：</span>
+								<input class="inputClass" id="idOFdeviceTime" disabled="disabled" />
+							</div>
+							<div>
+								<span class="spanclass">额定功率：</span>
+								<input class="inputClass" id="idOFGonglv" disabled="disabled" />
+							</div>
+							<div>
+								<span class="spanclass">安装方式：</span>
+								<input class="inputClass" id="idOFAnzhuang" disabled="disabled" />
+							</div>
+							<div>
+								<span class="spanclass">工作电压：</span>
+								<input class="inputClass" id="idOFdianya" disabled="disabled" />
+							</div>
+							<div>
+								<span class="spanclass">工作状态：</span>
+								<input class="inputClass" id="idOFWorkStatus" disabled="disabled" />
+							</div>
+							<div>
+								<span class="spanclass">预期寿命：</span>
+								<!--<input id="idOFage" disabled="disabled"  />-->
+								<span style="margin-top: 20px;" id='bar'><i></i></span>
+							</div>
+							<div>
+								<span class="spanclass">故障类型：</span>
+								<input class="inputClass" id="idOFguzhangtype" disabled="disabled" />
+							</div>
+							<div>
+								<span class="spanclass">分厂：</span>
+								<input class="inputClass" id="idOFchejian" disabled="disabled" />
+							</div>
+							<div>
+								<span class="spanclass">生产产线：</span>
+								<input class="inputClass" id="idOFshengchanLine" disabled="disabled" />
+							</div>
+							<div>
+								<span class="spanclass">应用场景：</span>
+								<input class="inputClass" id="idOFchangjing" disabled="disabled" />
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="footer">
+				<!--<div id="look-checkPage">查看检测页</div>-->
+				<div class="box">
+					<div>
+						<span class="spanclass" style="margin-top: 12px;float: left;">点检员：</span>
+						<input disabled="disabled"  id="dianjianPerson" class="inputClass" style="float: left;" />
+					</div>
+					<div>
+						<span class="spanclass" style="margin-top:20px;float: left;">点检结果：</span>
+						<input id="dianjianResult" type="button" style="width: 100px;height: 25px;margin-top: 15px;" value="点击选择"/>
+					</div>
+					<div>
+						<span class="spanclass" style="margin-top: 15px;float: left;">点检说明：</span>
+						<textarea id="dianjianText" style="margin-left: 20px;height: 100px;" placeholder="异常原因描述（温度较高，振动噪音，漏油等）,点检时设备的转速和负载 ,怀疑故障。"></textarea>
+					</div>
+					<div style="height: 100px;width: 100px;"></div>
+
+				</div>
+
+			</div>
+			
+
+		</div>
+
+
+		<script src="../js/jquery-1.11.3.js "></script>
+
+
+		<script src="../js/bootstrap.min.js "></script>
+
+		<script src="../js/fuelux.tree.min.js "></script>
+
+		<script src="../js/ace-elements.min.js "></script>
+		<script src="../js/ace.min.js "></script>
+
+		<script type="text/javascript ">
+			/*
+									jQuery(function($) {
+										$('#tree1').ace_tree({
+											dataSource: treeDataSource,
+											loadingHTML: '<div class="tree-loading "><i class="icon-refresh icon-spin blue "></i></div>',
+											'open-icon': 'icon-minus',
+											'close-icon': 'icon-plus',
+											'selectable': false,
+										});
+									})
+									//*/
+		</script>
+
+	</body>
+
+</html>
+<script type="text/javascript " src="../js/DateFormat.js "></script>
+<script type="text/javascript " src="../js/check.js "></script>

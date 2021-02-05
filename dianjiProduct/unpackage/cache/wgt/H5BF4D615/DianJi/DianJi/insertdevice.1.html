@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>新增设备</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+
+		<link href="css/mui.picker.css" rel="stylesheet" />
+		<link href="css/mui.poppicker.css" rel="stylesheet" />
+
+		<style>
+			#tongyong label,
+			span {
+				color: green;
+			}
+			
+			.specialdevice label {
+				color: blueviolet;
+			}
+			
+			.redStar {
+				color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left" style="color: white;"></a>
+			<h1 class="mui-title" style="color: white;">新增设备</h1>
+			<a class="mui-pull-right" style="color: white;margin-top: 15px;">提交</a>
+		</header>
+		<div class="mui-content">
+			<p style="color: red;text-align: center;margin-top: 5px;">注：带★的选项为必填项</p>
+			<div class="mui-card" id="tongyong">
+				<div class="mui-card-header" style="color: grey;">通用属性</div>
+				<div class="mui-card-content">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell" id="id_companyName">
+							<a class="mui-navigate-right">
+								<span class="redStar">★</span>
+								<span>企业名称：</span>
+								<span style="float: right;margin-right: 20px;" id="selCompanyName">点此选择</span>
+							</a>
+						</li>
+						<li class="mui-table-view-cell" id="id_changName">
+							<a class="mui-navigate-right">
+								<span class="redStar">★</span>
+								<span>所属分厂：</span>
+								<span style="float: right;margin-right: 20px;" id="selCompanyNameSub">点此选择</span>
+							</a>
+						</li>
+						<form class="mui-input-group">
+							<div class="mui-input-row">
+								<label><span class="redStar">★</span> 设备名称：</label>
+								<input type="text" class="mui-input-clear" placeholder="如：助燃风机...">
+							</div>
+							<div class="mui-input-row">
+								<label><span class="redStar">★</span> 设备编号：</label>
+								<input type="text" class="mui-input-clear" placeholder="如：MZ101101">
+							</div>
+						</form>
+					</ul>
+				</div>
+			</div>
+			<!--选择设备类型-->
+			<div class="mui-card">
+				<div class="mui-card-content">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell" id="deviceTypeSel">
+							<a class="mui-navigate-right">
+								<span class="redStar">★</span> 设备类型：
+								<span id="deviceTypeText" style="float: right;margin-right: 50px;color: blue;">电机</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--电机类型-->
+			<div class="mui-card specialdevice" id="cardDianJi">
+				<div class="mui-card-header" style="color: grey;">设备属性(电机)</div>
+				<div class="mui-card-content">
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<label>额定功率：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>额定电压：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>额定电流：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>额定转速：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>生产厂商：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>极数：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>相数：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>驱动轴承型号：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>非驱动端轴承型号：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>立式/卧式：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>防护等级：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>绝缘等级：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>安装基座刚度：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+					</form>
+				</div>
+			</div>
+			<!--泵类型-->
+			<div class="mui-card specialdevice" id="cardBeng" style="display: none;">
+				<div class="mui-card-header" style="color: grey;">设备属性(泵)</div>
+				<div class="mui-card-content">
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<label>配套功率：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>额定转速：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>流量：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>效率：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>排出压力：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>轴功率：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>扬程：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>重量：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>允许吸程：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>泵类型：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>安装基座刚度：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+					</form>
+				</div>
+			</div>
+			<!--齿轮箱类型-->
+			<div class="mui-card specialdevice" id="cardChiLunXiang" style="display: none;">
+				<div class="mui-card-header" style="color: grey;">设备属性(齿轮箱)</div>
+				<div class="mui-card-content">
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<label>额定功率：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>输出转速：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>速比：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>重量：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>生产厂商：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>级数：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>输入端轴承：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>输出端轴承：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>输入端齿数：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>输出端齿轮齿数：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>安装基座刚度：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+					</form>
+				</div>
+			</div>
+			<!--振动筛类型-->
+			<div class="mui-card specialdevice" id="cardZhenDongShai" style="display: none;">
+				<div class="mui-card-header" style="color: grey;">设备属性(振动筛)</div>
+				<div class="mui-card-content">
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<label>总功率：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>振次：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>电压：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>总电流：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>重量：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>安装基座刚度：</label>
+							<input type="text" class="mui-input-clear" placeholder="请输入内容">
+						</div>
+					</form>
+				</div>
+			</div>
+
+		</div>
+		<script src="js/url_all.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/mui.picker.js"></script>
+		<script src="js/mui.poppicker.js"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/insertdevice.js"></script>
+
+	</body>
+
+</html>

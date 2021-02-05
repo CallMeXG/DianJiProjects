@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/iconfont.css" rel="stylesheet" />
+		<script src="js/vue.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script>
+			mui.init();
+		</script>
+		<title>报告</title>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<a style="color: white;" class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
+			<h1 class="mui-title" style="color: white;">报告</h1>
+			<a id="downLoadID" class="mui-pull-right" style="color: white;font-size: 18px;margin-top: 15px;display: none;">下载报告</a>
+		</header>
+
+		<div class="mui-content" id="ContentStrID" style="display: none;">
+			<div class="mui-card">
+				<div class="mui-card-header">
+					<p>
+						<span style="color: green;font-size: 16px;">诊断报告</span>
+						<div v-if="message.apply_status == 0">
+							<span style="color: #9ACD32;">正在诊断...</span>
+						</div>
+						<div v-if="message.apply_status == 1 && message.ck_result == 1">
+							<p style="background-color: #00CD00;width: 100px;color: white;text-align: center;padding-top:5px;height: 30px;font-size: 16px;border-radius: 5px;">正常</p>
+						</div>
+						<div v-if="message.apply_status == 1 && message.ck_result == 2">
+							<p style="background-color: #EEEE00;width: 100px;color: gray;text-align: center;padding-top:5px;height: 30px;font-size: 16px;border-radius: 5px;">预警</p>
+						</div>
+						<div v-if="message.apply_status == 1 && message.ck_result == 3">
+							<p style="background-color: orange; width: 100px;color: white;text-align: center;padding-top:5px;height: 30px;font-size: 16px;border-radius: 5px;">报警</p>
+						</div>
+						<div v-if="message.apply_status == 1 && message.ck_result == 4">
+							<p style="background-color: red;    width: 100px;color: white;text-align: center;padding-top:5px;height: 30px;font-size: 16px;border-radius: 5px;">严重</p>
+						</div>
+
+					</p>
+
+				</div>
+				<div class="mui-card-content">
+					<p style="margin-top: 5px;margin-left: 5px;">
+						<div v-if="typeof(message.ck_user_phone) != 'undefined' && typeof(message.ck_time) != 'undefined'">
+							<span style="color: gray;margin-left: 5px;">{{message.ck_user_phone}}</span>
+							<span style="float: right;margin-right: 5px;color: gray;">{{message.ck_time.substr(0, 19)}}</span>
+						</div>
+
+					</p>
+					<div v-if="typeof(message.ck_content) != 'undefined'">
+						<div style="margin-left: 10px;margin-right: 5px;color: gray;">{{message.ck_content}}</div>
+					</div>
+					<div v-if="typeof(message.ck_content) == 'undefined'">
+						<div v-if="message.apply_status == 0">
+							<div style="margin-left: 10px;margin-right: 5px;color: gray;">正在进行远程诊断，请稍后...</div>
+						</div>
+						<div v-if="message.apply_status == 1">
+							<div style="margin-left: 10px;margin-right: 5px;color: gray;">###无诊断描述###</div>
+						</div>
+					</div>
+					<br />
+				</div>
+			</div>
+			<div class="mui-card" id="questionID">
+				<div class="mui-card-header" style="color: orange">问题描述</div>
+				<div class="mui-card-content">
+					<p style="margin-top: 5px;margin-left: 5px;">
+						<div v-if="typeof(message.apply_user_phone) != 'undefined' && typeof(message.apply_time) != 'undefined'">
+							<span style="color: gray;margin-left: 5px;">{{message.apply_user_phone}}</span>
+							<span style="float: right;margin-right: 5px;color: gray;">{{message.apply_time.substr(0, 19)}}</span>
+						</div>
+
+					</p>
+					<div v-if="typeof(message.apply_info) != 'undefined'">
+						<div style="margin-left: 10px;margin-right: 5px;color: gray;">{{message.apply_info}}</div>
+					</div>
+					<!--<div v-if="typeof(message.apply_info) == 'undefined'">
+						<div style="margin-left: 10px;margin-right: 5px;color: gray;">您未提供问题描述</div>
+					</div>-->
+					<br />
+				</div>
+			</div>
+		</div>
+
+		<script src="js/jquery.min.js"></script>
+		<script src="js/url_all.js"></script>
+		<script>
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+
+				var StrContent = new Vue({
+					el: '#ContentStrID',
+					data: {
+						message: self.message
+					}
+				});
+				
+				$('#ContentStrID').show();
+
+				if(typeof(self.message.file_path) != "undefined") {
+					$("#downLoadID").show();
+				} else {
+					$("#downLoadID").hide();
+				}
+				
+				if(typeof(self.message.apply_info) != "undefined") {
+					$("#questionID").show();
+				} else {
+					$("#questionID").hide();
+				}
+
+				$('#downLoadID').on('tap', function() {
+
+					downArtificalFile(self.message.file_path, self.message.apply_devices_no, self.message.file_name);
+				})
+
+				//下载报告
+				function downArtificalFile(strFileUrl, strFilePath, strFileName) {
+					var strLoadURL = strFileUrl;
+					var encodeUrl = encodeURI(strLoadURL); //文件的具体地址，具体到文件名称
+					var strLocalDownUrl = '_downloads/localBaogao/' + strFileName;
+					console.log("========" + strLocalDownUrl)
+					var dtask = plus.downloader.createDownload(encodeUrl, {
+						filename: strLocalDownUrl
+					}); //新建下载任务
+					var w = plus.nativeUI.showWaiting("开始下载...");
+					dtask.addEventListener("statechanged", function(task, status) {
+						switch(task.state) {
+							case 3: // 已接收到数据
+								if(w) {
+									w.setTitle("数据下载中,请稍后...");
+								}
+								break;
+							case 4: // 下载完成
+								if(status == 200) {
+									if(w) {
+										console.log("文件路径 ==== " + task.filename)
+										w.close();
+									}
+									plus.runtime.openFile(task.filename, {}, function(e) {
+										alert("无法打开此文件：" + e.emssage);
+									});
+								} else {
+									alert("下载失败：" + status);
+									plus.nativeUI.closeWaiting();
+								}
+								break;
+						}
+					});
+					dtask.start();
+				}
+
+				console.log(JSON.stringify(self.message));
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>消息</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<script src="js/vue.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/pagination.css" />
+		<style>
+
+			#topPopover {
+				position: fixed;
+				top: 16px;
+				right: 6px;
+			}
+			#topPopover .mui-popover-arrow {
+				left: auto;
+				right: 6px;
+			}
+			
+			.mui-popover {
+				height: 150px;
+				width: 150px;
+			}
+			
+			#top-tab-div{
+				width: 100%;
+				height: 50px;
+				border-bottom: 1px solid #f2f1f8;
+				position: fixed;
+				z-index: 9;
+				background-color: #FFFFFF;
+				line-height: 46px;
+				
+			}
+			#top-tab-div .tab-item-custom{
+				float: left;
+				padding: 0 10px;
+				color: gray;
+				font-size: 14px;
+			}
+			#top-tab-div .tab-item-custom-active{
+				color: black;
+				font-weight: 800;
+				font-size: 16px;
+				border-bottom: 4px solid #222dcb;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background-color: #524598;">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left" style="color: white;"></a>
+			<a class="mui-title" style="color: white;">消息</a>
+		</header>
+		
+		<div class="mui-content">
+			<div id="top-tab-div">
+				<template v-for="(item, index) in tabList">
+					<div @click="changeTabItemActive(item, index)" class="tab-item-custom" :class="{'tab-item-custom-active': index == tabCurrent}">{{item.text}}</div>
+				</template>
+			</div>
+			<ul class="mui-table-view" id="messageListID" style="display: none;margin-top: 42px;">
+				<li class="mui-table-view-cell" v-for="msgItem in mesList">
+					<template v-if="msgItem.create_time !== undefined">
+						<p>{{msgItem.create_time.substr(0,19)}}</p>
+					</template>
+					<p style="margin-top: 5px;">{{msgItem.event_info}}</p>
+				</li>
+			</ul>
+			<div style="height: 50px;margin-top: 10px;text-align: center;">
+				<div id="pagination_9" style="width: 100%;height: 30px;margin-top: 10px;"></div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/url_all.js"></script>
+
+		<script src="js/highlight.min.js"></script>
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="js/jquery.pagination.js"></script>
+		<script type="text/javascript" src="js/pagination.min.js"></script>
+		<script>
+			// 
+
+			mui.plusReady(function() {
+				
+				var msgVue = new Vue({
+					el: '#messageListID',
+					data: {
+						mesList: []
+					}
+				})
+				
+				var tabVue = new Vue({
+					el: "#top-tab-div",
+					data(){
+						return{
+							tabCurrent: 0,
+							tabList:[
+								{text: "告警记录",value: 'A'},
+								{text: "更换电池",value: '1'},
+								{text: "维保记录",value: '2'},
+							]
+						}
+					},
+					methods:{
+						changeTabItemActive(item, index){
+							this.tabCurrent = index
+							msgVue.$data.mesList = []
+							if(item.value == "A"){
+								getBaoGaoList(0, 1);
+								$('#pagination_9').show()
+							}
+							else{
+								$('#pagination_9').hide()
+								gainChangePowerOrOtherList(item.value)
+							}
+						}
+					}
+				})
+				
+				
+
+				
+				function gainChangePowerOrOtherList(paramsType){
+					console.log(localStorage.getItem('strLoginId'))
+					plus.nativeUI.showWaiting('正在获取消息，请稍后...');
+					$.ajax({
+						url: commenGainRepairListByType_Interface,
+						methods: 'get',
+						dataType: 'json',
+						data:{
+							action_type: paramsType,
+							userId: localStorage.getItem('strLoginId')
+						},
+						success: function(respData) {
+							if (respData.status == "SUCCESS") {
+								plus.nativeUI.closeWaiting();
+								$("#messageListID").show();
+						
+								var strFatherID = plus.webview.currentWebview().opener();
+								mui.fire(strFatherID, 'messageCountRest');
+								msgVue.mesList = respData.data;
+								
+							} else {
+								plus.nativeUI.closeWaiting();
+								mui.toast('获取消息失败，请重试！');
+							}
+						},
+						error: function(error) {
+							plus.nativeUI.closeWaiting();
+							mui.toast('获取数据失败，请检查网络连接...');
+						}
+					})
+				}
+
+				//获取报告列表
+				getBaoGaoList(0, 1);
+
+				function getBaoGaoList(startIndex, thisIndex) {
+					plus.nativeUI.showWaiting('正在获取消息，请稍后...');
+					
+					$.ajax({
+						type: "get",
+						url: new_commen_gain_event_list_Interface,
+						async: true,
+						dataType: 'json',
+						data: {
+							id: localStorage.getItem('strLoginId'),
+							c_id: localStorage.getItem("c_id"),
+							startRecords: startIndex,
+							pageSize: 10
+						},
+						success: function(respData) {
+							if (respData.status == "SUCCESS") {
+								plus.nativeUI.closeWaiting();
+								$("#messageListID").show();
+
+								var strFatherID = plus.webview.currentWebview().opener();
+								mui.fire(strFatherID, 'messageCountRest');
+
+								if (typeof(respData.data) != "undefined") {
+									if (typeof(respData.data.event_list) != "undefined") {
+										msgVue.mesList = respData.data.event_list;
+										var pagecount = respData.data.total_records / 10;
+										setFenyefunction(Math.ceil(pagecount), thisIndex);
+									} else {
+										mui.toast('暂无消息！');
+									}
+								} else {
+
+									mui.toast('暂无消息!');
+								}
+							} else {
+								plus.nativeUI.closeWaiting();
+								mui.toast('获取消息失败，请重试！');
+							}
+						},
+						error: function(error) {
+							plus.nativeUI.closeWaiting();
+							mui.toast('获取数据失败，请检查网络连接...');
+						}
+					});
+				}
+
+
+				function setFenyefunction(totalCount, thisIndex) {
+
+					$('#pagination_9').whjPaging({
+						css: 'css-user',
+						totalPage: totalCount,
+						isShowTotalSize: false,
+						isShowTotalPage: true,
+						isShowRefresh: false,
+						isShowSkip: false,
+						isShowPageSizeOpt: false,
+						isShowFL: false,
+						callBack: function(currPage) {
+							console.log('currPage:' + currPage);
+							var indexPage = currPage;
+							if (indexPage == 1) {
+								getBaoGaoList(0, indexPage);
+							} else {
+								var startIndex = (indexPage - 1) * 10;
+								getBaoGaoList(startIndex, indexPage);
+							}
+
+						}
+					});
+
+					$("#pagination_9").whjPaging("setPage", {
+						currPage: thisIndex,
+						totalPage: totalCount,
+						totalSize: 90
+					});
+				}
+			})
+		</script>
+	</body>
+
+</html>

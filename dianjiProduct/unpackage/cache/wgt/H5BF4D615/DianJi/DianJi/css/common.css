@@ -1,0 +1,65 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body #head {
+  background-color: #524598;
+  touch-action: none;
+}
+body #head .mui-title,
+body #head a {
+  color: white;
+}
+body #list li a {
+  padding-right: 20px;
+  padding-left: 15px;
+}
+body #list li a img {
+  width: 20px;
+  height: 20px;
+  float: left;
+  padding-right: 0px;
+  margin-right: 5px;
+}
+body #list li a span {
+  float: right;
+}
+body .bottomButton {
+  background: #524598;
+  border-radius: 10px;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 150px;
+  height: 35px;
+  padding-top: 5px;
+  /*margin-bottom: 50px;*/
+}
+body #footer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+body #footer button {
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
+          align-self: center;
+  background: #524598;
+  border-radius: 80px;
+  width: 60%;
+  margin: 0 auto;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/*# sourceMappingURL=common.css.map */

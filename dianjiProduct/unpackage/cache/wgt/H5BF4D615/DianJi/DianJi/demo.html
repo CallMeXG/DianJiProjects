@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+		<style>
+			html,
+			body,
+			.mui-content {
+				height: 0px;
+				margin: 0px;
+				background-color: #efeff4;
+			}
+			h5.mui-content-padded {
+				margin-left: 3px;
+				margin-top: 20px !important;
+			}
+			h5.mui-content-padded:first-child {
+				margin-top: 12px !important;
+			}
+			.mui-btn {
+				font-size: 16px;
+				padding: 8px;
+				margin: 3px;
+			}
+			.ui-alert {
+				text-align: center;
+				padding: 20px 10px;
+				font-size: 16px;
+			}
+			* {
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">dtpicker（日期时间选择器）</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<h5 class="mui-content-padded">常规示例</h5>
+				<button id='demo1' class="btn mui-btn mui-btn-block" onclick="buttonClicked()">选择日期时间 ...</button>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			function buttonClicked(){
+				var dtpicker = new mui.DtPicker({
+					type:'hour',
+					beginDate:new Date(2019,05,17,11),
+					endDate:new Date(2019,06,17,11)
+				});
+				dtpicker.show(function(selectItems){
+					console.log("========" + JSON.stringify(selectItems))
+				})
+			}
+		</script>
+	</body>
+
+</html>

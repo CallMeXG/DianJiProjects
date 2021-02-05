@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="https://cdn.bootcss.com/mui/3.7.1/css/mui.min.css" rel="stylesheet">
+		<style>
+			.xianjianButton{
+				background-color: #524598;
+				color: white;
+				float: left;
+				margin-left: 20px;
+				border: none;
+				margin-top: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!-- <p id="version" style="font-size: 16px;color: #524598;margin-top: 50px;margin-left: 10%;"></p> -->
+
+		<p id="isNewAPP" style="margin-left: 10%;font-size: 16px;color: #524598;margin-top: 50px;">您已是最新版本，无须更新。</p>
+
+		<div id="needUpdate" style="margin-left: 10%;display: none;margin-top: 50px;">
+			<p id="newCode" style="font-size: 16px;color: #524598;">最新版本2.0</p>
+			<p style="font-size: 16px;color: #524598;">新版本更新提示：</p>
+			<div id="model_html" style="margin-left: 10px;"></div>
+			<p style="color: #524598;float: left;margin-top: 20px;">更新方式：</p>
+			<button id="downLoadID" class="xianjianButton">点此安装</button>
+		</div>
+		<div style="clear: both;"></div>
+		<div id="APPScanDiv" style="text-align: center;margin-top: 30px;display: none;">
+			<p>扫面下面的二维码，推荐好友安装APP</p>
+			<img id="APPScan" width="80%" height="80%" />
+		</div>
+		<br />
+
+		<script src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
+		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+		<script type="text/javascript">
+			mui.init()
+			
+			function getQueryVariable(variable) {
+				var query = window.location.search.substring(1);
+				var vars = query.split("&");
+				for (var i = 0; i < vars.length; i++) {
+					var pair = vars[i].split("=");
+					if (pair[0] == variable) {
+						return pair[1];
+					}
+				}
+				return (false);
+			}
+			var strLocalVersionCode = 1994;
+			if(getQueryVariable('strVersion') != false){
+				strLocalVersionCode = getQueryVariable('strVersion')
+			}
+			
+			//本地版本号,版本code,版本类型,
+			//升级的时候,只需要修改以下三个变量
+			var strLocalVersion = "1.10";
+			// var strLocalVersionCode = 1990;
+			//先见 Android
+			// var strAPPType = "AndroidPrefoco";
+			//先见 iOS
+			// var strAPPType = "iOSPrefoco";
+			//嘉轩Android
+			// var strAPPType = "AndroidJiaXuan";
+			//嘉轩iOS
+			// var strAPPType = "iOSJiaXuan";
+			//Android 中材高新
+			// var strAPPType = "AndroidZhongCai";
+			//Android 无logo版本
+			var strAPPType = "AndroidNOLogo";
+			
+			// document.getElementById("version").innerHTML = '当前版本：V' + strLocalVersion;
+
+			var strVersionCodeLocal = strLocalVersionCode;
+
+
+			//app下载地址
+			var strDownLoadURL = '';
+			
+			// var strBaseURl = "http://39.106.180.14:1111/";
+			var strBaseURl = "http://47.94.166.103:1111/";
+			
+			var strBaseInterface = "app/commen_gain_last_version";
+
+			$.ajax({
+				type: "get",
+				url: strBaseURl + strBaseInterface,
+				async: true,
+				data: {
+					version_type: strAPPType
+				},
+				dataType: "json",
+				success: function(respData) {
+					console.log("=======" + JSON.stringify(respData))
+					if (respData.status == "SUCCESS") {
+						if (typeof(respData.data) != "undefined") {
+							var objResp = respData.data
+							//如果请求的结果中   version_code 大于本地code,说明需要更新,否则不需要更新
+							if (objResp.version_code > strVersionCodeLocal) {
+								document.getElementById("isNewAPP").style.display = "none"
+								document.getElementById('needUpdate').style.display = 'block'
+
+								document.getElementById("newCode").innerHTML = '最新版本：' + objResp.version_name;
+								strDownLoadURL = objResp.version_url;
+							}
+							if (objResp.version_img != undefined) {
+								document.getElementById("APPScanDiv").style.display = 'block'
+								document.getElementById("model_html").innerHTML = respData.data.version_content;
+								document.getElementById("APPScan").src = objResp.version_img
+							}
+
+						}
+
+					}
+				}
+			});
+
+			function plusReady() {
+				// 在这里调用plus api  
+				$('#downLoadID').on('tap', function() {
+					plus.runtime.openURL(strDownLoadURL);
+				})
+			}
+			if (window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener('plusready', plusReady, false);
+			}
+		</script>
+
+
+
+	</body>
+
+</html>

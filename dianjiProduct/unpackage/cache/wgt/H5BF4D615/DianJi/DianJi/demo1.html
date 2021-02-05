@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>ECharts</title>
+		<!-- 引入 echarts.js -->
+		<script src="js/echarts.common.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet"/>
+		<link href="css/dragDown.css" rel="stylesheet"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="icon-menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-left"></a>
+			<a class="mui-action-back mui-btn mui-btn-link mui-pull-right">关闭</a>
+			<h1 class="mui-title">div模式下拉菜单</h1>
+		</header>
+		<div class="mui-content">
+			<button id="menu-btn" type="button" class="mui-btn mui-btn-primary mui-btn-block">显示下拉菜单</button>
+		</div>
+		<div id="menu-wrapper" class="menu-wrapper hidden">
+			<div id="menu" class="menu">
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+				<p class="mui-active">这是下拉菜单</p>
+			</div>
+		</div>
+		<div id="menu-backdrop" class="menu-backdrop"></div>
+		<script>
+			mui.init({
+				swipeBack:true
+			})
+			var menuWrapper = document.getElementById('menu-wrapper');
+			var menu = document.getElementById('menu');
+			var menuWrapperClassList = menuWrapper.classList;
+			document.getElementById('menu-btn').addEventListener('tap',toggleMenu);
+			var busying = false;
+				var backdrop = document.getElementById("menu-backdrop");
+				backdrop.addEventListener('tap', toggleMenu);
+			function toggleMenu(){
+				if(busying){
+					return ;
+					
+				}
+				busying = true;
+				if (menuWrapperClassList.contains('mui-active')) {
+					document.body.classList.remove('menu-open');
+					menuWrapper.className = 'menu-wrapper fade-out-up animated';
+					menu.className = 'menu bounce-out-up animated';
+					setTimeout(function() {
+						backdrop.style.opacity = 0;
+						menuWrapper.classList.add('hidden');
+					}, 500);
+				} else {
+					document.body.classList.add('menu-open');
+					menuWrapper.className = 'menu-wrapper fade-in-down animated mui-active';
+					menu.className = 'menu bounce-in-down animated';
+					backdrop.style.opacity = 1;
+				}
+				setTimeout(function() {
+					busying = false;
+				}, 500);
+			}
+		</script>
+	</body>
+
+</html>
