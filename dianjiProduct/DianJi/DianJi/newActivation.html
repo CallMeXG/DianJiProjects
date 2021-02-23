@@ -420,7 +420,8 @@
 									devices_no: addDevice.deviceMessage.devices_no,
 									devices_name: addDevice.deviceMessage.devices_name,
 									work_status: '0',
-									commen_json: JSON.stringify(json_commen)
+									commen_json: JSON.stringify(json_commen),
+									company_id: localStorage.getItem("company_id")
 								}
 
 
@@ -433,6 +434,7 @@
 									data: commenParam,
 									dataType: 'json',
 									success: function(postMsg) {
+										console.log('mesg===',JSON.stringify(postMsg))
 										plus.nativeUI.closeWaiting();
 										if (postMsg.status == 'SUCCESS') {
 

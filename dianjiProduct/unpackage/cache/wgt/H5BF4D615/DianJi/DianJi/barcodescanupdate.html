@@ -100,6 +100,8 @@
 				var strKeyWord = $('#search').val();
 				getDataFromSever(strKeyWord);
 			});
+			
+			console.log('------',localStorage.getItem('ActiveMZDevice'))
 
 			var getData = null;
 
@@ -196,6 +198,15 @@
 					findErrorWithMessage('查询失败，请重试！');
 					$('#cardCPXMsg').hide();
 				}
+			}
+			
+			function findErrorWithMessage(message) {
+				mui.alert(message, function() {
+					scan.start({
+						conserve: true,
+						filename: '_doc/barcode/'
+					});
+				})
 			}
 
 			function enterActivePage() {

@@ -192,6 +192,14 @@
 					$('#cardCPXMsg').hide();
 				}
 			}
+			function findErrorWithMessage(message) {
+				mui.alert(message, function() {
+					scan.start({
+						conserve: true,
+						filename: '_doc/barcode/'
+					});
+				})
+			}
 			
 			function buttonClicked( typeSel ){
 				localStorage.DeveciId = $('#deviceNoId').html();

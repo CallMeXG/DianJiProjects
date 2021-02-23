@@ -17,8 +17,8 @@
 //var fileUrlHeader = "http://47.94.166.103:3000/group1/";
 
 
-var strLocalVersion = '1.14.9';
-var strLocalVersionCode = 2005;
+var strLocalVersion = '1.14.10';
+var strLocalVersionCode = 2006;
              
 //登录接口
 var login_Interface= url + 'user/commen_login';

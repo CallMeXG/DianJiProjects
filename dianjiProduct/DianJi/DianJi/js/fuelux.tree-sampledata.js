@@ -473,6 +473,7 @@ mui.plusReady(function() {
 				
 				if (msg.status == "SUCCESS") {
 					if (typeof(msg.data) != "undefined") {
+						localStorage.setItem('ActiveMZDevice', JSON.stringify(msg.data));
 						setUIForCPX(msg.data, index);
 					}
 				}
